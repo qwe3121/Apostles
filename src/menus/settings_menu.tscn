@@ -1,0 +1,287 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqkil170brmc4"]
+
+[ext_resource type="Script" path="res://src/menus/settings_menu.gd" id="1_5r8uw"]
+[ext_resource type="PackedScene" uid="uid://f7mrls5h33yh" path="res://src/menus/action_container.tscn" id="2_4eexy"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5r8uw")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = 64.0
+offset_right = -63.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+
+[node name="Video" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Video/MarginContainer"]
+layout_mode = 2
+
+[node name="DisplayModeContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="DisplayModeLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Display mode"
+
+[node name="DisplayModeOptionButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+item_count = 3
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Fullscreen"
+popup/item_2/id = 2
+
+[node name="VsyncContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VsyncLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Vsync"
+
+[node name="VsyncCheckButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="Audio" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MasterVolumeLabel" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Master Volume"
+
+[node name="MasterVolumeHSlider" type="HSlider" parent="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -80.0
+max_value = 6.0
+value = -15.0
+rounded = true
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MusicVolumeLabel" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Music Volume"
+
+[node name="MusicVolumeHSlider" type="HSlider" parent="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -80.0
+max_value = 6.0
+value = -15.0
+rounded = true
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="TabContainer/Audio/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="SFXVolumeLabel" type="Label" parent="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "SFX Volume"
+
+[node name="SFXVolumeHSlider" type="HSlider" parent="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+min_value = -80.0
+max_value = 6.0
+value = -15.0
+rounded = true
+
+[node name="Game" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/MarginContainer"]
+layout_mode = 2
+
+[node name="TransitionModeContainer" type="HBoxContainer" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TransitionModeLabel" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "TRANSITION MODE"
+
+[node name="TransitionModeOptionButton" type="OptionButton" parent="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+item_count = 2
+selected = 0
+popup/item_0/text = "GLITCHY"
+popup/item_0/id = 0
+popup/item_1/text = "FADE-IN/FATE-OUT"
+popup/item_1/id = 1
+
+[node name="Actions" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Actions/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Actions/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="ActionContainer" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "RIGHT"
+
+[node name="ActionContainer2" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "LEFT"
+
+[node name="ActionContainer3" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "JUMP"
+
+[node name="ActionContainer4" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "QUICK SAVE"
+
+[node name="ActionContainer5" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "DASH"
+
+[node name="ActionContainer6" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "ROLL"
+
+[node name="ActionContainer7" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "RMB ATTACK"
+
+[node name="ActionContainer8" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "DOWN"
+
+[node name="ActionContainer9" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "LMB ATTACK"
+
+[node name="BackToMainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 218.0
+offset_bottom = 71.0
+text = "Back to main menu"
+
+[node name="BackToDefaults" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -218.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = 71.0
+grow_horizontal = 0
+text = "Back to defaults"
+
+[connection signal="item_selected" from="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton" to="." method="_on_display_mode_option_button_item_selected"]
+[connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton" to="." method="_on_vsync_check_button_toggled"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider" to="." method="_on_master_volume_h_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider" to="." method="_on_sfx_volume_h_slider_value_changed"]
+[connection signal="item_selected" from="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton" to="." method="_on_transition_mode_option_button_item_selected"]
+[connection signal="pressed" from="BackToDefaults" to="." method="_on_back_to_defaults_pressed"]

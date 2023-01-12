@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2mxnf4gxgain"]
+
+[ext_resource type="PackedScene" uid="uid://rirfdildw2xm" path="res://src/generation/kinda_room.tscn" id="1_f51vc"]
+
+[node name="3" instance=ExtResource("1_f51vc")]
+modulate = Color(0, 0, 1, 1)
+rooms = PackedInt32Array(1, 2, 3, 4)

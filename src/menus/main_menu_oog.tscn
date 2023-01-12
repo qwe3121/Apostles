@@ -1,0 +1,260 @@
+[gd_scene load_steps=20 format=3 uid="uid://b7srus3byt3rd"]
+
+[ext_resource type="Script" path="res://src/menus/main_menu_oog.gd" id="1_ohkey"]
+[ext_resource type="PackedScene" uid="uid://cc0n2u5dlt6rp" path="res://src/menus/load_menu.tscn" id="2_t8gug"]
+[ext_resource type="Texture2D" uid="uid://blqfnudxaxbg6" path="res://sprites/Ptici_Letat.png" id="3_kwbjt"]
+[ext_resource type="PackedScene" uid="uid://cqkil170brmc4" path="res://src/menus/settings_menu.tscn" id="3_lkhll"]
+[ext_resource type="Texture2D" uid="uid://bvwpadvlmypcm" path="res://sprites/Oblaka_1_ALL.png" id="3_tlapm"]
+[ext_resource type="Texture2D" uid="uid://dp3456nbcqhfs" path="res://sprites/Zastavka1_5_var1.png" id="5_sk4ij"]
+[ext_resource type="PackedScene" uid="uid://c7645126n6rqf" path="res://src/rain_control.tscn" id="8_82w1l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45mot"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(0, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vejs2"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(109, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdrw3"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(218, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1l2i"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(327, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohtnx"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(436, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qdje"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(545, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a602"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(654, 0, 109, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibfh7"]
+atlas = ExtResource("3_kwbjt")
+region = Rect2(763, 0, 109, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kcuna"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45mot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vejs2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdrw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1l2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohtnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qdje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a602")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibfh7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 14.0
+}]
+
+[sub_resource type="Animation" id="Animation_w75ay"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Birds:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-131, 278)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(88, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1085, 120)]
+}
+
+[sub_resource type="Animation" id="Animation_d345q"]
+resource_name = "birds_flying"
+length = 50.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Birds:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 40),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-131, 278), Vector2(3000, 278)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(88, 120), Vector2(1261, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1085, 120), Vector2(88, 120)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fid03"]
+_data = {
+"RESET": SubResource("Animation_w75ay"),
+"birds_flying": SubResource("Animation_d345q")
+}
+
+[node name="MainMenuOOG" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ohkey")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sk4ij")
+ignore_texture_size = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 120.0
+offset_right = 3545.17
+offset_bottom = 1061.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_tlapm")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1085.0
+offset_top = 120.0
+offset_right = 2372.01
+offset_bottom = 1061.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_tlapm")
+
+[node name="Birds" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-131, 278)
+frames = SubResource("SpriteFrames_kcuna")
+playing = true
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 85.0
+offset_right = 378.0
+offset_bottom = 345.0
+theme_override_constants/separation = 20
+
+[node name="ContinueButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="NewGameButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="LoadButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "LOAD GAME"
+
+[node name="SettingsButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="LoadMenu" parent="." instance=ExtResource("2_t8gug")]
+visible = false
+layout_mode = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("3_lkhll")]
+visible = false
+layout_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fid03")
+}
+
+[node name="RainControl" parent="." instance=ExtResource("8_82w1l")]
+layout_mode = 1
+
+[connection signal="pressed" from="Main/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

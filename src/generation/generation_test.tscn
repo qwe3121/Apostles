@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cex5v0up3jpdy"]
+
+[ext_resource type="PackedScene" uid="uid://qgvj0knx4415" path="res://src/generation/generation.tscn" id="1_qpwj3"]
+
+[node name="GenerationTest" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+zoom = Vector2(0.05, 0.05)
+
+[node name="Generation" parent="." instance=ExtResource("1_qpwj3")]
+x_count = 10
+y_count = 5

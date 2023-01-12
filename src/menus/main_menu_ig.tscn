@@ -1,0 +1,117 @@
+[gd_scene load_steps=5 format=3 uid="uid://md64urrxtfyp"]
+
+[ext_resource type="Script" path="res://src/menus/main_menu_ig.gd" id="1_ap06a"]
+[ext_resource type="PackedScene" uid="uid://cc0n2u5dlt6rp" path="res://src/menus/load_menu.tscn" id="2_6ojxs"]
+[ext_resource type="PackedScene" uid="uid://rpsgm0007jvc" path="res://src/menus/save_menu.tscn" id="3_tvbke"]
+[ext_resource type="PackedScene" uid="uid://cqkil170brmc4" path="res://src/menus/settings_menu.tscn" id="4_actfu"]
+
+[node name="MainMenuIG" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ap06a")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.32549)
+
+[node name="Main" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -196.0
+offset_right = 96.5
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="SaveButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
+[node name="SettingsButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitTMMButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Quit to main menu"
+
+[node name="QuitOOGButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Quit out of game"
+
+[node name="LoadMenu" parent="." instance=ExtResource("2_6ojxs")]
+visible = false
+layout_mode = 1
+
+[node name="SaveMenu" parent="." instance=ExtResource("3_tvbke")]
+visible = false
+layout_mode = 1
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_actfu")]
+visible = false
+layout_mode = 1
+
+[node name="AutosaveTimer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 120.0
+autostart = true
+
+[connection signal="pressed" from="Main/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/QuitTMMButton" to="." method="_on_quit_tmm_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/QuitOOGButton" to="." method="_on_quit_oog_button_pressed"]
+[connection signal="timeout" from="AutosaveTimer" to="." method="_on_autosave_timer_timeout"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://ci8ty15k5xxow"]
+
+[ext_resource type="Script" path="res://src/menus/new_save_container.gd" id="1_ldt6i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_inmey"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u76cv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmgvy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l228m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftvb3"]
+
+[node name="NewSaveContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ldt6i")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2i(600, 0)
+offset_right = 892.0
+offset_bottom = 162.0
+
+[node name="Button" type="Button" parent="."]
+offset_right = 891.0
+offset_bottom = 163.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_inmey")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_u76cv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bmgvy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_l228m")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ftvb3")
+
+[node name="ConfirmSaveName" type="ConfirmationDialog" parent="."]
+title = "Give save a name..."
+size = Vector2i(200, 130)
+min_size = Vector2i(200, 130)
+
+[node name="TextEdit" type="TextEdit" parent="ConfirmSaveName"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 81.0
+placeholder_text = "enter name here"
+
+[node name="FNAlert" type="AcceptDialog" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 399.0
+offset_top = -23.0
+offset_right = 485.0
+offset_bottom = 185.0
+theme_override_font_sizes/font_size = 150
+text = "+"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="confirmed" from="ConfirmSaveName" to="." method="_on_confirm_save_name_confirmed"]
+[connection signal="text_changed" from="ConfirmSaveName/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="confirmed" from="FNAlert" to="." method="_on_fn_alert_confirmed"]

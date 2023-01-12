@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://f7mrls5h33yh"]
+
+[ext_resource type="Script" path="res://src/menus/action_container.gd" id="1_b0o67"]
+
+[node name="ActionContainer" type="HBoxContainer"]
+offset_right = 947.0
+offset_bottom = 44.0
+theme_override_constants/separation = 50
+script = ExtResource("1_b0o67")
+
+[node name="ActionLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "action name"
+
+[node name="ActionButton" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+toggle_mode = true
+text = "W"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[connection signal="toggled" from="ActionButton" to="." method="_on_action_button_toggled"]

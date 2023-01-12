@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://bi63ragfg4xd4"]
+
+[ext_resource type="Script" path="res://src/menus/save_container.gd" id="1_7giip"]
+
+[sub_resource type="Theme" id="Theme_vct6e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7dx0s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12wlv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aku5o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_14c3v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i52oy"]
+
+[node name="SaveContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vct6e")
+script = ExtResource("1_7giip")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(288, 162)
+offset_right = 288.0
+offset_bottom = 162.0
+ignore_texture_size = true
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+offset_left = 292.0
+offset_right = 892.0
+offset_bottom = 162.0
+
+[node name="SaveName" type="Label" parent="HBoxContainer/Panel"]
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 52.0
+offset_bottom = 30.0
+
+[node name="TypeName" type="Label" parent="HBoxContainer/Panel"]
+offset_left = 12.0
+offset_top = 123.0
+offset_right = 96.0
+offset_bottom = 149.0
+
+[node name="Date" type="Label" parent="HBoxContainer/Panel"]
+offset_left = 384.0
+offset_top = 123.0
+offset_right = 512.0
+offset_bottom = 149.0
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+offset_left = 896.0
+offset_right = 946.0
+offset_bottom = 162.0
+text = "X"
+
+[node name="OverwriteButton" type="Button" parent="."]
+offset_right = 892.0
+offset_bottom = 162.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7dx0s")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_12wlv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_aku5o")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_14c3v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i52oy")
+
+[node name="ConfirmOverwrite" type="ConfirmationDialog" parent="."]
+title = "Give save a name..."
+size = Vector2i(200, 130)
+min_size = Vector2i(200, 130)
+
+[node name="TextEdit" type="TextEdit" parent="ConfirmOverwrite"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 84.0
+placeholder_text = "enter name here"
+
+[node name="ConfirmDelete" type="ConfirmationDialog" parent="."]
+dialog_text = "load save asd.save"
+
+[node name="FNAlert" type="AcceptDialog" parent="."]
+
+[connection signal="pressed" from="HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="OverwriteButton" to="." method="_on_overwrite_button_pressed"]
+[connection signal="confirmed" from="ConfirmOverwrite" to="." method="_on_confirm_overwrite_confirmed"]
+[connection signal="text_changed" from="ConfirmOverwrite/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="confirmed" from="ConfirmDelete" to="." method="_on_confirm_delete_confirmed"]
+[connection signal="confirmed" from="FNAlert" to="." method="_on_fn_alert_confirmed"]

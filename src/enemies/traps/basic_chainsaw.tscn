@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://pf426yv20ky"]
+
+[ext_resource type="Script" path="res://src/enemies/traps/basic_chainsaw.gd" id="1_036bu"]
+[ext_resource type="Texture2D" uid="uid://hx0t0dnws2vb" path="res://sprites/traps/Cirkylarna_Pila.png" id="2_qgh38"]
+[ext_resource type="PackedScene" uid="uid://dgixojavx1te6" path="res://src/enemies/enemy_hitbox.tscn" id="3_r2j34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsoht"]
+size = Vector2(90, 89)
+
+[sub_resource type="Animation" id="Animation_psmmf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dnwsv"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.26573]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gobv"]
+_data = {
+"RESET": SubResource("Animation_psmmf"),
+"default": SubResource("Animation_dnwsv")
+}
+
+[node name="BasicChainsaw" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 4
+motion_mode = 1
+script = ExtResource("1_036bu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_qgh38")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wsoht")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(66, 0)
+collision_mask = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_3gobv")
+}
+
+[node name="EnemyHitbox" parent="." instance=ExtResource("3_r2j34")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+shape = SubResource("RectangleShape2D_wsoht")

@@ -1,0 +1,113 @@
+[gd_scene load_steps=36 format=3 uid="uid://c7645126n6rqf"]
+
+[ext_resource type="Texture2D" uid="uid://cojtabxrc4x8i" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-0.png" id="1_ucnws"]
+[ext_resource type="Texture2D" uid="uid://n61nlc7rghsl" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-1.png" id="2_mirba"]
+[ext_resource type="Texture2D" uid="uid://c8jaorqupva46" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-2.png" id="3_nmmop"]
+[ext_resource type="Texture2D" uid="uid://dbcym3yce7ivp" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-3.png" id="4_j8r8w"]
+[ext_resource type="Texture2D" uid="uid://81s8ims6ayj0" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-4.png" id="5_l27md"]
+[ext_resource type="Texture2D" uid="uid://ch14v3q4vbqxp" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-5.png" id="6_m7kk6"]
+[ext_resource type="Texture2D" uid="uid://df8rsit15tl14" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-6.png" id="7_q2mof"]
+[ext_resource type="Texture2D" uid="uid://p44co2uk2omi" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-7.png" id="8_5h4yc"]
+[ext_resource type="Texture2D" uid="uid://b17vrn2u66wi6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-8.png" id="9_1hrnt"]
+[ext_resource type="Texture2D" uid="uid://c3i3emiscl5w6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-9.png" id="10_7f1yf"]
+[ext_resource type="Texture2D" uid="uid://dtgacleckskp4" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-10.png" id="11_2a7hi"]
+[ext_resource type="Texture2D" uid="uid://ddoo8vj0wbuxm" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-11.png" id="12_igu1r"]
+[ext_resource type="Texture2D" uid="uid://c3at3etxrsh42" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-12.png" id="13_2ighj"]
+[ext_resource type="Texture2D" uid="uid://d1q8nirs6qs80" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-13.png" id="14_a1wrn"]
+[ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="15_51mk2"]
+[ext_resource type="Texture2D" uid="uid://b3aknyh1a4jlg" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-15.png" id="16_2gj4s"]
+[ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="17_prxyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o36q2"]
+atlas = ExtResource("1_ucnws")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejb8q"]
+atlas = ExtResource("2_mirba")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pssv"]
+atlas = ExtResource("3_nmmop")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8wxl"]
+atlas = ExtResource("4_j8r8w")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huf4r"]
+atlas = ExtResource("5_l27md")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1b50"]
+atlas = ExtResource("6_m7kk6")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4e1v"]
+atlas = ExtResource("7_q2mof")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arrt4"]
+atlas = ExtResource("8_5h4yc")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxen2"]
+atlas = ExtResource("9_1hrnt")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtjx7"]
+atlas = ExtResource("10_7f1yf")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh4de"]
+atlas = ExtResource("11_2a7hi")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0hae"]
+atlas = ExtResource("12_igu1r")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gkwo"]
+atlas = ExtResource("13_2ighj")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up18a"]
+atlas = ExtResource("14_a1wrn")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4mct"]
+atlas = ExtResource("15_51mk2")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vihnf"]
+atlas = ExtResource("16_2gj4s")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mrii"]
+atlas = ExtResource("17_prxyv")
+region = Rect2(0, 0, 1280, 600)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhqq5"]
+animations = [{
+"frames": [SubResource("AtlasTexture_o36q2"), SubResource("AtlasTexture_ejb8q"), SubResource("AtlasTexture_6pssv"), SubResource("AtlasTexture_f8wxl"), SubResource("AtlasTexture_huf4r"), SubResource("AtlasTexture_m1b50"), SubResource("AtlasTexture_u4e1v"), SubResource("AtlasTexture_arrt4"), SubResource("AtlasTexture_dxen2"), SubResource("AtlasTexture_vtjx7"), SubResource("AtlasTexture_dh4de"), SubResource("AtlasTexture_s0hae"), SubResource("AtlasTexture_3gkwo"), SubResource("AtlasTexture_up18a"), SubResource("AtlasTexture_t4mct"), SubResource("AtlasTexture_vihnf"), SubResource("AtlasTexture_4mrii")],
+"loop": true,
+"name": &"Raining",
+"speed": 15.0
+}]
+
+[node name="RainControl" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 1, 1, 0.372549)
+position = Vector2(627, 326.5)
+scale = Vector2(1, 1.15833)
+frames = SubResource("SpriteFrames_vhqq5")
+animation = &"Raining"
+playing = true

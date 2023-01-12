@@ -1,0 +1,127 @@
+[gd_scene load_steps=42 format=3 uid="uid://cewt3uapqqui4"]
+
+[ext_resource type="Texture2D" uid="uid://c1f4f13e6frl1" path="res://sprites/ash_sprites/Pepel1.png" id="1_7ofel"]
+[ext_resource type="Texture2D" uid="uid://dgl1iefhl7ifd" path="res://sprites/ash_sprites/Pepel2.png" id="2_l38ov"]
+[ext_resource type="Texture2D" uid="uid://1opaen8ffqd2" path="res://sprites/ash_sprites/Pepel3.png" id="3_keblr"]
+[ext_resource type="Texture2D" uid="uid://dlraoyam2gk4r" path="res://sprites/ash_sprites/Pepel4.png" id="4_nm14m"]
+[ext_resource type="Texture2D" uid="uid://bhej4nfquty3i" path="res://sprites/ash_sprites/Pepel5.png" id="5_hpuae"]
+[ext_resource type="Texture2D" uid="uid://uhsc71dp8txd" path="res://sprites/ash_sprites/Pepel6.png" id="6_la0ot"]
+[ext_resource type="Texture2D" uid="uid://ciyu0s3dlllbi" path="res://sprites/ash_sprites/Pepel7.png" id="7_4qiom"]
+[ext_resource type="Texture2D" uid="uid://bk610yektofoe" path="res://sprites/ash_sprites/Pepel8.png" id="8_hdsgd"]
+[ext_resource type="Texture2D" uid="uid://ct7p4bhut3t6" path="res://sprites/ash_sprites/Pepel9.png" id="9_1ju5w"]
+[ext_resource type="Texture2D" uid="uid://b1kdl2uv1ej0r" path="res://sprites/ash_sprites/Pepel10.png" id="10_s3u4v"]
+[ext_resource type="Texture2D" uid="uid://ufj2eis1jnrk" path="res://sprites/ash_sprites/Pepel11.png" id="11_mwsbe"]
+[ext_resource type="Texture2D" uid="uid://k6vgevkwe416" path="res://sprites/ash_sprites/Pepel12.png" id="12_n2we4"]
+[ext_resource type="Texture2D" uid="uid://dygpsxqhbqm1r" path="res://sprites/ash_sprites/Pepel13.png" id="13_r5166"]
+[ext_resource type="Texture2D" uid="uid://bxkvsoqlxxtdl" path="res://sprites/ash_sprites/Pepel14.png" id="14_gr4aw"]
+[ext_resource type="Texture2D" uid="uid://barjd12dhjnxo" path="res://sprites/ash_sprites/Pepel15.png" id="15_gluhi"]
+[ext_resource type="Texture2D" uid="uid://b2mww4krm1ejm" path="res://sprites/ash_sprites/Pepel16.png" id="16_cuppp"]
+[ext_resource type="Texture2D" uid="uid://cfvronxtg2xhk" path="res://sprites/ash_sprites/Pepel17.png" id="17_v3yxf"]
+[ext_resource type="Texture2D" uid="uid://cxxdhohksxk2n" path="res://sprites/ash_sprites/Pepel18.png" id="18_6qiig"]
+[ext_resource type="Texture2D" uid="uid://cit3rbq41jlfo" path="res://sprites/ash_sprites/Pepel19.png" id="19_vhnun"]
+[ext_resource type="Texture2D" uid="uid://cutfa64elqjb7" path="res://sprites/ash_sprites/Pepel20.png" id="20_fm6mb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sakr0"]
+atlas = ExtResource("1_7ofel")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vmh2"]
+atlas = ExtResource("2_l38ov")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72812"]
+atlas = ExtResource("3_keblr")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8soo"]
+atlas = ExtResource("4_nm14m")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3110"]
+atlas = ExtResource("5_hpuae")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51gag"]
+atlas = ExtResource("6_la0ot")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y6yl"]
+atlas = ExtResource("7_4qiom")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3332u"]
+atlas = ExtResource("8_hdsgd")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjv6r"]
+atlas = ExtResource("9_1ju5w")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3av6w"]
+atlas = ExtResource("10_s3u4v")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvvml"]
+atlas = ExtResource("11_mwsbe")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g74ms"]
+atlas = ExtResource("12_n2we4")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq6rc"]
+atlas = ExtResource("13_r5166")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kydbg"]
+atlas = ExtResource("14_gr4aw")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcg42"]
+atlas = ExtResource("15_gluhi")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0s6u"]
+atlas = ExtResource("16_cuppp")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i10ix"]
+atlas = ExtResource("17_v3yxf")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu8o6"]
+atlas = ExtResource("18_6qiig")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ejvj"]
+atlas = ExtResource("19_vhnun")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv8k1"]
+atlas = ExtResource("20_fm6mb")
+region = Rect2(0, 0, 520, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3llkv"]
+animations = [{
+"frames": [SubResource("AtlasTexture_sakr0"), SubResource("AtlasTexture_7vmh2"), SubResource("AtlasTexture_72812"), SubResource("AtlasTexture_u8soo"), SubResource("AtlasTexture_q3110"), SubResource("AtlasTexture_51gag"), SubResource("AtlasTexture_3y6yl"), SubResource("AtlasTexture_3332u"), SubResource("AtlasTexture_xjv6r"), SubResource("AtlasTexture_3av6w"), SubResource("AtlasTexture_bvvml"), SubResource("AtlasTexture_g74ms"), SubResource("AtlasTexture_eq6rc"), SubResource("AtlasTexture_kydbg"), SubResource("AtlasTexture_wcg42"), SubResource("AtlasTexture_i0s6u"), SubResource("AtlasTexture_i10ix"), SubResource("AtlasTexture_nu8o6"), SubResource("AtlasTexture_2ejvj"), SubResource("AtlasTexture_dv8k1")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AshControl" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(576.5, 323)
+scale = Vector2(2.21731, 3.24)
+frames = SubResource("SpriteFrames_3llkv")
+speed_scale = 3.0
+playing = true
