@@ -60,17 +60,10 @@ func set_dir():
 
 func set_anim(animation_name):
 	if animation_name == WALL_SLIDE:
-		if anim_dir == 1:
-			$AnimatedSprite2D.flip_h = true
-		elif anim_dir == -1:
-			$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.flip_h = anim_dir == 1
 	else:
-		if anim_dir == 1:
-			$AnimatedSprite2D.flip_h = false
-			$Hitbox.scale.x = 1
-		elif anim_dir == -1:
-			$AnimatedSprite2D.flip_h = true
-			$Hitbox.scale.x = -1
+		$AnimatedSprite2D.flip_h = ! (anim_dir == 1)
+		$Hitbox.scale.x = anim_dir
 	match animation_name:
 		IDLE: 
 			anim.play("Idle", -1, 1, false)
