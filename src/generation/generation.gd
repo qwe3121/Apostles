@@ -71,21 +71,13 @@ func spawn_room():
 		if y > 0:
 			current_direction *= -1
 			x = x_count
-			move_down()
+			global_position.y += y_size # move down
 			spawn_room()
 		else:
 			queue_free()
 	else:
-		next_pos()
+		global_position.x += x_size * current_direction # next position
 		spawn_room()
-	
-
-func move_down():
-	global_position.y += y_size
-
-
-func next_pos():
-	global_position.x += x_size * current_direction
 
 
 func _on_left_area_entered(area):
