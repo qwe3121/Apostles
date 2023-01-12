@@ -62,7 +62,7 @@ func set_anim(animation_name):
 	if animation_name == WALL_SLIDE:
 		$AnimatedSprite2D.flip_h = anim_dir == 1
 	else:
-		$AnimatedSprite2D.flip_h = ! (anim_dir == 1)
+		$AnimatedSprite2D.flip_h = !(anim_dir == 1)
 		$Hitbox.scale.x = anim_dir
 	match animation_name:
 		IDLE: 
