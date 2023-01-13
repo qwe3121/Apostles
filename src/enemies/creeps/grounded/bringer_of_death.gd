@@ -76,7 +76,7 @@ func set_dir():
 		dir = 1
 	else:
 		dir = -1
-	if dir: anim_dir = dir
+	anim_dir = dir
 
 
 func _physics_process(delta):
