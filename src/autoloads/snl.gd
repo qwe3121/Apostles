@@ -140,7 +140,5 @@ func delete_save(file_name: String):
 		
 		
 func sort(a, b):
-	if a[1] > b[1]:
-		return true
-	return false
+	return a[1] > b[1]
 		
