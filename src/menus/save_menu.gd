@@ -36,7 +36,6 @@ func refresh():
 			saves_n_time.append([file_name, unix_time])
 			
 		saves_n_time.sort_custom(sort)
-		print(saves_n_time)
 		
 		for save in saves_n_time:
 			var file_name = save[0]
@@ -49,6 +48,4 @@ func refresh():
 		
 		
 func sort(a, b):
-	if a[1] > b[1]:
-		return true
-	return false
+	return a[1] > b[1]
