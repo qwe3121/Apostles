@@ -19,7 +19,7 @@ wait_time = 2.0
 
 [node name="NotificationPanel" type="Panel" parent="Control"]
 visible = false
-anchors_preset = 7
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -32,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="Control/NotificationPanel"]
-anchors_preset = 5
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -48.0
@@ -43,7 +43,7 @@ grow_horizontal = 2
 text = "NOTIFICATION"
 
 [node name="Button" type="Button" parent="Control/NotificationPanel"]
-anchors_preset = 7
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -57,7 +57,7 @@ grow_vertical = 0
 text = "GOT IT"
 
 [node name="Text" type="Label" parent="Control/NotificationPanel"]
-anchors_preset = 8
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

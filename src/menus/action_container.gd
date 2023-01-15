@@ -36,7 +36,7 @@ func _input(input_event: InputEvent):
 			
 			on_focus_on_all_buttons()
 			$ActionButton.release_focus()
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.001).timeout
 			$ActionButton.grab_focus()
 			
 
