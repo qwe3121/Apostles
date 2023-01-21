@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=53 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="4_ih2g2"]
 [ext_resource type="Texture2D" uid="uid://bvwpadvlmypcm" path="res://sprites/Oblaka_1_ALL.png" id="4_qtr0e"]
 [ext_resource type="Texture2D" uid="uid://cb65lnt2pu1tq" path="res://sprites/Paralaks6.png" id="6_c3oir"]
+[ext_resource type="Texture2D" uid="uid://b5y5i10h0ryur" path="res://sprites/Oblaka_1_ALL_Var2.png" id="6_k2wxt"]
 [ext_resource type="Texture2D" uid="uid://dy33vtlluknq1" path="res://sprites/Paralaks1_Light5.png" id="6_rgl0s"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="8_vfxl8"]
 [ext_resource type="Texture2D" uid="uid://cojtabxrc4x8i" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-0.png" id="9_acnr4"]
@@ -194,12 +195,18 @@ texture = ExtResource("4_ih2g2")
 [node name="Clouds" type="ParallaxLayer" parent="Parallax"]
 position = Vector2(902, -1185)
 motion_scale = Vector2(0.15, 1)
-motion_mirroring = Vector2(3457, 0)
+motion_mirroring = Vector2(1728, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Clouds"]
 texture_filter = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_qtr0e")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax/Clouds"]
+texture_filter = 2
+position = Vector2(8, -116)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_k2wxt")
 
 [node name="BigB" type="ParallaxLayer" parent="Parallax"]
 position = Vector2(5000, -202)

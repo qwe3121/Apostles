@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" path="res://src/menus/save_container.gd" id="1_7giip"]
 
-[sub_resource type="Theme" id="Theme_d55pa"]
+[sub_resource type="Theme" id="Theme_khvhe"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oaw6b"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s3j08"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7lux"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dg1g8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afuqw"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7jrt"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d1xtg"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ik74f"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nv6m3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pro0j"]
 
 [node name="SaveContainer" type="Control"]
 layout_mode = 3
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_d55pa")
+theme = SubResource("Theme_khvhe")
 script = ExtResource("1_7giip")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -68,11 +68,11 @@ text = "X"
 layout_mode = 0
 offset_right = 892.0
 offset_bottom = 162.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_oaw6b")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_x7lux")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_afuqw")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_d1xtg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_nv6m3")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_s3j08")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dg1g8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_j7jrt")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ik74f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pro0j")
 
 [node name="ConfirmOverwrite" type="ConfirmationDialog" parent="."]
 title = "Give save a name..."

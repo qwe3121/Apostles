@@ -50,6 +50,7 @@ var hp = 1
 func get_damage():
 	hp -= 1
 	if hp <= 0:
+		state_started = false
 		state = DEAD
 
 func set_dir():
@@ -102,13 +103,13 @@ func set_anim(animation_name):
 		WALL_SLIDE:
 			anim.play("WallSlide", -1, 1, false)
 		WEAK_ATTACK_1:
-			anim.play("WeakAttack1", -1, 3, false)
+			anim.play("WeakAttack1", -1, 1, false)
 		WEAK_ATTACK_2:
-			anim.play("WeakAttack2", -1, 3, false)
+			anim.play("WeakAttack2", -1, 1, false)
 		WEAK_ATTACK_3:
-			anim.play("WeakAttack3", -1, 3, false)
+			anim.play("WeakAttack3", -1, 1, false)
 		WEAK_ATTACK_4:
-			anim.play("WeakAttack4", -1, 3, false)
+			anim.play("WeakAttack4", -1, 1, false)
 		STRONG_ATTACK_1:
 			anim.play("StrongAttack1", -1, 0.8, false)
 		STRONG_ATTACK_2:

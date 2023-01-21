@@ -2461,10 +2461,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.36, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_k3gs3"]
@@ -2537,10 +2537,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_4uwfr"]
@@ -2613,10 +2613,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.36, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_ld57e"]
@@ -3327,10 +3327,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_gy8gj"]
@@ -3403,10 +3403,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_ieu63"]
@@ -3479,10 +3479,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.375, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_8d82m"]
@@ -3744,10 +3744,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.396),
+"times": PackedFloat32Array(0.363, 0.396),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_qxrur"]
@@ -3820,10 +3820,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.396),
+"times": PackedFloat32Array(0.363, 0.396),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_0v214"]
@@ -3896,10 +3896,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.36, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_j63a7"]
@@ -3972,10 +3972,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.392),
+"times": PackedFloat32Array(0.364, 0.392),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_k7wj6"]
@@ -4159,10 +4159,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_ji8tx"]
@@ -4235,10 +4235,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.396),
+"times": PackedFloat32Array(0.363, 0.396),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_kb6cn"]
@@ -4311,10 +4311,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.396),
+"times": PackedFloat32Array(0.363, 0.396),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_17qnf"]
@@ -4387,10 +4387,10 @@ tracks/5/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0.36, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u6j56"]

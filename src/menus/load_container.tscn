@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://src/menus/load_container.gd" id="1_452rs"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nngw1"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dql27"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g762y"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qglvl"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_24ody"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0opdd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1v2ct"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdcmf"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m58gc"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2tpuy"]
 
 [node name="LoadContainer" type="Control"]
 layout_mode = 3
@@ -66,11 +66,11 @@ text = "X"
 layout_mode = 0
 offset_right = 892.0
 offset_bottom = 162.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_nngw1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_g762y")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_24ody")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_1v2ct")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_m58gc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dql27")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qglvl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0opdd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gdcmf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2tpuy")
 
 [node name="ConfirmLoad" type="ConfirmationDialog" parent="."]
 dialog_text = "load save asd.save"

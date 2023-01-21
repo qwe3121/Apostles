@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7srus3byt3rd"]
+[gd_scene load_steps=21 format=3 uid="uid://b7srus3byt3rd"]
 
 [ext_resource type="Script" path="res://src/menus/main_menu_oog.gd" id="1_ohkey"]
 [ext_resource type="PackedScene" uid="uid://cc0n2u5dlt6rp" path="res://src/menus/load_menu.tscn" id="2_t8gug"]
 [ext_resource type="Texture2D" uid="uid://blqfnudxaxbg6" path="res://sprites/Ptici_Letat.png" id="3_kwbjt"]
 [ext_resource type="PackedScene" uid="uid://cqkil170brmc4" path="res://src/menus/settings_menu.tscn" id="3_lkhll"]
 [ext_resource type="Texture2D" uid="uid://bvwpadvlmypcm" path="res://sprites/Oblaka_1_ALL.png" id="3_tlapm"]
+[ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="3_xpsqe"]
 [ext_resource type="Texture2D" uid="uid://dp3456nbcqhfs" path="res://sprites/Zastavka1_5_var1.png" id="5_sk4ij"]
 [ext_resource type="PackedScene" uid="uid://c7645126n6rqf" path="res://src/rain_control.tscn" id="8_82w1l"]
 
@@ -176,6 +177,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_sk4ij")
 expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 569.0
+offset_top = 19.0
+offset_right = 865.0
+offset_bottom = 326.0
+texture = ExtResource("3_xpsqe")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0

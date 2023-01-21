@@ -54,12 +54,14 @@ func get_damage(value):
 func set_anim(animation_name):
 	if anim_dir == 1:
 		$Sprite2D.flip_h = true
-		$Sprite2D.position.x = 36
-		$RayCast2D.position.x = 23
+		$Sprite2D.position.x = 36 * anim_dir
+		$RayCast2D.position.x = 23 * anim_dir
+		$EnemyHitbox/CollisionShape2D.position.x = 24
 	elif anim_dir == -1:
 		$Sprite2D.flip_h = false
 		$Sprite2D.position.x = -36
 		$RayCast2D.position.x = -23
+		$EnemyHitbox/CollisionShape2D.position.x = -24
 	match animation_name:
 		IDLE: 
 			anim.play("idle", -1, 1, false)
