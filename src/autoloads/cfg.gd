@@ -53,3 +53,7 @@ func load_data():
 func save_data():
 	var file = FileAccess.open(CFG_PATH, FileAccess.WRITE)
 	file.store_var(cfg_data)
+	
+	
+func _ready():
+	randomize()

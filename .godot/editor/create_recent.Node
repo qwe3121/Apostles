@@ -1,4 +1,9 @@
+Label
 CollisionShape2D
+Area2D
+RayCast2D
+ColorRect
+AnimationPlayer
 TextureRect
 Timer
 ParallaxLayer
@@ -6,12 +11,9 @@ CanvasModulate
 Sprite2D
 Control
 Node2D
-Area2D
-AnimationPlayer
 AnimatedSprite2D
 CharacterBody2D
 DirectionalLight2D
-ColorRect
 LightOccluder2D
 PointLight2D
 Panel

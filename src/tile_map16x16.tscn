@@ -1,7 +1,6 @@
-[gd_scene load_steps=38 format=3 uid="uid://b74kh6au2xlly"]
+[gd_scene load_steps=35 format=3 uid="uid://b74kh6au2xlly"]
 
 [ext_resource type="Texture2D" uid="uid://cbtgo5uxk7vdq" path="res://sprites/tilemap/floor.png" id="1_gmyq5"]
-[ext_resource type="Texture2D" uid="uid://nyhdhu2tpfqj" path="res://sprites/tilemap/wall.png" id="2_3kcsu"]
 [ext_resource type="Texture2D" uid="uid://m1iyk446rvm" path="res://sprites/tilemap/Trava_2_16.png" id="3_5068s"]
 [ext_resource type="Texture2D" uid="uid://ck3l2fvgoy1u1" path="res://sprites/tilemap/Mysor_1_16.png" id="3_uaomh"]
 [ext_resource type="Texture2D" uid="uid://c7bt3j423npb0" path="res://sprites/tilemap/Trava_3_16.png" id="4_1bdut"]
@@ -31,20 +30,6 @@ texture_region_size = Vector2i(18, 18)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_23wfc"]
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lqwte"]
-texture = ExtResource("2_3kcsu")
-texture_region_size = Vector2i(18, 18)
-0:0/0 = 0
-0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_23wfc")
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_1/angular_velocity = 0.0
-0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8qn8"]
 texture = ExtResource("3_5068s")
@@ -173,7 +158,6 @@ physics_layer_0/collision_mask = 0
 physics_layer_1/collision_layer = 4
 physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_m2t3a")
-sources/1 = SubResource("TileSetAtlasSource_lqwte")
 sources/2 = SubResource("TileSetAtlasSource_5av12")
 sources/3 = SubResource("TileSetAtlasSource_c53ss")
 sources/4 = SubResource("TileSetAtlasSource_hi1ha")

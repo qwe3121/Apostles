@@ -6,7 +6,6 @@ extends CharacterBody2D
 @export var x_attack_dis = 100
 #@export var y_attack_dis = 50
 
-@onready var player = $"../Player"
 var see_player = false
 
 @onready var anim = $AnimationPlayer
@@ -20,7 +19,7 @@ func set_state(value):
 	state_started = false
 	state = value
 
-var dir
+var dir = 1
 var anim_dir
 
 var state_started = false
@@ -31,16 +30,16 @@ var walking = 1 #1 is walking 0 is chilling
 
 var chasing = false
 
-var hp = 5
+var there_is_trap = false
 
-var rand=RandomNumberGenerator.new()
+var hp = 5
 
 var turned = false
 
 
 func _ready():
-	rand.randomize()
 	walking_timer()
+	
 
 
 func get_damage(value):
@@ -54,14 +53,16 @@ func get_damage(value):
 func set_anim(animation_name):
 	if anim_dir == 1:
 		$Sprite2D.flip_h = true
-		$Sprite2D.position.x = 36 * anim_dir
-		$RayCast2D.position.x = 23 * anim_dir
+		$Sprite2D.position.x = 36
+		$CheckForPit.position.x = 43
 		$EnemyHitbox/CollisionShape2D.position.x = 24
+		$CheckForTrap/CollisionShape2D.position.x = 26
 	elif anim_dir == -1:
 		$Sprite2D.flip_h = false
 		$Sprite2D.position.x = -36
-		$RayCast2D.position.x = -23
+		$CheckForPit.position.x = -43
 		$EnemyHitbox/CollisionShape2D.position.x = -24
+		$CheckForTrap/CollisionShape2D.position.x = -26
 	match animation_name:
 		IDLE: 
 			anim.play("idle", -1, 1, false)
@@ -74,7 +75,7 @@ func set_anim(animation_name):
 			
 			
 func set_dir():
-	if global_position.x < player.global_position.x:
+	if global_position.x < global.player.global_position.x:
 		dir = 1
 	else:
 		dir = -1
@@ -115,8 +116,9 @@ func idle():
 			return
 	else:
 		if walking:
-			dir = 1 if rand.randi_range(0,1) else -1
+			dir = 1 if randi_range(0,1) else -1
 			anim_dir = dir
+			set_anim(IDLE)
 			state = RUN
 			return
 			
@@ -140,13 +142,14 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall() or not $RayCast2D.is_colliding()) and not turned and not see_player and not chasing:
+	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_trap) and not turned and not see_player and not chasing:
 		turned = true
 		$TurnedTimer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall() or not $RayCast2D.is_colliding()) and (see_player or chasing):
+	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_trap) and (see_player or chasing):
+		dir = 0
 		set_anim(IDLE)
 	else:
 		set_anim(RUN)
@@ -189,7 +192,7 @@ func dead():
 	
 func close_enough_to_attack():
 	# and abs(abs(player.global_position.y) - abs(global_position.y)) <= y_attack_dis
-	return true if abs(abs(player.global_position.x) - abs(global_position.x)) <= x_attack_dis else false
+	return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis else false
 
 
 func _on_walking_timer_timeout():
@@ -231,3 +234,11 @@ func _on_chase_timer_timeout():
 	walking = 0
 	walking_timer()
 	state = IDLE
+
+
+func _on_check_for_trap_area_entered(area):
+	there_is_trap = true
+
+
+func _on_check_for_trap_area_exited(area):
+	there_is_trap = false

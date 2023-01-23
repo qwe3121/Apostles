@@ -1,9 +1,6 @@
 extends Node2D
 
 
-var rand=RandomNumberGenerator.new()
-
-
 var preloaded_rooms = {
 	1: preload("res://src/generation/rooms/1.tscn"),
 	2: preload("res://src/generation/rooms/2.tscn"),
@@ -29,7 +26,6 @@ var down = []
 
 
 func _ready():
-	rand.randomize()
 	$Left.position = Vector2(-x_size/2, y_size/2)
 	$Up.position = Vector2(x_size/2, -y_size/2)
 	$Right.position = Vector2(x_size*1.5, y_size/2)
@@ -58,10 +54,9 @@ func spawn_room():
 	
 	var room_number
 	if intersection == []:
-		room_number = rand.randi_range(1, len(preloaded_rooms))
+		room_number = randi_range(1, len(preloaded_rooms))
 	else:
-		room_number = intersection[rand.randi_range(0, len(intersection) - 1)]
-		
+		room_number = intersection[randi_range(0, len(intersection) - 1)]
 	var room_ins = preloaded_rooms[room_number].instantiate()
 	room_ins.global_position = global_position
 	get_tree().get_root().get_node("GenerationTest").add_child.call_deferred(room_ins)

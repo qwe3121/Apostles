@@ -25,11 +25,16 @@ MusicTestAutoload="*res://src/autoloads/music_test_autoload.tscn"
 global_settings="*res://src/autoloads/global_settings.gd"
 trans="*res://src/autoloads/transition.tscn"
 nt="*res://src/autoloads/notification.tscn"
+global="*res://src/autoloads/global.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor]
+
+export/convert_text_resources_to_binary=true
 
 [gui]
 
@@ -112,7 +117,6 @@ JUMP={
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="floor"
-2d_physics/layer_3="walls"
 2d_physics/layer_4="traps"
 2d_physics/layer_5="enemies"
 2d_physics/layer_32="roomsArea"

@@ -16,6 +16,7 @@ var state = IDLE : set = set_state
 
 func set_state(value):
 	single_anim_not_played_yet = true
+	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
 	state = value
 
 var dir = 1
@@ -103,13 +104,13 @@ func set_anim(animation_name):
 		WALL_SLIDE:
 			anim.play("WallSlide", -1, 1, false)
 		WEAK_ATTACK_1:
-			anim.play("WeakAttack1", -1, 1, false)
+			anim.play("WeakAttack1", -1, 2, false)
 		WEAK_ATTACK_2:
-			anim.play("WeakAttack2", -1, 1, false)
+			anim.play("WeakAttack2", -1, 2, false)
 		WEAK_ATTACK_3:
-			anim.play("WeakAttack3", -1, 1, false)
+			anim.play("WeakAttack3", -1, 2, false)
 		WEAK_ATTACK_4:
-			anim.play("WeakAttack4", -1, 1, false)
+			anim.play("WeakAttack4", -1, 2, false)
 		STRONG_ATTACK_1:
 			anim.play("StrongAttack1", -1, 0.8, false)
 		STRONG_ATTACK_2:
@@ -121,20 +122,25 @@ func set_anim(animation_name):
 		LANDING:
 			anim.play("SecondLanding", -1, 3, false)
 		FIRST_JUMP_ATTACK_1:
-			anim.play("FirstJumpAttack1", -1, 1.5, false)
+			anim.play("FirstJumpAttack1", -1, 2, false)
 		FIRST_JUMP_ATTACK_2:
-			anim.play("FirstJumpAttack2", -1, 1.5, false)
+			anim.play("FirstJumpAttack2", -1, 2, false)
 		FIRST_JUMP_ATTACK_3:
-			anim.play("FirstJumpAttack3", -1, 1.5, false)
+			anim.play("FirstJumpAttack3", -1, 2, false)
 		SECOND_JUMP_ATTACK_1:
-			anim.play("SecondJumpAttack1", -1, 1.5, false)
+			anim.play("SecondJumpAttack1", -1, 2, false)
 		SECOND_JUMP_ATTACK_2:
-			anim.play("SecondJumpAttack2", -1, 1.5, false)
+			anim.play("SecondJumpAttack2", -1, 2, false)
 		SECOND_JUMP_ATTACK_3:
-			anim.play("SecondJumpAttack3", -1, 1, false)
+			anim.play("SecondJumpAttack3", -1, 1.5, false)
 #		DEAD:
 #			anim.play("Dead", -1, 1, false)
 				
+				
+				
+func _ready():
+	global.player = self
+
 
 func _physics_process(delta):
 	match state:
@@ -793,8 +799,10 @@ func roll():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "FirstAir" or anim_name == "FirstJump" or anim_name == "SecondAir" or anim_name == "SecondJump":
-		single_anim_not_played_yet = false
+#	if anim_name == "FirstAir" or anim_name == "FirstJump" or anim_name == "SecondAir" or anim_name == "SecondJump":
+#		single_anim_not_played_yet = false
+	single_anim_not_played_yet = false 
+	#вроде бы без проверки фиксится баг, при котором во втором прыжке сразу включается цикличная версия анимации
 
 
 func weak_attack_1():

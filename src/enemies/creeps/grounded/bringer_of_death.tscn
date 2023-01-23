@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://do5celp7bvb3"]
+[gd_scene load_steps=14 format=3 uid="uid://do5celp7bvb3"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/bringer_of_death.gd" id="1_ptgd8"]
 [ext_resource type="Texture2D" uid="uid://chkodl83ftv4j" path="res://sprites/enemies/Bringer-of-Death-SpritSheet_no-Effect.png" id="2_v3y5q"]
@@ -95,6 +95,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0yit"]
 size = Vector2(20, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0vfs"]
+size = Vector2(33, 47)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6hap"]
 size = Vector2(196, 52)
 
@@ -102,8 +105,9 @@ size = Vector2(196, 52)
 size = Vector2(48, 48)
 
 [node name="BringerOfDeath" type="CharacterBody2D"]
+scale = Vector2(4, 4)
 collision_layer = 16
-collision_mask = 6
+collision_mask = 2
 script = ExtResource("1_ptgd8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -119,24 +123,31 @@ wait_time = 3.0
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -23.5)
 shape = SubResource("RectangleShape2D_h0yit")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-36, -45)
 texture = ExtResource("2_v3y5q")
 hframes = 8
 vframes = 8
-frame = 20
+frame = 8
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="CheckForPit" type="RayCast2D" parent="."]
 position = Vector2(-23, -25)
 target_position = Vector2(0, 40)
 collision_mask = 2
 
+[node name="CheckForTrap" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForTrap"]
+position = Vector2(-26.5, -23)
+shape = SubResource("RectangleShape2D_f0vfs")
+
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
 position = Vector2(0, -27)
@@ -156,8 +167,22 @@ position = Vector2(-24, -24)
 shape = SubResource("RectangleShape2D_jpikw")
 disabled = true
 
+[node name="Label" type="Label" parent="."]
+offset_left = -19.75
+offset_top = -76.0
+offset_right = 20.25
+offset_bottom = -56.0
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -19.75
+offset_top = -100.25
+offset_right = 20.25
+offset_bottom = -80.25
+
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="CheckForTrap" to="." method="_on_check_for_trap_area_entered"]
+[connection signal="area_exited" from="CheckForTrap" to="." method="_on_check_for_trap_area_exited"]
 [connection signal="body_entered" from="Eyes" to="." method="_on_eyes_body_entered"]
 [connection signal="body_exited" from="Eyes" to="." method="_on_eyes_body_exited"]
 [connection signal="timeout" from="TurnedTimer" to="." method="_on_turned_timer_timeout"]

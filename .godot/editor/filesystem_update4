@@ -1,6 +1,4 @@
-res://src/world.tscn
-res://src/menus/main_menu_oog.tscn
-res://src/player.tscn
 res://src/enemies/creeps/grounded/bringer_of_death.tscn
-res://src/enemies/enemy_hitbox.tscn
+res://src/enemies/creeps/grounded/bringer_of_death.gd
+res://src/player.tscn
 res://src/player.gd

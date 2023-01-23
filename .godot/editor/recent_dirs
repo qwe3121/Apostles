@@ -1,6 +1,8 @@
+res://src/autoloads
+res://src/generation/rooms
+res://src/enemies/traps
 res://
 res://src/enemies/creeps/grounded
-res://src/generation/rooms
 res://src/generation
 res://src/menus
 res://src

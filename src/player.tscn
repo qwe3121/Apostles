@@ -4434,7 +4434,7 @@ size = Vector2(56, 101)
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
-collision_mask = 6
+collision_mask = 2
 script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -4542,7 +4542,7 @@ visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.5, 0.5)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
