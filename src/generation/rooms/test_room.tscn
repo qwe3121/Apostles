@@ -62,7 +62,7 @@ autoplay = "bounce"
 playback_speed = 0.5
 
 [node name="MK2" parent="." instance=ExtResource("5_vyxbe")]
-position = Vector2(1792, 858)
+position = Vector2(1745, 1170)
 
 [editable path="BasicStaticPathEnemy"]
 [editable path="BasicStaticPathEnemy2"]
