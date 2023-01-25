@@ -16,7 +16,8 @@ var state = IDLE : set = set_state
 
 func set_state(value):
 	single_anim_not_played_yet = true
-	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
+#	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
+	state_started = false
 	state = value
 
 var dir = 1
@@ -774,7 +775,6 @@ func dash():
 				print("from dash to AIR")
 			pre_jump = 2
 			state = AIR
-			state_started = false
 		
 		
 func roll():
@@ -782,7 +782,6 @@ func roll():
 	velocity.y = 0
 	if not is_on_floor():
 		jump_index = 2
-		state_started = false
 		if np:
 			print("from ROLL to AIR")
 		state = AIR
@@ -795,7 +794,6 @@ func roll():
 			if np:
 				print("from ROLL to SIT")
 			state = SIT
-			state_started = false
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -816,7 +814,6 @@ func weak_attack_1():
 			if np:
 				print("from weak_attack_1 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func weak_attack_2():
@@ -830,7 +827,6 @@ func weak_attack_2():
 			if np:
 				print("from weak_attack_2 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func weak_attack_3():
@@ -844,7 +840,6 @@ func weak_attack_3():
 			if np:
 				print("from weak_attack_3 to idle")
 			state = IDLE
-			state_started = false
 		
 		
 func weak_attack_4():
@@ -858,7 +853,6 @@ func weak_attack_4():
 			if np:
 				print("from weak_attack_4 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func _on_weak_combo_timer_timeout():
@@ -876,7 +870,6 @@ func strong_attack_1():
 			if np:
 				print("from strong_attack_1 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func strong_attack_2():
@@ -890,7 +883,6 @@ func strong_attack_2():
 			if np:
 				print("from strong_attack_2 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func strong_attack_3():
@@ -904,7 +896,6 @@ func strong_attack_3():
 			if np:
 				print("from strong_attack_3 to idle")
 			state = IDLE
-			state_started = false
 			
 			
 func strong_attack_4(delta):
@@ -919,7 +910,6 @@ func strong_attack_4(delta):
 			if np:
 				print("from strong_attack_4 to idle")
 			state = IDLE
-			state_started = false
 
 
 func _on_strong_combo_timer_timeout():
@@ -950,7 +940,6 @@ func landing():
 			if np:
 				print("from landing to idle")
 			state = IDLE
-			state_started = false
 
 
 func first_jump_attack_1():
@@ -965,7 +954,6 @@ func first_jump_attack_1():
 			if np:
 				print("from FIRST_JUMP_ATTACK_1 to AIR")
 			state = AIR
-			state_started = false
 	
 	
 func first_jump_attack_2():
@@ -980,7 +968,6 @@ func first_jump_attack_2():
 			if np:
 				print("from FIRST_JUMP_ATTACK_2 to AIR")
 			state = AIR
-			state_started = false
 	
 	
 func first_jump_attack_3():
@@ -995,7 +982,6 @@ func first_jump_attack_3():
 			if np:
 				print("from FIRST_JUMP_ATTACK_3 to AIR")
 			state = AIR
-			state_started = false
 	
 	
 func second_jump_attack_1():
@@ -1010,7 +996,6 @@ func second_jump_attack_1():
 			if np:
 				print("from SECOND_JUMP_ATTACK_1 to AIR")
 			state = AIR
-			state_started = false
 	
 	
 func second_jump_attack_2():
@@ -1025,7 +1010,6 @@ func second_jump_attack_2():
 			if np:
 				print("from SECOND_JUMP_ATTACK_2 to AIR")
 			state = AIR
-			state_started = false
 	
 	
 func second_jump_attack_3():
@@ -1040,7 +1024,6 @@ func second_jump_attack_3():
 			if np:
 				print("from SECOND_JUMP_ATTACK_3 to AIR")
 			state = AIR
-			state_started = false
 
 
 func _on_hitbox_body_entered(body):
@@ -1054,4 +1037,4 @@ func dead(delta):
 	if !state_started:
 		state_started = true
 #		await anim.animation_finished
-		get_tree().quit()
+		get_tree().reload_current_scene()

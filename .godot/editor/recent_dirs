@@ -1,10 +1,11 @@
+res://src/enemies
+res://sprites/enemies/MK2
+res://src/enemies/creeps/grounded
+res://src
 res://src/autoloads
 res://src/generation/rooms
 res://src/enemies/traps
 res://
-res://src/enemies/creeps/grounded
 res://src/generation
 res://src/menus
-res://src
-res://src/enemies
 res://src/enemies/static_path

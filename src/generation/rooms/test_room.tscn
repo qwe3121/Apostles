@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_enemy.tscn" id="3_aojfh"]
 [ext_resource type="Texture2D" uid="uid://c43c600d050a8" path="res://sprites/traps/Wecterenka.png" id="4_lrb4r"]
 [ext_resource type="Texture2D" uid="uid://clfniawntk1xu" path="res://sprites/traps/Cerp_4X.png" id="5_uvts3"]
-[ext_resource type="PackedScene" uid="uid://do5celp7bvb3" path="res://src/enemies/creeps/grounded/bringer_of_death.tscn" id="6_rfe40"]
+[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="5_vyxbe"]
 
-[sub_resource type="Curve2D" id="Curve2D_uy5p1"]
+[sub_resource type="Curve2D" id="Curve2D_kldig"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 768, 59, 0, 0, 0, 0, 768, 261)
+"points": PackedVector2Array(0, 0, 0, 0, 768, 100, 0, 0, 0, 0, 768, 207)
 }
 point_count = 2
 
@@ -31,10 +31,10 @@ layer_0/tile_data = PackedInt32Array(4915200, 0, 0, 4980736, 0, 0, 5046272, 0, 0
 
 [node name="BasicStaticPathEnemy" parent="." instance=ExtResource("3_aojfh")]
 position = Vector2(289, 657)
-curve = SubResource("Curve2D_uy5p1")
+curve = SubResource("Curve2D_kldig")
 
 [node name="PathFollow2D" parent="BasicStaticPathEnemy" index="0"]
-position = Vector2(768, 59)
+position = Vector2(768, 100)
 progress = 0.0
 
 [node name="Sprite2D" parent="BasicStaticPathEnemy/PathFollow2D/Node2D" index="0"]
@@ -61,9 +61,8 @@ texture = ExtResource("5_uvts3")
 autoplay = "bounce"
 playback_speed = 0.5
 
-[node name="BringerOfDeath" parent="." instance=ExtResource("6_rfe40")]
-position = Vector2(1692, 843)
-scale = Vector2(2, 2)
+[node name="MK2" parent="." instance=ExtResource("5_vyxbe")]
+position = Vector2(1792, 858)
 
 [editable path="BasicStaticPathEnemy"]
 [editable path="BasicStaticPathEnemy2"]

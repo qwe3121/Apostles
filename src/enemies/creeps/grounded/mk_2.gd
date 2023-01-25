@@ -12,11 +12,12 @@ var see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, ATTACK, DEAD, AIR}
+enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR}
 var state = AIR : set = set_state
 
 func set_state(value):
 	state_started = false
+	print("from " + str(state) + " to " + str(value))
 	state = value
 
 var dir = 1
@@ -25,6 +26,7 @@ var anim_dir
 var state_started = false
 
 var can_attack = true
+var can_ulti = true
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -32,7 +34,7 @@ var chasing = false
 
 var there_is_trap = false
 
-var hp = 5
+var hp = 2
 
 var turned = false
 
@@ -52,26 +54,34 @@ func get_damage(value):
 		
 func set_anim(animation_name):
 	if anim_dir == 1:
-		$Sprite2D.flip_h = true
-		$Sprite2D.position.x = 36
-		$CheckForPit.position.x = 43
+		$AnimatedSprite2D.flip_h = true
+		$CheckForPit.position.x = 24.75
 		$EnemyHitbox/CollisionShape2D.position.x = 24
-		$CheckForTrap/CollisionShape2D.position.x = 26
+		$CheckForTrap/CollisionShape2D.position.x = 31
 	elif anim_dir == -1:
-		$Sprite2D.flip_h = false
-		$Sprite2D.position.x = -36
-		$CheckForPit.position.x = -43
+		$AnimatedSprite2D.flip_h = false
+		$CheckForPit.position.x = -24.75
 		$EnemyHitbox/CollisionShape2D.position.x = -24
-		$CheckForTrap/CollisionShape2D.position.x = -26
+		$CheckForTrap/CollisionShape2D.position.x = -31
 	match animation_name:
 		IDLE: 
-			anim.play("idle", -1, 1, false)
+			anim.play("idle")
 		RUN: 
-			anim.play("run", -1, 1, false)
+			anim.play("run")
+		BEFORE_ATTACK:
+			anim.play("before_attack")
 		ATTACK:
-			anim.play("attack", -1, 1, false)
-		DEAD:
-			anim.play("dead", -1, 1, false)
+			anim.play("attack")
+		AFTER_ATTACK:
+			anim.play("after_attack")
+		BEFORE_ULTI:
+			anim.play("before_ulti")
+		ULTI:
+			anim.play("ulti")
+		AFTER_ULTI:
+			anim.play("after_ulti")
+#		DEAD:
+#			anim.play("dead")
 			
 			
 func set_dir():
@@ -84,16 +94,32 @@ func set_dir():
 
 func _physics_process(delta):
 	match state:
-		IDLE:
+		IDLE: 
 			idle()
-		RUN:
+		RUN: 
 			run()
-		ATTACK:
-			attack()
-		DEAD:
-			dead()
 		AIR:
 			air(delta)
+		BEFORE_ATTACK:
+			before_attack()
+		ATTACK:
+			attack()
+		AFTER_ATTACK:
+			after_attack()
+		BEFORE_ULTI:
+			before_ulti()
+		ULTI:
+			ulti()
+		AFTER_ULTI:
+			after_ulti()
+		DEAD:
+			dead()
+			
+#	print("is_on_wall() " + str(is_on_wall()))
+#	print("pit is here " + str(not $CheckForPit.is_colliding()))
+#	print("there is trap " + str(there_is_trap))
+#	print("see player " + str(see_player))
+#	print("chasing " + str(chasing))
 			
 	move_and_slide()
 
@@ -109,8 +135,12 @@ func idle():
 	if see_player:
 		set_dir()
 		if close_enough_to_attack() and can_attack:
-			state = ATTACK
-			return
+			if can_ulti:
+				state = BEFORE_ULTI
+				return
+			if can_attack:
+				state = BEFORE_ATTACK
+				return
 		elif not close_enough_to_attack():
 			state = RUN
 			return
@@ -136,8 +166,12 @@ func run():
 	if see_player:
 		set_dir()
 		if close_enough_to_attack() and can_attack:
-			state = ATTACK
-			return
+			if can_ulti:
+				state = BEFORE_ULTI
+				return
+			if can_attack:
+				state = BEFORE_ATTACK
+				return
 		elif close_enough_to_attack():
 			state = IDLE
 			return
@@ -166,17 +200,76 @@ func air(delta):
 	set_anim(AIR)
 	
 	
+func before_attack():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(BEFORE_ATTACK)
+	if !state_started:
+		state_started = true
+		can_attack = false
+		await anim.animation_finished
+		if state == BEFORE_ATTACK:
+			state = ATTACK
+	
+	
 func attack():
 	velocity.x = 0
 	velocity.y = 0
 	set_anim(ATTACK)
 	if !state_started:
 		state_started = true
-		can_attack = false
-		$AttackCooldown.start()
 		await anim.animation_finished
-		state_started = false
-		state = RUN
+		if state == ATTACK:
+			state = AFTER_ATTACK
+			
+			
+func after_attack():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(AFTER_ATTACK)
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == AFTER_ATTACK:
+			$AttackCooldown.start()
+			state = IDLE
+			
+			
+func before_ulti():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(BEFORE_ULTI)
+	if !state_started:
+		state_started = true
+		can_attack = false
+		can_ulti = false
+		await anim.animation_finished
+		if state == BEFORE_ULTI:
+			state = ULTI
+	
+	
+func ulti():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(ULTI)
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == ULTI:
+			state = AFTER_ULTI
+			
+			
+func after_ulti():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(AFTER_ULTI)
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == AFTER_ULTI:
+			$UltiCooldown.start()
+			$AttackCooldown.start()
+			state = IDLE
 	
 	
 func dead():
@@ -185,7 +278,7 @@ func dead():
 	set_anim(DEAD)
 	if !state_started:
 		state_started = true
-		await anim.animation_finished
+#		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
 	
@@ -211,6 +304,10 @@ func walking_timer():
 	
 func _on_attack_cooldown_timeout():
 	can_attack = true
+	
+	
+func _on_ulti_cooldown_timeout():
+	can_ulti = true
 
 
 func _on_eyes_body_entered(body):
