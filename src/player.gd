@@ -131,9 +131,9 @@ func set_anim(animation_name):
 		SECOND_JUMP_ATTACK_1:
 			anim.play("SecondJumpAttack1", -1, 2, false)
 		SECOND_JUMP_ATTACK_2:
-			anim.play("SecondJumpAttack2", -1, 2, false)
+			anim.play("SecondJumpAttack2", -1, 1.5, false)
 		SECOND_JUMP_ATTACK_3:
-			anim.play("SecondJumpAttack3", -1, 1.5, false)
+			anim.play("SecondJumpAttack3", -1, 1, false)
 #		DEAD:
 #			anim.play("Dead", -1, 1, false)
 				
@@ -1027,7 +1027,10 @@ func second_jump_attack_3():
 
 
 func _on_hitbox_body_entered(body):
-	body.get_damage(1)
+	if global_position.x > body.global_position.x:
+		body.get_damage(1, -1)
+	else:
+		body.get_damage(1, 1)
 	
 	
 func dead(delta):

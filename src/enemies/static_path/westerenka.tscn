@@ -1,6 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5gqni02t3l8c"]
+[gd_scene load_steps=9 format=3 uid="uid://dws0rhtcmeqo4"]
 
-[ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="1_c4wcy"]
+[ext_resource type="Texture2D" uid="uid://c43c600d050a8" path="res://sprites/traps/Wecterenka.png" id="2_r5nuv"]
+
+[sub_resource type="Curve2D" id="Curve2D_w8j7f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -55, -28, 0, 0, 0, 0, -55, 163)
+}
+point_count = 2
 
 [sub_resource type="Animation" id="Animation_phbpi"]
 length = 0.001
@@ -16,21 +22,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PathFollow2D/Node2D/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_fpmqb"]
 resource_name = "bounce"
+length = 1.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -39,22 +34,10 @@ tracks/0/path = NodePath("PathFollow2D:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PathFollow2D/Node2D/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
 }
 
 [sub_resource type="Animation" id="Animation_f32y2"]
@@ -80,20 +63,33 @@ _data = {
 "loop": SubResource("Animation_f32y2")
 }
 
-[node name="BasicStaticPathEnemy" type="Path2D"]
+[sub_resource type="Animation" id="Animation_oagkx"]
+resource_name = "rotation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dt640"]
+_data = {
+"rotation": SubResource("Animation_oagkx")
+}
+
+[node name="Westerenka" type="Path2D"]
+curve = SubResource("Curve2D_w8j7f")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-progress = 20.896
+position = Vector2(-55, -28)
 rotates = false
 
 [node name="Node2D" type="Node2D" parent="PathFollow2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Node2D"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_c4wcy")
+texture = ExtResource("2_r5nuv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "loop"
 libraries = {
 "": SubResource("AnimationLibrary_b3lk7")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dt640")
 }

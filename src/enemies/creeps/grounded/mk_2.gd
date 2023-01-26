@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 
-@export var speed = 300
+@export var speed = 100
 
-@export var x_attack_dis = 100
+@export var x_attack_dis_attack = 45
+@export var x_attack_dis_ulti = 125
 #@export var y_attack_dis = 50
 
 var see_player = false
@@ -17,16 +18,15 @@ var state = AIR : set = set_state
 
 func set_state(value):
 	state_started = false
-	print("from " + str(state) + " to " + str(value))
 	state = value
 
 var dir = 1
-var anim_dir
+var anim_dir = 1
 
 var state_started = false
 
 var can_attack = true
-var can_ulti = true
+var can_ulti = false
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -34,40 +34,61 @@ var chasing = false
 
 var there_is_trap = false
 
-var hp = 2
+var hp = 4
 
 var turned = false
 
+var flashing = 0
+var knockback_dir = 0
+
+var shake_amount = 100.0
+
 
 func _ready():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
+	$EnemyHitbox/AttackCollision.disabled = true
+	$EnemyHitbox/UltiCollision.disabled = true
 	walking_timer()
 	
 
 
-func get_damage(value):
+func get_damage(value, k_dir):
 	hp -= value
 	if hp <= 0:
 		$ChaseTimer.stop()
 		$WalkingTimer.stop()
 		state = DEAD
-
+	elif not flashing:
+		global.camera.shake()
+		knockback_dir = k_dir
+		flashing = 1
+		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
+		$FlashlightTimer.start()
 		
 func set_anim(animation_name):
 	if anim_dir == 1:
 		$AnimatedSprite2D.flip_h = true
 		$CheckForPit.position.x = 24.75
-		$EnemyHitbox/CollisionShape2D.position.x = 24
+		$EnemyHitbox.scale.x = -1
 		$CheckForTrap/CollisionShape2D.position.x = 31
+		$Eyes/CollisionShape2D.position.x = 37.25
 	elif anim_dir == -1:
 		$AnimatedSprite2D.flip_h = false
 		$CheckForPit.position.x = -24.75
-		$EnemyHitbox/CollisionShape2D.position.x = -24
+		$EnemyHitbox.scale.x = 1
 		$CheckForTrap/CollisionShape2D.position.x = -31
+		$Eyes/CollisionShape2D.position.x = -37.25
 	match animation_name:
 		IDLE: 
-			anim.play("idle")
+			if chasing or see_player:
+				anim.play("idle")
+			else:
+				anim.play("p_idle")
 		RUN: 
-			anim.play("run")
+			if chasing or see_player:
+				anim.play("run")
+			else:
+				anim.play("p_run")
 		BEFORE_ATTACK:
 			anim.play("before_attack")
 		ATTACK:
@@ -93,6 +114,9 @@ func set_dir():
 
 
 func _physics_process(delta):
+	if knockback_dir:
+		velocity.x = knockback_dir * 100
+	
 	match state:
 		IDLE: 
 			idle()
@@ -126,7 +150,7 @@ func _physics_process(delta):
 
 func idle():
 	velocity.y = 0
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	
 	if not is_on_floor():
 		state = AIR
@@ -157,7 +181,7 @@ func idle():
 			
 func run():
 	velocity.y = 0
-	velocity.x = dir * speed
+	if not knockback_dir: velocity.x = dir * speed
 	
 	if not is_on_floor():
 		state = AIR
@@ -191,7 +215,7 @@ func run():
 	
 func air(delta):
 	velocity.y += gravity * delta
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	
 	if is_on_floor():
 		state = IDLE
@@ -201,7 +225,7 @@ func air(delta):
 	
 	
 func before_attack():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(BEFORE_ATTACK)
 	if !state_started:
@@ -213,7 +237,7 @@ func before_attack():
 	
 	
 func attack():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(ATTACK)
 	if !state_started:
@@ -224,7 +248,7 @@ func attack():
 			
 			
 func after_attack():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(AFTER_ATTACK)
 	if !state_started:
@@ -236,7 +260,7 @@ func after_attack():
 			
 			
 func before_ulti():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(BEFORE_ULTI)
 	if !state_started:
@@ -249,7 +273,7 @@ func before_ulti():
 	
 	
 func ulti():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(ULTI)
 	if !state_started:
@@ -260,7 +284,7 @@ func ulti():
 			
 			
 func after_ulti():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(AFTER_ULTI)
 	if !state_started:
@@ -273,7 +297,7 @@ func after_ulti():
 	
 	
 func dead():
-	velocity.x = 0
+	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
 	set_anim(DEAD)
 	if !state_started:
@@ -285,8 +309,10 @@ func dead():
 	
 func close_enough_to_attack():
 	# and abs(abs(player.global_position.y) - abs(global_position.y)) <= y_attack_dis
-	return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis else false
-
+	if can_ulti:
+		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_ulti else false
+	elif can_attack:
+		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_attack else false
 
 func _on_walking_timer_timeout():
 	if walking:
@@ -311,12 +337,20 @@ func _on_ulti_cooldown_timeout():
 
 
 func _on_eyes_body_entered(body):
+	can_attack = true
+	if not chasing:
+		$Qmark.frame = 0
+		$Qmark.visible = true
+		$Qmark.playing = true
 	$WalkingTimer.stop()
 	$ChaseTimer.stop()
+	$UltiCooldown.start()
 	see_player = true
 
 
 func _on_eyes_body_exited(body):
+	$UltiCooldown.stop()
+	can_ulti = false
 	see_player = false
 	chasing = true
 	$ChaseTimer.start()
@@ -339,3 +373,14 @@ func _on_check_for_trap_area_entered(area):
 
 func _on_check_for_trap_area_exited(area):
 	there_is_trap = false
+
+
+func _on_flashlight_timer_timeout():
+	if flashing == 1:
+		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.5)
+		flashing = 2
+		$FlashlightTimer.start()
+	elif flashing == 2:
+		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
+		flashing = 0
+		knockback_dir = 0

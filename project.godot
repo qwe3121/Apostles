@@ -38,7 +38,6 @@ export/convert_text_resources_to_binary=true
 
 [gui]
 
-theme/custom="res://themes/kenneyUI-red.tres"
 theme/custom_font="res://fonts/molot_font.tres"
 
 [input]
@@ -117,6 +116,7 @@ JUMP={
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="floor"
+2d_physics/layer_3="trap_detector_for_enemies"
 2d_physics/layer_4="trap_hitbox"
 2d_physics/layer_5="enemies"
 2d_physics/layer_32="roomsArea"
