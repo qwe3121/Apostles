@@ -116,7 +116,7 @@ JUMP={
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="floor"
-2d_physics/layer_3="trap_detector_for_enemies"
+2d_physics/layer_3="blocked_area_for_enemies"
 2d_physics/layer_4="trap_hitbox"
 2d_physics/layer_5="enemies"
 2d_physics/layer_32="roomsArea"

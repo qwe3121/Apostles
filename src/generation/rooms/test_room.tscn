@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bubwuri6fnq0a"]
+[gd_scene load_steps=7 format=3 uid="uid://bubwuri6fnq0a"]
 
 [ext_resource type="PackedScene" uid="uid://b74kh6au2xlly" path="res://src/tile_map16x16.tscn" id="2_66t56"]
+[ext_resource type="PackedScene" uid="uid://gbfbw5at7tb3" path="res://src/enemies/static_path/westerenka.tscn" id="3_vie4l"]
+[ext_resource type="PackedScene" uid="uid://slummu6bcuu7" path="res://src/enemies/blocked_area_for_enemies.tscn" id="4_7o41b"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="5_vyxbe"]
+
+[sub_resource type="Curve2D" id="Curve2D_5psmf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -173, -6, 0, 0, 0, 0, 154, -8)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eev6m"]
+size = Vector2(429, 60)
 
 [node name="TestRoom" type="Node2D"]
 
@@ -16,3 +27,13 @@ layer_0/tile_data = PackedInt32Array(4915200, 0, 0, 4980736, 0, 0, 5046272, 0, 0
 
 [node name="MK2" parent="." instance=ExtResource("5_vyxbe")]
 position = Vector2(1638, 1159)
+
+[node name="Westerenka" parent="." instance=ExtResource("3_vie4l")]
+position = Vector2(786, 1200)
+curve = SubResource("Curve2D_5psmf")
+
+[node name="BlockedAreaForEnemies" parent="." instance=ExtResource("4_7o41b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockedAreaForEnemies"]
+position = Vector2(768.5, 1170)
+shape = SubResource("RectangleShape2D_eev6m")

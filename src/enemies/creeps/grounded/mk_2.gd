@@ -32,7 +32,7 @@ var walking = 1 #1 is walking 0 is chilling
 
 var chasing = false
 
-var there_is_trap = false
+var there_is_blocked_area = false
 
 var hp = 4
 
@@ -52,31 +52,31 @@ func _ready():
 	
 
 
-func get_damage(value, k_dir):
+func get_damage(value, k_dir = 0):
 	hp -= value
 	if hp <= 0:
 		$ChaseTimer.stop()
 		$WalkingTimer.stop()
 		state = DEAD
 	elif not flashing:
-		global.camera.shake()
 		knockback_dir = k_dir
 		flashing = 1
 		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
 		$FlashlightTimer.start()
+	global.camera.shake()
 		
 func set_anim(animation_name):
 	if anim_dir == 1:
 		$AnimatedSprite2D.flip_h = true
 		$CheckForPit.position.x = 24.75
 		$EnemyHitbox.scale.x = -1
-		$CheckForTrap/CollisionShape2D.position.x = 31
+		$CheckForBlockedArea/CollisionShape2D.position.x = 31
 		$Eyes/CollisionShape2D.position.x = 37.25
 	elif anim_dir == -1:
 		$AnimatedSprite2D.flip_h = false
 		$CheckForPit.position.x = -24.75
 		$EnemyHitbox.scale.x = 1
-		$CheckForTrap/CollisionShape2D.position.x = -31
+		$CheckForBlockedArea/CollisionShape2D.position.x = -31
 		$Eyes/CollisionShape2D.position.x = -37.25
 	match animation_name:
 		IDLE: 
@@ -200,13 +200,13 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_trap) and not turned and not see_player and not chasing:
+	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
 		turned = true
 		$TurnedTimer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_trap) and (see_player or chasing):
+	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
 		set_anim(IDLE)
 	else:
@@ -367,12 +367,12 @@ func _on_chase_timer_timeout():
 	state = IDLE
 
 
-func _on_check_for_trap_area_entered(area):
-	there_is_trap = true
+func _on_check_for_blocked_area_area_entered(area):
+	there_is_blocked_area = true
 
 
-func _on_check_for_trap_area_exited(area):
-	there_is_trap = false
+func _on_check_for_blocked_area_area_exited(area):
+	there_is_blocked_area = false
 
 
 func _on_flashlight_timer_timeout():

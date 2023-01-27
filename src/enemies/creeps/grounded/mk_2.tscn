@@ -964,18 +964,16 @@ position = Vector2(-0.5, -17.375)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 
-[node name="CheckForTrap" type="Area2D" parent="."]
-visible = false
+[node name="CheckForBlockedArea" type="Area2D" parent="."]
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForTrap"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForBlockedArea"]
 position = Vector2(-31, -17.5)
 shape = SubResource("RectangleShape2D_h1hu4")
 
@@ -1014,8 +1012,10 @@ one_shot = true
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout"]
-[connection signal="area_entered" from="CheckForTrap" to="." method="_on_check_for_trap_area_entered" flags=18]
-[connection signal="area_exited" from="CheckForTrap" to="." method="_on_check_for_trap_area_exited" flags=18]
+[connection signal="area_entered" from="CheckForBlockedArea" to="." method="_on_check_for_trap_area_entered" flags=18]
+[connection signal="area_entered" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_entered"]
+[connection signal="area_exited" from="CheckForBlockedArea" to="." method="_on_check_for_trap_area_exited" flags=18]
+[connection signal="area_exited" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_exited"]
 [connection signal="body_entered" from="Eyes" to="." method="_on_eyes_body_entered" flags=18]
 [connection signal="body_exited" from="Eyes" to="." method="_on_eyes_body_exited" flags=18]
 [connection signal="timeout" from="TurnedTimer" to="." method="_on_turned_timer_timeout" flags=18]

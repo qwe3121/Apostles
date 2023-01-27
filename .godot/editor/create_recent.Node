@@ -1,12 +1,12 @@
+CollisionShape2D
+Area2D
 AnimationPlayer
 AnimatedSprite2D
 Timer
-Area2D
 Label
 CharacterBody2D
 Camera2D
 Sprite2D
-CollisionShape2D
 RayCast2D
 ColorRect
 TextureRect

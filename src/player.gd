@@ -49,11 +49,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 1
 
 
-func get_damage():
-	hp -= 1
-	if hp <= 0:
-		state_started = false
-		state = DEAD
+func get_damage(value):
+#	hp -= 1
+#	if hp <= 0:
+#		state_started = false
+#		state = DEAD
+	pass
 
 func set_dir():
 	dir = Input.get_axis("LEFT", "RIGHT")

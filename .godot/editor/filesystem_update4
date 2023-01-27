@@ -6,3 +6,8 @@ res://src/enemies/qmark.tscn
 res://src/enemies/static_path/basic_static_path_trap.tscn
 res://src/enemies/creeps/grounded/mk_1.tscn
 res://src/enemies/creeps/grounded/mk_2.gd
+res://src/enemies/trap_hitbox.tscn
+res://src/enemies/blocked_area_for_enemies.tscn
+res://src/enemies/static_path/westerenka.tscn
+res://src/enemies/trap_hitbox.gd
+res://src/player.gd
