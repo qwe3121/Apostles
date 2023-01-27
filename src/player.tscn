@@ -1,6 +1,7 @@
-[gd_scene load_steps=341 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=347 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
+[ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
 [ext_resource type="Texture2D" uid="uid://dlbtntefymj8n" path="res://sprites/player/air2.png" id="3_3ghpb"]
 [ext_resource type="Texture2D" uid="uid://c4c52pel7u3ei" path="res://sprites/player/crouch.png" id="3_oi8ox"]
 [ext_resource type="Texture2D" uid="uid://otuie4ycem16" path="res://sprites/player/dash.png" id="4_8cdn5"]
@@ -34,6 +35,22 @@
 [ext_resource type="Texture2D" uid="uid://cvntnxh5cmar" path="res://sprites/player/strong_attack_4.png" id="25_8qlhm"]
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
 [ext_resource type="Texture2D" uid="uid://ddo0ep4jm7g1p" path="res://sprites/FlashlightTextures/flashlight2.png" id="34_oj080"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
+atlas = ExtResource("2_dsqah")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op2ol"]
+atlas = ExtResource("2_dsqah")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2njth"]
+atlas = ExtResource("2_dsqah")
+region = Rect2(192, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23mp7"]
+atlas = ExtResource("2_dsqah")
+region = Rect2(288, 0, 96, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u4ug"]
 atlas = ExtResource("3_oi8ox")
@@ -1117,6 +1134,23 @@ region = Rect2(1170, 0, 130, 88)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nqx8a"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxd7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op2ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2njth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23mp7")
+}],
+"loop": true,
+"name": &"Block",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2u4ug")
@@ -4393,8 +4427,73 @@ tracks/5/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_6s6d0"]
+resource_name = "Block"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Block"]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:shape:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 90)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -45)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u6j56"]
 _data = {
+"Block": SubResource("Animation_6s6d0"),
 "Crouch": SubResource("Animation_h0vhc"),
 "Dash": SubResource("Animation_b57tr"),
 "FirstAir": SubResource("Animation_tgung"),
@@ -4495,6 +4594,26 @@ visible = false
 
 [node name="LeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 position = Vector2(-17, 0)
+rotation = 3.14159
+target_position = Vector2(0, 90.5)
+collision_mask = 6
+hit_from_inside = true
+
+[node name="MiddleRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+rotation = 3.14159
+target_position = Vector2(0, 90.5)
+collision_mask = 6
+hit_from_inside = true
+
+[node name="MiddleLeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+position = Vector2(-8, 0)
+rotation = 3.14159
+target_position = Vector2(0, 90.5)
+collision_mask = 6
+hit_from_inside = true
+
+[node name="MiddleRightRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+position = Vector2(9, 0)
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6

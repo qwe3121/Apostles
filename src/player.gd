@@ -6,7 +6,7 @@ var np = false
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
 
-enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1, 
+enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
@@ -27,6 +27,8 @@ var wall_dir = 0
 var weak_combo_index = 1
 var strong_combo_index = 1
 var jump_attack_index = 1
+
+var blocking = false
 
 var jump_index = 1
 var pre_jump = 1
@@ -49,12 +51,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 1
 
 
-func get_damage(value):
-#	hp -= 1
-#	if hp <= 0:
-#		state_started = false
-#		state = DEAD
-	pass
+func get_damage(can_block: bool = true):
+	if can_block and blocking:
+		return
+	hp -= 1
+	if hp <= 0:
+		state_started = false
+		state = DEAD
 
 func set_dir():
 	dir = Input.get_axis("LEFT", "RIGHT")
@@ -137,6 +140,8 @@ func set_anim(animation_name):
 			anim.play("SecondJumpAttack3", -1, 1, false)
 #		DEAD:
 #			anim.play("Dead", -1, 1, false)
+		BLOCK:
+			anim.play("Block", -1, 1, false)
 				
 				
 				
@@ -221,6 +226,9 @@ func _physics_process(delta):
 		DEAD:
 			$Label.text = "DEAD"
 			dead(delta)
+		BLOCK:
+			$Label.text = "BLOCK"
+			block()
 			
 	move_and_slide()
 
@@ -247,6 +255,13 @@ func idle():
 		if np:
 			print("from idle to DASH")
 		state = DASH
+		return
+		
+	if Input.is_action_pressed("BLOCK"):
+		if np:
+			print("from idle to block")
+		blocking = true
+		state = BLOCK
 		return
 
 	if Input.is_action_pressed("RMB ATTACK"):
@@ -344,6 +359,13 @@ func run():
 		if np:
 			print("from run to DASH")
 		state = DASH
+		return
+		
+	if Input.is_action_pressed("BLOCK"):
+		if np:
+			print("from run to block")
+		blocking = true
+		state = BLOCK
 		return
 		
 	if Input.is_action_pressed("RMB ATTACK"):
@@ -1025,6 +1047,17 @@ func second_jump_attack_3():
 			if np:
 				print("from SECOND_JUMP_ATTACK_3 to AIR")
 			state = AIR
+			
+			
+func block():
+	velocity.x = 0
+	velocity.y = 0
+	set_anim(BLOCK)
+	if not Input.is_action_pressed("BLOCK"):
+		if np:
+			print("from block to idle")
+		blocking = false
+		state = IDLE
 
 
 func _on_hitbox_body_entered(body):

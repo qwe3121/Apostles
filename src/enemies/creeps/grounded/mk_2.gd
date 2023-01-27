@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 
-@export var speed = 100
+@export var speed = 150
 
-@export var x_attack_dis_attack = 45
-@export var x_attack_dis_ulti = 125
+@export var x_attack_dis_attack = 70
+@export var x_attack_dis_ulti = 140
 #@export var y_attack_dis = 50
 
 var see_player = false
@@ -34,6 +34,8 @@ var chasing = false
 
 var there_is_blocked_area = false
 
+var is_on_wall
+
 var hp = 4
 
 var turned = false
@@ -41,7 +43,7 @@ var turned = false
 var flashing = 0
 var knockback_dir = 0
 
-var shake_amount = 100.0
+var player_is_inside = false
 
 
 func _ready():
@@ -72,12 +74,14 @@ func set_anim(animation_name):
 		$EnemyHitbox.scale.x = -1
 		$CheckForBlockedArea/CollisionShape2D.position.x = 31
 		$Eyes/CollisionShape2D.position.x = 37.25
+		$WallDetector/CollisionShape2D.position.x = 18.25
 	elif anim_dir == -1:
 		$AnimatedSprite2D.flip_h = false
 		$CheckForPit.position.x = -24.75
 		$EnemyHitbox.scale.x = 1
 		$CheckForBlockedArea/CollisionShape2D.position.x = -31
 		$Eyes/CollisionShape2D.position.x = -37.25
+		$WallDetector/CollisionShape2D.position.x = -18.25
 	match animation_name:
 		IDLE: 
 			if chasing or see_player:
@@ -106,6 +110,7 @@ func set_anim(animation_name):
 			
 			
 func set_dir():
+	if player_is_inside: return
 	if global_position.x < global.player.global_position.x:
 		dir = 1
 	else:
@@ -200,13 +205,13 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
+	if (is_on_wall or not $CheckForPit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
 		turned = true
 		$TurnedTimer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall() or not $CheckForPit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
+	if (is_on_wall or not $CheckForPit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
 		set_anim(IDLE)
 	else:
@@ -384,3 +389,19 @@ func _on_flashlight_timer_timeout():
 		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
 		knockback_dir = 0
+
+
+func _on_wall_detector_body_entered(body):
+	is_on_wall = true
+
+
+func _on_wall_detector_body_exited(body):
+	is_on_wall = false
+
+
+func _on_check_if_player_inside_body_entered(body):
+	player_is_inside = true
+
+
+func _on_check_if_player_inside_body_exited(body):
+	player_is_inside = false
