@@ -20,6 +20,7 @@ func _ready():
 	update_action_event("DOWN")
 	update_action_event("JUMP")
 	update_action_event("LMB ATTACK")
+	update_action_event("BLOCK")
 	events.emit_signal("ready_to_load_keys_containers")
 	
 	
@@ -102,4 +103,5 @@ func _on_back_to_defaults_pressed():
 			update_action_event("DOWN", true)
 			update_action_event("JUMP", true)
 			update_action_event("LMB ATTACK", true)
+			update_action_event("BLOCK", true)
 			events.emit_signal("ready_to_load_keys_containers")

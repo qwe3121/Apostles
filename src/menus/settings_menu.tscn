@@ -258,6 +258,10 @@ action = "DOWN"
 layout_mode = 2
 action = "LMB ATTACK"
 
+[node name="ActionContainer10" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "BLOCK"
+
 [node name="BackToMainMenu" type="Button" parent="."]
 layout_mode = 0
 offset_left = 10.0

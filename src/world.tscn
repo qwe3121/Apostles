@@ -230,9 +230,9 @@ motion_mirroring = Vector2(2560, 1200)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Parallax/Rain"]
 modulate = Color(0, 1, 1, 0.372549)
 scale = Vector2(2, 2)
-frames = SubResource("SpriteFrames_nl81k")
+sprite_frames = SubResource("SpriteFrames_nl81k")
 animation = &"Raining"
-playing = true
+autoplay = "Raining"
 
 [node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
 position = Vector2(0, -1296)

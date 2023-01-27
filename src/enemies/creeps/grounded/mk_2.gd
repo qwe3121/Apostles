@@ -47,6 +47,7 @@ var player_is_inside = false
 
 
 func _ready():
+	$PointLight2D.enabled = false
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
 	$EnemyHitbox/AttackCollision.disabled = true
 	$EnemyHitbox/UltiCollision.disabled = true
@@ -75,6 +76,7 @@ func set_anim(animation_name):
 		$CheckForBlockedArea/CollisionShape2D.position.x = 31
 		$Eyes/CollisionShape2D.position.x = 37.25
 		$WallDetector/CollisionShape2D.position.x = 18.25
+		$PointLight2D.position.x = 28.5
 	elif anim_dir == -1:
 		$AnimatedSprite2D.flip_h = false
 		$CheckForPit.position.x = -24.75
@@ -82,6 +84,7 @@ func set_anim(animation_name):
 		$CheckForBlockedArea/CollisionShape2D.position.x = -31
 		$Eyes/CollisionShape2D.position.x = -37.25
 		$WallDetector/CollisionShape2D.position.x = -18.25
+		$PointLight2D.position.x = -28.5
 	match animation_name:
 		IDLE: 
 			if chasing or see_player:
@@ -345,9 +348,10 @@ func _on_ulti_cooldown_timeout():
 func _on_eyes_body_entered(body):
 	can_attack = true
 	if not chasing:
-		$Qmark.frame = 0
+#		$Qmark.frame = 0
 		$Qmark.visible = true
-		$Qmark.playing = true
+#		$Qmark.playing = true
+		$Qmark.play("popup")
 	$WalkingTimer.stop()
 	$ChaseTimer.stop()
 	$UltiCooldown.start()

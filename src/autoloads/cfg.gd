@@ -14,7 +14,8 @@ var default_keys = {
 	"LEFT": [KEY_A, "InputEventKey"],
 	"DOWN": [KEY_S, "InputEventKey"], 
 	"JUMP": [KEY_SPACE, "InputEventKey"],
-	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"]
+	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"],
+	"BLOCK": [KEY_C, "InputEventKey"]
 }
 
 
@@ -42,7 +43,8 @@ func load_data():
 			"LEFT": [KEY_A, "InputEventKey"],
 			"DOWN": [KEY_S, "InputEventKey"], 
 			"JUMP": [KEY_SPACE, "InputEventKey"],
-			"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"]
+			"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"], 
+			"BLOCK": [KEY_C, "InputEventKey"],
 		}
 		save_data()
 		return

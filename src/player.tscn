@@ -4540,7 +4540,7 @@ script = ExtResource("1_jdkiv")
 light_mask = 0
 position = Vector2(0, -50)
 scale = Vector2(2, 2)
-frames = SubResource("SpriteFrames_nqx8a")
+sprite_frames = SubResource("SpriteFrames_nqx8a")
 animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -4667,14 +4667,13 @@ position_smoothing_speed = 8.0
 script = ExtResource("33_vq8xm")
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
-visible = false
 offset_left = -2395.0
 offset_top = -1632.0
 offset_right = 2621.0
 offset_bottom = 1505.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0588235, 0.0588235, 0.0588235, 0.317647)
+color = Color(0.0588235, 0.0588235, 0.0588235, 0.156863)
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0

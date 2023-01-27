@@ -216,7 +216,7 @@ animations = [{
 
 [node name="Qmark" type="AnimatedSprite2D"]
 visible = false
-frames = SubResource("SpriteFrames_vg4x0")
+sprite_frames = SubResource("SpriteFrames_vg4x0")
 animation = &"popup"
 speed_scale = 3.0
 script = ExtResource("2_12k00")
