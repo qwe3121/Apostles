@@ -154,9 +154,6 @@ func _physics_process(delta):
 
 
 func idle():
-	velocity.y = 0
-	if not knockback_dir: velocity.x = 0
-	
 	if not is_on_floor():
 		state = AIR
 		return
@@ -182,12 +179,12 @@ func idle():
 			return
 			
 	set_anim(IDLE)
+	
+	velocity.y = 0
+	if not knockback_dir: velocity.x = 0
 			
 			
 func run():
-	velocity.y = 0
-	if not knockback_dir: velocity.x = dir * speed
-	
 	if not is_on_floor():
 		state = AIR
 		return
@@ -216,23 +213,26 @@ func run():
 		set_anim(IDLE)
 	else:
 		set_anim(RUN)
+		
+	velocity.y = 0
+	if not knockback_dir: velocity.x = dir * speed
 	
 	
 func air(delta):
-	velocity.y += gravity * delta
-	if not knockback_dir: velocity.x = 0
-	
 	if is_on_floor():
 		state = IDLE
 		return
 		
 	set_anim(AIR)
 	
+	velocity.y += gravity * delta
+	if not knockback_dir: velocity.x = 0
+	
 	
 func before_attack():
+	set_anim(BEFORE_ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(BEFORE_ATTACK)
 	if !state_started:
 		state_started = true
 		can_attack = false
@@ -242,9 +242,9 @@ func before_attack():
 	
 	
 func attack():
+	set_anim(ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(ATTACK)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -253,9 +253,9 @@ func attack():
 			
 			
 func after_attack():
+	set_anim(AFTER_ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(AFTER_ATTACK)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -265,9 +265,9 @@ func after_attack():
 			
 			
 func before_ulti():
+	set_anim(BEFORE_ULTI)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(BEFORE_ULTI)
 	if !state_started:
 		state_started = true
 		can_attack = false
@@ -278,9 +278,9 @@ func before_ulti():
 	
 	
 func ulti():
+	set_anim(ULTI)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(ULTI)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -289,9 +289,9 @@ func ulti():
 			
 			
 func after_ulti():
+	set_anim(AFTER_ULTI)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(AFTER_ULTI)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -302,9 +302,9 @@ func after_ulti():
 	
 	
 func dead():
+	set_anim(DEAD)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
-	set_anim(DEAD)
 	if !state_started:
 		state_started = true
 #		await anim.animation_finished
@@ -316,8 +316,9 @@ func close_enough_to_attack():
 	# and abs(abs(player.global_position.y) - abs(global_position.y)) <= y_attack_dis
 	if can_ulti:
 		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_ulti else false
-	elif can_attack:
+	else:
 		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_attack else false
+
 
 func _on_walking_timer_timeout():
 	if walking:

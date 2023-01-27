@@ -1,12 +1,8 @@
-res://src/enemies/blocked_area_for_enemies.tscn
-res://src/player.tscn
 res://src/enemies/creeps/grounded/mk_2.tscn
-res://src/generation/rooms/test_room.tscn
-res://src/player.gd
-res://src/enemies/enemy_hitbox.gd
 res://src/enemies/creeps/grounded/mk_2.gd
+res://src/player.tscn
+res://src/generation/rooms/test_room.tscn
+res://src/enemies/blocked_area_for_enemies.tscn
 res://src/world.tscn
-res://src/tile_map16x16.tscn
 res://src/tile_map_32x_32.tscn
-res://src/tile_map_64x_64.tscn
-res://src/enemies/trap_hitbox.gd
+res://src/player.gd

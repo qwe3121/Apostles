@@ -26,11 +26,11 @@ color = Color(0, 0, 0, 0.419608)
 position = Vector2(1536, 1164)
 
 [node name="Westerenka" parent="." instance=ExtResource("3_vie4l")]
-position = Vector2(621, 586)
+position = Vector2(2010, 1216)
 curve = SubResource("Curve2D_5psmf")
 
 [node name="BlockedAreaForEnemies" parent="." instance=ExtResource("4_7o41b")]
-position = Vector2(-165, -614)
+position = Vector2(1224, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlockedAreaForEnemies"]
 position = Vector2(768.5, 1170)

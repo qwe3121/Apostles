@@ -234,9 +234,6 @@ func _physics_process(delta):
 
 
 func idle():
-	velocity.x = 0
-	velocity.y = 0
-	
 	if dir:
 		if np:
 			print("from idle to run")
@@ -334,19 +331,12 @@ func idle():
 		
 	set_anim(IDLE)
 	set_dir()
+	
+	velocity.x = 0
+	velocity.y = 0
 		
 		
 func run():
-	velocity.y = 0
-	
-	if dir:
-		velocity.x = dir * speed
-	else:
-		if np:
-			print("from run to idle")
-		state = IDLE
-		return
-		
 	if not is_on_floor():
 		if np:
 			print("from idle to air")
@@ -439,15 +429,17 @@ func run():
 	set_anim(RUN)
 	set_dir()
 	
-
-func air(delta):
-	velocity.y += gravity * delta
-	
+	velocity.y = 0
 	if dir:
 		velocity.x = dir * speed
 	else:
-		velocity.x = 0
-		
+		if np:
+			print("from run to idle")
+		state = IDLE
+		return
+	
+
+func air(delta):
 	if is_on_floor():
 		if np:
 			print("from air to landing")
@@ -528,19 +520,16 @@ func air(delta):
 	set_anim(AIR)
 	update_wall_direction()
 	set_dir()
-
-
-func jump(delta):
+	
 	velocity.y += gravity * delta
 	
-	if wall_jumping:
-		velocity.x += -wall_dir * speed * 25 * delta #было 50
-		velocity.y = jump_velocity
-	elif dir:
+	if dir:
 		velocity.x = dir * speed
 	else:
 		velocity.x = 0
-	
+
+
+func jump(delta):
 	if is_on_floor() and jump_index == 1:
 		pre_jump = 1
 		jump_index = 2
@@ -626,6 +615,16 @@ func jump(delta):
 	update_wall_direction()
 	if !wall_jumping:
 		set_dir()
+		
+	velocity.y += gravity * delta
+	
+	if wall_jumping:
+		velocity.x += -wall_dir * speed * 25 * delta #было 50
+		velocity.y = jump_velocity
+	elif dir:
+		velocity.x = dir * speed
+	else:
+		velocity.x = 0
 	
 		
 func _on_from_jump_to_air_timer_timeout():
@@ -635,9 +634,6 @@ func _on_from_jump_to_air_timer_timeout():
 
 
 func sit():
-	velocity.x = 0
-	velocity.y = 0
-	
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
@@ -673,10 +669,11 @@ func sit():
 	set_anim(SIT)
 	set_dir()
 	
-	
-func crouch():
+	velocity.x = 0
 	velocity.y = 0
 	
+	
+func crouch():
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
@@ -688,14 +685,6 @@ func crouch():
 				print("from crouch to jump")
 			state = JUMP
 			return
-			
-	if dir:
-		velocity.x = dir * speed / 2
-	else:
-		if np:
-			print("from crouch to sit")
-		state = SIT
-		return
 		
 	if not is_on_floor():
 		if np:
@@ -714,6 +703,15 @@ func crouch():
 	set_anim(CROUCH)
 	set_dir()
 	
+	velocity.y = 0
+	
+	if dir:
+		velocity.x = dir * speed / 2
+	else:
+		if np:
+			print("from crouch to sit")
+		state = SIT
+		return
 	
 func update_wall_direction():
 	var is_near_wall_left = check_is_valid_wall(left_wall_raycasts)
@@ -750,9 +748,6 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
-	velocity.y += gravity / 6 * delta
-	velocity.x = wall_dir * speed
-	
 	if Input.is_action_pressed("JUMP"):
 		$WallSlideCooldown.start()
 		wall_jumping = true
@@ -781,14 +776,15 @@ func wall_slide(delta):
 	set_anim(WALL_SLIDE)
 	update_wall_direction()
 	
+	velocity.y += gravity / 6 * delta
+	velocity.x = wall_dir * speed
+	
 	
 func _on_wall_slide_cooldown_timeout():
 	wall_jumping = false
 	
 	
 func dash():
-	velocity.x = anim_dir * speed * 12
-	velocity.y = 0
 	set_anim(DASH)
 	if !state_started:
 		state_started = true
@@ -798,11 +794,12 @@ func dash():
 				print("from dash to AIR")
 			pre_jump = 2
 			state = AIR
+			
+	velocity.x = anim_dir * speed * 12
+	velocity.y = 0
 		
 		
 func roll():
-	velocity.x = anim_dir * speed * 3
-	velocity.y = 0
 	if not is_on_floor():
 		jump_index = 2
 		if np:
@@ -817,6 +814,9 @@ func roll():
 			if np:
 				print("from ROLL to SIT")
 			state = SIT
+			
+	velocity.x = anim_dir * speed * 3
+	velocity.y = 0
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -827,9 +827,9 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func weak_attack_1():
+	set_anim(WEAK_ATTACK_1)
 	velocity.x = anim_dir * speed / 8
 	velocity.y = 0
-	set_anim(WEAK_ATTACK_1)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -840,9 +840,9 @@ func weak_attack_1():
 			
 			
 func weak_attack_2():
+	set_anim(WEAK_ATTACK_2)
 	velocity.x = anim_dir * speed / 8
 	velocity.y = 0
-	set_anim(WEAK_ATTACK_2)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -853,9 +853,9 @@ func weak_attack_2():
 			
 			
 func weak_attack_3():
+	set_anim(WEAK_ATTACK_3)
 	velocity.x = anim_dir * speed / 8
 	velocity.y = 0
-	set_anim(WEAK_ATTACK_3)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -866,9 +866,9 @@ func weak_attack_3():
 		
 		
 func weak_attack_4():
+	set_anim(WEAK_ATTACK_4)
 	velocity.x = anim_dir * speed / 8
 	velocity.y = 0
-	set_anim(WEAK_ATTACK_4)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -883,9 +883,9 @@ func _on_weak_combo_timer_timeout():
 	
 
 func strong_attack_1():
+	set_anim(STRONG_ATTACK_1)
 	velocity.x = anim_dir * speed / 5
 	velocity.y = 0
-	set_anim(STRONG_ATTACK_1)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -896,9 +896,9 @@ func strong_attack_1():
 			
 			
 func strong_attack_2():
+	set_anim(STRONG_ATTACK_2)
 	velocity.x = anim_dir * speed / 5
 	velocity.y = 0
-	set_anim(STRONG_ATTACK_2)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -909,9 +909,9 @@ func strong_attack_2():
 			
 			
 func strong_attack_3():
+	set_anim(STRONG_ATTACK_3)
 	velocity.y = 0
 	velocity.x = anim_dir * speed / 5
-	set_anim(STRONG_ATTACK_3)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -922,9 +922,9 @@ func strong_attack_3():
 			
 			
 func strong_attack_4(delta):
+	set_anim(STRONG_ATTACK_4)
 	velocity.x = anim_dir * speed / 5
 	velocity.y += gravity * 15 * delta 
-	set_anim(STRONG_ATTACK_4)
 	if !state_started:
 		velocity.y = jump_velocity * 3
 		state_started = true
@@ -945,8 +945,6 @@ func _on_adrenaline_timer_timeout():
 
 
 func landing():
-	velocity.x = dir * speed
-	velocity.y = 0
 	set_anim(LANDING)
 	set_dir()
 	if not is_on_floor():
@@ -956,6 +954,8 @@ func landing():
 			print("from landing to AIR")
 		state = AIR
 		return
+	velocity.x = dir * speed
+	velocity.y = 0
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -966,9 +966,9 @@ func landing():
 
 
 func first_jump_attack_1():
+	set_anim(FIRST_JUMP_ATTACK_1)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(FIRST_JUMP_ATTACK_1)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -980,9 +980,9 @@ func first_jump_attack_1():
 	
 	
 func first_jump_attack_2():
+	set_anim(FIRST_JUMP_ATTACK_2)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(FIRST_JUMP_ATTACK_2)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -994,9 +994,9 @@ func first_jump_attack_2():
 	
 	
 func first_jump_attack_3():
+	set_anim(FIRST_JUMP_ATTACK_3)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(FIRST_JUMP_ATTACK_3)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1008,9 +1008,9 @@ func first_jump_attack_3():
 	
 	
 func second_jump_attack_1():
+	set_anim(SECOND_JUMP_ATTACK_1)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(SECOND_JUMP_ATTACK_1)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1022,9 +1022,9 @@ func second_jump_attack_1():
 	
 	
 func second_jump_attack_2():
+	set_anim(SECOND_JUMP_ATTACK_2)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(SECOND_JUMP_ATTACK_2)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1036,9 +1036,9 @@ func second_jump_attack_2():
 	
 	
 func second_jump_attack_3():
+	set_anim(SECOND_JUMP_ATTACK_3)
 	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
-	set_anim(SECOND_JUMP_ATTACK_3)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1050,9 +1050,9 @@ func second_jump_attack_3():
 			
 			
 func block():
+	set_anim(BLOCK)
 	velocity.x = 0
 	velocity.y = 0
-	set_anim(BLOCK)
 	if not Input.is_action_pressed("BLOCK"):
 		if np:
 			print("from block to idle")
@@ -1068,9 +1068,9 @@ func _on_hitbox_body_entered(body):
 	
 	
 func dead(delta):
+	set_anim(DEAD)
 	velocity.y += gravity * delta
 	velocity.y = 0
-	set_anim(DEAD)
 	if !state_started:
 		state_started = true
 #		await anim.animation_finished
