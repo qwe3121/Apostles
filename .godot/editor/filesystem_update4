@@ -5,9 +5,7 @@ res://src/enemies/blocked_area_for_enemies.tscn
 res://src/world.tscn
 res://src/tile_map_32x_32.tscn
 res://src/enemies/qmark.tscn
-res://src/enemies/creeps/grounded/mk_2.gd
 res://src/rain_control.tscn
-res://src/autoloads/cfg.gd
-res://src/menus/settings_menu.gd
 res://src/menus/settings_menu.tscn
 res://src/player.gd
+res://src/enemies/hitted.gdshader

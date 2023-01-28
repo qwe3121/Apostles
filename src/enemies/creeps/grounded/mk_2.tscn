@@ -566,7 +566,8 @@ _data = {
 "ulti": SubResource("Animation_55rv8")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gx3bm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2y8v3"]
+resource_local_to_scene = true
 shader = ExtResource("2_or4rp")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
@@ -1057,7 +1058,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_gx3bm")
+material = SubResource("ShaderMaterial_2y8v3")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
 animation = &"after_attack"

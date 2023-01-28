@@ -52,7 +52,7 @@ var hp = 1
 
 
 func get_damage(can_block: bool = true):
-	if can_block and blocking:
+	if (can_block and blocking) or state == ROLL or state == DASH:
 		return
 	hp -= 1
 	if hp <= 0:
