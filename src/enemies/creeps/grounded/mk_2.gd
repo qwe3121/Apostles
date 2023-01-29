@@ -11,6 +11,8 @@ var see_player = false
 
 @onready var anim = $AnimationPlayer
 
+var blood_drop_1 = preload("res://src/base_blood_drop.tscn")
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR}
@@ -26,7 +28,7 @@ var anim_dir = 1
 var state_started = false
 
 var can_attack = true
-var can_ulti = false
+var can_ulti = true
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -69,22 +71,14 @@ func get_damage(value, k_dir = 0):
 	global.camera.shake()
 		
 func set_anim(animation_name):
-	if anim_dir == 1:
-		$AnimatedSprite2D.flip_h = true
-		$CheckForPit.position.x = 24.75
-		$EnemyHitbox.scale.x = -1
-		$CheckForBlockedArea/CollisionShape2D.position.x = 31
-		$Eyes/CollisionShape2D.position.x = 37.25
-		$WallDetector/CollisionShape2D.position.x = 18.25
-		$PointLight2D.position.x = 28.5
-	elif anim_dir == -1:
-		$AnimatedSprite2D.flip_h = false
-		$CheckForPit.position.x = -24.75
-		$EnemyHitbox.scale.x = 1
-		$CheckForBlockedArea/CollisionShape2D.position.x = -31
-		$Eyes/CollisionShape2D.position.x = -37.25
-		$WallDetector/CollisionShape2D.position.x = -18.25
-		$PointLight2D.position.x = -28.5
+	$AnimatedSprite2D.flip_h = anim_dir == 1
+	$CheckForPit.position.x = 24.75 * anim_dir
+	$EnemyHitbox.scale.x = -1 * anim_dir
+	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
+	$Eyes/CollisionShape2D.position.x = 37.25 * anim_dir
+	$WallDetector/CollisionShape2D.position.x = 18.25 * anim_dir
+	$PointLight2D.position.x = 28.5 * anim_dir
+
 	match animation_name:
 		IDLE: 
 			if chasing or see_player:
@@ -264,6 +258,10 @@ func after_attack():
 		await anim.animation_finished
 		if state == AFTER_ATTACK:
 			$AttackCooldown.start()
+			if not see_player:
+				chasing = false
+				walking = 0
+				walking_timer()
 			state = IDLE
 			
 			
@@ -301,6 +299,10 @@ func after_ulti():
 		if state == AFTER_ULTI:
 			$UltiCooldown.start()
 			$AttackCooldown.start()
+			if not see_player:
+				chasing = false
+				walking = 0
+				walking_timer()
 			state = IDLE
 	
 	
@@ -311,6 +313,10 @@ func dead():
 	if !state_started:
 		state_started = true
 #		await anim.animation_finished
+		for blood_drop in range(randi_range(100, 200)):
+			var blood_drop_instance = blood_drop_1.instantiate()
+			get_parent().add_child(blood_drop_instance)
+			blood_drop_instance.global_position = $BloodPos.global_position
 		if state == DEAD:
 			queue_free()
 	
@@ -346,24 +352,19 @@ func _on_ulti_cooldown_timeout():
 
 
 func _on_eyes_body_entered(body):
-	can_attack = true
 	if not chasing:
-#		$Qmark.frame = 0
 		$Qmark.visible = true
-#		$Qmark.playing = true
 		$Qmark.play("popup")
 	$WalkingTimer.stop()
 	$ChaseTimer.stop()
-	$UltiCooldown.start()
 	see_player = true
 
 
 func _on_eyes_body_exited(body):
-	$UltiCooldown.stop()
-	can_ulti = false
 	see_player = false
-	chasing = true
-	$ChaseTimer.start()
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+		chasing = true
+		$ChaseTimer.start()
 
 
 func _on_turned_timer_timeout():
