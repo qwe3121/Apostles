@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqjhvj7ssot1l"
-path="res://.godot/imported/blood_drop_1.png-c4f180ce51c27b2ceb6498f0649a7fc6.ctex"
+uid="uid://b5qc0p6y7wqgf"
+path="res://.godot/imported/dbtrace1.png-b0e02e095418ad942bf617e3719d2e90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blood_drops/blood_drop_1.png"
-dest_files=["res://.godot/imported/blood_drop_1.png-c4f180ce51c27b2ceb6498f0649a7fc6.ctex"]
+source_file="res://sprites/blood/traces/dbtrace1.png"
+dest_files=["res://.godot/imported/dbtrace1.png-b0e02e095418ad942bf617e3719d2e90.ctex"]
 
 [params]
 

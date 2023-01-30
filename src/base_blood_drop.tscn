@@ -1,28 +1,96 @@
-[gd_scene load_steps=4 format=3 uid="uid://tsmq4xlcncgq"]
+[gd_scene load_steps=11 format=3 uid="uid://tsmq4xlcncgq"]
 
-[ext_resource type="Texture2D" uid="uid://dqjhvj7ssot1l" path="res://sprites/blood_drops/blood_drop_1.png" id="1_1gdi5"]
 [ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
+[ext_resource type="Texture2D" uid="uid://jqfyxaubbe27" path="res://sprites/blood/drops/bdrop1.png" id="2_wrk63"]
+[ext_resource type="Texture2D" uid="uid://m5xcaojda65x" path="res://sprites/blood/traces/lbtrace1.png" id="3_4rq3m"]
+[ext_resource type="Texture2D" uid="uid://m2100d0r6d6i" path="res://sprites/blood/traces/rbtrace1.png" id="4_4g5ic"]
+[ext_resource type="Texture2D" uid="uid://crtmf07vj1grr" path="res://sprites/blood/traces/ubtrace1.png" id="5_ydh2f"]
+[ext_resource type="Texture2D" uid="uid://b5qc0p6y7wqgf" path="res://sprites/blood/traces/dbtrace1.png" id="6_cds0m"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_c3hh3"]
-radius = 2.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwl7w"]
+size = Vector2(1, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxs7y"]
+size = Vector2(1, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1jvl"]
+size = Vector2(11, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsvm"]
+size = Vector2(11, 1)
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
 script = ExtResource("1_24vj7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1gdi5")
+[node name="Drop" type="Sprite2D" parent="."]
+texture = ExtResource("2_wrk63")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+[node name="Left" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-22, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("3_4rq3m")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -4)
-shape = SubResource("CircleShape2D_c3hh3")
+[node name="Right" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(21, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("4_4g5ic")
+
+[node name="Up" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -21)
+scale = Vector2(2, 2)
+texture = ExtResource("5_ydh2f")
+
+[node name="Down" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 20)
+scale = Vector2(2, 2)
+texture = ExtResource("6_cds0m")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="LeftCol" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+collision_priority = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCol"]
+position = Vector2(-5.5, -0.5)
+shape = SubResource("RectangleShape2D_qwl7w")
+
+[node name="RightCol" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+collision_priority = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCol"]
+position = Vector2(4.5, -0.5)
+shape = SubResource("RectangleShape2D_rxs7y")
+
+[node name="UpCol" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+collision_priority = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpCol"]
+position = Vector2(-0.5, -4.5)
+shape = SubResource("RectangleShape2D_j1jvl")
+
+[node name="DownCol" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+collision_priority = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownCol"]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_pnsvm")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="LeftCol" to="." method="_on_left_col_body_entered"]
+[connection signal="body_entered" from="RightCol" to="." method="_on_right_col_body_entered"]
+[connection signal="body_entered" from="UpCol" to="." method="_on_up_col_body_entered"]
+[connection signal="body_entered" from="DownCol" to="." method="_on_down_col_body_entered"]

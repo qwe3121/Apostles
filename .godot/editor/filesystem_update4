@@ -1,9 +1,5 @@
-res://src/world.tscn
-res://src/enemies/creeps/grounded/mk_2.tscn
 res://src/base_blood_drop.tscn
 res://src/base_blood_drop.gd
-res://src/enemies/creeps/grounded/mk_2.gd
 res://src/player.tscn
-res://src/generation/rooms/test_room.tscn
-res://src/enemies/blocked_area_for_enemies.tscn
-res://src/autoloads/cfg.gd
+res://src/world.tscn
+res://src/enemies/creeps/grounded/mk_2.gd

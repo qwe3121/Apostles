@@ -1,11 +1,13 @@
-Timer
-Node2D
 CollisionShape2D
 Area2D
 Sprite2D
+SubViewport
+Control
+TextureRect
+Timer
+Node2D
 CharacterBody2D
 GPUParticles2D
-Control
 PointLight2D
 TileMap
 Label
@@ -14,7 +16,6 @@ AnimatedSprite2D
 Camera2D
 RayCast2D
 ColorRect
-TextureRect
 ParallaxLayer
 CanvasModulate
 DirectionalLight2D
