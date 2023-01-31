@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=48 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="4_ih2g2"]
 [ext_resource type="Texture2D" uid="uid://bvwpadvlmypcm" path="res://sprites/Oblaka_1_ALL.png" id="4_qtr0e"]
 [ext_resource type="Texture2D" uid="uid://cb65lnt2pu1tq" path="res://sprites/Paralaks6.png" id="6_c3oir"]
 [ext_resource type="Texture2D" uid="uid://dy33vtlluknq1" path="res://sprites/Paralaks1_Light5.png" id="6_rgl0s"]
+[ext_resource type="Shader" path="res://src/wind_sway.gdshader" id="8_h6pdf"]
 [ext_resource type="Texture2D" uid="uid://cojtabxrc4x8i" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-0.png" id="9_acnr4"]
 [ext_resource type="Texture2D" uid="uid://n61nlc7rghsl" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-1.png" id="10_2tkt8"]
 [ext_resource type="Texture2D" uid="uid://dd13dwqrpylgf" path="res://sprites/Paralaks1_var_2.png" id="10_mnjiu"]
@@ -27,6 +28,18 @@
 [ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
 [ext_resource type="PackedScene" uid="uid://bubwuri6fnq0a" path="res://src/generation/rooms/test_room.tscn" id="27_4785v"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
+shader = ExtResource("8_h6pdf")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.161
+shader_parameter/maxStrength = 0.371
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o36q2"]
 atlas = ExtResource("9_acnr4")
@@ -221,6 +234,7 @@ motion_mirroring = Vector2(10000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Forest"]
 texture_filter = 2
+material = SubResource("ShaderMaterial_cemph")
 texture = ExtResource("6_c3oir")
 
 [node name="Rain" type="ParallaxLayer" parent="Parallax"]

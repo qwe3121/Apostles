@@ -308,10 +308,10 @@ func dead():
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
-		for c in range(10):
-			var blood_drop_instance = blood_drop_1.instantiate()
-			get_parent().add_child(blood_drop_instance)
-			blood_drop_instance.global_position = $BloodPos.global_position
+#		for c in range(10):
+#			var blood_drop_instance = blood_drop_1.instantiate()
+#			get_parent().add_child(blood_drop_instance)
+#			blood_drop_instance.global_position = $BloodPos.global_position
 		if state == DEAD:
 			queue_free()
 	

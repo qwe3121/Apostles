@@ -5,16 +5,16 @@
 [ext_resource type="Texture2D" uid="uid://cfr6p2gelxpn4" path="res://sprites/blood/traces/Krov_Stena_5.png" id="3_qa7xf"]
 [ext_resource type="Texture2D" uid="uid://dq1gcd3xcj1gc" path="res://sprites/blood/traces/Krov_Pol_1.png" id="4_5dkww"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_flctr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1t77"]
 size = Vector2(1, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqw83"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_djfyc"]
 size = Vector2(1, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvk5b"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ybq"]
 size = Vector2(8, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6f1i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3nugr"]
 size = Vector2(8, 1)
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
@@ -61,7 +61,7 @@ collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCol"]
 position = Vector2(-4, 0)
-shape = SubResource("RectangleShape2D_flctr")
+shape = SubResource("RectangleShape2D_j1t77")
 
 [node name="RightCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -70,7 +70,7 @@ collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightCol"]
 position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_mqw83")
+shape = SubResource("RectangleShape2D_djfyc")
 
 [node name="UpCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -79,7 +79,7 @@ collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpCol"]
 position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_vvk5b")
+shape = SubResource("RectangleShape2D_x5ybq")
 
 [node name="DownCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -88,7 +88,7 @@ collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownCol"]
 position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_k6f1i")
+shape = SubResource("RectangleShape2D_3nugr")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="LeftCol" to="." method="_on_left_col_body_entered"]
