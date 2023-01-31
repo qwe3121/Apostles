@@ -1,53 +1,54 @@
-[gd_scene load_steps=11 format=3 uid="uid://tsmq4xlcncgq"]
+[gd_scene load_steps=9 format=3 uid="uid://tsmq4xlcncgq"]
 
 [ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
-[ext_resource type="Texture2D" uid="uid://jqfyxaubbe27" path="res://sprites/blood/drops/bdrop1.png" id="2_wrk63"]
-[ext_resource type="Texture2D" uid="uid://m5xcaojda65x" path="res://sprites/blood/traces/lbtrace1.png" id="3_4rq3m"]
-[ext_resource type="Texture2D" uid="uid://m2100d0r6d6i" path="res://sprites/blood/traces/rbtrace1.png" id="4_4g5ic"]
-[ext_resource type="Texture2D" uid="uid://crtmf07vj1grr" path="res://sprites/blood/traces/ubtrace1.png" id="5_ydh2f"]
-[ext_resource type="Texture2D" uid="uid://b5qc0p6y7wqgf" path="res://sprites/blood/traces/dbtrace1.png" id="6_cds0m"]
+[ext_resource type="Texture2D" uid="uid://c2i11dadocprs" path="res://sprites/blood/drops/Kapla_Krovi_1.png" id="2_gm35p"]
+[ext_resource type="Texture2D" uid="uid://cfr6p2gelxpn4" path="res://sprites/blood/traces/Krov_Stena_5.png" id="3_qa7xf"]
+[ext_resource type="Texture2D" uid="uid://dq1gcd3xcj1gc" path="res://sprites/blood/traces/Krov_Pol_1.png" id="4_5dkww"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwl7w"]
-size = Vector2(1, 7)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flctr"]
+size = Vector2(1, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxs7y"]
-size = Vector2(1, 7)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqw83"]
+size = Vector2(1, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1jvl"]
-size = Vector2(11, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvk5b"]
+size = Vector2(8, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnsvm"]
-size = Vector2(11, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6f1i"]
+size = Vector2(8, 1)
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
 script = ExtResource("1_24vj7")
 
 [node name="Drop" type="Sprite2D" parent="."]
-texture = ExtResource("2_wrk63")
+scale = Vector2(4, 4)
+texture = ExtResource("2_gm35p")
 
 [node name="Left" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-22, 0)
+position = Vector2(-64, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("3_4rq3m")
+texture = ExtResource("3_qa7xf")
+flip_h = true
 
 [node name="Right" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(21, 0)
+position = Vector2(64, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("4_4g5ic")
+texture = ExtResource("3_qa7xf")
 
 [node name="Up" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(0, -21)
+position = Vector2(0, -64)
 scale = Vector2(2, 2)
-texture = ExtResource("5_ydh2f")
+texture = ExtResource("4_5dkww")
+flip_v = true
 
 [node name="Down" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(0, 20)
+position = Vector2(0, 64)
 scale = Vector2(2, 2)
-texture = ExtResource("6_cds0m")
+texture = ExtResource("4_5dkww")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
@@ -59,8 +60,8 @@ collision_mask = 2
 collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCol"]
-position = Vector2(-5.5, -0.5)
-shape = SubResource("RectangleShape2D_qwl7w")
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_flctr")
 
 [node name="RightCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -68,8 +69,8 @@ collision_mask = 2
 collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightCol"]
-position = Vector2(4.5, -0.5)
-shape = SubResource("RectangleShape2D_rxs7y")
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_mqw83")
 
 [node name="UpCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -77,8 +78,8 @@ collision_mask = 2
 collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpCol"]
-position = Vector2(-0.5, -4.5)
-shape = SubResource("RectangleShape2D_j1jvl")
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_vvk5b")
 
 [node name="DownCol" type="Area2D" parent="."]
 collision_layer = 0
@@ -86,8 +87,8 @@ collision_mask = 2
 collision_priority = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownCol"]
-position = Vector2(-0.5, 3.5)
-shape = SubResource("RectangleShape2D_pnsvm")
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_k6f1i")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="LeftCol" to="." method="_on_left_col_body_entered"]

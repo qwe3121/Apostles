@@ -238,5 +238,5 @@ autoplay = "Raining"
 position = Vector2(0, -1296)
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(323, -123)
+position = Vector2(70, -692)
 safe_margin = 0.24

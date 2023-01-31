@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 @export var speed = 150
 
-@export var x_attack_dis_attack = 70
-@export var x_attack_dis_ulti = 140
+@export var x_attack_dis_attack = 105
+@export var x_attack_dis_ulti = 155
 #@export var y_attack_dis = 50
 
 var see_player = false
@@ -49,13 +49,9 @@ var player_is_inside = false
 
 
 func _ready():
-	$PointLight2D.enabled = false
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
-	$EnemyHitbox/AttackCollision.disabled = true
-	$EnemyHitbox/UltiCollision.disabled = true
 	walking_timer()
 	
-
+	
 
 func get_damage(value, k_dir = 0):
 	hp -= value
@@ -77,7 +73,6 @@ func set_anim(animation_name):
 	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
 	$Eyes/CollisionShape2D.position.x = 37.25 * anim_dir
 	$WallDetector/CollisionShape2D.position.x = 18.25 * anim_dir
-	$PointLight2D.position.x = 28.5 * anim_dir
 
 	match animation_name:
 		IDLE: 
@@ -102,8 +97,8 @@ func set_anim(animation_name):
 			anim.play("ulti")
 		AFTER_ULTI:
 			anim.play("after_ulti")
-#		DEAD:
-#			anim.play("dead")
+		DEAD:
+			anim.play("dead")
 			
 			
 func set_dir():
@@ -312,7 +307,7 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-#		await anim.animation_finished
+		await anim.animation_finished
 		for blood_drop in range(10):
 			var blood_drop_instance = blood_drop_1.instantiate()
 			get_parent().add_child(blood_drop_instance)

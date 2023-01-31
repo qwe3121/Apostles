@@ -3,8 +3,6 @@ extends CharacterBody2D
 
 var flying_apart = true
 
-var blocked = false
-
 var x_vel
 var y_vel
 
@@ -31,32 +29,24 @@ func _on_timer_timeout():
 
 
 func _on_left_col_body_entered(body):
-	if not blocked:
-		blocked = true
-		$Drop.visible = false
-		$Left.visible = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+	$Drop.visible = false
+	$Left.visible = true
+	process_mode = PROCESS_MODE_DISABLED
 
 
 func _on_right_col_body_entered(body):
-	if not blocked:
-		blocked = true
-		$Drop.visible = false
-		$Right.visible = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+	$Drop.visible = false
+	$Right.visible = true
+	process_mode = PROCESS_MODE_DISABLED
 
 
 func _on_up_col_body_entered(body):
-	if not blocked:
-		blocked = true
-		$Drop.visible = false
-		$Up.visible = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+	$Drop.visible = false
+	$Up.visible = true
+	process_mode = PROCESS_MODE_DISABLED
 
 
 func _on_down_col_body_entered(body):
-	if not blocked:
-		blocked = true
-		$Drop.visible = false
-		$Down.visible = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+	$Drop.visible = false
+	$Down.visible = true
+	process_mode = PROCESS_MODE_DISABLED
