@@ -1,5 +1,5 @@
 0b7126e0c6e86d3ec295a72f5aa6e0bd
-::res://::1675209043
+::res://::1675209943
 default_bus_layout.tres::AudioBusLayout::1184647652392673330::1672094155::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1672094155::0::1::::<><>::
 icon.svg::CompressedTexture2D::6911908752124116754::1672094155::1672164166::1::::<><>::
@@ -236,7 +236,7 @@ Cerp_2X.png::CompressedTexture2D::2147505625905340650::1672094156::1672270560::1
 Cerp_4X.png::CompressedTexture2D::5556044178034232362::1672094156::1672270560::1::::<><>::
 Cirkylarna_Pila.png::CompressedTexture2D::540355767051922311::1672094156::1672270560::1::::<><>::
 Wecterenka.png::CompressedTexture2D::6866298555474186405::1672094156::1672270560::1::::<><>::
-::res://src/::1675208872
+::res://src/::1675209085
 ash_control.tscn::PackedScene::5100217728790114525::1672094156::0::1::::<><>::uid://c1f4f13e6frl1<>uid://dgl1iefhl7ifd<>uid://1opaen8ffqd2<>uid://dlraoyam2gk4r<>uid://bhej4nfquty3i<>uid://uhsc71dp8txd<>uid://ciyu0s3dlllbi<>uid://bk610yektofoe<>uid://ct7p4bhut3t6<>uid://b1kdl2uv1ej0r<>uid://ufj2eis1jnrk<>uid://k6vgevkwe416<>uid://dygpsxqhbqm1r<>uid://bxkvsoqlxxtdl<>uid://barjd12dhjnxo<>uid://b2mww4krm1ejm<>uid://cfvronxtg2xhk<>uid://cxxdhohksxk2n<>uid://cit3rbq41jlfo<>uid://cutfa64elqjb7
 base_blood_drop.gd::GDScript::-1::1675203120::0::1::::<>CharacterBody2D<>::
 base_blood_drop.tscn::PackedScene::1371505564521998732::1675208837::0::1::::<><>::res://src/base_blood_drop.gd<>uid://c2i11dadocprs<>uid://cfr6p2gelxpn4<>uid://dq1gcd3xcj1gc
@@ -247,7 +247,7 @@ player.tscn::PackedScene::625273419597997624::1675208838::0::1::::<><>::res://sr
 player_ui.tscn::PackedScene::6562843462514789649::1672094156::0::1::::<><>::
 rain_control.tscn::PackedScene::7084695849530397905::1674955073::0::1::::<><>::uid://cojtabxrc4x8i<>uid://n61nlc7rghsl<>uid://c8jaorqupva46<>uid://dbcym3yce7ivp<>uid://81s8ims6ayj0<>uid://ch14v3q4vbqxp<>uid://df8rsit15tl14<>uid://p44co2uk2omi<>uid://b17vrn2u66wi6<>uid://c3i3emiscl5w6<>uid://dtgacleckskp4<>uid://ddoo8vj0wbuxm<>uid://c3at3etxrsh42<>uid://d1q8nirs6qs80<>uid://bfjhvjxp0s1jw<>uid://b3aknyh1a4jlg<>uid://bsg4bbfw34hb
 tile_map_32x_32.tscn::PackedScene::1109470169763814455::1675208837::0::1::::<><>::uid://ci0s778olx1wt<>uid://drxmpe51hg1s6<>uid://c7ni633egmlsk<>uid://csr8tfw16p67c<>uid://blx7mftko1e0l<>uid://dyalpfv4nffs4<>uid://b4w4xlq8a1vsy<>uid://caqvkbwneswam<>uid://dhpecjikyrsfj<>uid://bl603ls67w8vg<>uid://ccd5rnxav5qji
-wind_sway.gdshader::Shader::-1::1675208872::0::1::::<><>::
+wind_sway.gdshader::Shader::-1::1675209085::0::1::::<><>::
 world.gd::GDScript::-1::1674506226::0::1::::<>Node2D<>::
 world.tscn::PackedScene::5725004148394110849::1675208838::0::1::::<><>::res://src/world.gd<>uid://b28mamkf5umey<>uid://bvwpadvlmypcm<>uid://cb65lnt2pu1tq<>uid://dy33vtlluknq1<>res://src/wind_sway.gdshader<>uid://cojtabxrc4x8i<>uid://n61nlc7rghsl<>uid://dd13dwqrpylgf<>uid://c8jaorqupva46<>uid://2vwqamubwq5o<>uid://dbcym3yce7ivp<>uid://ck1x245orogd5<>uid://81s8ims6ayj0<>uid://ch14v3q4vbqxp<>uid://df8rsit15tl14<>uid://p44co2uk2omi<>uid://b17vrn2u66wi6<>uid://c3i3emiscl5w6<>uid://dtgacleckskp4<>uid://ddoo8vj0wbuxm<>uid://c3at3etxrsh42<>uid://d1q8nirs6qs80<>uid://bfjhvjxp0s1jw<>uid://b3aknyh1a4jlg<>uid://bsg4bbfw34hb<>uid://bubwuri6fnq0a<>uid://i55frea7mtlw
 ::res://src/autoloads/::1675007745
@@ -272,9 +272,9 @@ trap_hitbox.gd::GDScript::-1::1674835265::0::1::::<>Area2D<>::
 trap_hitbox.tscn::PackedScene::2866452207184204944::1674778821::0::1::::<><>::res://src/enemies/trap_hitbox.gd
 ::res://src/enemies/creeps/::1672095357
 ::res://src/enemies/creeps/floating/::1672095349
-::res://src/enemies/creeps/grounded/::1675208871
+::res://src/enemies/creeps/grounded/::1675209079
 mk_2.gd::GDScript::-1::1675208815::0::1::::<>CharacterBody2D<>::
-mk_2.tscn::PackedScene::2181828922375978724::1675208871::0::1::::<><>::res://src/enemies/creeps/grounded/mk_2.gd<>uid://by3rgtf4t4xyy<>uid://c8832hghnnkfr<>res://src/enemies/hitted.gdshader<>uid://bxib1gky6ds8f<>uid://camnjo7jqyq5y<>uid://b3ysqhc0n1kxc<>uid://dgixojavx1te6<>uid://dm7h2dx06bh5y<>uid://bo8wr671fqrns<>uid://bupagieoedh2p<>uid://bvk4qb6jyjv3v<>uid://buomtftwhn0av<>uid://wyex1l2irpsf<>uid://b35mtaivpmt5e
+mk_2.tscn::PackedScene::2181828922375978724::1675209079::0::1::::<><>::res://src/enemies/creeps/grounded/mk_2.gd<>uid://by3rgtf4t4xyy<>uid://c8832hghnnkfr<>res://src/enemies/hitted.gdshader<>uid://bxib1gky6ds8f<>uid://camnjo7jqyq5y<>uid://b3ysqhc0n1kxc<>uid://dgixojavx1te6<>uid://dm7h2dx06bh5y<>uid://bo8wr671fqrns<>uid://bupagieoedh2p<>uid://bvk4qb6jyjv3v<>uid://buomtftwhn0av<>uid://wyex1l2irpsf<>uid://b35mtaivpmt5e
 ::res://src/enemies/static_path/::1674781227
 basic_static_path_trap.tscn::PackedScene::6891888090316732096::1674781227::0::1::::<><>::uid://bg3sbwygr5n57
 westerenka.tscn::PackedScene::423504012224497082::1674781227::0::1::::<><>::uid://c43c600d050a8<>uid://bg3sbwygr5n57
