@@ -1,3 +1,4 @@
+ColorRect
 Sprite2D
 WorldEnvironment
 PointLight2D
@@ -6,7 +7,6 @@ AnimationPlayer
 AnimationTree
 AnimatedSprite2D
 CanvasModulate
-ColorRect
 CollisionShape2D
 Area2D
 SubViewport

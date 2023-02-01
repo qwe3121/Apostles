@@ -1,10 +1,2 @@
-res://src/world.tscn
-res://src/player.tscn
-res://src/glow.gdshader
-res://src/base_blood_drop.tscn
-res://src/tile_map_32x_32.tscn
-res://src/generation/rooms/test_room.tscn
-res://src/enemies/creeps/grounded/mk_2.tscn
-res://src/glitch.gdshader
-res://src/dissolve.gdshader
 res://src/dissolve_test.tscn
+res://src/world.tscn

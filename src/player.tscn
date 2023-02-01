@@ -1,4 +1,4 @@
-[gd_scene load_steps=349 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=348 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -35,7 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://n7i2kakprr3i" path="res://sprites/player/strong_attack_3.png" id="24_6xbbw"]
 [ext_resource type="Texture2D" uid="uid://cvntnxh5cmar" path="res://sprites/player/strong_attack_4.png" id="25_8qlhm"]
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
-[ext_resource type="Shader" path="res://src/glitch.gdshader" id="36_82qf8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k3o2"]
 shader = ExtResource("2_t4ryl")
@@ -4404,12 +4403,6 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_77mly"]
-shader = ExtResource("36_82qf8")
-shader_parameter/shake_power = 0.03
-shader_parameter/shake_rate = 0.2
-shader_parameter/shake_speed = 5.0
-shader_parameter/shake_block_size = 30.5
-shader_parameter/shake_color_rate = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
 size = Vector2(105, 101)
