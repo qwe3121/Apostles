@@ -4,9 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="2_e0bed"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a6ffl"]
+noise_type = 2
 metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_egqa3"]
+width = 128
+height = 128
 noise = SubResource("FastNoiseLite_a6ffl")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xssfn"]

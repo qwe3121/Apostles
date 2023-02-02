@@ -1,97 +1,94 @@
-[gd_scene load_steps=9 format=3 uid="uid://tsmq4xlcncgq"]
+[gd_scene load_steps=8 format=3 uid="uid://tsmq4xlcncgq"]
 
 [ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
-[ext_resource type="Texture2D" uid="uid://c2i11dadocprs" path="res://sprites/blood/drops/Kapla_Krovi_1.png" id="2_gm35p"]
-[ext_resource type="Texture2D" uid="uid://cfr6p2gelxpn4" path="res://sprites/blood/traces/Krov_Stena_5.png" id="3_qa7xf"]
-[ext_resource type="Texture2D" uid="uid://dq1gcd3xcj1gc" path="res://sprites/blood/traces/Krov_Pol_1.png" id="4_5dkww"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j1t77"]
-size = Vector2(1, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nlue"]
+size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_djfyc"]
-size = Vector2(1, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fiead"]
+size = Vector2(8, 5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ybq"]
-size = Vector2(8, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ln4m4"]
+size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3nugr"]
-size = Vector2(8, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyosg"]
+size = Vector2(8, 5)
+
+[sub_resource type="Animation" id="Animation_yo1eu"]
+resource_name = "fades_out"
+length = 6.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"delete_blood"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 6)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h6qow"]
+_data = {
+"fades_out": SubResource("Animation_yo1eu")
+}
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
 script = ExtResource("1_24vj7")
 
 [node name="Drop" type="Sprite2D" parent="."]
+z_index = 5
 scale = Vector2(4, 4)
-texture = ExtResource("2_gm35p")
 
-[node name="Left" type="Sprite2D" parent="."]
+[node name="Trace" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-64, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("3_qa7xf")
-flip_h = true
-
-[node name="Right" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(64, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("3_qa7xf")
-
-[node name="Up" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -64)
-scale = Vector2(2, 2)
-texture = ExtResource("4_5dkww")
-flip_v = true
-
-[node name="Down" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, 64)
-scale = Vector2(2, 2)
-texture = ExtResource("4_5dkww")
+scale = Vector2(1.25, 1.25)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 autostart = true
 
-[node name="LeftCol" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
-collision_priority = 100.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCol"]
-position = Vector2(-4, 0)
-shape = SubResource("RectangleShape2D_j1t77")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-6.5, 0)
+shape = SubResource("RectangleShape2D_0nlue")
 
-[node name="RightCol" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-collision_priority = 100.0
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_fiead")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightCol"]
-position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_djfyc")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_ln4m4")
 
-[node name="UpCol" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-collision_priority = 100.0
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_kyosg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpCol"]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_x5ybq")
-
-[node name="DownCol" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-collision_priority = 100.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DownCol"]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_3nugr")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_h6qow")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="LeftCol" to="." method="_on_left_col_body_entered"]
-[connection signal="body_entered" from="RightCol" to="." method="_on_right_col_body_entered"]
-[connection signal="body_entered" from="UpCol" to="." method="_on_up_col_body_entered"]
-[connection signal="body_entered" from="DownCol" to="." method="_on_down_col_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

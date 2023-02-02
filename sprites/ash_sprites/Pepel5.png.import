@@ -16,14 +16,14 @@ dest_files=["res://.godot/imported/Pepel5.png-f7370e301ecc45dac2774c433cad0b24.c
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
 process/fix_alpha_border=false
 process/premult_alpha=false

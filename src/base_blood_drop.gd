@@ -6,11 +6,12 @@ var flying_apart = true
 var x_vel
 var y_vel
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 5
 
 
 func _ready():
-	x_vel = randi_range(-480, 480)
+	$Drop.texture = load("res://sprites/blood/drops/Kapla_Krovi_%d.png" % randi_range(1, 11))
+	$Trace.texture = load("res://sprites/blood/traces/Kryg_Krovi_%d.png" % randi_range(1, 5))
 	y_vel = randi_range(-800, 800)
 
 
@@ -28,25 +29,12 @@ func _on_timer_timeout():
 	flying_apart = false
 
 
-func _on_left_col_body_entered(body):
+func _on_area_2d_body_entered(body):
+	$Trace.visible = true
 	$Drop.visible = false
-	$Left.visible = true
+	$AnimationPlayer.play("fades_out")
 	process_mode = PROCESS_MODE_DISABLED
-
-
-func _on_right_col_body_entered(body):
-	$Drop.visible = false
-	$Right.visible = true
-	process_mode = PROCESS_MODE_DISABLED
-
-
-func _on_up_col_body_entered(body):
-	$Drop.visible = false
-	$Up.visible = true
-	process_mode = PROCESS_MODE_DISABLED
-
-
-func _on_down_col_body_entered(body):
-	$Drop.visible = false
-	$Down.visible = true
-	process_mode = PROCESS_MODE_DISABLED
+	
+	
+func delete_blood():
+	queue_free()

@@ -15,9 +15,9 @@ DEAD}
 var state = IDLE : set = set_state
 
 func set_state(value):
-	single_anim_not_played_yet = true
+	if not state == value: single_anim_not_played_yet = true
 #	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
-	state_started = false
+	if not state == value: state_started = false
 	state = value
 
 var dir = 1

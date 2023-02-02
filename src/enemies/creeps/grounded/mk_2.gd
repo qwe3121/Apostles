@@ -7,11 +7,13 @@ extends CharacterBody2D
 @export var x_attack_dis_ulti = 155
 #@export var y_attack_dis = 50
 
+@export var b_drops = 5
+
 var see_player = false
 
 @onready var anim = $AnimationPlayer
 
-var blood_drop_1 = preload("res://src/base_blood_drop.tscn")
+var blood_drop = preload("res://src/base_blood_drop.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -19,7 +21,7 @@ enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_U
 var state = AIR : set = set_state
 
 func set_state(value):
-	state_started = false
+	if not state == value: state_started = false
 	state = value
 
 var dir = 1
@@ -45,10 +47,13 @@ var turned = false
 var flashing = 0
 var knockback_dir = 0
 
+var last_knockback_dir = 0
+
 var player_is_inside = false
 
-
 func _ready():
+	$AnimatedSprite2D.modulate = Color("ffffff")
+	$AnimatedSprite2D.material.shader = load("res://src/enemies/hitted.gdshader")
 	walking_timer()
 	
 	
@@ -61,6 +66,7 @@ func get_damage(value, k_dir = 0):
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
+		last_knockback_dir = k_dir
 		flashing = 1
 		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
 		$FlashlightTimer.start()
@@ -68,6 +74,8 @@ func get_damage(value, k_dir = 0):
 		
 func set_anim(animation_name):
 	$AnimatedSprite2D.flip_h = anim_dir == 1
+	$Blood.flip_h = !(last_knockback_dir == 1)
+	$Blood.position.x = 30 * last_knockback_dir
 	$CheckForPit.position.x = 24.75 * anim_dir
 	$EnemyHitbox.scale.x = -1 * anim_dir
 	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
@@ -307,14 +315,14 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		for c in range(b_drops):
+			var blood_drop_instance = blood_drop.instantiate()
+			get_parent().get_parent().get_node("Polygon2D").add_child(blood_drop_instance)
+			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
+			blood_drop_instance.global_position = $BloodPos.global_position
 		await anim.animation_finished
-#		for c in range(10):
-#			var blood_drop_instance = blood_drop_1.instantiate()
-#			get_parent().add_child(blood_drop_instance)
-#			blood_drop_instance.global_position = $BloodPos.global_position
 		if state == DEAD:
 			queue_free()
-	
 	
 func close_enough_to_attack():
 	# and abs(abs(player.global_position.y) - abs(global_position.y)) <= y_attack_dis

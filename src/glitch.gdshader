@@ -9,7 +9,7 @@ shader_type canvas_item;
 // 振動の強さ
 uniform float shake_power = 0.03;
 // 振動率
-uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.05;
+uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.001;
 // 振動速度
 uniform float shake_speed = 5.0;
 // 振動ブロックサイズ
