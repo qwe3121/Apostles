@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var x_attack_dis_ulti = 155
 #@export var y_attack_dis = 50
 
-@export var b_drops = 5
+@export var b_drops = 10
 
 var see_player = false
 
@@ -66,7 +66,7 @@ func get_damage(value, k_dir = 0):
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
-		last_knockback_dir = k_dir
+		if k_dir: last_knockback_dir = k_dir
 		flashing = 1
 		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
 		$FlashlightTimer.start()

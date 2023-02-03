@@ -119,7 +119,7 @@ BLOCK={
 2d_physics/layer_3="blocked_area_for_enemies"
 2d_physics/layer_4="trap_hitbox"
 2d_physics/layer_5="enemies"
-2d_physics/layer_6="blood_trails"
+2d_physics/layer_6="BloodTraceArea"
 2d_physics/layer_32="roomsArea"
 
 [rendering]

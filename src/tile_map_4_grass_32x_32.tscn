@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2sho4fd6ye61"]
+
+[ext_resource type="PackedScene" uid="uid://bm2uq4gfonm7d" path="res://src/scene_tiles/short_grass_1.tscn" id="2_1jrhk"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_v35yg"]
+scenes/1/scene = ExtResource("2_1jrhk")
+
+[sub_resource type="TileSet" id="TileSet_21sxn"]
+tile_size = Vector2i(32, 32)
+sources/8 = SubResource("TileSetScenesCollectionSource_v35yg")
+
+[node name="TileMap4Grass32x32" type="TileMap"]
+tile_set = SubResource("TileSet_21sxn")
+format = 2
