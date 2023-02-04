@@ -57,7 +57,7 @@ shape = SubResource("RectangleShape2D_vnjxb")
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Blood" type="Sprite2D" parent="Node2D"]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 0, 0.419608, 0)
 use_parent_material = true
 texture = ExtResource("4_8hfw2")
 

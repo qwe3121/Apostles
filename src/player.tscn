@@ -1,8 +1,7 @@
-[gd_scene load_steps=348 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=346 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
-[ext_resource type="Shader" path="res://pxl_clr.gdshader" id="2_yilys"]
 [ext_resource type="Texture2D" uid="uid://dlbtntefymj8n" path="res://sprites/player/air2.png" id="3_3ghpb"]
 [ext_resource type="Texture2D" uid="uid://c4c52pel7u3ei" path="res://sprites/player/crouch.png" id="3_oi8ox"]
 [ext_resource type="Texture2D" uid="uid://otuie4ycem16" path="res://sprites/player/dash.png" id="4_8cdn5"]
@@ -35,15 +34,6 @@
 [ext_resource type="Texture2D" uid="uid://n7i2kakprr3i" path="res://sprites/player/strong_attack_3.png" id="24_6xbbw"]
 [ext_resource type="Texture2D" uid="uid://cvntnxh5cmar" path="res://sprites/player/strong_attack_4.png" id="25_8qlhm"]
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6k3o2"]
-shader = ExtResource("2_yilys")
-shader_parameter/color1 = Color(0, 0.733333, 1, 1)
-shader_parameter/color2 = Color(0, 1, 1, 1)
-shader_parameter/threshold = 0.7
-shader_parameter/intensity = 1.0
-shader_parameter/opacity = 1.0
-shader_parameter/new_color = Color(1, 0, 0.0156863, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -4414,7 +4404,6 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
-material = SubResource("ShaderMaterial_6k3o2")
 position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
