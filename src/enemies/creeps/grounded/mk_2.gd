@@ -119,6 +119,8 @@ func set_dir():
 
 
 func _physics_process(delta):
+	print(close_enough_to_attack())
+	
 	if knockback_dir:
 		velocity.x = knockback_dir * 100
 	
@@ -315,11 +317,11 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-		for c in range(b_drops):
-			var blood_drop_instance = blood_drop.instantiate()
-			get_parent().get_parent().get_node("Polygon2D").add_child(blood_drop_instance)
-			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = $BloodPos.global_position
+#		for c in range(b_drops):
+#			var blood_drop_instance = blood_drop.instantiate()
+#			get_parent().get_parent().get_node("Polygon2D").add_child(blood_drop_instance)
+#			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
+#			blood_drop_instance.global_position = $BloodPos.global_position
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()

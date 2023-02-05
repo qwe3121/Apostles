@@ -52,12 +52,13 @@ var hp = 1
 
 
 func get_damage(can_block: bool = true):
-	if (can_block and blocking) or state == ROLL or state == DASH:
-		return
-	hp -= 1
-	if hp <= 0:
-		state_started = false
-		state = DEAD
+#	if (can_block and blocking) or state == ROLL or state == DASH:
+#		return
+#	hp -= 1
+#	if hp <= 0:
+#		state_started = false
+#		state = DEAD
+	pass
 
 func set_dir():
 	dir = Input.get_axis("LEFT", "RIGHT")
