@@ -146,12 +146,6 @@ func _physics_process(delta):
 		DEAD:
 			dead()
 			
-#	print("is_on_wall() " + str(is_on_wall()))
-#	print("pit is here " + str(not $CheckForPit.is_colliding()))
-#	print("there is trap " + str(there_is_trap))
-#	print("see player " + str(see_player))
-#	print("chasing " + str(chasing))
-			
 	move_and_slide()
 
 
@@ -237,6 +231,7 @@ func before_attack():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		can_ulti = false
 		can_attack = false
 		await anim.animation_finished
 		if state == BEFORE_ATTACK:
@@ -350,6 +345,8 @@ func walking_timer():
 	
 func _on_attack_cooldown_timeout():
 	can_attack = true
+	if not $UltiCooldown.time_left > 0:
+		can_ulti = true
 	
 	
 func _on_ulti_cooldown_timeout():
