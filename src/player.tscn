@@ -4398,7 +4398,6 @@ _data = {
 size = Vector2(105, 101)
 
 [node name="Player" type="CharacterBody2D"]
-texture_filter = 1
 collision_mask = 2
 script = ExtResource("1_jdkiv")
 

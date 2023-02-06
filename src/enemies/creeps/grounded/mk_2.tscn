@@ -1060,7 +1060,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1hu4"]
-size = Vector2(30.5, 34.75)
+size = Vector2(30.5, 34.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
 size = Vector2(232.5, 35)
@@ -1084,6 +1084,7 @@ collision_mask = 2
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1103,8 +1104,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"after_attack"
-frame = 6
+animation = &"dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1114,7 +1114,7 @@ texture = ExtResource("14_fkigc")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -17.375)
+position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]

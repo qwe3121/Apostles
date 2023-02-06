@@ -14,7 +14,7 @@ func _ready():
 
 
 func _physics_process(delta):
-#	position = round(position)
+	position = round(position)
 	
 	if isShake:
 		shaking(delta)    

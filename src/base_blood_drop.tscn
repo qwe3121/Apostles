@@ -1,21 +1,21 @@
 [gd_scene load_steps=10 format=3 uid="uid://tsmq4xlcncgq"]
 
 [ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
-[ext_resource type="Texture2D" uid="uid://r06r2g5oaq8a" path="res://sprites/blood/traces/8.png" id="2_4y7ti"]
+[ext_resource type="Texture2D" uid="uid://bqffhastjuf45" path="res://sprites/blood/traces/4.png" id="2_1hlth"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sssde"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5jxw"]
 size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cweh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4sta"]
 size = Vector2(8, 5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_buw1r"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acay3"]
 size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdie3"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5oc7c"]
 size = Vector2(8, 5)
 
-[sub_resource type="Animation" id="Animation_7rqxp"]
+[sub_resource type="Animation" id="Animation_2uvtp"]
 resource_name = "fades_out"
 length = 6.0
 tracks/0/type = "method"
@@ -44,25 +44,26 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 6)
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l1gry"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qn7o3"]
 _data = {
-"fades_out": SubResource("Animation_7rqxp")
+"fades_out": SubResource("Animation_2uvtp")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uerqp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fn87j"]
 size = Vector2(82, 84)
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
-modulate = Color(1, 0, 0.419608, 1)
 script = ExtResource("1_24vj7")
 
 [node name="Drop" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.419608, 1)
 z_index = 5
 scale = Vector2(4, 4)
 
 [node name="Trace" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.419608, 1)
 scale = Vector2(1.25, 1.25)
-texture = ExtResource("2_4y7ti")
+texture = ExtResource("2_1hlth")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -75,24 +76,24 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-6.5, 0)
-shape = SubResource("RectangleShape2D_sssde")
+shape = SubResource("RectangleShape2D_r5jxw")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -6.5)
-shape = SubResource("RectangleShape2D_2cweh")
+shape = SubResource("RectangleShape2D_k4sta")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(6.5, 0)
-shape = SubResource("RectangleShape2D_buw1r")
+shape = SubResource("RectangleShape2D_acay3")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_bdie3")
+shape = SubResource("RectangleShape2D_5oc7c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
-"": SubResource("AnimationLibrary_l1gry")
+"": SubResource("AnimationLibrary_qn7o3")
 }
 
 [node name="AreaForGrass" type="Area2D" parent="."]
@@ -102,7 +103,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaForGrass"]
 position = Vector2(-1, -1)
-shape = SubResource("RectangleShape2D_uerqp")
+shape = SubResource("RectangleShape2D_fn87j")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

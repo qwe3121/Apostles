@@ -10,8 +10,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 5
 
 
 func _ready():
-	$Drop.texture = load("res://sprites/blood/drops/%d.png" % randi_range(1, 33))
-	$Trace.texture = load("res://sprites/blood/traces/%d.png" % randi_range(1, 20))
+	var rand_modulate = randf_range(0.5, 1.0)
+	$Trace.modulate.a = rand_modulate
+	$Drop.modulate.a = rand_modulate
+	$Drop.texture = load("res://sprites/blood/drops/%d.png" % randi_range(1, 10))
+	$Trace.texture = load("res://sprites/blood/traces/%d.png" % randi_range(1, 5))
 	y_vel = randi_range(-800, 800)
 
 

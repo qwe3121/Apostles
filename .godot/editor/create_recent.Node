@@ -1,6 +1,9 @@
+WorldEnvironment
 Sprite2D
+ColorRect
+CollisionShape2D
+StaticBody2D
 Node2D
 AnimationPlayer
-CollisionShape2D
 Area2D
 TileMap

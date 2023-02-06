@@ -31,6 +31,7 @@ var state_started = false
 
 var can_attack = true
 var can_ulti = true
+var need_to_reset_ulti = false
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -52,6 +53,7 @@ var last_knockback_dir = 0
 var player_is_inside = false
 
 func _ready():
+	$Blood.modulate.a = randf_range(0.6, 1.0)
 	$AnimatedSprite2D.modulate = Color("ffffff")
 	$AnimatedSprite2D.material.shader = load("res://src/enemies/hitted.gdshader")
 	walking_timer()
@@ -119,8 +121,6 @@ func set_dir():
 
 
 func _physics_process(delta):
-	print(close_enough_to_attack())
-	
 	if knockback_dir:
 		velocity.x = knockback_dir * 100
 	
@@ -233,6 +233,7 @@ func before_attack():
 		state_started = true
 		can_ulti = false
 		can_attack = false
+		need_to_reset_ulti = true
 		await anim.animation_finished
 		if state == BEFORE_ATTACK:
 			state = ATTACK
@@ -312,21 +313,22 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-#		for c in range(b_drops):
-#			var blood_drop_instance = blood_drop.instantiate()
-#			get_parent().get_parent().get_node("Polygon2D").add_child(blood_drop_instance)
-#			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-#			blood_drop_instance.global_position = $BloodPos.global_position
+		for c in range(b_drops):
+			var blood_drop_instance = blood_drop.instantiate()
+			get_parent().get_node("Sprite2D").add_child(blood_drop_instance)
+			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
+			blood_drop_instance.global_position = $BloodPos.global_position
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
 	
+	
 func close_enough_to_attack():
-	# and abs(abs(player.global_position.y) - abs(global_position.y)) <= y_attack_dis
+	var dis = global_position.distance_to(global.player.global_position)
 	if can_ulti:
-		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_ulti else false
+		return true if dis <= x_attack_dis_ulti else false
 	else:
-		return true if abs(abs(global.player.global_position.x) - abs(global_position.x)) <= x_attack_dis_attack else false
+		return true if dis <= x_attack_dis_attack else false
 
 
 func _on_walking_timer_timeout():
@@ -345,16 +347,18 @@ func walking_timer():
 	
 func _on_attack_cooldown_timeout():
 	can_attack = true
-	if not $UltiCooldown.time_left > 0:
+	if need_to_reset_ulti:
+		need_to_reset_ulti = false
 		can_ulti = true
 	
 	
 func _on_ulti_cooldown_timeout():
-	can_ulti = true
+	if not need_to_reset_ulti:
+		can_ulti = true
 
 
 func _on_eyes_body_entered(body):
-	if not chasing:
+	if not chasing and can_attack:
 		$Qmark.visible = true
 		$Qmark.play("popup")
 	$WalkingTimer.stop()
