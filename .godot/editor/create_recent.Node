@@ -1,9 +1,10 @@
-WorldEnvironment
 Sprite2D
+Node2D
+Node
+WorldEnvironment
 ColorRect
 CollisionShape2D
 StaticBody2D
-Node2D
 AnimationPlayer
 Area2D
 TileMap

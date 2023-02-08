@@ -62,13 +62,13 @@ func _ready():
 
 func get_damage(value, k_dir = 0):
 	hp -= value
+	if k_dir: last_knockback_dir = k_dir
 	if hp <= 0:
 		$ChaseTimer.stop()
 		$WalkingTimer.stop()
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
-		if k_dir: last_knockback_dir = k_dir
 		flashing = 1
 		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
 		$FlashlightTimer.start()

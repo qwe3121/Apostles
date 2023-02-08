@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bubwuri6fnq0a"]
 
-[ext_resource type="Texture2D" uid="uid://bm4373bhr63gg" path="res://sprites/rooms/room_1/TestLVL_1.png" id="1_c18tl"]
+[ext_resource type="Texture2D" uid="uid://c333ex8lnio4f" path="res://sprites/rooms/room_1/TestLVL_2.png" id="1_n0xvo"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="5_vyxbe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dics6"]
@@ -38,7 +38,7 @@ size = Vector2(704, 128)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 clip_children = 2
 z_index = 1
-texture = ExtResource("1_c18tl")
+texture = ExtResource("1_n0xvo")
 centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

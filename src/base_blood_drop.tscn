@@ -1,21 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://tsmq4xlcncgq"]
+[gd_scene load_steps=9 format=3 uid="uid://tsmq4xlcncgq"]
 
 [ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
-[ext_resource type="Texture2D" uid="uid://bqffhastjuf45" path="res://sprites/blood/traces/4.png" id="2_1hlth"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5jxw"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra4ev"]
 size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4sta"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dvtr"]
 size = Vector2(8, 5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_acay3"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4tdr"]
 size = Vector2(5, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5oc7c"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjakc"]
 size = Vector2(8, 5)
 
-[sub_resource type="Animation" id="Animation_2uvtp"]
+[sub_resource type="Animation" id="Animation_f3ehu"]
 resource_name = "fades_out"
 length = 6.0
 tracks/0/type = "method"
@@ -44,12 +43,12 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 6)
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qn7o3"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kifpo"]
 _data = {
-"fades_out": SubResource("Animation_2uvtp")
+"fades_out": SubResource("Animation_f3ehu")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fn87j"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2mi4"]
 size = Vector2(82, 84)
 
 [node name="BaseBloodDrop" type="CharacterBody2D"]
@@ -63,7 +62,6 @@ scale = Vector2(4, 4)
 [node name="Trace" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0.419608, 1)
 scale = Vector2(1.25, 1.25)
-texture = ExtResource("2_1hlth")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -76,24 +74,24 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-6.5, 0)
-shape = SubResource("RectangleShape2D_r5jxw")
+shape = SubResource("RectangleShape2D_ra4ev")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -6.5)
-shape = SubResource("RectangleShape2D_k4sta")
+shape = SubResource("RectangleShape2D_5dvtr")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(6.5, 0)
-shape = SubResource("RectangleShape2D_acay3")
+shape = SubResource("RectangleShape2D_p4tdr")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_5oc7c")
+shape = SubResource("RectangleShape2D_qjakc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
-"": SubResource("AnimationLibrary_qn7o3")
+"": SubResource("AnimationLibrary_kifpo")
 }
 
 [node name="AreaForGrass" type="Area2D" parent="."]
@@ -103,7 +101,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaForGrass"]
 position = Vector2(-1, -1)
-shape = SubResource("RectangleShape2D_fn87j")
+shape = SubResource("RectangleShape2D_h2mi4")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
