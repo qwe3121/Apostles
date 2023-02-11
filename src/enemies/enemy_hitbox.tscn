@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgixojavx1te6"]
+[gd_scene load_steps=2 format=3 uid="uid://pntwe7skdrvm"]
 
-[ext_resource type="Script" path="res://src/enemies/enemy_hitbox.gd" id="1_kiqhg"]
+[ext_resource type="Script" path="res://src/enemies/enemy_hitbox.gd" id="1_654u8"]
 
 [node name="EnemyHitbox" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_kiqhg")
+collision_mask = 64
+script = ExtResource("1_654u8")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

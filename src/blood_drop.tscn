@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://tsmq4xlcncgq"]
+[gd_scene load_steps=9 format=3 uid="uid://e7r38pav8i3g"]
 
-[ext_resource type="Script" path="res://src/base_blood_drop.gd" id="1_24vj7"]
+[ext_resource type="Script" path="res://src/blood_drop.gd" id="1_2dk2e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ra4ev"]
 size = Vector2(5, 8)
@@ -51,16 +51,16 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2mi4"]
 size = Vector2(82, 84)
 
-[node name="BaseBloodDrop" type="CharacterBody2D"]
-script = ExtResource("1_24vj7")
+[node name="BloodDrop" type="CharacterBody2D"]
+script = ExtResource("1_2dk2e")
 
 [node name="Drop" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0.419608, 1)
+modulate = Color(0, 0, 1, 1)
 z_index = 5
 scale = Vector2(4, 4)
 
 [node name="Trace" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0.419608, 1)
+modulate = Color(0, 0, 1, 1)
 scale = Vector2(1.25, 1.25)
 
 [node name="Timer" type="Timer" parent="."]

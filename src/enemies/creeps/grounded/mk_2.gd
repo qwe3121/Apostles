@@ -13,7 +13,7 @@ var see_player = false
 
 @onready var anim = $AnimationPlayer
 
-var blood_drop = preload("res://src/base_blood_drop.tscn")
+var blood_drop = preload("res://src/blood_drop.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -272,6 +272,7 @@ func before_ulti():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		$AttackCooldown.stop()
 		can_attack = false
 		can_ulti = false
 		await anim.animation_finished

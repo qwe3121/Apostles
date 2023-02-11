@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg3sbwygr5n57"]
+[gd_scene load_steps=2 format=3 uid="uid://byt2kemskw0hk"]
 
-[ext_resource type="Script" path="res://src/enemies/trap_hitbox.gd" id="1_dglu4"]
+[ext_resource type="Script" path="res://src/enemies/trap_hitbox.gd" id="1_e8c8q"]
 
 [node name="TrapHitbox" type="Area2D"]
-collision_layer = 8
-collision_mask = 17
-script = ExtResource("1_dglu4")
+collision_layer = 0
+collision_mask = 144
+script = ExtResource("1_e8c8q")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

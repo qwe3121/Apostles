@@ -15,6 +15,13 @@ DEAD}
 var state = IDLE : set = set_state
 
 func set_state(value):
+	if value == BLOCK or value == DASH or value == ROLL:
+		blocking = true
+		events.emit_signal("player_blocking")
+	elif state == BLOCK or state == DASH or state == ROLL:
+		blocking = false
+		events.emit_signal("player_blocking")
+	
 	if not state == value: single_anim_not_played_yet = true
 #	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
 	if not state == value: state_started = false
@@ -51,13 +58,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 1
 
 
-func get_damage(can_block: bool = true):
-#	if (can_block and blocking) or state == ROLL or state == DASH:
-#		return
-#	hp -= 1
-#	if hp <= 0:
-#		state_started = false
-#		state = DEAD
+func get_damage():
+	hp -= 1
+	if hp <= 0:
+		state_started = false
+		state = DEAD
 	pass
 
 func set_dir():
@@ -258,7 +263,6 @@ func idle():
 	if Input.is_action_pressed("BLOCK"):
 		if np:
 			print("from idle to block")
-		blocking = true
 		state = BLOCK
 		return
 
@@ -355,7 +359,6 @@ func run():
 	if Input.is_action_pressed("BLOCK"):
 		if np:
 			print("from run to block")
-		blocking = true
 		state = BLOCK
 		return
 		
@@ -1058,7 +1061,9 @@ func block():
 		if np:
 			print("from block to idle")
 		blocking = false
+		$Hurtbox/CollisionShape2D.disabled = true
 		state = IDLE
+		$Hurtbox/CollisionShape2D.disabled = false
 
 
 func _on_hitbox_body_entered(body):

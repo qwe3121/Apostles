@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bxib1gky6ds8f" path="res://sprites/enemies/MK2/Pokoi_MK2.png" id="3_max88"]
 [ext_resource type="Texture2D" uid="uid://camnjo7jqyq5y" path="res://sprites/enemies/MK2/Vihod_iz_Ylta_Ataki_MK2.png" id="3_xi4c5"]
 [ext_resource type="Texture2D" uid="uid://b3ysqhc0n1kxc" path="res://sprites/enemies/MK2/Ataka_MK2.png" id="4_ly4g5"]
-[ext_resource type="PackedScene" uid="uid://dgixojavx1te6" path="res://src/enemies/enemy_hitbox.tscn" id="4_mv4ub"]
 [ext_resource type="Texture2D" uid="uid://dm7h2dx06bh5y" path="res://sprites/enemies/MK2/Podgotovka_k_Atake_MK2.png" id="5_y5lpv"]
 [ext_resource type="Texture2D" uid="uid://bo8wr671fqrns" path="res://sprites/enemies/MK2/Podgotovka_k_Ylta_Atake_MK2.png" id="6_h2ekt"]
 [ext_resource type="Texture2D" uid="uid://bupagieoedh2p" path="res://sprites/enemies/MK2/Smert_MK2.png" id="8_ridmw"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://wyex1l2irpsf" path="res://sprites/enemies/MK2/Ylta_Ataka_MK2.png" id="9_smaqd"]
 [ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="13_uby3k"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="14_fkigc"]
+[ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="15_pmu54"]
 
 [sub_resource type="Animation" id="Animation_pwoft"]
 resource_name = "after_attack"
@@ -126,26 +126,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("EnemyHitbox/AttackCollision:disabled")
+tracks/2/path = NodePath("AnimationPlayer:speed_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 4.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationPlayer:speed_scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyHitbox/Attack:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_aicud"]
@@ -506,26 +506,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("EnemyHitbox/UltiCollision:disabled")
+tracks/2/path = NodePath("AnimationPlayer:speed_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 6.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationPlayer:speed_scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyHitbox/Ulti:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 6.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkt20"]
@@ -1063,19 +1063,19 @@ animations = [{
 size = Vector2(30.5, 34.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
-size = Vector2(232.5, 35)
+size = Vector2(293, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejhby"]
 size = Vector2(5.5, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ot8ig"]
-size = Vector2(48, 6.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_edlcj"]
-size = Vector2(82, 15)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur1u2"]
 size = Vector2(6, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5udau"]
+size = Vector2(80, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whayr"]
+size = Vector2(46, 4)
 
 [node name="2MK" type="CharacterBody2D"]
 scale = Vector2(2, 2)
@@ -1084,7 +1084,6 @@ collision_mask = 2
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1104,16 +1103,18 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"dead"
+animation = &"after_attack"
+frame = 6
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(1, 0, 0.419608, 1)
+modulate = Color(0, 0, 1, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
@@ -1134,9 +1135,12 @@ position = Vector2(-31, -17.5)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(-37.25, -17.5)
+position = Vector2(0, -17.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
@@ -1155,18 +1159,6 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="EnemyHitbox" parent="." instance=ExtResource("4_mv4ub")]
-
-[node name="AttackCollision" type="CollisionShape2D" parent="EnemyHitbox"]
-position = Vector2(-24, -32.75)
-shape = SubResource("RectangleShape2D_ot8ig")
-disabled = true
-
-[node name="UltiCollision" type="CollisionShape2D" parent="EnemyHitbox"]
-position = Vector2(-41, -25)
-shape = SubResource("RectangleShape2D_edlcj")
-disabled = true
-
 [node name="Qmark" parent="." instance=ExtResource("13_uby3k")]
 position = Vector2(0, -50)
 
@@ -1175,8 +1167,8 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerInside"]
 position = Vector2(0, -17)
@@ -1184,6 +1176,18 @@ shape = SubResource("RectangleShape2D_ur1u2")
 
 [node name="BloodPos" type="Node2D" parent="."]
 position = Vector2(0, -16.5)
+
+[node name="EnemyHitbox" parent="." instance=ExtResource("15_pmu54")]
+
+[node name="Ulti" type="CollisionShape2D" parent="EnemyHitbox"]
+position = Vector2(-37, -27.5)
+shape = SubResource("RectangleShape2D_5udau")
+disabled = true
+
+[node name="Attack" type="CollisionShape2D" parent="EnemyHitbox"]
+position = Vector2(-20, -34)
+shape = SubResource("RectangleShape2D_whayr")
+disabled = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
