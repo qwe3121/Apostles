@@ -1,4 +1,4 @@
-[gd_scene load_steps=346 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=345 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -4775,8 +4775,6 @@ _data = {
 "WeakAttack4": SubResource("Animation_17qnf")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_77mly"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
 size = Vector2(105, 101)
 
@@ -4787,12 +4785,13 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
-position = Vector2(0, -88)
+position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"WeakAttack4"
+animation = &"Block"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -45)
 shape = SubResource("RectangleShape2D_vnju1")
 
@@ -4915,7 +4914,7 @@ position_smoothing_speed = 8.0
 script = ExtResource("33_vq8xm")
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
-material = SubResource("ShaderMaterial_77mly")
+z_index = 5
 offset_left = -2395.0
 offset_top = -1632.0
 offset_right = 2621.0

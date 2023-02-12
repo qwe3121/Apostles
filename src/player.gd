@@ -59,6 +59,9 @@ var hp = 1
 
 
 func get_damage():
+	if state == DASH:
+		return
+	
 	hp -= 1
 	if hp <= 0:
 		state_started = false
@@ -73,7 +76,7 @@ func set_dir():
 
 func set_anim(animation_name):
 	if animation_name == WALL_SLIDE:
-		$AnimatedSprite2D.flip_h = anim_dir == 1
+		$AnimatedSprite2D.flip_h = wall_dir == -1
 	else:
 		$AnimatedSprite2D.flip_h = !(anim_dir == 1)
 		$Hitbox.scale.x = anim_dir
@@ -1078,6 +1081,7 @@ func dead(delta):
 	velocity.y += gravity * delta
 	velocity.y = 0
 	if !state_started:
+		$Hitbox/CollisionShape2D.disabled = true
 		state_started = true
 #		await anim.animation_finished
 		get_tree().reload_current_scene()

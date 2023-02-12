@@ -55,8 +55,6 @@ var player_is_inside = false
 
 func _ready():
 	$Blood.modulate.a = randf_range(0.6, 1.0)
-	$AnimatedSprite2D.modulate = Color("ffffff")
-	$AnimatedSprite2D.material.shader = load("res://src/enemies/hitted.gdshader")
 	walking_timer()
 	
 	
@@ -83,11 +81,9 @@ func set_anim(animation_name):
 	$Blood.flip_h = !(last_knockback_dir == 1)
 	$Blood.position.x = 30 * last_knockback_dir
 	$CheckForPit.position.x = 24.75 * anim_dir
-	$EnemyHitbox.scale.x = -1 * anim_dir
 	$BulletPos.position.x = 14.5 * anim_dir
 	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
-	$Eyes/CollisionShape2D.position.x = 37.25 * anim_dir
-	$WallDetector/CollisionShape2D.position.x = 18.25 * anim_dir
+	$WallDetector/CollisionShape2D.position.x = -15 * anim_dir
 
 	match animation_name:
 		IDLE: 
@@ -310,6 +306,7 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		$EnemyHitbox/CollisionPolygon2D.disabled = true
 		for c in range(b_drops):
 			var blood_drop_instance = blood_drop.instantiate()
 			get_parent().get_node("Sprite2D").add_child(blood_drop_instance)

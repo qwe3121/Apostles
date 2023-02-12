@@ -1,8 +1,9 @@
-[gd_scene load_steps=101 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=102 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
 [ext_resource type="Texture2D" uid="uid://c8832hghnnkfr" path="res://sprites/enemies/MK2/Vihod_iz_Ataki_MK2.png" id="2_5ya1q"]
+[ext_resource type="Shader" path="res://src/enemies/hitted.gdshader" id="2_qvril"]
 [ext_resource type="Texture2D" uid="uid://bxib1gky6ds8f" path="res://sprites/enemies/MK2/Pokoi_MK2.png" id="3_max88"]
 [ext_resource type="Texture2D" uid="uid://camnjo7jqyq5y" path="res://sprites/enemies/MK2/Vihod_iz_Ylta_Ataki_MK2.png" id="3_xi4c5"]
 [ext_resource type="Texture2D" uid="uid://b3ysqhc0n1kxc" path="res://sprites/enemies/MK2/Ataka_MK2.png" id="4_ly4g5"]
@@ -545,6 +546,9 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uljah"]
 resource_local_to_scene = true
+shader = ExtResource("2_qvril")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pthjl"]
 atlas = ExtResource("2_5ya1q")
@@ -1084,6 +1088,7 @@ collision_mask = 2
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1103,29 +1108,25 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"after_attack"
-frame = 6
+animation = &"dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(0, 0, 1, 1)
+modulate = Color(1, 0.0117647, 0.243137, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -1135,7 +1136,6 @@ position = Vector2(-31, -17.5)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -1144,7 +1144,6 @@ position = Vector2(0, -17.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

@@ -54,8 +54,6 @@ var player_is_inside = false
 
 func _ready():
 	$Blood.modulate.a = randf_range(0.6, 1.0)
-	$AnimatedSprite2D.modulate = Color("ffffff")
-	$AnimatedSprite2D.material.shader = load("res://src/enemies/hitted.gdshader")
 	walking_timer()
 	
 	
@@ -314,6 +312,8 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		$EnemyHitbox/Ulti.disabled = true
+		$EnemyHitbox/Attack.disabled = true
 		for c in range(b_drops):
 			var blood_drop_instance = blood_drop.instantiate()
 			get_parent().get_node("Sprite2D").add_child(blood_drop_instance)
