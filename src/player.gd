@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var np = true
+var np = false
 
 
 @onready var anim = $AnimationPlayer
