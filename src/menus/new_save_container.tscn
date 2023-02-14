@@ -23,11 +23,13 @@ script = ExtResource("1_ldt6i")
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color(1, 0, 0, 1)
-custom_minimum_size = Vector2i(600, 0)
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 0
 offset_right = 892.0
 offset_bottom = 162.0
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_right = 891.0
 offset_bottom = 163.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_inmey")
@@ -51,6 +53,7 @@ placeholder_text = "enter name here"
 [node name="FNAlert" type="AcceptDialog" parent="."]
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 399.0
 offset_top = -23.0
 offset_right = 485.0

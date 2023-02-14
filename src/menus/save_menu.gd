@@ -5,15 +5,17 @@ var save_container_scene = preload("res://src/menus/save_container.tscn")
 var new_save_container_scene = preload("res://src/menus/new_save_container.tscn")
 var control_for_container_bug_fix = preload("res://src/menus/control_for_container_bug_fix.tscn")
 
+@onready var v_box_container = $ScrollContainer/VBoxContainer
+
 
 func refresh():
 	var saves_n_time: Array
 
-	for child in $ScrollContainer/VBoxContainer.get_children():
+	for child in v_box_container.get_children():
 		child.queue_free()
 		
 	var new_save_container_instance = new_save_container_scene.instantiate()
-	$ScrollContainer/VBoxContainer.add_child(new_save_container_instance)
+	v_box_container.add_child(new_save_container_instance)
 		
 	if DirAccess.dir_exists_absolute("user://saves"):
 		var files = []
@@ -40,11 +42,11 @@ func refresh():
 		for save in saves_n_time:
 			var file_name = save[0]
 			var save_container_instance = save_container_scene.instantiate()
+			v_box_container.add_child(save_container_instance)
 			save_container_instance.configurate(file_name.left(file_name.length() - 5))
-			$ScrollContainer/VBoxContainer.add_child(save_container_instance)
 
 		var control_for_container_bug_fix_instance = control_for_container_bug_fix.instantiate()
-		$ScrollContainer/VBoxContainer.add_child(control_for_container_bug_fix_instance)
+		v_box_container.add_child(control_for_container_bug_fix_instance)
 		
 		
 func sort(a, b):

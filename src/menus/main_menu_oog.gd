@@ -1,6 +1,11 @@
 extends Control
 
 
+@onready var main_menu = $Main
+@onready var load_menu = $LoadMenu
+@onready var settings_menu = $SettingsMenu
+
+
 func _ready():
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	$LoadMenu/BackToMainMenu.pressed.connect(load_main_menu)
@@ -9,13 +14,13 @@ func _ready():
 	
 	
 func make_all_menus_invisible():
-	$Main.visible = false
-	$LoadMenu.visible = false
-	$SettingsMenu.visible = false
+	main_menu.visible = false
+	load_menu.visible = false
+	settings_menu.visible = false
 
 
 func saves_is_updated():
-	$LoadMenu.refresh()
+	load_menu.refresh()
 
 
 func _on_new_game_button_pressed():
@@ -28,13 +33,13 @@ func _on_load_button_pressed():
 	
 func load_load_menu():
 	make_all_menus_invisible()
-	$LoadMenu.refresh()
-	$LoadMenu.visible = true
+	load_menu.refresh()
+	load_menu.visible = true
 	
 	
 func load_main_menu():
 	make_all_menus_invisible()
-	$Main.visible = true
+	main_menu.visible = true
 
 
 func _on_quit_button_pressed():
@@ -43,7 +48,7 @@ func _on_quit_button_pressed():
 
 func _on_settings_button_pressed():
 	make_all_menus_invisible()
-	$SettingsMenu.visible = true
+	settings_menu.visible = true
 
 
 func _on_continue_button_pressed():

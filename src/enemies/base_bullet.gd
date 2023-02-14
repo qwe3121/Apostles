@@ -4,8 +4,13 @@ extends Area2D
 @export var can_block: bool = false
 @export var speed = 600
 
-var dir = 1
+var dir = 1 : set = set_dir
 
+func set_dir(value):
+	$Sprite2D.flip_h = true if value == 1 else false
+	$CollisionShape2D.scale.x = -1 if value == 1 else 1
+	dir = value
+	
 
 func _physics_process(delta):
 	move_local_x(delta * speed * dir)

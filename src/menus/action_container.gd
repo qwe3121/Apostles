@@ -3,9 +3,14 @@ extends HBoxContainer
 
 @export var action : String
 
+@onready var action_label = $ActionLabel
+@onready var action_button = $ActionButton
+@onready var control = $Control
+@onready var containers_loc = $".."
+
 
 func _ready():
-	$ActionLabel.text = action
+	action_label.text = action
 	events.ready_to_load_keys_containers.connect(_on_ready_to_load_keys_containers)
 
 		
@@ -13,14 +18,14 @@ func _on_ready_to_load_keys_containers():
 	if InputMap.action_get_events(action)[0]:
 		update_button_text(InputMap.action_get_events(action)[0])
 	else:
-		$ActionButton.text = "There is no key on it"
+		action_button.text = "There is no key on it"
 
 
 func _input(input_event: InputEvent):
-	if $ActionButton.button_pressed and not input_event is InputEventMouseMotion:
+	if action_button.button_pressed and not input_event is InputEventMouseMotion:
 		off_focus_on_all_buttons()
 		if not input_event.is_pressed():
-			$ActionButton.button_pressed = false
+			action_button.button_pressed = false
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, input_event)
 
@@ -35,23 +40,22 @@ func _input(input_event: InputEvent):
 			update_button_text(input_event)
 			
 			on_focus_on_all_buttons()
-			$ActionButton.release_focus()
+			action_button.release_focus()
 			await get_tree().create_timer(0.001).timeout
-			$ActionButton.grab_focus()
-			
+			action_button.grab_focus()
 
 
 func update_button_text(input_event: InputEvent):
-	$ActionButton.text = input_event.as_text()
+	action_button.text = input_event.as_text()
 
 
 func _on_action_button_toggled(button_pressed):
 	if button_pressed:
-		$ActionButton.text = "press a key..."
+		action_button.text = "press a key..."
 		
 		
 func off_focus_on_all_buttons():
-	var containers = $"..".get_children()
+	var containers = containers_loc.get_children()
 	for container in containers:
 		if container == self:
 			continue
@@ -61,7 +65,7 @@ func off_focus_on_all_buttons():
 			
 			
 func on_focus_on_all_buttons():
-	var containers = $"..".get_children()
+	var containers = containers_loc.get_children()
 	for container in containers:
 		if container == self:
 			continue

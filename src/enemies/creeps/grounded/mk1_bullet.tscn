@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3wparv4r76r"]
 
 [ext_resource type="Script" path="res://src/enemies/base_bullet.gd" id="1_a6uif"]
-[ext_resource type="Texture2D" uid="uid://bvjd5bg88uv5u" path="res://sprites/enemies/MK1/Vistreli_MK1.png" id="2_3h7c2"]
+[ext_resource type="Texture2D" uid="uid://cf453gtayy8vo" path="res://sprites/enemies/MK1/Pyla_MK1.png" id="2_465kg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8cs4"]
-size = Vector2(16, 2)
+size = Vector2(20, 2)
 
 [node name="MK1Bullet" type="Area2D"]
 collision_layer = 0
@@ -18,14 +18,12 @@ one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_p8cs4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("2_3h7c2")
-hframes = 6
-vframes = 3
-frame = 2
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_465kg")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="body_entered" from="." to="." method="_on_body_entered" flags=18]

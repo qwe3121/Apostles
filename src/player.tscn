@@ -1,4 +1,4 @@
-[gd_scene load_steps=345 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=346 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://n7i2kakprr3i" path="res://sprites/player/strong_attack_3.png" id="24_6xbbw"]
 [ext_resource type="Texture2D" uid="uid://cvntnxh5cmar" path="res://sprites/player/strong_attack_4.png" id="25_8qlhm"]
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
+[ext_resource type="Texture2D" uid="uid://dwu3cfdbtjm8c" path="res://sprites/FlashlightTextures/flashlight5.png" id="35_f3h3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -4779,6 +4780,7 @@ _data = {
 size = Vector2(105, 101)
 
 [node name="Player" type="CharacterBody2D"]
+modulate = Color(1.5, 1.5, 1.5, 1)
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_jdkiv")
@@ -4939,6 +4941,15 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_vnju1")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(0, -45)
+color = Color(0, 1, 0.933333, 1)
+energy = 3.1
+shadow_enabled = true
+texture = ExtResource("35_f3h3w")
+texture_scale = 0.3
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]

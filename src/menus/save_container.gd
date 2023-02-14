@@ -1,6 +1,15 @@
 extends Control
 
 
+@onready var save_name = $HBoxContainer/Panel/SaveName
+@onready var type_name = $HBoxContainer/Panel/TypeName
+@onready var date = $HBoxContainer/Panel/Date
+@onready var confirm_overwrite = $ConfirmOverwrite
+@onready var text_edit = $ConfirmOverwrite/TextEdit
+@onready var confirm_delete = $ConfirmDelete
+@onready var FN_alert = $FNAlert
+
+
 func configurate(file_name: String):
 	if !FileAccess.file_exists("user://saves/" + file_name + ".save"):
 		print("Can't find the save file " + file_name + ".save while configurating save container")
@@ -10,9 +19,9 @@ func configurate(file_name: String):
 	
 	var data = file.get_var()
 	
-	$HBoxContainer/Panel/SaveName.text = file_name
-	$HBoxContainer/Panel/TypeName.text = data["save_type"]
-	$HBoxContainer/Panel/Date.text = Time.get_datetime_string_from_unix_time(data["unix_time"], true)
+	save_name.text = file_name
+	type_name.text = data["save_type"]
+	date.text = Time.get_datetime_string_from_unix_time(data["unix_time"], true)
 	
 	if !FileAccess.file_exists("user://screenshots/" + file_name + ".png"):
 		print("Can't find the screenshot file " + file_name + ".png while configurating save container")
@@ -29,24 +38,24 @@ func configurate(file_name: String):
 
 
 func _on_overwrite_button_pressed():
-	$ConfirmOverwrite/TextEdit.text = $HBoxContainer/Panel/SaveName.text
-	$ConfirmOverwrite.popup_centered()
+	text_edit.text = save_name.text
+	confirm_overwrite.popup_centered()
 	
 	
 func _on_delete_button_pressed():
-	$ConfirmDelete.dialog_text = "delete save " + $HBoxContainer/Panel/SaveName.text + ".save"
-	$ConfirmDelete.popup_centered()
+	confirm_delete.dialog_text = "delete save " + save_name.text + ".save"
+	confirm_delete.popup_centered()
 
 
 func _on_confirm_delete_confirmed():
-	snl.delete_save($HBoxContainer/Panel/SaveName.text)
+	snl.delete_save(save_name.text)
 	events.emit_signal("saves_is_updated")
 
 
 func _on_confirm_overwrite_confirmed():
-	if $ConfirmOverwrite/TextEdit.text == "":
-		$FNAlert.dialog_text = "You can't give an empty name to the save file"
-		$FNAlert.popup_centered()
+	if text_edit.text == "":
+		FN_alert.dialog_text = "You can't give an empty name to the save file"
+		FN_alert.popup_centered()
 		return
 		
 	if DirAccess.dir_exists_absolute("user://saves"):
@@ -63,30 +72,30 @@ func _on_confirm_overwrite_confirmed():
 
 		dir.list_dir_end()
 
-		if ($ConfirmOverwrite/TextEdit.text + ".save") in files and $ConfirmOverwrite/TextEdit.text != $HBoxContainer/Panel/SaveName.text:
-			$FNAlert.dialog_text = "save file " + $ConfirmOverwrite/TextEdit.text + ".save is already exists, choose other name"
-			$FNAlert.popup_centered()
+		if (text_edit.text + ".save") in files and text_edit.text != save_name.text:
+			FN_alert.dialog_text = "save file " + text_edit.text + ".save is already exists, choose other name"
+			FN_alert.popup_centered()
 			return
 			
-	snl.delete_save($HBoxContainer/Panel/SaveName.text)
-	snl.save_game($ConfirmOverwrite/TextEdit.text, "save")
+	snl.delete_save(save_name.text)
+	snl.save_game(text_edit.text, "save")
 	events.emit_signal("saves_is_updated")
 
 
 var normal_chars = ['-', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-@onready var previous_text = $ConfirmOverwrite/TextEdit.text
-@onready var previous_caret_position = $ConfirmOverwrite/TextEdit.get_caret_column()
+@onready var previous_text = text_edit.text
+@onready var previous_caret_position = text_edit.get_caret_column()
 
 func _on_text_edit_text_changed():
-	for char in $ConfirmOverwrite/TextEdit.text:
+	for char in text_edit.text:
 		if char not in normal_chars:
-			$ConfirmOverwrite/TextEdit.text = previous_text
-			$ConfirmOverwrite/TextEdit.set_caret_column(previous_caret_position, false)
+			text_edit.text = previous_text
+			text_edit.set_caret_column(previous_caret_position, false)
 			return
-	previous_text = $ConfirmOverwrite/TextEdit.text
-	previous_caret_position = $ConfirmOverwrite/TextEdit.get_caret_column()
+	previous_text = text_edit.text
+	previous_caret_position = text_edit.get_caret_column()
 
 
 func _on_fn_alert_confirmed():
-	$ConfirmOverwrite/TextEdit.text = $HBoxContainer/Panel/SaveName.text
-	$ConfirmOverwrite.popup_centered()
+	text_edit.text = save_name.text
+	confirm_overwrite.popup_centered()

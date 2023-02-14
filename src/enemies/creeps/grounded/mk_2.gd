@@ -12,6 +12,25 @@ extends CharacterBody2D
 var see_player = false
 
 @onready var anim = $AnimationPlayer
+@onready var wall_detector_col = $WallDetector/CollisionShape2D
+@onready var check_for_blocked_area_col = $CheckForBlockedArea/CollisionShape2D
+@onready var chase_timer = $ChaseTimer
+@onready var walking_timer = $WalkingTimer
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var flashlight_timer = $FlashlightTimer
+@onready var blood = $Blood
+@onready var check_for_pit = $CheckForPit
+@onready var bullet_pos = $BulletPos
+@onready var turned_timer = $TurnedTimer
+@onready var attack_cooldown = $AttackCooldown
+@onready var ulti_cooldown = $UltiCooldown
+@onready var enemy_hitbox = $EnemyHitbox
+@onready var blood_pos = $BloodPos
+@onready var qmark = $Qmark
+@onready var eyes_col = $Eyes/CollisionShape2D
+@onready var ulti_hitbox = $EnemyHitbox/Ulti
+@onready var attack_hitbox = $EnemyHitbox/Attack
+
 
 var blood_drop = preload("res://src/blood_drop.tscn")
 
@@ -53,8 +72,8 @@ var last_knockback_dir = 0
 var player_is_inside = false
 
 func _ready():
-	$Blood.modulate.a = randf_range(0.6, 1.0)
-	walking_timer()
+	blood.modulate.a = randf_range(0.6, 1.0)
+	walking_timer_start()
 	
 	
 
@@ -62,25 +81,25 @@ func get_damage(value, k_dir = 0):
 	hp -= value
 	if k_dir: last_knockback_dir = k_dir
 	if hp <= 0:
-		$ChaseTimer.stop()
-		$WalkingTimer.stop()
+		chase_timer.stop()
+		walking_timer.stop()
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
 		flashing = 1
-		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 1.0)
-		$FlashlightTimer.start()
+		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
+		flashlight_timer.start()
 	global.camera.shake()
 		
 func set_anim(animation_name):
-	$AnimatedSprite2D.flip_h = anim_dir == 1
-	$Blood.flip_h = !(last_knockback_dir == 1)
-	$Blood.position.x = 30 * last_knockback_dir
-	$CheckForPit.position.x = 24.75 * anim_dir
-	$EnemyHitbox.scale.x = -1 * anim_dir
-	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
-	$Eyes/CollisionShape2D.position.x = 37.25 * anim_dir
-	$WallDetector/CollisionShape2D.position.x = 18.25 * anim_dir
+	animated_sprite.flip_h = anim_dir == 1
+	blood.flip_h = !(last_knockback_dir == 1)
+	blood.position.x = 30 * last_knockback_dir
+	check_for_pit.position.x = 24.75 * anim_dir
+	enemy_hitbox.scale.x = -1 * anim_dir
+	check_for_blocked_area_col.position.x = 31 * anim_dir
+	eyes_col.position.x = 37.25 * anim_dir
+	wall_detector_col.position.x = 18.25 * anim_dir
 
 	match animation_name:
 		IDLE: 
@@ -196,13 +215,13 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall or not $CheckForPit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
 		turned = true
-		$TurnedTimer.start()
+		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not $CheckForPit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
 		set_anim(IDLE)
 	else:
@@ -256,11 +275,11 @@ func after_attack():
 		state_started = true
 		await anim.animation_finished
 		if state == AFTER_ATTACK:
-			$AttackCooldown.start()
+			attack_cooldown.start()
 			if not see_player:
 				chasing = false
 				walking = 0
-				walking_timer()
+				walking_timer_start()
 			state = IDLE
 			
 			
@@ -270,7 +289,7 @@ func before_ulti():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-		$AttackCooldown.stop()
+		attack_cooldown.stop()
 		can_attack = false
 		can_ulti = false
 		await anim.animation_finished
@@ -297,12 +316,12 @@ func after_ulti():
 		state_started = true
 		await anim.animation_finished
 		if state == AFTER_ULTI:
-			$UltiCooldown.start()
-			$AttackCooldown.start()
+			ulti_cooldown.start()
+			attack_cooldown.start()
 			if not see_player:
 				chasing = false
 				walking = 0
-				walking_timer()
+				walking_timer_start()
 			state = IDLE
 	
 	
@@ -312,13 +331,13 @@ func dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-		$EnemyHitbox/Ulti.disabled = true
-		$EnemyHitbox/Attack.disabled = true
+		ulti_hitbox.disabled = true
+		attack_hitbox.disabled = true
 		for c in range(b_drops):
 			var blood_drop_instance = blood_drop.instantiate()
 			get_parent().get_node("Sprite2D").add_child(blood_drop_instance)
 			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = $BloodPos.global_position
+			blood_drop_instance.global_position = blood_pos.global_position
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -338,12 +357,12 @@ func _on_walking_timer_timeout():
 		state = IDLE
 	else:
 		walking = 1
-	walking_timer()
+	walking_timer_start()
 	
 	
-func walking_timer():
-	$WalkingTimer.wait_time = randi_range(1,5)
-	$WalkingTimer.start()
+func walking_timer_start():
+	walking_timer.wait_time = randi_range(1,5)
+	walking_timer.start()
 	
 	
 func _on_attack_cooldown_timeout():
@@ -360,10 +379,10 @@ func _on_ulti_cooldown_timeout():
 
 func _on_eyes_body_entered(body):
 	if not chasing and can_attack:
-		$Qmark.visible = true
-		$Qmark.play("popup")
-	$WalkingTimer.stop()
-	$ChaseTimer.stop()
+		qmark.visible = true
+		qmark.play("popup")
+	walking_timer.stop()
+	chase_timer.stop()
 	see_player = true
 
 
@@ -371,7 +390,7 @@ func _on_eyes_body_exited(body):
 	see_player = false
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		chasing = true
-		$ChaseTimer.start()
+		chase_timer.start()
 
 
 func _on_turned_timer_timeout():
@@ -381,7 +400,7 @@ func _on_turned_timer_timeout():
 func _on_chase_timer_timeout():
 	chasing = false
 	walking = 0
-	walking_timer()
+	walking_timer_start()
 	state = IDLE
 
 
@@ -395,11 +414,11 @@ func _on_check_for_blocked_area_area_exited(area):
 
 func _on_flashlight_timer_timeout():
 	if flashing == 1:
-		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.5)
+		animated_sprite.material.set_shader_parameter("flash_modifier", 0.5)
 		flashing = 2
-		$FlashlightTimer.start()
+		flashlight_timer.start()
 	elif flashing == 2:
-		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.0)
+		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
 		knockback_dir = 0
 

@@ -1,14 +1,19 @@
 extends Control
 
 
+@onready var text_edit = $ConfirmSaveName/TextEdit
+@onready var confirm_save_name = $ConfirmSaveName
+@onready var FN_alert = $FNAlert
+
+
 func _on_button_pressed():
-	$ConfirmSaveName.popup_centered()
+	confirm_save_name.popup_centered()
 
 
 func _on_confirm_save_name_confirmed():
-	if $ConfirmSaveName/TextEdit.text == "":
-		$FNAlert.dialog_text = "You can't give an empty name to the save file"
-		$FNAlert.popup_centered()
+	if text_edit.text == "":
+		FN_alert.dialog_text = "You can't give an empty name to the save file"
+		FN_alert.popup_centered()
 		return
 		
 	if DirAccess.dir_exists_absolute("user://saves"):
@@ -25,29 +30,29 @@ func _on_confirm_save_name_confirmed():
 
 		dir.list_dir_end()
 
-		if ($ConfirmSaveName/TextEdit.text + ".save") in files:
-			$FNAlert.dialog_text = "save file " + $ConfirmSaveName/TextEdit.text + ".save is already exists, choose other name"
-			$FNAlert.popup_centered()
+		if (text_edit.text + ".save") in files:
+			FN_alert.dialog_text = "save file " + text_edit.text + ".save is already exists, choose other name"
+			FN_alert.popup_centered()
 			return
 			
-	snl.save_game($ConfirmSaveName/TextEdit.text, "save")
+	snl.save_game(text_edit.text, "save")
 	events.emit_signal("saves_is_updated")
 
 
 var normal_chars = ['-', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-@onready var previous_text = $ConfirmSaveName/TextEdit.text
-@onready var previous_caret_position = $ConfirmSaveName/TextEdit.get_caret_column()
+@onready var previous_text = text_edit.text
+@onready var previous_caret_position = text_edit.get_caret_column()
 
 func _on_text_edit_text_changed():
-	for char in $ConfirmSaveName/TextEdit.text:
+	for char in text_edit.text:
 		if char not in normal_chars:
-			$ConfirmSaveName/TextEdit.text = previous_text
-			$ConfirmSaveName/TextEdit.set_caret_column(previous_caret_position, false)
+			text_edit.text = previous_text
+			text_edit.set_caret_column(previous_caret_position, false)
 			return
-	previous_text = $ConfirmSaveName/TextEdit.text
-	previous_caret_position = $ConfirmSaveName/TextEdit.get_caret_column()
+	previous_text = text_edit.text
+	previous_caret_position = text_edit.get_caret_column()
 
 
 func _on_fn_alert_confirmed():
-	$ConfirmSaveName/TextEdit.text = ""
-	$ConfirmSaveName.popup_centered()
+	text_edit.text = ""
+	confirm_save_name.popup_centered()

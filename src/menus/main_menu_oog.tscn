@@ -207,8 +207,7 @@ texture = ExtResource("3_tlapm")
 [node name="Birds" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-131, 278)
-frames = SubResource("SpriteFrames_kcuna")
-playing = true
+sprite_frames = SubResource("SpriteFrames_kcuna")
 
 [node name="Main" type="Control" parent="."]
 layout_mode = 1

@@ -1,10 +1,22 @@
 extends CharacterBody2D
-var np = false
+var np = true
 
 
 @onready var anim = $AnimationPlayer
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
+@onready var adrenaline_bar = $CanvasLayer/PlayerUI/AdrenalineBar
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var hitbox = $Hitbox
+@onready var label = $Label
+@onready var weak_combo_timer = $WeakComboTimer
+@onready var strong_combo_timer = $StrongComboTimer
+@onready var from_jump_to_air_timer = $FromJumpToAirTimer
+@onready var can_stand_up_raycasts = $CanStandUpRaycasts
+@onready var wall_slide_cooldown = $WallSlideCooldown
+@onready var hurtbox_col = $Hurtbox/CollisionShape2D
+@onready var hitbox_col = $Hitbox/CollisionShape2D
+
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
@@ -49,7 +61,7 @@ var adrenaline = 100 : set = set_adrenaline # dash, roll and strong_attacks
 
 func set_adrenaline(value):
 	adrenaline = 100
-	$CanvasLayer/PlayerUI/AdrenalineBar.value = adrenaline
+	adrenaline_bar.value = adrenaline
 
 var speed = 300
 var jump_velocity = -600
@@ -76,10 +88,10 @@ func set_dir():
 
 func set_anim(animation_name):
 	if animation_name == WALL_SLIDE:
-		$AnimatedSprite2D.flip_h = wall_dir == -1
+		animated_sprite.flip_h = wall_dir == -1
 	else:
-		$AnimatedSprite2D.flip_h = !(anim_dir == 1)
-		$Hitbox.scale.x = anim_dir
+		animated_sprite.flip_h = !(anim_dir == 1)
+		hitbox.scale.x = anim_dir
 	match animation_name:
 		IDLE: 
 			anim.play("Idle", -1, 1, false)
@@ -161,82 +173,82 @@ func _ready():
 func _physics_process(delta):
 	match state:
 		IDLE:
-			$Label.text = "IDLE"
+			label.text = "IDLE"
 			idle()
 		RUN:
-			$Label.text = "RUN"
+			label.text = "RUN"
 			run()
 		AIR:
-			$Label.text = "AIR"
+			label.text = "AIR"
 			air(delta)
 		JUMP:
-			$Label.text = "JUMP"
+			label.text = "JUMP"
 			jump(delta)
 		SIT:
-			$Label.text = "SIT"
+			label.text = "SIT"
 			sit()
 		CROUCH:
-			$Label.text = "CROUCH"
+			label.text = "CROUCH"
 			crouch()
 		WALL_SLIDE:
-			$Label.text = "WALL_SLIDE"
+			label.text = "WALL_SLIDE"
 			wall_slide(delta)
 		DASH:
-			$Label.text = "DASH"
+			label.text = "DASH"
 			dash()
 		ROLL:
-			$Label.text = "ROLL"
+			label.text = "ROLL"
 			roll()
 		WEAK_ATTACK_1:
-			$Label.text = "WEAK_ATTACK_1"
+			label.text = "WEAK_ATTACK_1"
 			weak_attack_1()
 		WEAK_ATTACK_2:
-			$Label.text = "WEAK_ATTACK_2"
+			label.text = "WEAK_ATTACK_2"
 			weak_attack_2()
 		WEAK_ATTACK_3:
-			$Label.text = "WEAK_ATTACK_3"
+			label.text = "WEAK_ATTACK_3"
 			weak_attack_3()
 		WEAK_ATTACK_4:
-			$Label.text = "WEAK_ATTACK_4"
+			label.text = "WEAK_ATTACK_4"
 			weak_attack_4()
 		STRONG_ATTACK_1:
-			$Label.text = "STRONG_ATTACK_1"
+			label.text = "STRONG_ATTACK_1"
 			strong_attack_1()
 		STRONG_ATTACK_2:
-			$Label.text = "STRONG_ATTACK_2"
+			label.text = "STRONG_ATTACK_2"
 			strong_attack_2()
 		STRONG_ATTACK_3:
-			$Label.text = "STRONG_ATTACK_3"
+			label.text = "STRONG_ATTACK_3"
 			strong_attack_3()
 		STRONG_ATTACK_4:
-			$Label.text = "STRONG_ATTACK_4"
+			label.text = "STRONG_ATTACK_4"
 			strong_attack_4(delta)
 		LANDING:
-			$Label.text = "LANDING"
+			label.text = "LANDING"
 			landing()
 		FIRST_JUMP_ATTACK_1:
-			$Label.text = "FIRST_JUMP_ATTACK_1"
+			label.text = "FIRST_JUMP_ATTACK_1"
 			first_jump_attack_1()
 		FIRST_JUMP_ATTACK_2:
-			$Label.text = "FIRST_JUMP_ATTACK_2"
+			label.text = "FIRST_JUMP_ATTACK_2"
 			first_jump_attack_2()
 		FIRST_JUMP_ATTACK_3:
-			$Label.text = "FIRST_JUMP_ATTACK_3"
+			label.text = "FIRST_JUMP_ATTACK_3"
 			first_jump_attack_3()
 		SECOND_JUMP_ATTACK_1:
-			$Label.text = "SECOND_JUMP_ATTACK_1"
+			label.text = "SECOND_JUMP_ATTACK_1"
 			second_jump_attack_1()
 		SECOND_JUMP_ATTACK_2:
-			$Label.text = "SECOND_JUMP_ATTACK_2"
+			label.text = "SECOND_JUMP_ATTACK_2"
 			second_jump_attack_2()
 		SECOND_JUMP_ATTACK_3:
-			$Label.text = "SECOND_JUMP_ATTACK_3"
+			label.text = "SECOND_JUMP_ATTACK_3"
 			second_jump_attack_3()
 		DEAD:
-			$Label.text = "DEAD"
+			label.text = "DEAD"
 			dead(delta)
 		BLOCK:
-			$Label.text = "BLOCK"
+			label.text = "BLOCK"
 			block()
 			
 	move_and_slide()
@@ -290,7 +302,7 @@ func idle():
 				print("from idle to weak_attack_4")
 			state = WEAK_ATTACK_4
 			weak_combo_index = 1 
-		$WeakComboTimer.start()
+		weak_combo_timer.start()
 		return
 		
 	if Input.is_action_pressed("LMB ATTACK") and adrenaline >= 15:
@@ -315,7 +327,7 @@ func idle():
 			state = STRONG_ATTACK_4
 			strong_combo_index = 1 
 		adrenaline -= 15
-		$StrongComboTimer.start()
+		strong_combo_timer.start()
 		return
 		
 	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
@@ -386,7 +398,7 @@ func run():
 				print("from idle to weak_attack_4")
 			state = WEAK_ATTACK_4
 			weak_combo_index = 1 
-		$WeakComboTimer.start()
+		weak_combo_timer.start()
 		return
 		
 	if Input.is_action_pressed("LMB ATTACK") and adrenaline >= 15:
@@ -411,7 +423,7 @@ func run():
 			state = STRONG_ATTACK_4
 			strong_combo_index = 1 
 		adrenaline -= 15
-		$StrongComboTimer.start()
+		strong_combo_timer.start()
 		return
 		
 	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
@@ -466,7 +478,7 @@ func air(delta):
 		jump_attack_index = 4
 		jump_index = 0
 		pre_jump = 2
-		$FromJumpToAirTimer.start()
+		from_jump_to_air_timer.start()
 		velocity.y = jump_velocity
 		if np:
 			print("from AIR to JUMP")
@@ -474,7 +486,7 @@ func air(delta):
 		return
 		
 	if Input.is_action_pressed("RMB ATTACK"):
-		$FromJumpToAirTimer.stop()
+		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:
 				jump_attack_index = 2
@@ -540,17 +552,17 @@ func jump(delta):
 	if is_on_floor() and jump_index == 1:
 		pre_jump = 1
 		jump_index = 2
-		$FromJumpToAirTimer.start()
+		from_jump_to_air_timer.start()
 		velocity.y = jump_velocity
 	elif not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2:
 		jump_attack_index = 4
 		single_anim_not_played_yet = true
 		pre_jump = 2
 		jump_index = 0
-		$FromJumpToAirTimer.start()
+		from_jump_to_air_timer.start()
 		velocity.y = jump_velocity
 	elif is_on_floor():
-		$FromJumpToAirTimer.stop()
+		from_jump_to_air_timer.stop()
 		if np:
 			print("to LANDING from jump")
 		state = LANDING
@@ -559,7 +571,7 @@ func jump(delta):
 		return
 		
 	if Input.is_action_pressed("DASH") and adrenaline >= 50:
-		$FromJumpToAirTimer.stop()
+		from_jump_to_air_timer.stop()
 		adrenaline -= 50
 		if np:
 			print("from jump to DASH")
@@ -567,7 +579,7 @@ func jump(delta):
 		return
 		
 	if wall_dir and !wall_jumping and !is_on_floor():
-		$FromJumpToAirTimer.stop()
+		from_jump_to_air_timer.stop()
 		velocity.y = 0
 		dir = -wall_dir
 		if dir:
@@ -578,7 +590,7 @@ func jump(delta):
 		return
 		
 	if Input.is_action_pressed("RMB ATTACK"):
-		$FromJumpToAirTimer.stop()
+		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:
 				jump_attack_index = 2
@@ -720,6 +732,7 @@ func crouch():
 		state = SIT
 		return
 	
+	
 func update_wall_direction():
 	var is_near_wall_left = check_is_valid_wall(left_wall_raycasts)
 	var is_near_wall_right = check_is_valid_wall(right_wall_raycasts)
@@ -745,7 +758,7 @@ func check_is_valid_wall(wall_raycasts):
 		
 func check_if_can_stand_up():
 	var count = 0
-	for raycast in $CanStandUpRaycasts.get_children():
+	for raycast in can_stand_up_raycasts.get_children():
 		if raycast.is_colliding():
 			count += 1
 	if count:
@@ -756,7 +769,7 @@ func check_if_can_stand_up():
 
 func wall_slide(delta):
 	if Input.is_action_pressed("JUMP"):
-		$WallSlideCooldown.start()
+		wall_slide_cooldown.start()
 		wall_jumping = true
 		jump_index = 0
 		pre_jump = 0
@@ -801,6 +814,7 @@ func dash():
 				print("from dash to AIR")
 			pre_jump = 2
 			state = AIR
+			return
 			
 	velocity.x = anim_dir * speed * 12
 	velocity.y = 0
@@ -821,6 +835,7 @@ func roll():
 			if np:
 				print("from ROLL to SIT")
 			state = SIT
+			return
 			
 	velocity.x = anim_dir * speed * 3
 #	velocity.y = 0 # комментирование этой строки фиксит баг, при котором
@@ -1067,9 +1082,9 @@ func block():
 		if np:
 			print("from block to idle")
 		blocking = false
-		$Hurtbox/CollisionShape2D.disabled = true
+		hurtbox_col.disabled = true
 		state = IDLE
-		$Hurtbox/CollisionShape2D.disabled = false
+		hurtbox_col.disabled = false
 
 
 func _on_hitbox_body_entered(body):
@@ -1084,7 +1099,7 @@ func dead(delta):
 	velocity.y += gravity * delta
 	velocity.y = 0
 	if !state_started:
-		$Hitbox/CollisionShape2D.disabled = true
+		hitbox_col.disabled = true
 		state_started = true
 #		await anim.animation_finished
 		get_tree().reload_current_scene()

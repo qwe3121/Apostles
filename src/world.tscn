@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=49 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="4_ih2g2"]
@@ -168,6 +168,16 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="Environment" id="Environment_fmdri"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 2.68
+glow_mix = 0.3
+glow_bloom = 1.0
+glow_blend_mode = 4
+
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
 
@@ -255,3 +265,6 @@ safe_margin = 0.24
 
 [node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
 position = Vector2(0, -1172)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fmdri")

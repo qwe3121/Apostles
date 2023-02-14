@@ -1,8 +1,11 @@
 extends Node2D
 
 
+@onready var clouds = $Parallax/Clouds
+
+
 func _physics_process(delta):
-	$Parallax/Clouds.motion_offset.x += 5 * delta
+	clouds.motion_offset.x += 5 * delta
 
 
 func save_world():

@@ -3,6 +3,12 @@ extends Control
 
 var current_menu = "none" #none, main, load, save, settings
 
+@onready var color_rect = $ColorRect
+@onready var main_menu = $Main
+@onready var load_menu = $LoadMenu
+@onready var save_menu = $SaveMenu
+@onready var settings_menu = $SettingsMenu
+
 
 func _ready():
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
@@ -19,7 +25,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ESCAPE"):
 		if current_menu == "none":
 			snl.make_screenshot()
-			$ColorRect.visible = true
+			color_rect.visible = true
 			load_main_menu()
 		elif current_menu == "main":
 			hide_menu()
@@ -32,42 +38,42 @@ func _process(delta):
 			
 			
 func make_all_menus_invisible():
-	$Main.visible = false
-	$LoadMenu.visible = false
-	$SaveMenu.visible = false
-	$SettingsMenu.visible = false
+	main_menu.visible = false
+	load_menu.visible = false
+	save_menu.visible = false
+	settings_menu.visible = false
 	
 
 func saves_is_updated():
-	$LoadMenu.refresh()
-	$SaveMenu.refresh()
+	load_menu.refresh()
+	save_menu.refresh()
 	
 	
 func load_save_menu():
 	make_all_menus_invisible()
-	$SaveMenu.refresh()
-	$SaveMenu.visible = true
+	save_menu.refresh()
+	save_menu.visible = true
 	current_menu = "save"
 
 
 func load_main_menu():
 	get_tree().paused = true
 	make_all_menus_invisible()
-	$Main.visible = true
+	main_menu.visible = true
 	current_menu = "main"
 	
 	
 func hide_menu():
 	get_tree().paused = false
-	$ColorRect.visible = false
+	color_rect.visible = false
 	make_all_menus_invisible()
 	current_menu = "none"
 	
 	
 func load_load_menu():
 	make_all_menus_invisible()
-	$LoadMenu.refresh()
-	$LoadMenu.visible = true
+	load_menu.refresh()
+	load_menu.visible = true
 	current_menu = "load"
 	
 
@@ -104,5 +110,5 @@ func _on_settings_button_pressed():
 	
 func load_settings_menu():
 	make_all_menus_invisible()
-	$SettingsMenu.visible = true
+	settings_menu.visible = true
 	current_menu = "settings"

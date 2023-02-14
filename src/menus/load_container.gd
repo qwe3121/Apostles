@@ -1,6 +1,14 @@
 extends Control
 
 
+@onready var type_name = $HBoxContainer/Panel/TypeName
+@onready var date = $HBoxContainer/Panel/Date
+@onready var save_name = $HBoxContainer/Panel/SaveName
+@onready var confirm_load = $ConfirmLoad
+@onready var confirm_delete = $ConfirmDelete
+
+
+
 func configurate(file_name: String):
 	if !FileAccess.file_exists("user://saves/" + file_name + ".save"):
 		print("Can't find the save file " + file_name + ".save while configurating load container")
@@ -10,9 +18,9 @@ func configurate(file_name: String):
 	
 	var data = file.get_var()
 	
-	$HBoxContainer/Panel/SaveName.text = file_name
-	$HBoxContainer/Panel/TypeName.text = data["save_type"]
-	$HBoxContainer/Panel/Date.text = Time.get_datetime_string_from_unix_time(data["unix_time"], true)
+	save_name.text = file_name
+	type_name.text = data["save_type"]
+	date.text = Time.get_datetime_string_from_unix_time(data["unix_time"], true)
 	
 	if !FileAccess.file_exists("user://screenshots/" + file_name + ".png"):
 		print("Can't find the screenshot file " + file_name + ".png while configurating load container")
@@ -29,19 +37,19 @@ func configurate(file_name: String):
 
 
 func _on_load_button_pressed():
-	$ConfirmLoad.dialog_text = "load save " + $HBoxContainer/Panel/SaveName.text + ".save"
-	$ConfirmLoad.popup_centered()
+	confirm_load.dialog_text = "load save " + save_name.text + ".save"
+	confirm_load.popup_centered()
 
 
 func _on_delete_button_pressed():
-	$ConfirmDelete.dialog_text = "delete save " + $HBoxContainer/Panel/SaveName.text + ".save"
-	$ConfirmDelete.popup_centered()
+	confirm_delete.dialog_text = "delete save " + save_name.text + ".save"
+	confirm_delete.popup_centered()
 
 
 func _on_confirm_load_confirmed():
-	snl.load_game($HBoxContainer/Panel/SaveName.text)
+	snl.load_game(save_name.text)
 
 
 func _on_confirm_delete_confirmed():
-	snl.delete_save($HBoxContainer/Panel/SaveName.text)
+	snl.delete_save(save_name.text)
 	events.emit_signal("saves_is_updated")

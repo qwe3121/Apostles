@@ -1,6 +1,11 @@
 extends CanvasLayer
 
 
+@onready var text = $Control/NotificationPanel/Text
+@onready var notification_panel = $Control/NotificationPanel
+@onready var timer = $Control/Timer
+
+
 var notifications: Array = []
 
 var started = false
@@ -18,10 +23,10 @@ func add_nt(notification_string: String):
 	
 	
 func show_nt():
-	$Control/NotificationPanel/Text.text = notifications[0]
-	$Control/NotificationPanel.visible = true
+	text.text = notifications[0]
+	notification_panel.visible = true
 	notifications.remove_at(0)
-	$Control/Timer.start()
+	timer.start()
 
 
 func _on_timer_timeout():
@@ -33,8 +38,8 @@ func _on_button_pressed():
 	
 	
 func next():
-	$Control/Timer.stop()
-	$Control/NotificationPanel.visible = false
+	timer.stop()
+	notification_panel.visible = false
 	if notifications.size() > 0:
 		show_nt()
 	else:
@@ -42,7 +47,7 @@ func next():
 		
 		
 func _on_scene_is_about_to_be_changed():
-	$Control/Timer.stop()
-	$Control/NotificationPanel.visible = false
+	timer.stop()
+	notification_panel.visible = false
 	started = false
 	notifications = []

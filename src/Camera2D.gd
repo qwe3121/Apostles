@@ -1,7 +1,7 @@
 extends Camera2D
 
 
-var shake_power = 2
+var shake_power = 4
 var shake_time = 0.4
 var isShake = false
 var curPos
