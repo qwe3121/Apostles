@@ -81,7 +81,7 @@ func set_anim(animation_name):
 	$Blood.flip_h = !(last_knockback_dir == 1)
 	$Blood.position.x = 30 * last_knockback_dir
 	$CheckForPit.position.x = 24.75 * anim_dir
-	$BulletPos.position.x = 14.5 * anim_dir
+	$BulletPos.position.x = 3 * anim_dir
 	$CheckForBlockedArea/CollisionShape2D.position.x = 31 * anim_dir
 	$WallDetector/CollisionShape2D.position.x = -15 * anim_dir
 

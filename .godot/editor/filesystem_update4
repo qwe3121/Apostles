@@ -9,10 +9,6 @@ res://src/enemies/static_path/basic_static_path_trap.tscn
 res://src/blood_drop.tscn
 res://src/autoloads/music_test_autoload.tscn
 res://src/autoloads/notification.tscn
-res://src/world.gd
-res://src/glitch.gdshader
-res://src/autoloads/cfg.gd
-res://src/enemies/creeps/grounded/mk_2.gd
-res://src/enemies/creeps/grounded/mk_1.gd
 res://src/player.gd
-res://src/enemies/enemy_hitbox.gd
+res://src/Camera2D.gd
+res://src/enemies/creeps/grounded/mk_1.gd

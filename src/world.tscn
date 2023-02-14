@@ -219,6 +219,7 @@ texture_filter = 2
 texture = ExtResource("12_o14i3")
 
 [node name="SmallB" type="ParallaxLayer" parent="Parallax"]
+visible = false
 position = Vector2(10000, -202)
 motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(20000, 0)
@@ -238,7 +239,6 @@ material = SubResource("ShaderMaterial_cemph")
 texture = ExtResource("6_c3oir")
 
 [node name="Rain" type="ParallaxLayer" parent="Parallax"]
-visible = false
 position = Vector2(1307, -365)
 motion_mirroring = Vector2(2560, 1200)
 

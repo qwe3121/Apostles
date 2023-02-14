@@ -1088,7 +1088,6 @@ collision_mask = 2
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1108,7 +1107,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"dead"
+animation = &"before_ulti"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false

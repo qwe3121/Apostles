@@ -823,7 +823,9 @@ func roll():
 			state = SIT
 			
 	velocity.x = anim_dir * speed * 3
-	velocity.y = 0
+#	velocity.y = 0 # комментирование этой строки фиксит баг, при котором
+#		происходит неправильное поведение velocity.y после того, как из roll попадаешь в air,
+#		но из-за этого в теории стоит ожидать других багов
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -831,6 +833,7 @@ func _on_animation_player_animation_finished(anim_name):
 #		single_anim_not_played_yet = false
 	single_anim_not_played_yet = false 
 	#вроде бы без проверки фиксится баг, при котором во втором прыжке сразу включается цикличная версия анимации
+	#а может и нет, впрочем баг некритичный
 
 
 func weak_attack_1():

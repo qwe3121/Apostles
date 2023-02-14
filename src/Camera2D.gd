@@ -20,7 +20,7 @@ func _physics_process(delta):
 		shaking(delta)    
 		
 
-func shake(power_value = 2, time_value = 0.4):
+func shake(power_value = 4, time_value = 0.4):
 	if isShake: return
 	shake_power = power_value
 	shake_time = time_value
