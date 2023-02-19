@@ -25,6 +25,7 @@ global_settings="*res://src/autoloads/global_settings.gd"
 trans="*res://src/autoloads/transition.tscn"
 nt="*res://src/autoloads/notification.tscn"
 global="*res://src/autoloads/global.gd"
+world_env="*res://src/autoloads/world_env.tscn"
 
 [display]
 

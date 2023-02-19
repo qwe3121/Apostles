@@ -1,2 +1,4 @@
-res://src/player.tscn
+res://src/menus/settings_menu.tscn
 res://src/world.tscn
+res://src/player.tscn
+res://src/autoloads/world_env.tscn
