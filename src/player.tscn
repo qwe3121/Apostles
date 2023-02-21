@@ -1,4 +1,4 @@
-[gd_scene load_steps=346 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=347 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -4779,6 +4779,10 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
 size = Vector2(105, 101)
 
+[sub_resource type="Curve" id="Curve_rph5p"]
+_data = [Vector2(0, 0.527273), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Player" type="CharacterBody2D"]
 modulate = Color(1.5, 1.5, 1.5, 1)
 collision_layer = 128
@@ -4949,6 +4953,12 @@ energy = 3.1
 shadow_enabled = true
 texture = ExtResource("35_f3h3w")
 texture_scale = 0.3
+
+[node name="FruitNinjaLine" type="Line2D" parent="."]
+top_level = true
+z_index = 50
+width_curve = SubResource("Curve_rph5p")
+default_color = Color(1, 1, 0, 1)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]

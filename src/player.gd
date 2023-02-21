@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var np = false
+var np = true
 
 
 @onready var anim = $AnimationPlayer
@@ -17,12 +17,26 @@ var np = false
 @onready var hurtbox_col = $Hurtbox/CollisionShape2D
 @onready var hitbox_col = $Hitbox/CollisionShape2D
 
+#fruit ninja stuff
+@onready var fruit_ninja_line = $FruitNinjaLine
+var fruit_ninja_lenght = null
+var fruit_ninjaing = false
+var fruit_ninjaing_thru_line = false
+var fruit_ninja_points = null
+var fruit_ninja_target_point = null
+var fruit_ninja_target_point_index = 0
+
+
+var learned_skills = {
+	"fruit_ninja": true
+}
+
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
-DEAD}
+DEAD, FRUIT_NINJA}
 
 var state = IDLE : set = set_state
 
@@ -171,6 +185,12 @@ func _ready():
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
+		velocity.y = 0
+		velocity.x = 0
+		from_jump_to_air_timer.stop()
+		state = FRUIT_NINJA
+
 	match state:
 		IDLE:
 			label.text = "IDLE"
@@ -250,6 +270,9 @@ func _physics_process(delta):
 		BLOCK:
 			label.text = "BLOCK"
 			block()
+		FRUIT_NINJA:
+			label.text = "FRUIT_NINJA"
+			fruit_ninja()
 			
 	move_and_slide()
 
@@ -1103,3 +1126,43 @@ func dead(delta):
 		state_started = true
 #		await anim.animation_finished
 		get_tree().reload_current_scene()
+		
+		
+func fruit_ninja():
+	if fruit_ninjaing_thru_line:
+		if !state_started:
+			state_started = true
+			fruit_ninja_points = []
+			fruit_ninja_lenght = fruit_ninja_line.get_point_count()
+			for i in fruit_ninja_lenght - 1:
+				if !i: fruit_ninja_points.append(fruit_ninja_line.get_point_position(i))
+				elif i + 1 != fruit_ninja_lenght:
+					if fruit_ninja_line.get_point_position(i).distance_to(fruit_ninja_line.get_point_position(i+1)) > 5:
+						fruit_ninja_points.append(fruit_ninja_line.get_point_position(i))
+			fruit_ninja_lenght = len(fruit_ninja_points)
+			fruit_ninja_target_point = fruit_ninja_points[fruit_ninja_target_point_index]
+		if (global_position.distance_to(fruit_ninja_target_point)) > 5:
+			velocity = global_position.direction_to(fruit_ninja_target_point) * speed
+			print(velocity)
+		else:
+			if fruit_ninja_target_point_index + 1 < fruit_ninja_lenght - 1:
+				fruit_ninja_target_point_index += 1
+				fruit_ninja_target_point = fruit_ninja_points[fruit_ninja_target_point_index]
+			else:
+				fruit_ninja_lenght = null
+				fruit_ninjaing = false
+				fruit_ninjaing_thru_line = false
+				fruit_ninja_points = null
+				fruit_ninja_target_point = null
+				fruit_ninja_target_point_index = 0
+				fruit_ninja_line.clear_points()
+				if np:
+					print("from fruit ninja to idle")
+				state = IDLE
+				return
+	else:
+		if Input.is_action_pressed("LMB ATTACK"):
+			if not fruit_ninjaing: fruit_ninjaing = true
+			fruit_ninja_line.add_point(get_global_mouse_position())
+		elif fruit_ninjaing:
+			fruit_ninjaing_thru_line = true
