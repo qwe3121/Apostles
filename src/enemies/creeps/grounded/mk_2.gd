@@ -31,12 +31,13 @@ var see_player = false
 @onready var ulti_hitbox = $EnemyHitbox/Ulti
 @onready var attack_hitbox = $EnemyHitbox/Attack
 
+@onready var sprite_of_parent_level = get_parent().get_node("Sprite2D")
 
 var blood_drop = preload("res://src/blood_drop.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR}
+enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD}
 var state = AIR : set = set_state
 
 func set_state(value):
@@ -74,7 +75,6 @@ var player_is_inside = false
 func _ready():
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer_start()
-	
 	
 
 func get_damage(value, k_dir = 0):
@@ -126,6 +126,8 @@ func set_anim(animation_name):
 			anim.play("after_ulti")
 		DEAD:
 			anim.play("dead")
+		FRUIT_DEAD:
+			anim.play("dead")
 			
 			
 func set_dir():
@@ -162,6 +164,8 @@ func _physics_process(delta):
 			after_ulti()
 		DEAD:
 			dead()
+		FRUIT_DEAD:
+			fruit_dead()
 			
 	move_and_slide()
 
@@ -335,7 +339,7 @@ func dead():
 		attack_hitbox.disabled = true
 		for c in range(b_drops):
 			var blood_drop_instance = blood_drop.instantiate()
-			get_parent().get_node("Sprite2D").add_child(blood_drop_instance)
+			sprite_of_parent_level.add_child(blood_drop_instance)
 			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
 			blood_drop_instance.global_position = blood_pos.global_position
 		await anim.animation_finished
@@ -437,3 +441,35 @@ func _on_check_if_player_inside_body_entered(body):
 
 func _on_check_if_player_inside_body_exited(body):
 	player_is_inside = false
+
+
+func _on_mouse_entered():
+	if global.player.fruit_ninjaing and self not in global.player.fruit_ninja_targets and not global.player.fruit_ninjaing_thru_line:
+		global.player.fruit_ninja_targets.append(self)
+		
+		
+func kill_with_fruit_ninja():
+	chase_timer.stop()
+	walking_timer.stop()
+	state = FRUIT_DEAD
+	global.camera.shake()
+	
+	
+func fruit_dead():
+	set_anim(FRUIT_DEAD)
+	velocity.x = 0
+	velocity.y = 0
+	if !state_started:
+		state_started = true
+		ulti_hitbox.disabled = true
+		attack_hitbox.disabled = true
+		last_knockback_dir = 1 if global_position > global.player.global_position else -1
+		for c in range(b_drops):
+			var blood_drop_instance = blood_drop.instantiate()
+			sprite_of_parent_level.add_child(blood_drop_instance)
+			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
+			blood_drop_instance.global_position = blood_pos.global_position
+		await anim.animation_finished
+		if state == FRUIT_DEAD:
+			events.emit_signal("fruit_kill")
+			queue_free()

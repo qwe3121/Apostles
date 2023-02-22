@@ -819,6 +819,7 @@ light_mask = 0
 scale = Vector2(2, 2)
 collision_layer = 16
 collision_mask = 2
+input_pickable = true
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -919,6 +920,7 @@ visible = false
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)
 disabled = true
 
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]

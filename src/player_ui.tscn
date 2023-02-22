@@ -11,6 +11,7 @@ mouse_filter = 2
 
 [node name="AdrenalineBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
 offset_left = 3.0
 offset_top = 4.0
 offset_right = 103.0

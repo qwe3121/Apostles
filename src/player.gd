@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var np = true
+var np = false
 
 
 @onready var anim = $AnimationPlayer
@@ -19,12 +19,9 @@ var np = true
 
 #fruit ninja stuff
 @onready var fruit_ninja_line = $FruitNinjaLine
-var fruit_ninja_lenght = null
 var fruit_ninjaing = false
 var fruit_ninjaing_thru_line = false
-var fruit_ninja_points = null
-var fruit_ninja_target_point = null
-var fruit_ninja_target_point_index = 0
+var fruit_ninja_targets = []
 
 
 var learned_skills = {
@@ -48,9 +45,10 @@ func set_state(value):
 		blocking = false
 		events.emit_signal("player_blocking")
 	
-	if not state == value: single_anim_not_played_yet = true
+	if not state == value: 
+		single_anim_not_played_yet = true
+		state_started = false
 #	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
-	if not state == value: state_started = false
 	state = value
 
 var dir = 1
@@ -177,7 +175,8 @@ func set_anim(animation_name):
 #			anim.play("Dead", -1, 1, false)
 		BLOCK:
 			anim.play("Block", -1, 1, false)
-				
+		FRUIT_NINJA:
+			anim.play("FruitNinja", -1, 1, false)
 				
 				
 func _ready():
@@ -189,6 +188,7 @@ func _physics_process(delta):
 		velocity.y = 0
 		velocity.x = 0
 		from_jump_to_air_timer.stop()
+		Engine.time_scale = 0.3
 		state = FRUIT_NINJA
 
 	match state:
@@ -870,8 +870,6 @@ func _on_animation_player_animation_finished(anim_name):
 #	if anim_name == "FirstAir" or anim_name == "FirstJump" or anim_name == "SecondAir" or anim_name == "SecondJump":
 #		single_anim_not_played_yet = false
 	single_anim_not_played_yet = false 
-	#вроде бы без проверки фиксится баг, при котором во втором прыжке сразу включается цикличная версия анимации
-	#а может и нет, впрочем баг некритичный
 
 
 func weak_attack_1():
@@ -1132,34 +1130,20 @@ func fruit_ninja():
 	if fruit_ninjaing_thru_line:
 		if !state_started:
 			state_started = true
-			fruit_ninja_points = []
-			fruit_ninja_lenght = fruit_ninja_line.get_point_count()
-			for i in fruit_ninja_lenght - 1:
-				if !i: fruit_ninja_points.append(fruit_ninja_line.get_point_position(i))
-				elif i + 1 != fruit_ninja_lenght:
-					if fruit_ninja_line.get_point_position(i).distance_to(fruit_ninja_line.get_point_position(i+1)) > 5:
-						fruit_ninja_points.append(fruit_ninja_line.get_point_position(i))
-			fruit_ninja_lenght = len(fruit_ninja_points)
-			fruit_ninja_target_point = fruit_ninja_points[fruit_ninja_target_point_index]
-		if (global_position.distance_to(fruit_ninja_target_point)) > 5:
-			velocity = global_position.direction_to(fruit_ninja_target_point) * speed
-			print(velocity)
-		else:
-			if fruit_ninja_target_point_index + 1 < fruit_ninja_lenght - 1:
-				fruit_ninja_target_point_index += 1
-				fruit_ninja_target_point = fruit_ninja_points[fruit_ninja_target_point_index]
-			else:
-				fruit_ninja_lenght = null
-				fruit_ninjaing = false
-				fruit_ninjaing_thru_line = false
-				fruit_ninja_points = null
-				fruit_ninja_target_point = null
-				fruit_ninja_target_point_index = 0
-				fruit_ninja_line.clear_points()
-				if np:
-					print("from fruit ninja to idle")
-				state = IDLE
-				return
+			Engine.time_scale = 1.0
+			fruit_ninja_line.clear_points()
+			
+			for target in fruit_ninja_targets:
+				target.kill_with_fruit_ninja()
+				await events.fruit_kill
+			
+			fruit_ninjaing = false
+			fruit_ninjaing_thru_line = false
+			fruit_ninja_targets = []
+			if np:
+				print("from fruit ninja to idle")
+			state = IDLE
+			return
 	else:
 		if Input.is_action_pressed("LMB ATTACK"):
 			if not fruit_ninjaing: fruit_ninjaing = true
