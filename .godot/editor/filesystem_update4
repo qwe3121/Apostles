@@ -2,14 +2,10 @@ res://src/world.tscn
 res://src/player.tscn
 res://src/autoloads/world_env.tscn
 res://src/menus/settings_menu.tscn
-res://src/player.gd
-res://src/autoloads/global.gd
 res://src/enemies/creeps/grounded/mk_2.tscn
-res://src/enemies/creeps/grounded/mk_2.gd
-res://src/autoloads/events.gd
-res://src/menus/main_menu_oog.tscn
 res://src/menus/main_menu_ig.tscn
 res://src/player_ui.tscn
-res://src/autoloads/cfg.gd
 res://src/enemies/creeps/grounded/mk_1.tscn
-res://src/enemies/creeps/grounded/mk_1.gd
+res://src/player.gd
+res://src/world.gd
+res://src/autoloads/cfg.gd

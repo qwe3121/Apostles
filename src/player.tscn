@@ -4792,10 +4792,11 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
-position = Vector2(0, -48)
+position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"Block"
+animation = &"SecondAir"
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -4914,6 +4915,8 @@ visible = false
 [node name="MainMenuIG" parent="CanvasLayer" instance=ExtResource("17_23wrp")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -44)
+zoom = Vector2(1.2, 1.2)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0

@@ -44,10 +44,10 @@ func set_state(value):
 	elif state == BLOCK or state == DASH or state == ROLL:
 		blocking = false
 		events.emit_signal("player_blocking")
-	
+		
 	if not state == value: 
-		single_anim_not_played_yet = true
 		state_started = false
+		single_anim_not_played_yet = true
 #	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
 	state = value
 
@@ -185,93 +185,91 @@ func _ready():
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
-		velocity.y = 0
-		velocity.x = 0
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = 0.3
 		state = FRUIT_NINJA
 
 	match state:
 		IDLE:
-			label.text = "IDLE"
+			label.text = "IDLE " + str(single_anim_not_played_yet)
 			idle()
 		RUN:
-			label.text = "RUN"
+			label.text = "RUN " + str(single_anim_not_played_yet)
 			run()
 		AIR:
-			label.text = "AIR"
+			label.text = "AIR " + str(single_anim_not_played_yet)
 			air(delta)
 		JUMP:
-			label.text = "JUMP"
+			label.text = "JUMP " + str(single_anim_not_played_yet)
 			jump(delta)
 		SIT:
-			label.text = "SIT"
+			label.text = "SIT " + str(single_anim_not_played_yet)
 			sit()
 		CROUCH:
-			label.text = "CROUCH"
+			label.text = "CROUCH " + str(single_anim_not_played_yet)
 			crouch()
 		WALL_SLIDE:
-			label.text = "WALL_SLIDE"
+			label.text = "WALL_SLIDE " + str(single_anim_not_played_yet)
 			wall_slide(delta)
 		DASH:
-			label.text = "DASH"
+			label.text = "DASH " + str(single_anim_not_played_yet)
 			dash()
 		ROLL:
-			label.text = "ROLL"
+			label.text = "ROLL " + str(single_anim_not_played_yet)
 			roll()
 		WEAK_ATTACK_1:
-			label.text = "WEAK_ATTACK_1"
+			label.text = "WEAK_ATTACK_1 " + str(single_anim_not_played_yet)
 			weak_attack_1()
 		WEAK_ATTACK_2:
-			label.text = "WEAK_ATTACK_2"
+			label.text = "WEAK_ATTACK_2 " + str(single_anim_not_played_yet)
 			weak_attack_2()
 		WEAK_ATTACK_3:
-			label.text = "WEAK_ATTACK_3"
+			label.text = "WEAK_ATTACK_3 " + str(single_anim_not_played_yet)
 			weak_attack_3()
 		WEAK_ATTACK_4:
-			label.text = "WEAK_ATTACK_4"
+			label.text = "WEAK_ATTACK_4 " + str(single_anim_not_played_yet)
 			weak_attack_4()
 		STRONG_ATTACK_1:
-			label.text = "STRONG_ATTACK_1"
+			label.text = "STRONG_ATTACK_1 " + str(single_anim_not_played_yet)
 			strong_attack_1()
 		STRONG_ATTACK_2:
-			label.text = "STRONG_ATTACK_2"
+			label.text = "STRONG_ATTACK_2 " + str(single_anim_not_played_yet)
 			strong_attack_2()
 		STRONG_ATTACK_3:
-			label.text = "STRONG_ATTACK_3"
+			label.text = "STRONG_ATTACK_3 " + str(single_anim_not_played_yet)
 			strong_attack_3()
 		STRONG_ATTACK_4:
-			label.text = "STRONG_ATTACK_4"
+			label.text = "STRONG_ATTACK_4 " + str(single_anim_not_played_yet)
 			strong_attack_4(delta)
 		LANDING:
-			label.text = "LANDING"
+			label.text = "LANDING " + str(single_anim_not_played_yet)
 			landing()
 		FIRST_JUMP_ATTACK_1:
-			label.text = "FIRST_JUMP_ATTACK_1"
+			label.text = "FIRST_JUMP_ATTACK_1 " + str(single_anim_not_played_yet)
 			first_jump_attack_1()
 		FIRST_JUMP_ATTACK_2:
-			label.text = "FIRST_JUMP_ATTACK_2"
+			label.text = "FIRST_JUMP_ATTACK_2 " + str(single_anim_not_played_yet)
 			first_jump_attack_2()
 		FIRST_JUMP_ATTACK_3:
-			label.text = "FIRST_JUMP_ATTACK_3"
+			label.text = "FIRST_JUMP_ATTACK_3 " + str(single_anim_not_played_yet)
 			first_jump_attack_3()
 		SECOND_JUMP_ATTACK_1:
-			label.text = "SECOND_JUMP_ATTACK_1"
+			label.text = "SECOND_JUMP_ATTACK_1 " + str(single_anim_not_played_yet)
 			second_jump_attack_1()
 		SECOND_JUMP_ATTACK_2:
-			label.text = "SECOND_JUMP_ATTACK_2"
+			label.text = "SECOND_JUMP_ATTACK_2 " + str(single_anim_not_played_yet)
 			second_jump_attack_2()
 		SECOND_JUMP_ATTACK_3:
-			label.text = "SECOND_JUMP_ATTACK_3"
+			label.text = "SECOND_JUMP_ATTACK_3 " + str(single_anim_not_played_yet)
 			second_jump_attack_3()
 		DEAD:
-			label.text = "DEAD"
+			label.text = "DEAD " + str(single_anim_not_played_yet)
 			dead(delta)
 		BLOCK:
-			label.text = "BLOCK"
+			label.text = "BLOCK " + str(single_anim_not_played_yet)
 			block()
 		FRUIT_NINJA:
-			label.text = "FRUIT_NINJA"
+			label.text = "FRUIT_NINJA " + str(single_anim_not_played_yet)
 			fruit_ninja()
 			
 	move_and_slide()
@@ -1127,6 +1125,9 @@ func dead(delta):
 		
 		
 func fruit_ninja():
+	velocity.y = 0
+	velocity.x = 0
+	
 	if fruit_ninjaing_thru_line:
 		if !state_started:
 			state_started = true
