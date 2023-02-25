@@ -85,7 +85,7 @@ var hp = 1
 func get_damage():
 	if state == DASH:
 		return
-	
+
 	hp -= 1
 	if hp <= 0:
 		state_started = false
@@ -191,85 +191,85 @@ func _physics_process(delta):
 
 	match state:
 		IDLE:
-			label.text = "IDLE " + str(single_anim_not_played_yet)
+			label.text = "IDLE " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			idle()
 		RUN:
-			label.text = "RUN " + str(single_anim_not_played_yet)
+			label.text = "RUN " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			run()
 		AIR:
-			label.text = "AIR " + str(single_anim_not_played_yet)
+			label.text = "AIR " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			air(delta)
 		JUMP:
-			label.text = "JUMP " + str(single_anim_not_played_yet)
+			label.text = "JUMP " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			jump(delta)
 		SIT:
-			label.text = "SIT " + str(single_anim_not_played_yet)
+			label.text = "SIT " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			sit()
 		CROUCH:
-			label.text = "CROUCH " + str(single_anim_not_played_yet)
+			label.text = "CROUCH " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			crouch()
 		WALL_SLIDE:
-			label.text = "WALL_SLIDE " + str(single_anim_not_played_yet)
+			label.text = "WALL_SLIDE " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			wall_slide(delta)
 		DASH:
-			label.text = "DASH " + str(single_anim_not_played_yet)
+			label.text = "DASH " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			dash()
 		ROLL:
-			label.text = "ROLL " + str(single_anim_not_played_yet)
+			label.text = "ROLL " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			roll()
 		WEAK_ATTACK_1:
-			label.text = "WEAK_ATTACK_1 " + str(single_anim_not_played_yet)
+			label.text = "WEAK_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_1()
 		WEAK_ATTACK_2:
-			label.text = "WEAK_ATTACK_2 " + str(single_anim_not_played_yet)
+			label.text = "WEAK_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_2()
 		WEAK_ATTACK_3:
-			label.text = "WEAK_ATTACK_3 " + str(single_anim_not_played_yet)
+			label.text = "WEAK_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_3()
 		WEAK_ATTACK_4:
-			label.text = "WEAK_ATTACK_4 " + str(single_anim_not_played_yet)
+			label.text = "WEAK_ATTACK_4 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_4()
 		STRONG_ATTACK_1:
-			label.text = "STRONG_ATTACK_1 " + str(single_anim_not_played_yet)
+			label.text = "STRONG_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_1()
 		STRONG_ATTACK_2:
-			label.text = "STRONG_ATTACK_2 " + str(single_anim_not_played_yet)
+			label.text = "STRONG_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_2()
 		STRONG_ATTACK_3:
-			label.text = "STRONG_ATTACK_3 " + str(single_anim_not_played_yet)
+			label.text = "STRONG_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_3()
 		STRONG_ATTACK_4:
-			label.text = "STRONG_ATTACK_4 " + str(single_anim_not_played_yet)
+			label.text = "STRONG_ATTACK_4 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_4(delta)
 		LANDING:
-			label.text = "LANDING " + str(single_anim_not_played_yet)
+			label.text = "LANDING " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			landing()
 		FIRST_JUMP_ATTACK_1:
-			label.text = "FIRST_JUMP_ATTACK_1 " + str(single_anim_not_played_yet)
+			label.text = "FIRST_JUMP_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_1()
 		FIRST_JUMP_ATTACK_2:
-			label.text = "FIRST_JUMP_ATTACK_2 " + str(single_anim_not_played_yet)
+			label.text = "FIRST_JUMP_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_2()
 		FIRST_JUMP_ATTACK_3:
-			label.text = "FIRST_JUMP_ATTACK_3 " + str(single_anim_not_played_yet)
+			label.text = "FIRST_JUMP_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_3()
 		SECOND_JUMP_ATTACK_1:
-			label.text = "SECOND_JUMP_ATTACK_1 " + str(single_anim_not_played_yet)
+			label.text = "SECOND_JUMP_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_1()
 		SECOND_JUMP_ATTACK_2:
-			label.text = "SECOND_JUMP_ATTACK_2 " + str(single_anim_not_played_yet)
+			label.text = "SECOND_JUMP_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_2()
 		SECOND_JUMP_ATTACK_3:
-			label.text = "SECOND_JUMP_ATTACK_3 " + str(single_anim_not_played_yet)
+			label.text = "SECOND_JUMP_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_3()
 		DEAD:
-			label.text = "DEAD " + str(single_anim_not_played_yet)
+			label.text = "DEAD " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			dead(delta)
 		BLOCK:
-			label.text = "BLOCK " + str(single_anim_not_played_yet)
+			label.text = "BLOCK " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			block()
 		FRUIT_NINJA:
-			label.text = "FRUIT_NINJA " + str(single_anim_not_played_yet)
+			label.text = "FRUIT_NINJA " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			fruit_ninja()
 			
 	move_and_slide()
@@ -865,10 +865,9 @@ func roll():
 
 
 func _on_animation_player_animation_finished(anim_name):
-#	if anim_name == "FirstAir" or anim_name == "FirstJump" or anim_name == "SecondAir" or anim_name == "SecondJump":
-#		single_anim_not_played_yet = false
-	single_anim_not_played_yet = false 
-
+	if ((anim_name == "FirstAir" or anim_name == "SecondAir") and state == AIR) or ((anim_name == "FirstJump" or anim_name == "SecondJump") and state == JUMP):
+		single_anim_not_played_yet = false #bug with single_anim_not_played_it and air state most likely fixed this way
+ 
 
 func weak_attack_1():
 	set_anim(WEAK_ATTACK_1)
