@@ -1161,33 +1161,37 @@ func fruit_ninja():
 			fruit_ninja_particles.global_position = get_global_mouse_position()
 		elif fruit_ninjaing:
 			fruit_ninja_particles.emitting = false
-			fruit ninjaing = false #this line should fix the second spell usage bug
+			fruit_ninjaing = false
 			fruit_ninja_timer.stop()
 			for i in fruit_ninja_line.points.size() - 1:
 				var new_shape = CollisionShape2D.new()
 				fruit_ninja_area.add_child(new_shape)
-				var segment = SegmentShape2D.new()
-				segment.a = fruit_ninja_line.points[i]
-				segment.b = fruit_ninja_line.points[i + 1]
-				new_shape.shape = segment
+				var rect = RectangleShape2D.new()
+				new_shape.position = (fruit_ninja_line.points[i] + fruit_ninja_line.points[i + 1]) / 2
+				new_shape.rotation = fruit_ninja_line.points[i].direction_to(fruit_ninja_line.points[i + 1]).angle()
+				var length = fruit_ninja_line.points[i].distance_to(fruit_ninja_line.points[i + 1])
+				rect.extents = Vector2(length / 2, fruit_ninja_line.width)
+				new_shape.shape = rect
 			await get_tree().create_timer(0.05).timeout
 			fruit_ninjaing_thru_line = true
 
 
 func _on_fruit_ninja_timer_timeout():
 	fruit_ninja_particles.emitting = false
-	fruit ninjaing = false #this line should fix the second spell usage bug
+	fruit_ninjaing = false
 	for i in fruit_ninja_line.points.size() - 1:
 		var new_shape = CollisionShape2D.new()
 		fruit_ninja_area.add_child(new_shape)
-		var segment = SegmentShape2D.new()
-		segment.a = fruit_ninja_line.points[i]
-		segment.b = fruit_ninja_line.points[i + 1]
-		new_shape.shape = segment
+		var rect = RectangleShape2D.new()
+		new_shape.position = (fruit_ninja_line.points[i] + fruit_ninja_line.points[i + 1]) / 2
+		new_shape.rotation = fruit_ninja_line.points[i].direction_to(fruit_ninja_line.points[i + 1]).angle()
+		var length = fruit_ninja_line.points[i].distance_to(fruit_ninja_line.points[i + 1])
+		rect.extents = Vector2(length / 2, fruit_ninja_line.width)
+		new_shape.shape = rect
 	await get_tree().create_timer(0.05).timeout
 	fruit_ninjaing_thru_line = true
 
 
 func _on_area_2d_body_entered(body):
-	if fruit_ninjaing and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line:
+	if state == FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line:
 		fruit_ninja_targets.append(body)

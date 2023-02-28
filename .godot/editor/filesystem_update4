@@ -7,3 +7,4 @@ res://src/menus/main_menu_ig.tscn
 res://src/player_ui.tscn
 res://src/enemies/creeps/grounded/mk_1.tscn
 res://src/enemies/creeps/grounded/mk1_bullet.tscn
+res://src/player.gd
