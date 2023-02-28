@@ -1161,6 +1161,7 @@ func fruit_ninja():
 			fruit_ninja_particles.global_position = get_global_mouse_position()
 		elif fruit_ninjaing:
 			fruit_ninja_particles.emitting = false
+			fruit ninjaing = false #this line should fix the second spell usage bug
 			fruit_ninja_timer.stop()
 			for i in fruit_ninja_line.points.size() - 1:
 				var new_shape = CollisionShape2D.new()
@@ -1175,6 +1176,7 @@ func fruit_ninja():
 
 func _on_fruit_ninja_timer_timeout():
 	fruit_ninja_particles.emitting = false
+	fruit ninjaing = false #this line should fix the second spell usage bug
 	for i in fruit_ninja_line.points.size() - 1:
 		var new_shape = CollisionShape2D.new()
 		fruit_ninja_area.add_child(new_shape)
