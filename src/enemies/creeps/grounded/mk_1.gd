@@ -433,11 +433,6 @@ func _on_check_if_player_inside_body_exited(body):
 	player_is_inside = false
 	
 	
-func _on_mouse_entered():
-	if global.player.fruit_ninjaing and self not in global.player.fruit_ninja_targets and not global.player.fruit_ninjaing_thru_line:
-		global.player.fruit_ninja_targets.append(self)
-	
-	
 func kill_with_fruit_ninja():
 	chase_timer.stop()
 	walking_timer.stop()

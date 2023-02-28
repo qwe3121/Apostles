@@ -1109,7 +1109,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"before_ulti"
+animation = &"after_attack"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1189,7 +1189,6 @@ position = Vector2(-20, -34)
 shape = SubResource("RectangleShape2D_whayr")
 disabled = true
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]

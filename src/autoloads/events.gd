@@ -11,5 +11,6 @@ signal scene_is_about_to_be_changed
 signal player_blocking
 
 signal fruit_kill
+signal fruit_points_calculated
 
 signal time_scale_changed

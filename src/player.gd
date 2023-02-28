@@ -19,6 +19,9 @@ var np = false
 
 #fruit ninja stuff
 @onready var fruit_ninja_line = $FruitNinjaLine
+@onready var fruit_ninja_particles = $FruitNinjaParticles
+@onready var fruit_ninja_timer = $FruitNinjaTimer
+@onready var fruit_ninja_area = $FruitNinjaLine/Area2D
 var fruit_ninjaing = false
 var fruit_ninjaing_thru_line = false
 var fruit_ninja_targets = []
@@ -1131,11 +1134,15 @@ func fruit_ninja():
 		if !state_started:
 			state_started = true
 			Engine.time_scale = 1.0
+			
 			fruit_ninja_line.clear_points()
 			
 			for target in fruit_ninja_targets:
 				target.kill_with_fruit_ninja()
 				await events.fruit_kill
+				
+			for child in fruit_ninja_area.get_children():
+				child.queue_free()
 			
 			fruit_ninjaing = false
 			fruit_ninjaing_thru_line = false
@@ -1146,7 +1153,39 @@ func fruit_ninja():
 			return
 	else:
 		if Input.is_action_pressed("LMB ATTACK"):
-			if not fruit_ninjaing: fruit_ninjaing = true
+			if not fruit_ninjaing: 
+				fruit_ninja_particles.emitting = true
+				fruit_ninja_timer.start()
+				fruit_ninjaing = true
 			fruit_ninja_line.add_point(get_global_mouse_position())
+			fruit_ninja_particles.global_position = get_global_mouse_position()
 		elif fruit_ninjaing:
+			fruit_ninja_particles.emitting = false
+			fruit_ninja_timer.stop()
+			for i in fruit_ninja_line.points.size() - 1:
+				var new_shape = CollisionShape2D.new()
+				fruit_ninja_area.add_child(new_shape)
+				var segment = SegmentShape2D.new()
+				segment.a = fruit_ninja_line.points[i]
+				segment.b = fruit_ninja_line.points[i + 1]
+				new_shape.shape = segment
+			await get_tree().create_timer(0.05).timeout
 			fruit_ninjaing_thru_line = true
+
+
+func _on_fruit_ninja_timer_timeout():
+	fruit_ninja_particles.emitting = false
+	for i in fruit_ninja_line.points.size() - 1:
+		var new_shape = CollisionShape2D.new()
+		fruit_ninja_area.add_child(new_shape)
+		var segment = SegmentShape2D.new()
+		segment.a = fruit_ninja_line.points[i]
+		segment.b = fruit_ninja_line.points[i + 1]
+		new_shape.shape = segment
+	await get_tree().create_timer(0.05).timeout
+	fruit_ninjaing_thru_line = true
+
+
+func _on_area_2d_body_entered(body):
+	if fruit_ninjaing and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line:
+		fruit_ninja_targets.append(body)

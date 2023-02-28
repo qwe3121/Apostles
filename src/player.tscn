@@ -4779,12 +4779,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
 size = Vector2(105, 101)
 
-[sub_resource type="Curve" id="Curve_rph5p"]
-max_value = 2.0
-_data = [Vector2(0, 0.254545), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Gradient" id="Gradient_36n7b"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0.686275, 1, 1, 0, 0, 1, 1)
 
 [node name="Player" type="CharacterBody2D"]
+process_priority = -10
 modulate = Color(1.5, 1.5, 1.5, 1)
 collision_layer = 128
 collision_mask = 2
@@ -4963,8 +4963,29 @@ texture_scale = 0.3
 [node name="FruitNinjaLine" type="Line2D" parent="."]
 top_level = true
 z_index = 50
-width_curve = SubResource("Curve_rph5p")
-default_color = Color(1, 0.643137, 1, 1)
+width = 5.0
+gradient = SubResource("Gradient_36n7b")
+antialiased = true
+
+[node name="Area2D" type="Area2D" parent="FruitNinjaLine"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="FruitNinjaParticles" type="CPUParticles2D" parent="."]
+z_index = 50
+emitting = false
+amount = 10
+lifetime = 0.1
+spread = 127.03
+gravity = Vector2(0, 19600)
+initial_velocity_max = 282.83
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color = Color(0, 0, 1, 1)
+
+[node name="FruitNinjaTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]
@@ -4973,3 +4994,5 @@ default_color = Color(1, 0.643137, 1, 1)
 [connection signal="timeout" from="StrongComboTimer" to="." method="_on_strong_combo_timer_timeout"]
 [connection signal="timeout" from="AdrenalineTimer" to="." method="_on_adrenaline_timer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="FruitNinjaLine/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]
