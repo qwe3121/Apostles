@@ -127,7 +127,7 @@ func set_anim(animation_name):
 		DEAD:
 			anim.play("dead")
 		FRUIT_DEAD:
-			anim.play("dead")
+			anim.play("fruit_ninja_dead")
 			
 			
 func set_dir():

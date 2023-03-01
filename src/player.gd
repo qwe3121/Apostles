@@ -25,6 +25,7 @@ var np = false
 var fruit_ninjaing = false
 var fruit_ninjaing_thru_line = false
 var fruit_ninja_targets = []
+var fruit_ninja_line_already_painted = false
 
 
 var learned_skills = {
@@ -1123,6 +1124,7 @@ func dead(delta):
 		hitbox_col.disabled = true
 		state_started = true
 #		await anim.animation_finished
+		Engine.time_scale = 1.0
 		get_tree().reload_current_scene()
 		
 		
@@ -1147,12 +1149,13 @@ func fruit_ninja():
 			fruit_ninjaing = false
 			fruit_ninjaing_thru_line = false
 			fruit_ninja_targets = []
+			fruit_ninja_line_already_painted = false
 			if np:
 				print("from fruit ninja to idle")
 			state = IDLE
 			return
 	else:
-		if Input.is_action_pressed("LMB ATTACK"):
+		if Input.is_action_pressed("LMB ATTACK") and not fruit_ninja_line_already_painted:
 			if not fruit_ninjaing: 
 				fruit_ninja_particles.emitting = true
 				fruit_ninja_timer.start()
@@ -1160,18 +1163,11 @@ func fruit_ninja():
 			fruit_ninja_line.add_point(get_global_mouse_position())
 			fruit_ninja_particles.global_position = get_global_mouse_position()
 		elif fruit_ninjaing:
-			fruit_ninja_particles.emitting = false
 			fruit_ninjaing = false
+			fruit_ninja_line_already_painted = true
+			fruit_ninja_particles.emitting = false
 			fruit_ninja_timer.stop()
-			for i in fruit_ninja_line.points.size() - 1:
-				var new_shape = CollisionShape2D.new()
-				fruit_ninja_area.add_child(new_shape)
-				var rect = RectangleShape2D.new()
-				new_shape.position = (fruit_ninja_line.points[i] + fruit_ninja_line.points[i + 1]) / 2
-				new_shape.rotation = fruit_ninja_line.points[i].direction_to(fruit_ninja_line.points[i + 1]).angle()
-				var length = fruit_ninja_line.points[i].distance_to(fruit_ninja_line.points[i + 1])
-				rect.extents = Vector2(length / 2, fruit_ninja_line.width)
-				new_shape.shape = rect
+			create_fruit_ninja_col()
 			await get_tree().create_timer(0.05).timeout
 			fruit_ninjaing_thru_line = true
 
@@ -1179,6 +1175,12 @@ func fruit_ninja():
 func _on_fruit_ninja_timer_timeout():
 	fruit_ninja_particles.emitting = false
 	fruit_ninjaing = false
+	create_fruit_ninja_col()
+	await get_tree().create_timer(0.05).timeout
+	fruit_ninjaing_thru_line = true
+	
+	
+func create_fruit_ninja_col():
 	for i in fruit_ninja_line.points.size() - 1:
 		var new_shape = CollisionShape2D.new()
 		fruit_ninja_area.add_child(new_shape)
@@ -1188,8 +1190,6 @@ func _on_fruit_ninja_timer_timeout():
 		var length = fruit_ninja_line.points[i].distance_to(fruit_ninja_line.points[i + 1])
 		rect.extents = Vector2(length / 2, fruit_ninja_line.width)
 		new_shape.shape = rect
-	await get_tree().create_timer(0.05).timeout
-	fruit_ninjaing_thru_line = true
 
 
 func _on_area_2d_body_entered(body):
