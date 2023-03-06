@@ -72,6 +72,8 @@ var last_knockback_dir = 0
 
 var player_is_inside = false
 
+var fruit_ninja_anim_index = 1
+
 func _ready():
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer_start()
@@ -127,8 +129,22 @@ func set_anim(animation_name):
 		DEAD:
 			anim.play("dead")
 		FRUIT_DEAD:
-			anim.play("fruit_ninja_dead")
-			
+			if fruit_ninja_anim_index == 1:
+				anim.play("fruit_ninja_dead_1")
+			elif fruit_ninja_anim_index == 2:
+				anim.play("fruit_ninja_dead_2")
+			elif fruit_ninja_anim_index == 3:
+				anim.play("fruit_ninja_dead_3")
+			elif fruit_ninja_anim_index == 4:
+				anim.play("fruit_ninja_dead_4")
+			elif fruit_ninja_anim_index == 5:
+				anim.play("fruit_ninja_dead_5")
+			elif fruit_ninja_anim_index == 6:
+				anim.play("fruit_ninja_dead_6")
+			elif fruit_ninja_anim_index == 7:
+				anim.play("fruit_ninja_dead_7")
+			elif fruit_ninja_anim_index == 8:
+				anim.play("fruit_ninja_dead_8")
 			
 func set_dir():
 	if player_is_inside: return
