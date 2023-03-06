@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=53 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="4_ih2g2"]
@@ -28,6 +28,9 @@
 [ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
 [ext_resource type="PackedScene" uid="uid://bubwuri6fnq0a" path="res://src/generation/rooms/test_room.tscn" id="27_4785v"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
+[ext_resource type="Texture2D" uid="uid://tsk0yjfv8qyl" path="res://sprites/Sun.png" id="29_ojqlf"]
+[ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
+[ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -168,6 +171,19 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bra5p"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8l6rx"]
+shader = ExtResource("30_3pdf4")
+shader_parameter/lightScreenPosition = Vector2(0, 0)
+shader_parameter/halfPixel = Vector2(0, 0)
+shader_parameter/Density = 0.5
+shader_parameter/Decay = 0.922
+shader_parameter/Weight = 0.84
+shader_parameter/Exposure = 0.104
+shader_parameter/use_screen = true
+
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
 
@@ -182,6 +198,7 @@ texture_filter = 2
 texture = ExtResource("10_mnjiu")
 
 [node name="Moon" type="ParallaxLayer" parent="Parallax"]
+visible = false
 position = Vector2(879, -1324)
 motion_scale = Vector2(0, 1)
 
@@ -219,7 +236,6 @@ texture_filter = 2
 texture = ExtResource("12_o14i3")
 
 [node name="SmallB" type="ParallaxLayer" parent="Parallax"]
-visible = false
 position = Vector2(10000, -202)
 motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(20000, 0)
@@ -249,9 +265,82 @@ sprite_frames = SubResource("SpriteFrames_nl81k")
 animation = &"Raining"
 autoplay = "Raining"
 
+[node name="Sprite2D" type="Sprite2D" parent="Parallax"]
+material = SubResource("CanvasItemMaterial_bra5p")
+centered = false
+
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
 position = Vector2(70, -692)
 safe_margin = 0.24
 
 [node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
 position = Vector2(0, -1172)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="Parallax" type="ParallaxBackground" parent="SubViewport"]
+scroll_offset = Vector2(576, 324)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/Parallax"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0.219608)
+
+[node name="Sun" type="Sprite2D" parent="SubViewport/Parallax"]
+visible = false
+position = Vector2(100, 100)
+scale = Vector2(4, 4)
+texture = ExtResource("29_ojqlf")
+
+[node name="BigB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(5000, -202)
+motion_scale = Vector2(0.1, 1)
+motion_mirroring = Vector2(10000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
+texture_filter = 2
+texture = ExtResource("11_nknom")
+
+[node name="MedB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(7500, -202)
+motion_scale = Vector2(0.15, 1)
+motion_mirroring = Vector2(15000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
+texture_filter = 2
+texture = ExtResource("12_o14i3")
+
+[node name="SmallB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(10000, -202)
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(20000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+texture_filter = 2
+texture = ExtResource("6_rgl0s")
+
+[node name="Forest" type="ParallaxLayer" parent="SubViewport/Parallax"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(5000, -449)
+motion_scale = Vector2(0.4, 1)
+motion_mirroring = Vector2(10000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_cemph")
+texture = ExtResource("6_c3oir")
+
+[node name="Scatter" type="Sprite2D" parent="SubViewport/Parallax"]
+material = SubResource("ShaderMaterial_8l6rx")
+scale = Vector2(50, 25)
+texture = ExtResource("30_4eis4")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="SubViewport"]
+zoom = Vector2(1.2, 1.2)
+process_callback = 0

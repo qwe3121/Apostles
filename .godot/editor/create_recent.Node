@@ -1,5 +1,10 @@
-AnimatedSprite2D
+SubViewportContainer
+ParallaxLayer
 Sprite2D
+ColorRect
+Camera2D
+SubViewport
+AnimatedSprite2D
 Area2D
 CollisionShape2D
 RayCast2D
@@ -12,7 +17,6 @@ Line2D
 WorldEnvironment
 PointLight2D
 TextureRect
-ColorRect
 Control
 CollisionPolygon2D
 Node2D
