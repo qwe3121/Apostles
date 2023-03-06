@@ -460,6 +460,7 @@ func _on_check_if_player_inside_body_exited(body):
 		
 		
 func kill_with_fruit_ninja():
+	fruit_ninja_anim_index = randi_range(1, 8)
 	chase_timer.stop()
 	walking_timer.stop()
 	state = FRUIT_DEAD
