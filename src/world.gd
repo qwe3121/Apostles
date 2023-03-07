@@ -16,8 +16,9 @@ func _ready():
 	
 	
 func _on_size_changed():
-	$SubViewport/Parallax/ColorRect.size = DisplayServer.window_get_size()
-	$SubViewport.size = DisplayServer.window_get_size()
+	var viewport_size = get_viewport_rect().size
+	$SubViewport/Parallax/ColorRect.size = viewport_size
+	$SubViewport.size = viewport_size
 	
 
 func _physics_process(delta):

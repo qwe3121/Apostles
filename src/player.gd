@@ -1175,6 +1175,7 @@ func fruit_ninja():
 func _on_fruit_ninja_timer_timeout():
 	fruit_ninja_particles.emitting = false
 	fruit_ninjaing = false
+	fruit_ninja_line_already_painted = true
 	create_fruit_ninja_col()
 	await get_tree().create_timer(0.05).timeout
 	fruit_ninjaing_thru_line = true
