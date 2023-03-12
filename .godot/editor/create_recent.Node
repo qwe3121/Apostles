@@ -1,4 +1,5 @@
 ColorRect
+Timer
 SubViewportContainer
 ParallaxLayer
 Sprite2D
@@ -8,7 +9,6 @@ AnimatedSprite2D
 Area2D
 CollisionShape2D
 RayCast2D
-Timer
 CPUParticles2D
 GPUParticles2D
 Path2D

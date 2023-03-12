@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=54 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="4_ih2g2"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
+[ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -175,13 +176,29 @@ blend_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8l6rx"]
 shader = ExtResource("30_3pdf4")
-shader_parameter/lightScreenPosition = Vector2(0, 0.227)
+shader_parameter/lightScreenPosition = Vector2(0, 0)
 shader_parameter/halfPixel = Vector2(0, 0)
 shader_parameter/Density = 0.5
 shader_parameter/Decay = 0.95
 shader_parameter/Weight = 1.0
 shader_parameter/Exposure = 0.15
 shader_parameter/use_screen = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y34y0"]
+shader = ExtResource("31_t4yqa")
+shader_parameter/angle = -0.3
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = 0.1
+shader_parameter/falloff = 0.2
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
 
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
@@ -269,7 +286,7 @@ material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(70, -692)
+position = Vector2(1301, -580)
 safe_margin = 0.24
 
 [node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
@@ -287,7 +304,6 @@ transparent_bg = true
 size = Vector2i(1152, 648)
 
 [node name="Parallax" type="ParallaxBackground" parent="SubViewport"]
-scroll_offset = Vector2(576, 324)
 
 [node name="ColorRect" type="ColorRect" parent="SubViewport/Parallax"]
 offset_right = 1152.0
@@ -344,3 +360,10 @@ centered = false
 [node name="Camera2D" type="Camera2D" parent="SubViewport"]
 zoom = Vector2(1.2, 1.2)
 process_callback = 0
+
+[node name="GodRaysExample" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_y34y0")
+offset_top = -249.0
+offset_right = 565.0
+offset_bottom = 40.0

@@ -42,10 +42,16 @@ DEAD, FRUIT_NINJA}
 var state = IDLE : set = set_state
 
 func set_state(value):
-	if value == BLOCK or value == DASH or value == ROLL:
+	if value == DASH:
+		hurtbox_col.disabled = true
+	elif value == BLOCK or value == ROLL:
 		blocking = true
 		events.emit_signal("player_blocking")
-	elif state == BLOCK or state == DASH or state == ROLL:
+	elif state == DASH:
+		hurtbox_col.disabled = false
+		blocking = false
+		events.emit_signal("player_blocking")
+	elif state == BLOCK or state == ROLL:
 		blocking = false
 		events.emit_signal("player_blocking")
 		

@@ -1,8 +1,6 @@
 extends Node2D
 
 
-var viewport_initial_size = Vector2()
-
 @onready var clouds = $Parallax/Clouds
 
 @onready var viewport_camera = $SubViewport/Camera2D
