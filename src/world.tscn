@@ -292,7 +292,7 @@ scroll_offset = Vector2(576, 324)
 [node name="ColorRect" type="ColorRect" parent="SubViewport/Parallax"]
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(1, 1, 1, 0.0509804)
+color = Color(1, 1, 1, 0.0705882)
 
 [node name="BigB" type="ParallaxLayer" parent="SubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
