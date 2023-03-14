@@ -1,8 +1,9 @@
-ColorRect
 Timer
-SubViewportContainer
-ParallaxLayer
+AnimationPlayer
+ColorRect
 Sprite2D
+ParallaxLayer
+SubViewportContainer
 Camera2D
 SubViewport
 AnimatedSprite2D
@@ -22,5 +23,4 @@ CollisionPolygon2D
 Node2D
 Node
 StaticBody2D
-AnimationPlayer
 TileMap
