@@ -1,4 +1,4 @@
-res://src/rain_particles.tscn
+res://src/generation/rooms/test_room.tscn
 res://src/world.tscn
 res://src/player.tscn
 res://src/autoloads/world_env.tscn
@@ -8,7 +8,5 @@ res://src/menus/main_menu_ig.tscn
 res://src/player_ui.tscn
 res://src/enemies/creeps/grounded/mk_1.tscn
 res://src/enemies/creeps/grounded/mk1_bullet.tscn
-res://src/generation/rooms/test_room.tscn
-res://src/lens_flare.gdshader
-res://src/rays.gdshader
-res://src/pxl_clr.gdshader
+res://src/rain_particles.tscn
+res://src/player.gd

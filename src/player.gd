@@ -17,6 +17,9 @@ var np = false
 @onready var hurtbox_col = $Hurtbox/CollisionShape2D
 @onready var hitbox_col = $Hitbox/CollisionShape2D
 
+@onready var sunlens_anim = $CanvasLayer/SunLens/SunLensAnim
+@onready var sunlens_timer = $CanvasLayer/SunLens/SunlensTimer
+
 #fruit ninja stuff
 @onready var fruit_ninja_line = $FruitNinjaLine
 @onready var fruit_ninja_particles = $FruitNinjaParticles
@@ -1202,3 +1205,16 @@ func create_fruit_ninja_col():
 func _on_area_2d_body_entered(body):
 	if state == FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line:
 		fruit_ninja_targets.append(body)
+
+
+func _on_sun_lens_anim_animation_finished(anim_name):
+	sunlens_anim.get_animation("default").track_set_key_value(0, 1, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
+	sunlens_anim.get_animation("default").track_set_key_value(0, 0, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
+#	sunlens_anim.get_animation("default").track_set_key_value(1, 1, randf_range(0.7, 1.0))
+	sunlens_anim.speed_scale = randf_range(0.5, 1.2)
+	sunlens_timer.wait_time = randi_range(10, 20)
+	sunlens_timer.start()
+
+
+func _on_sunlens_timer_timeout():
+	sunlens_anim.play("default")

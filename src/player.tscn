@@ -4779,30 +4779,29 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bstkj"]
 shader = ExtResource("35_18ku5")
-shader_parameter/sun_position = Vector2(500, 150)
+shader_parameter/sun_position = Vector2(150, 150)
 shader_parameter/tint = Vector3(1.4, 1.2, 1)
-shader_parameter/alpha = 0.0
+shader_parameter/alpha = 1.0
 
 [sub_resource type="Animation" id="Animation_tnir6"]
-resource_name = "foo"
-length = 10.0
-loop_mode = 1
+resource_name = "default"
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D/SunLens:material:shader_parameter/sun_position")
+tracks/0/path = NodePath("CanvasLayer/SunLens:material:shader_parameter/sun_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(500, 150), Vector2(150, 150)]
+"values": [Vector2(300, 150), Vector2(150, 150)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera2D/SunLens:material:shader_parameter/alpha")
+tracks/1/path = NodePath("CanvasLayer/SunLens:material:shader_parameter/alpha")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4814,7 +4813,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7xbdp"]
 _data = {
-"foo": SubResource("Animation_tnir6")
+"default": SubResource("Animation_tnir6")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
@@ -4950,6 +4949,26 @@ autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="SunLens" type="ColorRect" parent="CanvasLayer"]
+z_index = 5
+material = SubResource("ShaderMaterial_bstkj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SunLensAnim" type="AnimationPlayer" parent="CanvasLayer/SunLens"]
+root_node = NodePath("../../..")
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_7xbdp")
+}
+
+[node name="SunlensTimer" type="Timer" parent="CanvasLayer/SunLens"]
+one_shot = true
+
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("16_pe3io")]
 visible = false
 
@@ -4962,24 +4981,6 @@ process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("33_vq8xm")
-
-[node name="SunLens" type="ColorRect" parent="Camera2D"]
-z_index = 5
-material = SubResource("ShaderMaterial_bstkj")
-offset_left = -2395.0
-offset_top = -1632.0
-offset_right = 2621.0
-offset_bottom = 1505.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="SunLensAnim" type="AnimationPlayer" parent="Camera2D"]
-root_node = NodePath("../..")
-autoplay = "foo"
-libraries = {
-"": SubResource("AnimationLibrary_7xbdp")
-}
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -5040,6 +5041,8 @@ one_shot = true
 [connection signal="timeout" from="WeakComboTimer" to="." method="_on_weak_combo_timer_timeout"]
 [connection signal="timeout" from="StrongComboTimer" to="." method="_on_strong_combo_timer_timeout"]
 [connection signal="timeout" from="AdrenalineTimer" to="." method="_on_adrenaline_timer_timeout"]
+[connection signal="animation_finished" from="CanvasLayer/SunLens/SunLensAnim" to="." method="_on_sun_lens_anim_animation_finished"]
+[connection signal="timeout" from="CanvasLayer/SunLens/SunlensTimer" to="." method="_on_sunlens_timer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="FruitNinjaLine/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]
