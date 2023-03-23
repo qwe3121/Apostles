@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://byyaaflxbmhql"]
+
+[ext_resource type="PackedScene" uid="uid://bnfwtjjhoinsm" path="res://src/player_cuts/basic_cut_part.tscn" id="1_r8l4q"]
+[ext_resource type="Texture2D" uid="uid://ckn7roqvmtuwx" path="res://sprites/player/cut_dead/Smert_Pila_Telo.png" id="2_n4784"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl82f"]
+size = Vector2(19, 11.75)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycekh"]
+atlas = ExtResource("2_n4784")
+region = Rect2(0, 0, 32, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26htc"]
+atlas = ExtResource("2_n4784")
+region = Rect2(32, 0, 32, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lo7g"]
+atlas = ExtResource("2_n4784")
+region = Rect2(64, 0, 32, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts3wo"]
+atlas = ExtResource("2_n4784")
+region = Rect2(96, 0, 32, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy5vu"]
+atlas = ExtResource("2_n4784")
+region = Rect2(128, 0, 32, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3kgi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycekh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26htc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lo7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts3wo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy5vu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CutBody" instance=ExtResource("1_r8l4q")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, 4.125)
+shape = SubResource("RectangleShape2D_xl82f")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_i3kgi")
+frame = 4
+frame_progress = 1.0
+speed_scale = 3.0

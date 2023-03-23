@@ -35,18 +35,22 @@ var learned_skills = {
 	"fruit_ninja": true
 }
 
+var blood_drop = preload("res://src/blood_drop.tscn")
+@onready var sprite_of_parent_level = get_parent().get_node("TestRoom").get_node("Sprite2D")
+
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
-DEAD, FRUIT_NINJA}
+DEAD, FRUIT_NINJA, REINCARNATION}
 
-var state = IDLE : set = set_state
+var state = REINCARNATION : set = set_state
 
 func set_state(value):
 	if value == DASH:
 		hurtbox_col.disabled = true
+		blocking = true
 	elif value == BLOCK or value == ROLL:
 		blocking = true
 		events.emit_signal("player_blocking")
@@ -82,6 +86,11 @@ var wall_jumping
 
 var single_anim_not_played_yet = true
 
+var last_damage_source: String
+var bullet_knockback_dir
+var bullet_dead_anim_speredi: bool = false
+var bullet_knockback: bool = false
+
 var adrenaline = 100 : set = set_adrenaline # dash, roll and strong_attacks
 
 func set_adrenaline(value):
@@ -95,13 +104,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 1
 
 
-func get_damage():
-	if state == DASH:
+func get_damage(source: String): #fire, bullet, hit, cut
+	if state == DASH or state == DEAD or state == REINCARNATION:
 		return
+		
+	last_damage_source = source
 
 	hp -= 1
 	if hp <= 0:
 		state_started = false
+		from_jump_to_air_timer.stop()
 		state = DEAD
 	pass
 
@@ -184,12 +196,25 @@ func set_anim(animation_name):
 			anim.play("SecondJumpAttack2", -1, 1.5, false)
 		SECOND_JUMP_ATTACK_3:
 			anim.play("SecondJumpAttack3", -1, 1, false)
-#		DEAD:
-#			anim.play("Dead", -1, 1, false)
+		DEAD:
+			match last_damage_source:
+				"bullet":
+					if bullet_dead_anim_speredi:
+						anim.play("bullet_dead_speredi", -1, 1, false)
+					else:
+						anim.play("bullet_dead_szadi", -1, 1, false)
+				"hit":
+					anim.play("hit_dead", -1, 0.5, false)
+				"fire":
+					anim.play("fire_dead", -1, 0.5, false)
+				"cut":
+					anim.play("cut_dead", -1, 1, false)
 		BLOCK:
 			anim.play("Block", -1, 1, false)
 		FRUIT_NINJA:
 			anim.play("FruitNinja", -1, 1, false)
+		REINCARNATION:
+			anim.play("reincarnation", -1, 0.5, false)
 				
 				
 func _ready():
@@ -284,6 +309,9 @@ func _physics_process(delta):
 		FRUIT_NINJA:
 			label.text = "FRUIT_NINJA " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			fruit_ninja()
+		REINCARNATION:
+			label.text = "REINC " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
+			reincarnation(delta)
 			
 	move_and_slide()
 
@@ -1128,13 +1156,20 @@ func _on_hitbox_body_entered(body):
 func dead(delta):
 	set_anim(DEAD)
 	velocity.y += gravity * delta
-	velocity.y = 0
+	if last_damage_source == "bullet" and bullet_knockback:
+		velocity.x = bullet_knockback_dir * 200
+	else:
+		velocity.x = 0
 	if !state_started:
 		hitbox_col.disabled = true
 		state_started = true
-#		await anim.animation_finished
+		await anim.animation_finished
 		Engine.time_scale = 1.0
 		get_tree().reload_current_scene()
+		
+		
+func off_bullet_knockback():
+	bullet_knockback = false
 		
 		
 func fruit_ninja():
@@ -1218,3 +1253,49 @@ func _on_sun_lens_anim_animation_finished(anim_name):
 
 func _on_sunlens_timer_timeout():
 	sunlens_anim.play("default")
+	
+	
+func create_cuts_for_cut_dead():
+	var cut_arm_1 = preload("res://src/player_cuts/cut_arm_1.tscn").instantiate()
+	var cut_arm_2 = preload("res://src/player_cuts/cut_arm_2.tscn").instantiate()
+	var cut_body = preload("res://src/player_cuts/cut_body.tscn").instantiate()
+	var cut_leg_1 = preload("res://src/player_cuts/cut_leg_1.tscn").instantiate()
+	var cut_leg_2 = preload("res://src/player_cuts/cut_leg_2.tscn").instantiate()
+	var cut_pelvis = preload("res://src/player_cuts/cut_pelvis.tscn").instantiate()
+	var cut_sword = preload("res://src/player_cuts/cut_sword.tscn").instantiate()
+	add_child(cut_arm_1)
+	cut_arm_1.global_position = global_position
+	add_child(cut_arm_2)
+	cut_arm_2.global_position = global_position
+	add_child(cut_body)
+	cut_body.global_position = global_position
+	add_child(cut_leg_1)
+	cut_leg_1.global_position = global_position
+	add_child(cut_leg_2)
+	cut_leg_2.global_position = global_position
+	add_child(cut_pelvis)
+	cut_pelvis.global_position = global_position
+	add_child(cut_sword)
+	cut_sword.global_position = global_position
+	create_blood(20)
+
+
+func create_blood(number: int = 5):
+	for c in range(number):
+		var blood_drop_instance = blood_drop.instantiate()
+		sprite_of_parent_level.add_child(blood_drop_instance)
+		blood_drop_instance.x_vel = randi_range(-800, 800)
+		blood_drop_instance.global_position = global_position + Vector2(0, -50)
+
+
+func reincarnation(delta):
+	set_anim(REINCARNATION)
+	velocity.x = 0
+	velocity.y += gravity * delta
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == REINCARNATION:
+			if np:
+				print("from REINC to idle")
+			state = IDLE

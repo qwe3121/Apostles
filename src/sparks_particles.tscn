@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://vky3pt83s1fd"]
+
+[sub_resource type="Gradient" id="Gradient_r7snm"]
+colors = PackedColorArray(1, 0.313726, 0, 1, 1, 0.788235, 0, 0.333333)
+
+[node name="SparksParticles" type="CPUParticles2D"]
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 60.0
+gravity = Vector2(0, 98)
+initial_velocity_min = 121.2
+initial_velocity_max = 363.63
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_r7snm")

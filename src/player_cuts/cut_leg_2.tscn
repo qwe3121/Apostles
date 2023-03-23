@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhetbeyib8jwd"]
+
+[ext_resource type="PackedScene" uid="uid://bnfwtjjhoinsm" path="res://src/player_cuts/basic_cut_part.tscn" id="1_ygryc"]
+[ext_resource type="Texture2D" uid="uid://dj6elh3els07h" path="res://sprites/player/cut_dead/Smert_Pila_Noga_2.png" id="2_27m72"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpaf2"]
+size = Vector2(9, 3.50168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8h31"]
+atlas = ExtResource("2_27m72")
+region = Rect2(0, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yckjs"]
+atlas = ExtResource("2_27m72")
+region = Rect2(16, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4tul"]
+atlas = ExtResource("2_27m72")
+region = Rect2(32, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gopb1"]
+atlas = ExtResource("2_27m72")
+region = Rect2(48, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwcya"]
+atlas = ExtResource("2_27m72")
+region = Rect2(64, 0, 16, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8h063"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8h31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yckjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4tul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gopb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwcya")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CutLeg2" instance=ExtResource("1_ygryc")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, 1.24916)
+shape = SubResource("RectangleShape2D_cpaf2")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_8h063")
+frame = 4
+frame_progress = 1.0
+speed_scale = 3.0

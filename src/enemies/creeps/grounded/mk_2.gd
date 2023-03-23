@@ -79,9 +79,10 @@ func _ready():
 	walking_timer_start()
 	
 
-func get_damage(value, k_dir = 0):
+func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 	hp -= value
-	if k_dir: last_knockback_dir = k_dir
+	if k_dir: 
+		last_knockback_dir = k_dir
 	if hp <= 0:
 		chase_timer.stop()
 		walking_timer.stop()
@@ -91,7 +92,7 @@ func get_damage(value, k_dir = 0):
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
-	global.camera.shake()
+	if not dead_by_trap: global.camera.shake()
 		
 func set_anim(animation_name):
 	animated_sprite.flip_h = anim_dir == 1
@@ -129,22 +130,23 @@ func set_anim(animation_name):
 		DEAD:
 			anim.play("dead")
 		FRUIT_DEAD:
-			if fruit_ninja_anim_index == 1:
-				anim.play("fruit_ninja_dead_1")
-			elif fruit_ninja_anim_index == 2:
-				anim.play("fruit_ninja_dead_2")
-			elif fruit_ninja_anim_index == 3:
-				anim.play("fruit_ninja_dead_3")
-			elif fruit_ninja_anim_index == 4:
-				anim.play("fruit_ninja_dead_4")
-			elif fruit_ninja_anim_index == 5:
-				anim.play("fruit_ninja_dead_5")
-			elif fruit_ninja_anim_index == 6:
-				anim.play("fruit_ninja_dead_6")
-			elif fruit_ninja_anim_index == 7:
-				anim.play("fruit_ninja_dead_7")
-			elif fruit_ninja_anim_index == 8:
-				anim.play("fruit_ninja_dead_8")
+			anim.play("fruit_ninja_dead")
+#			if fruit_ninja_anim_index == 1:
+#				anim.play("fruit_ninja_dead_1")
+#			elif fruit_ninja_anim_index == 2:
+#				anim.play("fruit_ninja_dead_2")
+#			elif fruit_ninja_anim_index == 3:
+#				anim.play("fruit_ninja_dead_3")
+#			elif fruit_ninja_anim_index == 4:
+#				anim.play("fruit_ninja_dead_4")
+#			elif fruit_ninja_anim_index == 5:
+#				anim.play("fruit_ninja_dead_5")
+#			elif fruit_ninja_anim_index == 6:
+#				anim.play("fruit_ninja_dead_6")
+#			elif fruit_ninja_anim_index == 7:
+#				anim.play("fruit_ninja_dead_7")
+#			elif fruit_ninja_anim_index == 8:
+#				anim.play("fruit_ninja_dead_8")
 			
 func set_dir():
 	if player_is_inside: return

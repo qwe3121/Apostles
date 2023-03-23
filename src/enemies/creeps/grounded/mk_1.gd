@@ -78,7 +78,7 @@ func _ready():
 	
 	
 
-func get_damage(value, k_dir = 0):
+func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 	if state == ULTI:
 		return
 	
@@ -93,7 +93,7 @@ func get_damage(value, k_dir = 0):
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
-	global.camera.shake()
+	if not dead_by_trap: global.camera.shake()
 		
 func set_anim(animation_name):
 	animated_sprite.flip_h = anim_dir == 1
@@ -125,8 +125,8 @@ func set_anim(animation_name):
 			anim.play("ulti")
 		AFTER_ULTI:
 			anim.play("after_ulti")
-#		DEAD:
-#			anim.play("dead")
+		DEAD:
+			anim.play("dead")
 #		FRUIT_DEAD:
 #			if fruit_ninja_anim_index == 1:
 #				anim.play("fruit_ninja_dead_1")
@@ -352,7 +352,7 @@ func dead():
 			sprite_of_parent_level.add_child(blood_drop_instance)
 			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
 			blood_drop_instance.global_position = blood_pos.global_position
-#		await anim.animation_finished
+		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
 	

@@ -1,10 +1,13 @@
-res://src/autoloads
+res://sprites/player
+res://sprites/player/cut_dead
+res://src/player_cuts
 res://src
+res://sprites/enemies/MK1
+res://src/autoloads
 res://sprites/enemies/fruit_ninja_cuts
 res://sprites/enemies/MK2
 res://src/enemies
 res://src/enemies/creeps/grounded
-res://sprites/enemies/MK1
 res://src/scene_tiles
 res://src/menus
 res://src/generation/rooms

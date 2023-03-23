@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=136 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
@@ -21,6 +21,80 @@
 [ext_resource type="Texture2D" uid="uid://b7t76a5rfwe0w" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vniz.png" id="19_wdnrk"]
 [ext_resource type="Texture2D" uid="uid://bnqo0ihib1ox" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vpered.png" id="20_o5qca"]
 [ext_resource type="Texture2D" uid="uid://dsqslraqodwwh" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vverh.png" id="21_sajmo"]
+
+[sub_resource type="Animation" id="Animation_2hxqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blood:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_107ys")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FruitNinjaCut:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FruitNinjaCut:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FruitNinjaCut:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-71, -19.5)]
+}
 
 [sub_resource type="Animation" id="Animation_pwoft"]
 resource_name = "after_attack"
@@ -271,7 +345,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.7)
+"times": PackedFloat32Array(0, 0.7002)
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -452,10 +526,146 @@ tracks/10/path = NodePath("FruitNinjaCut:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_f8pm8"]
+resource_name = "fruit_ninja_dead_2"
+length = 1.4
+step = 0.14
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [&"dead"]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.778, 1.3226)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Blood:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7002, 0.9336),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Blood:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.7002, 0.778, 0.8558),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 3]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimatedSprite2D:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.778, 0.8558, 0.9336, 1.0114, 1.0892, 1.167, 1.2448, 1.3226),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FruitNinjaCut:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"vpered"]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FruitNinjaCut:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FruitNinjaCut:frame")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.28, 0.42, 0.56),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FruitNinjaCut:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-71, -19), Vector2(80, -19)]
 }
 
 [sub_resource type="Animation" id="Animation_fomo6"]
@@ -672,6 +882,7 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkt20"]
 _data = {
+"RESET": SubResource("Animation_2hxqp"),
 "after_attack": SubResource("Animation_pwoft"),
 "after_ulti": SubResource("Animation_8qung"),
 "attack": SubResource("Animation_o4tf7"),
@@ -679,6 +890,7 @@ _data = {
 "before_ulti": SubResource("Animation_lsyul"),
 "dead": SubResource("Animation_k4mcc"),
 "fruit_ninja_dead": SubResource("Animation_uqgn4"),
+"fruit_ninja_dead_2": SubResource("Animation_f8pm8"),
 "idle": SubResource("Animation_fomo6"),
 "p_idle": SubResource("Animation_cotv5"),
 "p_run": SubResource("Animation_dqj04"),
@@ -1435,6 +1647,7 @@ input_pickable = true
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1454,8 +1667,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"after_attack"
-frame = 6
+animation = &"dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1532,6 +1744,7 @@ position = Vector2(0, -16.5)
 
 [node name="EnemyHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false
+damage_source = "fire"
 
 [node name="Ulti" type="CollisionShape2D" parent="EnemyHitbox"]
 position = Vector2(-37, -27.5)
@@ -1545,9 +1758,9 @@ disabled = true
 
 [node name="FruitNinjaCut" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(-40, -58.5)
+position = Vector2(-71, -19.5)
 sprite_frames = SubResource("SpriteFrames_abr7a")
-animation = &"vverh"
+animation = &"vpered"
 frame = 1
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]

@@ -2,6 +2,7 @@ extends Area2D
 
 
 @export var can_block: bool = false
+@export var damage_source: String = "hit"
 
 
 func _ready():
@@ -15,4 +16,4 @@ func _on_player_blocking():
 
 
 func _on_area_entered(area):
-	global.player.get_damage()
+	global.player.get_damage(damage_source)

@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://mn4ix7e0toul"]
+
+[ext_resource type="PackedScene" uid="uid://bnfwtjjhoinsm" path="res://src/player_cuts/basic_cut_part.tscn" id="1_ao1fr"]
+[ext_resource type="Texture2D" uid="uid://b8t218m1j3o3i" path="res://sprites/player/cut_dead/Smert_Pila_Mech.png" id="1_n0ysb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqcdq"]
+size = Vector2(42, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_436au"]
+atlas = ExtResource("1_n0ysb")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lqo6"]
+atlas = ExtResource("1_n0ysb")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp8yc"]
+atlas = ExtResource("1_n0ysb")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ktoh0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_436au")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lqo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp8yc")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CutSword" instance=ExtResource("1_ao1fr")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_dqcdq")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_ktoh0")
+frame = 2
+frame_progress = 1.0

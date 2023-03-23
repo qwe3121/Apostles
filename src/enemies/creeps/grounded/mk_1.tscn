@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=88 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -8,12 +8,51 @@
 [ext_resource type="Texture2D" uid="uid://cob807vm2jr" path="res://sprites/enemies/MK1/Podgotovka_k_Ylta_Atake_MK1.png" id="4_e5rlx"]
 [ext_resource type="Texture2D" uid="uid://di76ecijcw3nr" path="res://sprites/enemies/MK1/Pokoi_MK1.png" id="5_ewbjr"]
 [ext_resource type="Texture2D" uid="uid://dbqvfafyipiwl" path="res://sprites/enemies/MK1/Mirni_Pokoi_MK1.png" id="6_m3mjy"]
+[ext_resource type="Texture2D" uid="uid://cjrh1lwih30jh" path="res://sprites/enemies/MK1/Smert_MK1.png" id="7_a3hiu"]
 [ext_resource type="Texture2D" uid="uid://cmoq6m0apiux" path="res://sprites/enemies/MK1/Mirni_Peredvijenie_MK1.png" id="7_kffpt"]
 [ext_resource type="Texture2D" uid="uid://coyq85meg64q" path="res://sprites/enemies/MK1/Peredvijenie_MK1.png" id="8_t4g6v"]
 [ext_resource type="Texture2D" uid="uid://davyuw7k7mxsr" path="res://sprites/enemies/MK1/Ylta_Ataka_MK1.png" id="9_3dn60"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="10_br5ay"]
 [ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="12_vi8p2"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
+
+[sub_resource type="Animation" id="Animation_w10ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blood:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ghlk4")]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_8qung"]
 resource_name = "after_ulti"
@@ -189,6 +228,94 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_5d0v3"]
+resource_name = "dead"
+length = 0.6
+step = 0.0778
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dead"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer:speed_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.8]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Blood:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3112),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Blood:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.0778, 0.1556, 0.2334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_fomo6"]
@@ -405,10 +532,12 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkt20"]
 _data = {
+"RESET": SubResource("Animation_w10ag"),
 "after_ulti": SubResource("Animation_8qung"),
 "attack": SubResource("Animation_o4tf7"),
 "before_attack": SubResource("Animation_aicud"),
 "before_ulti": SubResource("Animation_lsyul"),
+"dead": SubResource("Animation_5d0v3"),
 "idle": SubResource("Animation_fomo6"),
 "p_idle": SubResource("Animation_cotv5"),
 "p_run": SubResource("Animation_dqj04"),
@@ -529,6 +658,30 @@ region = Rect2(512, 0, 64, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_34is2"]
 atlas = ExtResource("4_e5rlx")
 region = Rect2(576, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5u3i"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cei8e"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di5bj"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6jsr"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(192, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auv57"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(256, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvngb"]
+atlas = ExtResource("7_a3hiu")
+region = Rect2(320, 0, 64, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pwnyy"]
 atlas = ExtResource("5_ewbjr")
@@ -715,6 +868,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_v5u3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cei8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di5bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6jsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auv57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvngb")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pwnyy")
 }, {
 "duration": 1.0,
@@ -842,7 +1018,8 @@ one_shot = true
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"idle"
+animation = &"dead"
+frame = 1
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -850,6 +1027,7 @@ modulate = Color(1, 0.0117647, 0.243137, 1)
 position = Vector2(30, -18.5)
 texture = ExtResource("10_br5ay")
 hframes = 4
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -18.5)
@@ -915,6 +1093,7 @@ position = Vector2(3, -15.5)
 
 [node name="EnemyHitbox" parent="." instance=ExtResource("13_ytu7v")]
 visible = false
+damage_source = "fire"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnemyHitbox"]
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)

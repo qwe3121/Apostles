@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://dlvl6cynf8r5r"]
+
+[ext_resource type="PackedScene" uid="uid://bnfwtjjhoinsm" path="res://src/player_cuts/basic_cut_part.tscn" id="1_qm4nj"]
+[ext_resource type="Texture2D" uid="uid://cdvrpjjt0pi6w" path="res://sprites/player/cut_dead/Smert_Pila_Ryka_2.png" id="2_4htra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlxyk"]
+size = Vector2(9, 3.53955)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk7v8"]
+atlas = ExtResource("2_4htra")
+region = Rect2(0, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h13ku"]
+atlas = ExtResource("2_4htra")
+region = Rect2(16, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svie4"]
+atlas = ExtResource("2_4htra")
+region = Rect2(32, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha2b6"]
+atlas = ExtResource("2_4htra")
+region = Rect2(48, 0, 16, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2qi3e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tk7v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h13ku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svie4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha2b6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CutArm2" instance=ExtResource("1_qm4nj")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, 1.23023)
+shape = SubResource("RectangleShape2D_tlxyk")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_2qi3e")
+frame = 3
+frame_progress = 1.0
+speed_scale = 3.0
