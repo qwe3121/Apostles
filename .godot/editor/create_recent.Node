@@ -1,11 +1,14 @@
 Sprite2D
+HBoxContainer
+Button
+TextureRect
+AnimationPlayer
 CollisionShape2D
 AnimatedSprite2D
 CharacterBody2D
 CPUParticles2D
 GPUParticles2D
 Timer
-AnimationPlayer
 ColorRect
 ParallaxLayer
 SubViewportContainer
@@ -18,7 +21,6 @@ PathFollow2D
 Line2D
 WorldEnvironment
 PointLight2D
-TextureRect
 Control
 CollisionPolygon2D
 Node2D

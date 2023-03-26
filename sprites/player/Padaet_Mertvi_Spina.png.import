@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5ujdsd34w46y"
-path="res://.godot/imported/Cerp_2X.png-8c708771258d21bfef75eec6e448a426.ctex"
+uid="uid://3llqnvr6s7qr"
+path="res://.godot/imported/Padaet_Mertvi_Spina.png-d90c7b45d889a1cc093e1afe1a754426.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/traps/Cerp_2X.png"
-dest_files=["res://.godot/imported/Cerp_2X.png-8c708771258d21bfef75eec6e448a426.ctex"]
+source_file="res://sprites/player/Padaet_Mertvi_Spina.png"
+dest_files=["res://.godot/imported/Padaet_Mertvi_Spina.png-d90c7b45d889a1cc093e1afe1a754426.ctex"]
 
 [params]
 
@@ -23,9 +23,9 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

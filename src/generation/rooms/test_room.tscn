@@ -100,6 +100,3 @@ position = Vector2(480, 640)
 
 [node name="1MK2" parent="." instance=ExtResource("3_i55xs")]
 position = Vector2(864, 1088)
-
-[node name="1MK3" parent="." instance=ExtResource("3_i55xs")]
-position = Vector2(1728, 480)

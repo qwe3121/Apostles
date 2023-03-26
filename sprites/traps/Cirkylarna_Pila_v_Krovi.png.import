@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c43c600d050a8"
-path="res://.godot/imported/Wecterenka.png-5387721609fdce54975124376a233e80.ctex"
+uid="uid://dobwfcq5p3ck"
+path="res://.godot/imported/Cirkylarna_Pila_v_Krovi.png-0a1ae90dbdcd1c31be9de1b3f058bc32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/traps/Wecterenka.png"
-dest_files=["res://.godot/imported/Wecterenka.png-5387721609fdce54975124376a233e80.ctex"]
+source_file="res://sprites/traps/Cirkylarna_Pila_v_Krovi.png"
+dest_files=["res://.godot/imported/Cirkylarna_Pila_v_Krovi.png-0a1ae90dbdcd1c31be9de1b3f058bc32.ctex"]
 
 [params]
 
@@ -23,9 +23,9 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

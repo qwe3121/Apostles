@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hx0t0dnws2vb"
-path="res://.godot/imported/Cirkylarna_Pila.png-e0e38798722a197d406a37f482e0375e.ctex"
+uid="uid://caomoayau5pu2"
+path="res://.godot/imported/Padaet_Mertvi_Jivot.png-2f94ffcad23b7feb787a0e84883def41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/traps/Cirkylarna_Pila.png"
-dest_files=["res://.godot/imported/Cirkylarna_Pila.png-e0e38798722a197d406a37f482e0375e.ctex"]
+source_file="res://sprites/player/Padaet_Mertvi_Jivot.png"
+dest_files=["res://.godot/imported/Padaet_Mertvi_Jivot.png-2f94ffcad23b7feb787a0e84883def41.ctex"]
 
 [params]
 
@@ -23,9 +23,9 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

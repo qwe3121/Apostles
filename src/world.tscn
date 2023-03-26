@@ -33,7 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
 [ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_trap.tscn" id="33_6r8g3"]
-[ext_resource type="Texture2D" uid="uid://hx0t0dnws2vb" path="res://sprites/traps/Cirkylarna_Pila.png" id="34_44p2r"]
+[ext_resource type="Texture2D" uid="uid://dobwfcq5p3ck" path="res://sprites/traps/Cirkylarna_Pila_v_Krovi.png" id="34_x3kyl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -301,7 +301,7 @@ material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(1337, -650)
+position = Vector2(1335, -582)
 safe_margin = 0.24
 
 [node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
@@ -406,10 +406,11 @@ offset_right = 3276.0
 offset_bottom = -42.0
 
 [node name="BasicStaticPathEnemy" parent="." instance=ExtResource("33_6r8g3")]
-position = Vector2(1553, -53)
+position = Vector2(1534, -7)
+scale = Vector2(4, 4)
 
 [node name="Sprite2D" parent="BasicStaticPathEnemy/PathFollow2D/Node2D" index="0"]
-texture = ExtResource("34_44p2r")
+texture = ExtResource("34_x3kyl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BasicStaticPathEnemy/TrapHitbox" index="0"]
 shape = SubResource("CircleShape2D_t412j")

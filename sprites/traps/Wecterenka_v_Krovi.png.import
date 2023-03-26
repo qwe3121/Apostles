@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clfniawntk1xu"
-path="res://.godot/imported/Cerp_4X.png-7d808cef524e4b58b7e6e30005ea04c8.ctex"
+uid="uid://ccarobu6c1oix"
+path="res://.godot/imported/Wecterenka_v_Krovi.png-3fdda532fc762764bb20ac9cf9bb78d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/traps/Cerp_4X.png"
-dest_files=["res://.godot/imported/Cerp_4X.png-7d808cef524e4b58b7e6e30005ea04c8.ctex"]
+source_file="res://sprites/traps/Wecterenka_v_Krovi.png"
+dest_files=["res://.godot/imported/Wecterenka_v_Krovi.png-3fdda532fc762764bb20ac9cf9bb78d2.ctex"]
 
 [params]
 
@@ -23,9 +23,9 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

@@ -68,7 +68,7 @@ func set_state(value):
 #	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
 	state = value
 
-var dir = 1
+var dir = 0
 var anim_dir = 1
 var wall_dir = 0
 
@@ -200,9 +200,9 @@ func set_anim(animation_name):
 			match last_damage_source:
 				"bullet":
 					if bullet_dead_anim_speredi:
-						anim.play("bullet_dead_speredi", -1, 1, false)
+						anim.play("bullet_dead_speredi", -1, 2, false)
 					else:
-						anim.play("bullet_dead_szadi", -1, 1, false)
+						anim.play("bullet_dead_szadi", -1, 2, false)
 				"hit":
 					anim.play("hit_dead", -1, 0.5, false)
 				"fire":
@@ -214,7 +214,7 @@ func set_anim(animation_name):
 		FRUIT_NINJA:
 			anim.play("FruitNinja", -1, 1, false)
 		REINCARNATION:
-			anim.play("reincarnation", -1, 0.5, false)
+			anim.play("reincarnation", -1, 1, false)
 				
 				
 func _ready():
@@ -1291,7 +1291,7 @@ func create_blood(number: int = 5):
 func reincarnation(delta):
 	set_anim(REINCARNATION)
 	velocity.x = 0
-	velocity.y += gravity * delta
+	velocity.y += gravity * delta * 10
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1299,3 +1299,8 @@ func reincarnation(delta):
 			if np:
 				print("from REINC to idle")
 			state = IDLE
+			
+			
+func change_scene_to_dead_screen():
+	get_tree().paused = true
+	trans.change_scene("res://src/menus/dead_screen.tscn")

@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://ta52arfrpemy"]
+
+[ext_resource type="Texture2D" uid="uid://diy1bhq01psag" path="res://sprites/deadscreen.png" id="1_3gwgy"]
+[ext_resource type="Script" path="res://src/menus/dead_screen.gd" id="1_4uyqt"]
+[ext_resource type="Shader" path="res://src/wind_sway.gdshader" id="2_688bw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83aub"]
+shader = ExtResource("2_688bw")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.084
+shader_parameter/maxStrength = 0.212
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="DeadScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4uyqt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_83aub")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -16.0
+offset_right = 23.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3gwgy")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 900
+alignment = 1
+
+[node name="ToMainMenuButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TO MAIN MENU"
+
+[node name="LoadLastSaveButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LOAD LAST SAVE"
+
+[connection signal="pressed" from="HBoxContainer/ToMainMenuButton" to="." method="_on_to_main_menu_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/LoadLastSaveButton" to="." method="_on_load_last_save_button_pressed"]

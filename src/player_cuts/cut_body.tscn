@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckn7roqvmtuwx" path="res://sprites/player/cut_dead/Smert_Pila_Telo.png" id="2_n4784"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xl82f"]
-size = Vector2(19, 11.75)
+size = Vector2(19, 9.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycekh"]
 atlas = ExtResource("2_n4784")
@@ -52,7 +52,7 @@ animations = [{
 [node name="CutBody" instance=ExtResource("1_r8l4q")]
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0.5, 4.125)
+position = Vector2(0.5, 5.25)
 shape = SubResource("RectangleShape2D_xl82f")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
