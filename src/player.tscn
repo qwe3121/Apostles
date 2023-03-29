@@ -5611,14 +5611,12 @@ position = Vector2(-3, -67)
 rotation = 1.5708
 target_position = Vector2(0, 14)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="LeftBotRaycast" type="RayCast2D" parent="WallRaycasts/LeftWallRaycasts"]
 position = Vector2(-3, -3)
 rotation = 1.5708
 target_position = Vector2(0, 14)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="RightWallRaycasts" type="Node2D" parent="WallRaycasts"]
 
@@ -5627,14 +5625,12 @@ position = Vector2(3, -67)
 rotation = -1.5708
 target_position = Vector2(0, 14)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="RightBotRaycast" type="RayCast2D" parent="WallRaycasts/RightWallRaycasts"]
 position = Vector2(3, -3)
 rotation = -1.5708
 target_position = Vector2(0, 14)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="CanStandUpRaycasts" type="Node2D" parent="."]
 visible = false
@@ -5644,34 +5640,29 @@ position = Vector2(-15, 0)
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="MiddleRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="MiddleLeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 position = Vector2(-8, 0)
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="MiddleRightRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 position = Vector2(9, 0)
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="RightRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 position = Vector2(15, 0)
 rotation = 3.14159
 target_position = Vector2(0, 90.5)
 collision_mask = 6
-hit_from_inside = true
 
 [node name="WallSlideCooldown" type="Timer" parent="."]
 wait_time = 0.2
@@ -5788,6 +5779,9 @@ color = Color(0, 0, 1, 1)
 [node name="FruitNinjaTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="BloodPos" type="Node2D" parent="."]
+position = Vector2(0, -44)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]

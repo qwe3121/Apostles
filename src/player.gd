@@ -16,6 +16,7 @@ var np = false
 @onready var wall_slide_cooldown = $WallSlideCooldown
 @onready var hurtbox_col = $Hurtbox/CollisionShape2D
 @onready var hitbox_col = $Hitbox/CollisionShape2D
+@onready var blood_pos = $BloodPos
 
 @onready var sunlens_anim = $CanvasLayer/SunLens/SunLensAnim
 @onready var sunlens_timer = $CanvasLayer/SunLens/SunlensTimer
@@ -105,6 +106,8 @@ var hp = 1
 
 
 func get_damage(source: String): #fire, bullet, hit, cut
+	return
+	
 	if state == DASH or state == DEAD or state == REINCARNATION:
 		return
 		
@@ -1285,7 +1288,7 @@ func create_blood(number: int = 5):
 		var blood_drop_instance = blood_drop.instantiate()
 		sprite_of_parent_level.add_child(blood_drop_instance)
 		blood_drop_instance.x_vel = randi_range(-800, 800)
-		blood_drop_instance.global_position = global_position + Vector2(0, -50)
+		blood_drop_instance.global_position = blood_pos.global_position
 
 
 func reincarnation(delta):

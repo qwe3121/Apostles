@@ -27,9 +27,10 @@ var see_player = false
 @onready var enemy_hitbox = $EnemyHitbox
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var eyes_col = $Eyes/CollisionShape2D
 @onready var ulti_hitbox = $EnemyHitbox/Ulti
 @onready var attack_hitbox = $EnemyHitbox/Attack
+@onready var eyes = $Eyes
+
 
 @onready var sprite_of_parent_level = get_parent().get_node("Sprite2D")
 
@@ -101,7 +102,6 @@ func set_anim(animation_name):
 	check_for_pit.position.x = 24.75 * anim_dir
 	enemy_hitbox.scale.x = -1 * anim_dir
 	check_for_blocked_area_col.position.x = 31 * anim_dir
-	eyes_col.position.x = 37.25 * anim_dir
 	wall_detector_col.position.x = 18.25 * anim_dir
 
 	match animation_name:
@@ -400,6 +400,8 @@ func _on_ulti_cooldown_timeout():
 
 
 func _on_eyes_body_entered(body):
+	if check_if_vision_is_blocked_by_wall():
+		return
 	if not chasing and can_attack:
 		qmark.visible = true
 		qmark.play("popup")
@@ -409,10 +411,25 @@ func _on_eyes_body_entered(body):
 
 
 func _on_eyes_body_exited(body):
+	if not see_player:
+		return
 	see_player = false
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		chasing = true
 		chase_timer.start()
+		state = RUN
+		
+		
+func check_if_vision_is_blocked_by_wall():
+	var space_state = get_world_2d().get_direct_space_state()
+	var params = PhysicsRayQueryParameters2D.new()
+	params.from = blood_pos.global_position
+	params.to = global.player.blood_pos.global_position
+	params.exclude = [self]
+	var result = space_state.intersect_ray(params)
+	if result.collider.name == "Player":
+		return false
+	return true
 
 
 func _on_turned_timer_timeout():

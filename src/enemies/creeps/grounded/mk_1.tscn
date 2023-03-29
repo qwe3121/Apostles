@@ -1101,10 +1101,10 @@ animations = [{
 size = Vector2(25, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oljvb"]
-size = Vector2(20, 36.5)
+size = Vector2(20, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
-size = Vector2(209, 36.5)
+size = Vector2(209, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
 size = Vector2(5, 20)
@@ -1150,7 +1150,6 @@ texture = ExtResource("10_br5ay")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_rgkk2")
 
@@ -1161,27 +1160,23 @@ target_position = Vector2(0, 40)
 collision_mask = 2
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForBlockedArea"]
-visible = false
-position = Vector2(-31, -18.25)
+position = Vector2(-31, -18.5)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, -18.25)
+position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -1219,10 +1214,10 @@ position = Vector2(0, -18.5)
 position = Vector2(3, -15.5)
 
 [node name="EnemyHitbox" parent="." instance=ExtResource("13_ytu7v")]
-visible = false
 damage_source = "fire"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnemyHitbox"]
+visible = false
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)
 disabled = true
 
