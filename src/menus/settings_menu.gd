@@ -11,16 +11,10 @@ func _ready():
 	$TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider.value = cfg.cfg_data.sfx_vol
 	$TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton.select(0 if cfg.cfg_data.glitchy_transition_on else 1)
 	global_settings.toggle_transition_mode(cfg.cfg_data.glitchy_transition_on)
-	update_action_event("QUICK SAVE")
-	update_action_event("ROLL")
-	update_action_event("DASH")
-	update_action_event("RMB ATTACK")
-	update_action_event("RIGHT")
-	update_action_event("LEFT")
-	update_action_event("DOWN")
-	update_action_event("JUMP")
-	update_action_event("LMB ATTACK")
-	update_action_event("BLOCK")
+	$TabContainer/Game/MarginContainer/VBoxContainer/Undead/UndeadCheckButton.button_pressed = cfg.cfg_data.undead
+	global_settings.toggle_undead_mode(cfg.cfg_data.undead)
+	for key in cfg.default_keys:
+		update_action_event(key)
 	events.emit_signal("ready_to_load_keys_containers")
 	
 	
@@ -34,6 +28,10 @@ func update_action_event(action: String, defaults = false):
 		
 	var event = null
 	var action_array = data[action]
+	
+	if action_array == null:
+		return
+		
 	if action_array[1] == "InputEventKey":
 		event = InputEventKey.new()
 		event.keycode = action_array[0]
@@ -93,15 +91,13 @@ func _on_back_to_defaults_pressed():
 		2: #game
 			$TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton.select(0)
 			global_settings.toggle_transition_mode(true)
+			$TabContainer/Game/MarginContainer/VBoxContainer/Undead/UndeadCheckButton.button_pressed = false
+			global_settings.toggle_undead_mode(false)
 		3: #actions
-			update_action_event("QUICK SAVE", true)
-			update_action_event("ROLL", true)
-			update_action_event("DASH", true)
-			update_action_event("RMB ATTACK", true)
-			update_action_event("RIGHT", true)
-			update_action_event("LEFT", true)
-			update_action_event("DOWN", true)
-			update_action_event("JUMP", true)
-			update_action_event("LMB ATTACK", true)
-			update_action_event("BLOCK", true)
+			for key in cfg.default_keys:
+				update_action_event(key, true)
 			events.emit_signal("ready_to_load_keys_containers")
+
+
+func _on_undead_check_button_toggled(button_pressed):
+	global_settings.toggle_undead_mode(button_pressed)

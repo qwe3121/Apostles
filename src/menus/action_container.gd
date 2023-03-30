@@ -15,6 +15,10 @@ func _ready():
 
 		
 func _on_ready_to_load_keys_containers():
+	if not len(InputMap.action_get_events(action)) > 0:
+		action_button.text = "There is no key on it"
+		return
+	
 	if InputMap.action_get_events(action)[0]:
 		update_button_text(InputMap.action_get_events(action)[0])
 	else:
@@ -34,10 +38,18 @@ func _input(input_event: InputEvent):
 			elif input_event is InputEventKey:
 				cfg.cfg_data[action] = [input_event.keycode, "InputEventKey"]
 				
+			for cycle_action_name in InputMap.get_actions():
+				if cycle_action_name == action:
+					continue
+				if InputMap.action_has_event(cycle_action_name, input_event):
+					InputMap.action_erase_event(cycle_action_name, input_event)
+					cfg.cfg_data[cycle_action_name] = null
+				
 			# also need to add joystick support
 			
 			cfg.save_data()
-			update_button_text(input_event)
+			
+			events.emit_signal("ready_to_load_keys_containers")
 			
 			on_focus_on_all_buttons()
 			action_button.release_focus()

@@ -7,7 +7,7 @@ extends Area2D
 func _on_body_entered(body):
 	if body.name == "Player":
 		body.get_damage("cut")
-		if global.player.state != 7:
+		if global.player.state != 7 and not cfg.cfg_data.undead:
 			blood_fade_anim.play("fade_out")
 	else:
 		body.get_damage(body.hp, 0, true)

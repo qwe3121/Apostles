@@ -51,3 +51,9 @@ func toggle_transition_mode(value):
 	if not cfg.cfg_data.glitchy_transition_on == value:
 		cfg.cfg_data.glitchy_transition_on = value
 		cfg.save_data()
+		
+		
+func toggle_undead_mode(value):
+	if not cfg.cfg_data.undead == value:
+		cfg.cfg_data.undead = value
+		cfg.save_data()

@@ -15,7 +15,32 @@ var default_keys = {
 	"DOWN": [KEY_S, "InputEventKey"], 
 	"JUMP": [KEY_SPACE, "InputEventKey"],
 	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"],
-	"BLOCK": [KEY_C, "InputEventKey"]
+	"BLOCK": [KEY_C, "InputEventKey"],
+	"FRUIT NINJA": [KEY_Q, "InputEventKey"]
+}
+
+var default_cfg_data = {
+		#SETTINGS
+	"display_mode": 2, #windowed - 0, borderless - 1, fullscreen - 2
+	"vsync_on": true,
+	"master_vol": -10,
+	"music_vol": -10,
+	"sfx_vol": - 10,
+	"glitchy_transition_on": true,
+	"last_save": null,
+	"undead": false,
+	#KEYS
+	"QUICK SAVE": [KEY_F5, "InputEventKey"],
+	"ROLL": [KEY_SHIFT, "InputEventKey"],
+	"DASH": [KEY_TAB, "InputEventKey"],
+	"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
+	"RIGHT": [KEY_D, "InputEventKey"],
+	"LEFT": [KEY_A, "InputEventKey"],
+	"DOWN": [KEY_S, "InputEventKey"], 
+	"JUMP": [KEY_SPACE, "InputEventKey"],
+	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"], 
+	"BLOCK": [KEY_C, "InputEventKey"],
+	"FRUIT NINJA": [KEY_Q, "InputEventKey"]
 }
 
 
@@ -25,31 +50,15 @@ func _enter_tree():
 
 func load_data():
 	if !FileAccess.file_exists(CFG_PATH):
-		cfg_data = {
-			#SETTINGS
-			"display_mode": 2, #windowed - 0, borderless - 1, fullscreen - 2
-			"vsync_on": true,
-			"master_vol": -10,
-			"music_vol": -10,
-			"sfx_vol": - 10,
-			"glitchy_transition_on": true,
-			"last_save": null,
-			#KEYS
-			"QUICK SAVE": [KEY_F5, "InputEventKey"],
-			"ROLL": [KEY_SHIFT, "InputEventKey"],
-			"DASH": [KEY_TAB, "InputEventKey"],
-			"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
-			"RIGHT": [KEY_D, "InputEventKey"],
-			"LEFT": [KEY_A, "InputEventKey"],
-			"DOWN": [KEY_S, "InputEventKey"], 
-			"JUMP": [KEY_SPACE, "InputEventKey"],
-			"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"], 
-			"BLOCK": [KEY_C, "InputEventKey"],
-		}
+		cfg_data = default_cfg_data
 		save_data()
 		return
 	var file = FileAccess.open(CFG_PATH, FileAccess.READ)
 	cfg_data = file.get_var()
+	for key in default_cfg_data.keys():
+		if key not in cfg_data:
+			cfg_data[key] = default_cfg_data[key]
+	save_data()
 	
 	
 func save_data():

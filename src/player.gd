@@ -21,6 +21,12 @@ var np = false
 @onready var sunlens_anim = $CanvasLayer/SunLens/SunLensAnim
 @onready var sunlens_timer = $CanvasLayer/SunLens/SunlensTimer
 
+#wall raycasts
+@onready var ws_left_top_raycast = $WallRaycasts/LeftWallRaycasts/LeftTopRaycast
+@onready var ws_left_bot_raycast = $WallRaycasts/LeftWallRaycasts/LeftBotRaycast
+@onready var ws_right_top_raycast = $WallRaycasts/RightWallRaycasts/RightTopRaycast
+@onready var ws_right_bot_raycast = $WallRaycasts/RightWallRaycasts/RightBotRaycast
+
 #fruit ninja stuff
 @onready var fruit_ninja_line = $FruitNinjaLine
 @onready var fruit_ninja_particles = $FruitNinjaParticles
@@ -106,9 +112,7 @@ var hp = 1
 
 
 func get_damage(source: String): #fire, bullet, hit, cut
-	return
-	
-	if state == DASH or state == DEAD or state == REINCARNATION:
+	if state == DASH or state == DEAD or state == REINCARNATION or cfg.cfg_data.undead:
 		return
 		
 	last_damage_source = source
@@ -225,6 +229,12 @@ func _ready():
 
 
 func _physics_process(delta):
+	if is_on_floor() and not ws_left_bot_raycast.enabled:
+		ws_left_bot_raycast.enabled = true
+		ws_left_top_raycast.enabled = true
+		ws_right_bot_raycast.enabled = true
+		ws_right_top_raycast.enabled = true
+	
 	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = 0.3
@@ -550,7 +560,7 @@ func air(delta):
 		state = JUMP
 		return
 		
-	if Input.is_action_pressed("RMB ATTACK"):
+	if Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK"):
 		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:
@@ -654,7 +664,7 @@ func jump(delta):
 		state = WALL_SLIDE
 		return
 		
-	if Input.is_action_pressed("RMB ATTACK"):
+	if Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK"):
 		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:
@@ -833,6 +843,12 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
+	if Input.is_action_just_pressed("DOWN"):
+		ws_left_bot_raycast.enabled = false
+		ws_left_top_raycast.enabled = false
+		ws_right_bot_raycast.enabled = false
+		ws_right_top_raycast.enabled = false
+	
 	if Input.is_action_pressed("JUMP"):
 		wall_slide_cooldown.start()
 		wall_jumping = true
@@ -1202,7 +1218,7 @@ func fruit_ninja():
 			state = IDLE
 			return
 	else:
-		if Input.is_action_pressed("LMB ATTACK") and not fruit_ninja_line_already_painted:
+		if (Input.is_action_pressed("LMB ATTACK") or Input.is_action_pressed("RMB ATTACK")) and not fruit_ninja_line_already_painted:
 			if not fruit_ninjaing: 
 				fruit_ninja_particles.emitting = true
 				fruit_ninja_timer.start()

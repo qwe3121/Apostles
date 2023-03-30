@@ -26,6 +26,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Video" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
@@ -156,7 +157,6 @@ value = -15.0
 rounded = true
 
 [node name="Game" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Game"]
@@ -195,6 +195,20 @@ popup/item_0/text = "GLITCHY"
 popup/item_0/id = 0
 popup/item_1/text = "FADE-IN/FATE-OUT"
 popup/item_1/id = 1
+
+[node name="Undead" type="HBoxContainer" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="UndeadLabel" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "UNDEAD"
+
+[node name="UndeadCheckButton" type="CheckButton" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
 
 [node name="Actions" type="TabBar" parent="TabContainer"]
 visible = false
@@ -262,6 +276,10 @@ action = "LMB ATTACK"
 layout_mode = 2
 action = "BLOCK"
 
+[node name="ActionContainer11" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "FRUIT NINJA"
+
 [node name="BackToMainMenu" type="Button" parent="."]
 layout_mode = 0
 offset_left = 10.0
@@ -288,4 +306,5 @@ text = "Back to defaults"
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider" to="." method="_on_sfx_volume_h_slider_value_changed"]
 [connection signal="item_selected" from="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton" to="." method="_on_transition_mode_option_button_item_selected"]
+[connection signal="toggled" from="TabContainer/Game/MarginContainer/VBoxContainer/Undead/UndeadCheckButton" to="." method="_on_undead_check_button_toggled"]
 [connection signal="pressed" from="BackToDefaults" to="." method="_on_back_to_defaults_pressed"]
