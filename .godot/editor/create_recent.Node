@@ -1,3 +1,6 @@
+ParallaxLayer
+CPUParticles2D
+GPUParticles2D
 Node2D
 ShapeCast2D
 Node
@@ -10,11 +13,8 @@ AnimationPlayer
 CollisionShape2D
 AnimatedSprite2D
 CharacterBody2D
-CPUParticles2D
-GPUParticles2D
 Timer
 ColorRect
-ParallaxLayer
 SubViewportContainer
 Camera2D
 SubViewport

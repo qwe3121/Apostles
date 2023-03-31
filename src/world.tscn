@@ -26,8 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="23_2fdtg"]
 [ext_resource type="Texture2D" uid="uid://b3aknyh1a4jlg" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-15.png" id="24_naoei"]
 [ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
-[ext_resource type="PackedScene" uid="uid://gbel62y0a8hj" path="res://src/rain_particles.tscn" id="27_2p62h"]
 [ext_resource type="PackedScene" uid="uid://bubwuri6fnq0a" path="res://src/generation/rooms/test_room.tscn" id="27_4785v"]
+[ext_resource type="PackedScene" uid="uid://ct6vweeumc21h" path="res://src/dust_particles.tscn" id="27_palko"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
@@ -277,6 +277,7 @@ material = SubResource("ShaderMaterial_cemph")
 texture = ExtResource("6_c3oir")
 
 [node name="Rain" type="ParallaxLayer" parent="Parallax"]
+visible = false
 position = Vector2(1307, -365)
 motion_mirroring = Vector2(2560, 1200)
 
@@ -287,14 +288,11 @@ sprite_frames = SubResource("SpriteFrames_nl81k")
 animation = &"Raining"
 autoplay = "Raining"
 
-[node name="Rain2" type="ParallaxLayer" parent="Parallax"]
-visible = false
-position = Vector2(1307, -365)
-motion_mirroring = Vector2(2560, 1200)
+[node name="Dust" type="ParallaxLayer" parent="Parallax"]
+position = Vector2(1152, -324)
+motion_mirroring = Vector2(1152, 648)
 
-[node name="RainParticles" parent="Parallax/Rain2" instance=ExtResource("27_2p62h")]
-position = Vector2(16, -968)
-scale = Vector2(2, 2)
+[node name="DustParticles" parent="Parallax/Dust" instance=ExtResource("27_palko")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax"]
 material = SubResource("CanvasItemMaterial_bra5p")
