@@ -21,6 +21,6 @@ color = Color(1, 1, 1, 0.360784)
 
 [node name="DustParticles" type="GPUParticles2D"]
 z_index = 50
-amount = 200
+amount = 100
 process_material = SubResource("ParticleProcessMaterial_6iwny")
 local_coords = true

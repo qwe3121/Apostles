@@ -24,7 +24,6 @@ func _on_size_changed():
 func _physics_process(delta):
 	viewport_camera.position = player_camera.global_position
 	viewport_camera.offset = player_camera.offset
-	clouds.motion_offset.x += 5 * delta
 
 
 func save_world():
