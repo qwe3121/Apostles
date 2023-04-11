@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var can_block: bool = false
-@export var damage_source: String = "hit"
+@export_enum("hit", "fire", "bullet", "cut") var damage_source: String = "hit"
 
 
 func _ready():

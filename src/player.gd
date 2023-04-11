@@ -229,11 +229,11 @@ func _ready():
 
 
 func _physics_process(delta):
-	if is_on_floor() and not ws_left_bot_raycast.enabled:
-		ws_left_bot_raycast.enabled = true
-		ws_left_top_raycast.enabled = true
-		ws_right_bot_raycast.enabled = true
-		ws_right_top_raycast.enabled = true
+#	if is_on_floor() and not ws_left_bot_raycast.enabled:
+#		ws_left_bot_raycast.enabled = true
+#		ws_left_top_raycast.enabled = true
+#		ws_right_bot_raycast.enabled = true
+#		ws_right_top_raycast.enabled = true
 	
 	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
 		from_jump_to_air_timer.stop()
@@ -843,11 +843,19 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
+#	if Input.is_action_just_pressed("DOWN"):
+#		ws_left_bot_raycast.enabled = false
+#		ws_left_top_raycast.enabled = false
+#		ws_right_bot_raycast.enabled = false
+#		ws_right_top_raycast.enabled = false
+
 	if Input.is_action_just_pressed("DOWN"):
-		ws_left_bot_raycast.enabled = false
-		ws_left_top_raycast.enabled = false
-		ws_right_bot_raycast.enabled = false
-		ws_right_top_raycast.enabled = false
+		velocity.x = -wall_dir * speed
+		if np:
+			print("from wall_slide to air cause of DOWN button")
+		jump_index = 2
+		state = AIR
+		return
 	
 	if Input.is_action_pressed("JUMP"):
 		wall_slide_cooldown.start()
@@ -931,7 +939,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 func weak_attack_1():
 	set_anim(WEAK_ATTACK_1)
-	velocity.x = anim_dir * speed / 8
+	velocity.x = anim_dir * speed / 16
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -944,7 +952,7 @@ func weak_attack_1():
 			
 func weak_attack_2():
 	set_anim(WEAK_ATTACK_2)
-	velocity.x = anim_dir * speed / 8
+	velocity.x = anim_dir * speed / 16
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -957,7 +965,7 @@ func weak_attack_2():
 			
 func weak_attack_3():
 	set_anim(WEAK_ATTACK_3)
-	velocity.x = anim_dir * speed / 8
+	velocity.x = anim_dir * speed / 16
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -970,7 +978,7 @@ func weak_attack_3():
 		
 func weak_attack_4():
 	set_anim(WEAK_ATTACK_4)
-	velocity.x = anim_dir * speed / 8
+	velocity.x = anim_dir * speed / 16
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -987,7 +995,7 @@ func _on_weak_combo_timer_timeout():
 
 func strong_attack_1():
 	set_anim(STRONG_ATTACK_1)
-	velocity.x = anim_dir * speed / 5
+	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1000,7 +1008,7 @@ func strong_attack_1():
 			
 func strong_attack_2():
 	set_anim(STRONG_ATTACK_2)
-	velocity.x = anim_dir * speed / 5
+	velocity.x = anim_dir * speed / 10
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1014,7 +1022,7 @@ func strong_attack_2():
 func strong_attack_3():
 	set_anim(STRONG_ATTACK_3)
 	velocity.y = 0
-	velocity.x = anim_dir * speed / 5
+	velocity.x = anim_dir * speed / 10
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1026,7 +1034,7 @@ func strong_attack_3():
 			
 func strong_attack_4(delta):
 	set_anim(STRONG_ATTACK_4)
-	velocity.x = anim_dir * speed / 5
+	velocity.x = anim_dir * speed / 10
 	velocity.y += gravity * 15 * delta 
 	if !state_started:
 		velocity.y = jump_velocity * 3
@@ -1070,7 +1078,7 @@ func landing():
 
 func first_jump_attack_1():
 	set_anim(FIRST_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1084,7 +1092,7 @@ func first_jump_attack_1():
 	
 func first_jump_attack_2():
 	set_anim(FIRST_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1098,7 +1106,7 @@ func first_jump_attack_2():
 	
 func first_jump_attack_3():
 	set_anim(FIRST_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1112,7 +1120,7 @@ func first_jump_attack_3():
 	
 func second_jump_attack_1():
 	set_anim(SECOND_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1126,7 +1134,7 @@ func second_jump_attack_1():
 	
 func second_jump_attack_2():
 	set_anim(SECOND_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1140,7 +1148,7 @@ func second_jump_attack_2():
 	
 func second_jump_attack_3():
 	set_anim(SECOND_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 20
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1197,6 +1205,8 @@ func fruit_ninja():
 	
 	if fruit_ninjaing_thru_line:
 		if !state_started:
+			animated_sprite.visible = false
+			
 			state_started = true
 			Engine.time_scale = 1.0
 			
@@ -1215,6 +1225,7 @@ func fruit_ninja():
 			fruit_ninja_line_already_painted = false
 			if np:
 				print("from fruit ninja to idle")
+			animated_sprite.visible = true
 			state = IDLE
 			return
 	else:

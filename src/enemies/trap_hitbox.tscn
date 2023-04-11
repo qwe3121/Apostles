@@ -7,4 +7,6 @@ collision_layer = 4
 collision_mask = 144
 script = ExtResource("1_e8c8q")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

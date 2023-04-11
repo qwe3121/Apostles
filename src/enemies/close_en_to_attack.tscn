@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba775s7f7qadw"]
+
+[ext_resource type="Script" path="res://src/enemies/close_en_to_attack.gd" id="1_ctb71"]
+
+[node name="CloseEnToAttack" type="Area2D"]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("1_ctb71")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -3,9 +3,7 @@ extends CharacterBody2D
 
 @export var speed = 150
 
-@export var x_attack_dis_attack = 105
-@export var x_attack_dis_ulti = 155
-#@export var y_attack_dis = 50
+var close_en_to_attack = false
 
 @export var b_drops = 10
 
@@ -62,7 +60,7 @@ var there_is_blocked_area = false
 
 var is_on_wall
 
-var hp = 4
+var hp = 400
 
 var turned = false
 
@@ -72,8 +70,6 @@ var knockback_dir = 0
 var last_knockback_dir = 0
 
 var player_is_inside = false
-
-var fruit_ninja_anim_index = 1
 
 func _ready():
 	blood.modulate.a = randf_range(0.6, 1.0)
@@ -131,22 +127,6 @@ func set_anim(animation_name):
 			anim.play("dead")
 		FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
-#			if fruit_ninja_anim_index == 1:
-#				anim.play("fruit_ninja_dead_1")
-#			elif fruit_ninja_anim_index == 2:
-#				anim.play("fruit_ninja_dead_2")
-#			elif fruit_ninja_anim_index == 3:
-#				anim.play("fruit_ninja_dead_3")
-#			elif fruit_ninja_anim_index == 4:
-#				anim.play("fruit_ninja_dead_4")
-#			elif fruit_ninja_anim_index == 5:
-#				anim.play("fruit_ninja_dead_5")
-#			elif fruit_ninja_anim_index == 6:
-#				anim.play("fruit_ninja_dead_6")
-#			elif fruit_ninja_anim_index == 7:
-#				anim.play("fruit_ninja_dead_7")
-#			elif fruit_ninja_anim_index == 8:
-#				anim.play("fruit_ninja_dead_8")
 			
 func set_dir():
 	if player_is_inside: return
@@ -195,14 +175,14 @@ func idle():
 	
 	if see_player:
 		set_dir()
-		if close_enough_to_attack() and can_attack:
+		if close_en_to_attack and can_attack:
 			if can_ulti:
 				state = BEFORE_ULTI
 				return
 			if can_attack:
 				state = BEFORE_ATTACK
 				return
-		elif not close_enough_to_attack():
+		elif not close_en_to_attack:
 			state = RUN
 			return
 	else:
@@ -226,14 +206,14 @@ func run():
 		
 	if see_player:
 		set_dir()
-		if close_enough_to_attack() and can_attack:
+		if close_en_to_attack and can_attack:
 			if can_ulti:
 				state = BEFORE_ULTI
 				return
 			if can_attack:
 				state = BEFORE_ATTACK
 				return
-		elif close_enough_to_attack():
+		elif close_en_to_attack:
 			state = IDLE
 			return
 			
@@ -363,14 +343,6 @@ func dead():
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
-	
-	
-func close_enough_to_attack():
-	var dis = global_position.distance_to(global.player.global_position)
-	if can_ulti:
-		return true if dis <= x_attack_dis_ulti else false
-	else:
-		return true if dis <= x_attack_dis_attack else false
 
 
 func _on_walking_timer_timeout():
@@ -427,6 +399,7 @@ func check_if_vision_is_blocked_by_wall():
 	params.to = global.player.blood_pos.global_position
 	params.exclude = [self]
 	var result = space_state.intersect_ray(params)
+	if len(result) == 0: return true
 	if result.collider.name == "Player":
 		return false
 	return true
@@ -479,7 +452,6 @@ func _on_check_if_player_inside_body_exited(body):
 		
 		
 func kill_with_fruit_ninja():
-	fruit_ninja_anim_index = randi_range(1, 8)
 	chase_timer.stop()
 	walking_timer.stop()
 	state = FRUIT_DEAD

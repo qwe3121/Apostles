@@ -340,6 +340,7 @@ animation = &"Raining"
 autoplay = "Raining"
 
 [node name="Dust" type="ParallaxLayer" parent="Parallax"]
+visible = false
 position = Vector2(1152, -324)
 motion_mirroring = Vector2(1152, 648)
 

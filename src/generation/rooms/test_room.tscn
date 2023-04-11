@@ -1,14 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://bubwuri6fnq0a"]
+[gd_scene load_steps=15 format=3 uid="uid://bubwuri6fnq0a"]
 
 [ext_resource type="Texture2D" uid="uid://b3j0bn52vt513" path="res://sprites/rooms/room_1/TestLVL_Black.png" id="1_m1d7m"]
-[ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="3_i55xs"]
-[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="5_vyxbe"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dics6"]
-size = Vector2(2304, 32)
+[ext_resource type="PackedScene" uid="uid://dgir3r81efgqj" path="res://src/enemies/creeps/floating/6mk.tscn" id="2_4s6a0"]
+[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="3_pjklu"]
+[ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="4_5gho0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_251qt"]
-size = Vector2(32, 1264)
+size = Vector2(32, 1224)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wm4u1"]
 size = Vector2(2272, 176)
@@ -34,6 +32,11 @@ size = Vector2(160, 352)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxevv"]
 size = Vector2(704, 128)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6x6ci"]
+vertices = PackedVector2Array(888, -192, 888, 352, 232, 352, 232, -192)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(232, -192, 232, 352, 888, 352, 888, -192)])
+
 [node name="TestRoom" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -46,12 +49,8 @@ centered = false
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1152, 16)
-shape = SubResource("RectangleShape2D_dics6")
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(16, 664)
+position = Vector2(16, 684)
 shape = SubResource("RectangleShape2D_251qt")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
@@ -86,17 +85,14 @@ shape = SubResource("RectangleShape2D_1llwd")
 position = Vector2(1792, 928)
 shape = SubResource("RectangleShape2D_bxevv")
 
-[node name="2MK" parent="." instance=ExtResource("5_vyxbe")]
-position = Vector2(672, 288)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_6x6ci")
 
-[node name="2MK4" parent="." instance=ExtResource("5_vyxbe")]
-position = Vector2(416, 1056)
+[node name="6MK" parent="." instance=ExtResource("2_4s6a0")]
+position = Vector2(520, 200)
 
-[node name="2MK5" parent="." instance=ExtResource("5_vyxbe")]
-position = Vector2(1504, 128)
+[node name="2MK" parent="." instance=ExtResource("3_pjklu")]
+position = Vector2(688, 1064)
 
-[node name="1MK" parent="." instance=ExtResource("3_i55xs")]
-position = Vector2(480, 640)
-
-[node name="1MK2" parent="." instance=ExtResource("3_i55xs")]
-position = Vector2(1792, 800)
+[node name="1MK" parent="." instance=ExtResource("4_5gho0")]
+position = Vector2(1752, 496)
