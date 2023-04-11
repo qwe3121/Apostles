@@ -31,7 +31,7 @@ func _on_confirm_save_name_confirmed():
 		dir.list_dir_end()
 
 		if (text_edit.text + ".save") in files:
-			FN_alert.dialog_text = "save file " + text_edit.text + ".save is already exists, choose other name"
+			FN_alert.dialog_text = "save file " + text_edit.text + ".save is already exists, choose another name"
 			FN_alert.popup_centered()
 			return
 			
