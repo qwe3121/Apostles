@@ -1,6 +1,6 @@
+StaticBody2D
 CollisionShape2D
 ColorRect
-StaticBody2D
 Sprite2D
 CollisionPolygon2D
 TextureRect

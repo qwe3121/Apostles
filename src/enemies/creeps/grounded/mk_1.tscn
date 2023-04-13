@@ -1517,7 +1517,6 @@ input_pickable = true
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.8
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1537,7 +1536,8 @@ one_shot = true
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"dead"
+animation = &"after_ulti"
+frame = 2
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false

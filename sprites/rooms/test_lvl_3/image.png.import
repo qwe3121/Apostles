@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7t6cp60awnmc"
-path="res://.godot/imported/TestLVL3_Non_Kollizia.png-a23f9ea0f1b8eb19c1f8b06462937275.ctex"
+uid="uid://bj7ayoo52a2md"
+path="res://.godot/imported/image.png-ff64dd1d17eaf7095e9efd957d067512.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/rooms/test_lvl_3/TestLVL3_Non_Kollizia.png"
-dest_files=["res://.godot/imported/TestLVL3_Non_Kollizia.png-a23f9ea0f1b8eb19c1f8b06462937275.ctex"]
+source_file="res://sprites/rooms/test_lvl_3/image.png"
+dest_files=["res://.godot/imported/image.png-ff64dd1d17eaf7095e9efd957d067512.ctex"]
 
 [params]
 

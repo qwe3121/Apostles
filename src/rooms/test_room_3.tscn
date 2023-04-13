@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cdyfm3llk1cu2"]
 
-[ext_resource type="Texture2D" uid="uid://1uftirtawjmk" path="res://sprites/rooms/test_lvl_3/TestLVL3.png" id="1_txr47"]
+[ext_resource type="Texture2D" uid="uid://djooxotatg8s6" path="res://sprites/rooms/test_lvl_3/TestLVL3.png" id="1_txr47"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="2_rfmyv"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="3_waxwq"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="4_5dhkf"]
@@ -26,19 +26,19 @@ collision_mask = 0
 polygon = PackedVector2Array(80, 16, 288, 16, 288, 32, 448, 32, 448, 160, 128, 160, 128, 167, 127, 167, 127, 170, 128, 170, 128, 224, 144, 224, 144, 256, 160, 256, 160, 304, 192, 304, 192, 320, 224, 320, 224, 336, 688, 336, 688, 512, 112, 512, 112, 1056, 568, 1056, 568, 1120, 336, 1120, 336, 1600, 96, 1600, 96, 1904, 1248, 1904, 1248, 1296, 1776, 1296, 1776, 1616, 1824, 1616, 1824, 1664, 1776, 1664, 1776, 1712, 1792, 1712, 1792, 1792, 1840, 1792, 1840, 1824, 1872, 1824, 1872, 1856, 1904, 1856, 1904, 1888, 2000, 1888, 2000, 1904, 3808, 1904, 3808, 1888, 3824, 1888, 3824, 1872, 3840, 1872, 3840, 1856, 3856, 1856, 3856, 1840, 3872, 1840, 3872, 1808, 3888, 1808, 3888, 1776, 3904, 1776, 3904, 1728, 3920, 1728, 3920, 1712, 3936, 1712, 3936, 1664, 3888, 1664, 3888, 1616, 3936, 1616, 3936, 1296, 4000, 1296, 4000, 2000, 0, 2000, 0, 0, 80, 0)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(1344, 1168, 1248, 1168, 1248, 1120, 800, 1120, 800, 1600, 464, 1600, 464, 1296, 672, 1296, 672, 880, 208, 880, 208, 816, 1248, 816, 1248, 744, 1282, 744, 1282, 688, 1344, 688)
+polygon = PackedVector2Array(1344, 1136, 1248, 1136, 1248, 1088, 800, 1088, 800, 1600, 464, 1600, 464, 1296, 672, 1296, 672, 880, 208, 880, 208, 816, 1248, 816, 1248, 744, 1282, 744, 1282, 688, 1344, 688)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(1136, 1392, 912, 1392, 912, 1296, 1136, 1296)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(1136, 1600, 912, 1600, 912, 1504, 1136, 1504)
+polygon = PackedVector2Array(1136, 1664, 912, 1664, 912, 1568, 1136, 1568)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(569, 1665, 573, 1665, 573, 1667, 575, 1667, 575, 1671, 576, 1671, 576, 1721, 575, 1721, 575, 1725, 573, 1725, 573, 1727, 569, 1727, 569, 1728, 519, 1728, 519, 1727, 515, 1727, 515, 1725, 513, 1725, 513, 1721, 512, 1721, 512, 1671, 513, 1671, 513, 1667, 515, 1667, 515, 1665, 519, 1665, 519, 1664, 569, 1664)
+polygon = PackedVector2Array(570, 1681, 574, 1681, 574, 1683, 576, 1683, 576, 1687, 577, 1687, 577, 1737, 576, 1737, 576, 1741, 574, 1741, 574, 1743, 570, 1743, 570, 1744, 520, 1744, 520, 1743, 516, 1743, 516, 1741, 514, 1741, 514, 1737, 513, 1737, 513, 1687, 514, 1687, 514, 1683, 516, 1683, 516, 1681, 520, 1681, 520, 1680, 570, 1680)
 
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(425, 1729, 429, 1729, 429, 1731, 431, 1731, 431, 1735, 432, 1735, 432, 1785, 431, 1785, 431, 1789, 429, 1789, 429, 1791, 425, 1791, 425, 1792, 375, 1792, 375, 1791, 371, 1791, 371, 1789, 369, 1789, 369, 1785, 368, 1785, 368, 1735, 369, 1735, 369, 1731, 371, 1731, 371, 1729, 375, 1729, 375, 1728, 425, 1728)
+polygon = PackedVector2Array(425, 1745, 429, 1745, 429, 1747, 431, 1747, 431, 1751, 432, 1751, 432, 1801, 431, 1801, 431, 1805, 429, 1805, 429, 1807, 425, 1807, 425, 1808, 375, 1808, 375, 1807, 371, 1807, 371, 1805, 369, 1805, 369, 1801, 368, 1801, 368, 1751, 369, 1751, 369, 1747, 371, 1747, 371, 1745, 375, 1745, 375, 1744, 425, 1744)
 
 [node name="1MK" parent="." instance=ExtResource("2_rfmyv")]
 position = Vector2(744, 760)
@@ -56,28 +56,16 @@ position = Vector2(1536, 1256)
 position = Vector2(2832, 1832)
 
 [node name="trap_c_pila" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(344, 1248)
-
-[node name="trap_c_pila2" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(456, 1336)
-
-[node name="trap_c_pila3" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(344, 1448)
-
-[node name="trap_c_pila4" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(456, 1552)
+position = Vector2(336, 1440)
 
 [node name="trap_c_pila5" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(856, 1552)
+position = Vector2(856, 1584)
 
 [node name="trap_c_pila6" parent="." instance=ExtResource("4_5dhkf")]
 position = Vector2(1192, 1344)
 
 [node name="trap_westerenka" parent="." instance=ExtResource("5_87bht")]
-position = Vector2(576, 1696)
-
-[node name="trap_westerenka2" parent="." instance=ExtResource("5_87bht")]
-position = Vector2(368, 1760)
+position = Vector2(576, 1712)
 
 [node name="TrapHitbox" parent="." instance=ExtResource("6_ugam0")]
 
