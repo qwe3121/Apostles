@@ -259,7 +259,7 @@ func before_attack():
 	
 	
 func attack():
-	set_dir()
+#	set_dir() # Sadge :(
 	set_anim(ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0

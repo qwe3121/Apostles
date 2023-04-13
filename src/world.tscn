@@ -336,8 +336,8 @@ autoplay = "Raining"
 
 [node name="Dust" type="ParallaxLayer" parent="Parallax"]
 visible = false
-position = Vector2(1152, -324)
-motion_mirroring = Vector2(1152, 648)
+position = Vector2(1152, -793)
+motion_mirroring = Vector2(1152, 0)
 
 [node name="DustParticles" parent="Parallax/Dust" instance=ExtResource("27_palko")]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdyfm3llk1cu2"]
+[gd_scene load_steps=10 format=3 uid="uid://cdyfm3llk1cu2"]
 
 [ext_resource type="Texture2D" uid="uid://djooxotatg8s6" path="res://sprites/rooms/test_lvl_3/TestLVL3.png" id="1_txr47"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="2_rfmyv"]
@@ -9,6 +9,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
 size = Vector2(104, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8buih"]
+size = Vector2(48, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlq2n"]
+size = Vector2(26, 48)
 
 [node name="TestRoom3" type="Node2D"]
 
@@ -72,3 +78,11 @@ position = Vector2(576, 1712)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox"]
 position = Vector2(1312, 616)
 shape = SubResource("RectangleShape2D_6b4m4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TrapHitbox"]
+position = Vector2(400, 1732)
+shape = SubResource("RectangleShape2D_8buih")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="TrapHitbox"]
+position = Vector2(501, 1712)
+shape = SubResource("RectangleShape2D_rlq2n")

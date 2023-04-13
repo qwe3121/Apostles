@@ -1,4 +1,5 @@
+res://src/enemies/creeps/grounded/mk_1.tscn
+res://src/enemies/creeps/grounded/mk_1.gd
 res://src/rooms/test_room_3.tscn
 res://src/world.tscn
 res://src/enemies/creeps/grounded/mk_2.tscn
-res://src/enemies/creeps/grounded/mk_1.tscn
