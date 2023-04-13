@@ -1631,7 +1631,7 @@ position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_ur1u2")
 
 [node name="BloodPos" type="Node2D" parent="."]
-position = Vector2(0, -16.5)
+position = Vector2(0, -18.5)
 
 [node name="EnemyHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false

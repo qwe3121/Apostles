@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d38wkusjm45e3"]
+
+[ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_trap.tscn" id="1_qttoa"]
+[ext_resource type="Texture2D" uid="uid://dobwfcq5p3ck" path="res://sprites/traps/Cirkylarna_Pila_v_Krovi.png" id="2_f68vl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1qaj1"]
+radius = 21.2132
+
+[node name="trap_c_pila" instance=ExtResource("1_qttoa")]
+
+[node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+texture = ExtResource("2_f68vl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="1"]
+shape = SubResource("CircleShape2D_1qaj1")

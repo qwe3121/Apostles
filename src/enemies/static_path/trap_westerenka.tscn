@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgifg80pxexn7"]
+
+[ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_trap.tscn" id="1_s12je"]
+[ext_resource type="Texture2D" uid="uid://ccarobu6c1oix" path="res://sprites/traps/Wecterenka_v_Krovi.png" id="2_0eoia"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gac7q"]
+radius = 32.0156
+
+[node name="trap_westerenka" instance=ExtResource("1_s12je")]
+
+[node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+texture = ExtResource("2_0eoia")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="1"]
+shape = SubResource("CircleShape2D_gac7q")

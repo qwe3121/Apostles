@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=64 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -35,14 +35,12 @@
 [ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="23_2fdtg"]
 [ext_resource type="Texture2D" uid="uid://b3aknyh1a4jlg" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-15.png" id="24_naoei"]
 [ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
-[ext_resource type="PackedScene" uid="uid://bubwuri6fnq0a" path="res://src/generation/rooms/test_room.tscn" id="27_4785v"]
 [ext_resource type="PackedScene" uid="uid://ct6vweeumc21h" path="res://src/dust_particles.tscn" id="27_palko"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
-[ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_trap.tscn" id="33_6r8g3"]
-[ext_resource type="Texture2D" uid="uid://dobwfcq5p3ck" path="res://sprites/traps/Cirkylarna_Pila_v_Krovi.png" id="34_x3kyl"]
+[ext_resource type="PackedScene" uid="uid://cdyfm3llk1cu2" path="res://src/rooms/test_room_3.tscn" id="43_b8772"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -212,9 +210,6 @@ shader_parameter/color = Color(1, 0.654902, 1, 0.290196)
 shader_parameter/hdr = false
 shader_parameter/seed = 5.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t412j"]
-radius = 24.0208
-
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
 
@@ -351,32 +346,8 @@ material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(1335, -582)
+position = Vector2(423, -1580)
 safe_margin = 0.24
-
-[node name="TestRoom" parent="." instance=ExtResource("27_4785v")]
-position = Vector2(0, -1120)
-
-[node name="ColorRect" type="ColorRect" parent="TestRoom"]
-offset_left = 1.0
-offset_top = 1291.0
-offset_right = 2304.0
-offset_bottom = 2220.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="TestRoom"]
-offset_left = 2304.0
-offset_top = 1112.0
-offset_right = 4607.0
-offset_bottom = 2222.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="TestRoom"]
-offset_left = -2302.0
-offset_top = 1111.0
-offset_right = 1.0
-offset_bottom = 2220.0
-color = Color(0, 0, 0, 1)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -517,14 +488,11 @@ offset_top = -1752.0
 offset_right = 3276.0
 offset_bottom = -42.0
 
-[node name="BasicStaticPathEnemy" parent="." instance=ExtResource("33_6r8g3")]
-position = Vector2(1534, -7)
-scale = Vector2(4, 4)
+[node name="TestRoom3" parent="." instance=ExtResource("43_b8772")]
+position = Vector2(0, -1904)
 
-[node name="Sprite2D" parent="BasicStaticPathEnemy/PathFollow2D/Node2D" index="0"]
-texture = ExtResource("34_x3kyl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BasicStaticPathEnemy/TrapHitbox" index="0"]
-shape = SubResource("CircleShape2D_t412j")
-
-[editable path="BasicStaticPathEnemy"]
+[node name="ColorRect" type="ColorRect" parent="TestRoom3"]
+offset_top = 2000.0
+offset_right = 4004.0
+offset_bottom = 4681.0
+color = Color(0, 0, 0, 1)

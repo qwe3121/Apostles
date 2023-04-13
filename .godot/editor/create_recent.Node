@@ -1,6 +1,8 @@
 CollisionShape2D
-CollisionPolygon2D
 ColorRect
+StaticBody2D
+Sprite2D
+CollisionPolygon2D
 TextureRect
 Area2D
 NavigationObstacle2D
@@ -14,7 +16,6 @@ Node2D
 ShapeCast2D
 Node
 RayCast2D
-Sprite2D
 HBoxContainer
 Button
 AnimatedSprite2D
@@ -29,4 +30,3 @@ Line2D
 WorldEnvironment
 PointLight2D
 Control
-StaticBody2D

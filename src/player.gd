@@ -43,7 +43,7 @@ var learned_skills = {
 }
 
 var blood_drop = preload("res://src/blood_drop.tscn")
-@onready var sprite_of_parent_level = get_parent().get_node("TestRoom").get_node("Sprite2D")
+@onready var sprite_of_parent_level = get_parent().get_node("TestRoom3").get_node("Sprite2D")
 
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 

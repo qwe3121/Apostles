@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp1kwqdro6ykb"]
+
+[ext_resource type="PackedScene" uid="uid://c5gqni02t3l8c" path="res://src/enemies/static_path/basic_static_path_trap.tscn" id="1_hpmf6"]
+[ext_resource type="Texture2D" uid="uid://c4a6r6af1wvjs" path="res://sprites/traps/Cerp_2X_v_Krovi.png" id="2_aif17"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvb4n"]
+radius = 40.7922
+
+[node name="trap_cerp_2x" instance=ExtResource("1_hpmf6")]
+
+[node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+texture = ExtResource("2_aif17")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="1"]
+shape = SubResource("CircleShape2D_wvb4n")

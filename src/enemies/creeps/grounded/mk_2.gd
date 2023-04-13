@@ -60,7 +60,7 @@ var there_is_blocked_area = false
 
 var is_on_wall
 
-var hp = 400
+var hp = 4
 
 var turned = false
 
