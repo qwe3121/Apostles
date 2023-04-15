@@ -1541,7 +1541,6 @@ input_pickable = true
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1561,7 +1560,8 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"dead"
+animation = &"after_ulti"
+frame = 6
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1580,6 +1580,7 @@ visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
+hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
 visible = false

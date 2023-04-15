@@ -361,6 +361,11 @@ func _on_flashlight_timer_timeout():
 		flashing = 0
 		knockback_dir = 0
 		
+		#these two needs test
+		velocity.y = 0
+		velocity.x = 0
+		####################
+		
 		
 func kill_with_fruit_ninja():
 	fruit_ninja_anim_index = randi_range(1, 8)

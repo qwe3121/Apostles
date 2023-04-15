@@ -433,6 +433,11 @@ func _on_flashlight_timer_timeout():
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
 		knockback_dir = 0
+		
+		#these two needs test
+		velocity.y = 0
+		velocity.x = 0
+		####################
 
 
 func _on_wall_detector_body_entered(body):
