@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdyfm3llk1cu2"]
+[gd_scene load_steps=11 format=3 uid="uid://cdyfm3llk1cu2"]
 
 [ext_resource type="Texture2D" uid="uid://djooxotatg8s6" path="res://sprites/rooms/test_lvl_3/TestLVL3.png" id="1_txr47"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="2_rfmyv"]
-[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="3_waxwq"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="4_5dhkf"]
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="5_87bht"]
+[ext_resource type="PackedScene" uid="uid://dgir3r81efgqj" path="res://src/enemies/creeps/floating/6mk.tscn" id="6_iyyj3"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="6_ugam0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
@@ -15,6 +15,11 @@ size = Vector2(48, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rlq2n"]
 size = Vector2(26, 48)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ghiwn"]
+vertices = PackedVector2Array(3784, 1304, 3776, 1920, 2088, 1920, 2088, 1312)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2088, 1312, 2088, 1920, 3776, 1920, 3784, 1304)])
 
 [node name="TestRoom3" type="Node2D"]
 
@@ -58,9 +63,6 @@ position = Vector2(856, 1848)
 [node name="1MK4" parent="." instance=ExtResource("2_rfmyv")]
 position = Vector2(1536, 1256)
 
-[node name="2MK" parent="." instance=ExtResource("3_waxwq")]
-position = Vector2(2832, 1832)
-
 [node name="trap_c_pila" parent="." instance=ExtResource("4_5dhkf")]
 position = Vector2(336, 1440)
 
@@ -86,3 +88,9 @@ shape = SubResource("RectangleShape2D_8buih")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TrapHitbox"]
 position = Vector2(501, 1712)
 shape = SubResource("RectangleShape2D_rlq2n")
+
+[node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
+position = Vector2(3016, 1730)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_ghiwn")

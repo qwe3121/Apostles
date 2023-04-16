@@ -1548,8 +1548,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"after_ulti"
-frame = 2
+animation = &"dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false

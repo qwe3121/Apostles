@@ -47,6 +47,7 @@ var need_to_reset_ulti = false
 var walking = 1 #1 is walking 0 is chilling
 
 var chasing = false
+var chasing_dir
 
 var there_is_blocked_area = false
 
@@ -66,13 +67,18 @@ var player_is_inside = false
 var fruit_ninja_anim_index = 1
 
 var destination
+var pre_destination
 @onready var nav_agent = $NavigationAgent2D
 
 var close_en_to_attack = false
-var close_en_to_ulti = false
+
+@onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 
 func _ready():
+	nav_agent.path_desired_distance = ceil(speed / physics_ticks_per_second)
+	nav_agent.target_desired_distance = ceil(speed / physics_ticks_per_second)
+	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer_start()
 	
@@ -87,7 +93,8 @@ func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
-		set_destination(global_position + Vector2(10 * knockback_dir, 0))
+		pre_destination = destination
+		set_destination(global_position + Vector2(100 * knockback_dir, 0))
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
@@ -129,7 +136,10 @@ func set_destination(new_destination: Vector2):
 	
 	
 func start_moving_behavior():
-	if nav_agent.distance_to_target() < 5.0:
+	if state != RUN and not knockback_dir:
+		return
+	
+	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
 		return
 	if nav_agent.is_target_reachable():
 		var target = nav_agent.get_next_path_position()
@@ -144,6 +154,20 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 	move_and_slide()
 
+
+func set_anim_dir():
+	if not knockback_dir:
+#		if see_player:
+#			if global_position.x > global.player.global_position.x:
+#				anim_dir = -1
+#			else:
+#				anim_dir = 1
+#		else:
+		if velocity.x < 0:
+			anim_dir = -1
+		elif velocity.x > 0:
+			anim_dir = 1
+		
 
 func _physics_process(delta):
 	match state:
@@ -162,30 +186,24 @@ func _physics_process(delta):
 		FRUIT_DEAD:
 			fruit_dead()
 			
-	if not nav_agent.is_target_reached(): start_moving_behavior()
-	
-	if not knockback_dir:
-		if velocity.x < 0:
-			anim_dir = -1
-		elif velocity.x > 0:
-			anim_dir = 1
+	start_moving_behavior()
 
 
 func idle():
 	if see_player:
-		if can_attack:
-			if can_ulti and close_en_to_ulti:
-				state = BEFORE_ULTI
-				return
-			if can_attack and close_en_to_attack:
+		if close_en_to_attack:
+#			if can_attack and can_ulti:
+#				state = BEFORE_ULTI
+#				return
+			if can_attack:
 				state = ATTACK
 				return
-		elif not close_en_to_attack and not close_en_to_ulti:
+		elif not close_en_to_attack:
 			state = RUN
 			return
 	else:
 		if walking: 
-			set_destination(global_position + Vector2(randi_range(50, 200) * rand_minus_or_plus(), 0))
+			if not knockback_dir: set_destination(global_position + Vector2(randi_range(50, 200) * rand_minus_or_plus(), 0))
 			set_anim(IDLE)
 			state = RUN
 			return
@@ -199,19 +217,23 @@ func rand_minus_or_plus():
 			
 func run():
 	if see_player:
-		if can_attack:
-			if can_ulti and close_en_to_ulti:
-				state = BEFORE_ULTI
-				return
-			if can_attack and close_en_to_attack:
+		if close_en_to_attack:
+#			if can_attack and can_ulti:
+#				state = BEFORE_ULTI
+#				return
+			if can_attack:
 				state = ATTACK
 				return
-		elif close_en_to_attack or close_en_to_ulti:
+		elif close_en_to_attack:
 			state = IDLE
 			return
 			
 		if not knockback_dir: set_destination(Vector2(global.player.global_position.x, global_position.y))
 	
+	elif chasing:
+		if not knockback_dir: set_destination(Vector2(global_position.x + 150 * chasing_dir, global_position.y))
+	
+	set_anim_dir()
 	set_anim(RUN)
 	
 	
@@ -223,12 +245,14 @@ func attack():
 		can_attack = false
 		need_to_reset_ulti = true
 		await anim.animation_finished
+		print(state)
 		if state == ATTACK:
 			attack_cooldown.start()
 			if not see_player:
 				chasing = false
 				walking = 0
 				walking_timer_start()
+			global.player.flying_cause_of_mk6 = false
 			state = IDLE
 
 			
@@ -282,7 +306,7 @@ func _on_walking_timer_timeout():
 	else:
 		walking = 1
 	walking_timer_start()
-
+	
 	
 func walking_timer_start():
 	walking_timer.wait_time = randi_range(1,5)
@@ -318,6 +342,10 @@ func _on_eyes_body_exited(body):
 		return
 	see_player = false
 	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI:
+		if global_position.x > global.player.global_position.x:
+			chasing_dir = -1
+		else:
+			chasing_dir = 1
 		chasing = true
 		chase_timer.start()
 		state = RUN
@@ -361,6 +389,8 @@ func _on_flashlight_timer_timeout():
 		flashing = 0
 		knockback_dir = 0
 		
+		set_destination(pre_destination)
+		
 		#these two needs test
 		velocity.y = 0
 		velocity.x = 0
@@ -393,3 +423,11 @@ func fruit_dead():
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")
 			queue_free()
+
+
+func _on_attack_hitbox_body_entered(body):
+	global.player.flying_cause_of_mk6 = true
+
+
+func _on_attack_hitbox_body_exited(body):
+	global.player.flying_cause_of_mk6 = false

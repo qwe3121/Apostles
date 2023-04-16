@@ -46,6 +46,11 @@ var blood_drop = preload("res://src/blood_drop.tscn")
 @onready var sprite_of_parent_level = get_parent().get_node("TestRoom3").get_node("Sprite2D")
 
 
+#debuffs section
+
+var flying_cause_of_mk6 = false
+
+
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
@@ -229,12 +234,6 @@ func _ready():
 
 
 func _physics_process(delta):
-#	if is_on_floor() and not ws_left_bot_raycast.enabled:
-#		ws_left_bot_raycast.enabled = true
-#		ws_left_top_raycast.enabled = true
-#		ws_right_bot_raycast.enabled = true
-#		ws_right_top_raycast.enabled = true
-	
 	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = 0.3
@@ -325,6 +324,10 @@ func _physics_process(delta):
 		REINCARNATION:
 			label.text = "REINC " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			reincarnation(delta)
+			
+	if flying_cause_of_mk6 and not state == DASH:
+		velocity.y = -1
+		velocity.x /= 500 * delta
 			
 	move_and_slide()
 
@@ -843,12 +846,6 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
-#	if Input.is_action_just_pressed("DOWN"):
-#		ws_left_bot_raycast.enabled = false
-#		ws_left_top_raycast.enabled = false
-#		ws_right_bot_raycast.enabled = false
-#		ws_right_top_raycast.enabled = false
-
 	if Input.is_action_just_pressed("DOWN"):
 		velocity.x = -wall_dir * speed
 		if np:
