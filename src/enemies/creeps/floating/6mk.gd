@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
 
-@export var speed = 150
+@export var speed = 100
+var default_speed
+var ulti_speed
+var position_before_ulti: Vector2
 
 @export var b_drops = 10
 
@@ -29,7 +32,7 @@ var blood_drop = preload("res://src/blood_drop.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, DEAD, FRUIT_DEAD}
+enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
 var state = IDLE : set = set_state
 
 func set_state(value):
@@ -75,9 +78,16 @@ var close_en_to_attack = false
 @onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 
-func _ready():
+func refresh_desired_distance():
 	nav_agent.path_desired_distance = ceil(speed / physics_ticks_per_second)
 	nav_agent.target_desired_distance = ceil(speed / physics_ticks_per_second)
+
+
+func _ready():
+	default_speed = speed
+	ulti_speed = speed * 2
+	
+	refresh_desired_distance()
 	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer_start()
@@ -124,6 +134,8 @@ func set_anim(animation_name):
 			anim.play("before_ulti")
 		ULTI:
 			anim.play("ulti")
+		AFTER_ULTI:
+			anim.play("after_ulti")
 		DEAD:
 			anim.play("dead")
 		FRUIT_DEAD:
@@ -136,33 +148,29 @@ func set_destination(new_destination: Vector2):
 	
 	
 func start_moving_behavior():
-	if state != RUN and not knockback_dir:
-		return
+	if not state == RUN and not state == BEFORE_ULTI and not state == AFTER_ULTI:
+		if not knockback_dir:
+			return
 	
 	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
 		return
 	if nav_agent.is_target_reachable():
 		var target = nav_agent.get_next_path_position()
 		var nav_velocity = global_position.direction_to(target).normalized() * speed
-		nav_agent.set_velocity(nav_velocity)
-#	else:
-#		velocity = Vector2.ZERO
-#		move_and_slide()
+#		nav_agent.set_velocity(nav_velocity) # FOR RVO AVOIDANCE
+		velocity = nav_velocity
+		move_and_slide()
 
 
-func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	velocity = safe_velocity
-	move_and_slide()
+# FOR RVO AVOIDANCE
+
+#func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+#	velocity = safe_velocity
+#	move_and_slide()
 
 
 func set_anim_dir():
 	if not knockback_dir:
-#		if see_player:
-#			if global_position.x > global.player.global_position.x:
-#				anim_dir = -1
-#			else:
-#				anim_dir = 1
-#		else:
 		if velocity.x < 0:
 			anim_dir = -1
 		elif velocity.x > 0:
@@ -181,6 +189,8 @@ func _physics_process(delta):
 			before_ulti()
 		ULTI:
 			ulti()
+		AFTER_ULTI:
+			after_ulti()
 		DEAD:
 			dead()
 		FRUIT_DEAD:
@@ -192,9 +202,12 @@ func _physics_process(delta):
 func idle():
 	if see_player:
 		if close_en_to_attack:
-#			if can_attack and can_ulti:
-#				state = BEFORE_ULTI
-#				return
+			if can_attack and can_ulti:
+				speed = ulti_speed
+				refresh_desired_distance()
+				position_before_ulti = global_position
+				state = BEFORE_ULTI
+				return
 			if can_attack:
 				state = ATTACK
 				return
@@ -218,9 +231,12 @@ func rand_minus_or_plus():
 func run():
 	if see_player:
 		if close_en_to_attack:
-#			if can_attack and can_ulti:
-#				state = BEFORE_ULTI
-#				return
+			if can_attack and can_ulti:
+				speed = ulti_speed
+				refresh_desired_distance()
+				position_before_ulti = global_position
+				state = BEFORE_ULTI
+				return
 			if can_attack:
 				state = ATTACK
 				return
@@ -245,7 +261,6 @@ func attack():
 		can_attack = false
 		need_to_reset_ulti = true
 		await anim.animation_finished
-		print(state)
 		if state == ATTACK:
 			attack_cooldown.start()
 			if not see_player:
@@ -258,22 +273,36 @@ func attack():
 			
 func before_ulti():
 	set_anim(BEFORE_ULTI)
+	set_destination(Vector2(global_position.x, global_position.y + 10))
 	if !state_started:
 		state_started = true
 		attack_cooldown.stop()
 		can_attack = false
 		can_ulti = false
-		await anim.animation_finished
+	if is_on_floor():
 		if state == BEFORE_ULTI:
 			state = ULTI
-	
-	
+			
+			
 func ulti():
 	set_anim(ULTI)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
 		if state == ULTI:
+			speed = default_speed
+			refresh_desired_distance()
+			state = AFTER_ULTI
+			
+			
+func after_ulti():
+	set_anim(AFTER_ULTI)
+	if !state_started:
+		state_started = true
+		set_destination(position_before_ulti)
+#		await nav_agent.target_reached
+	if global_position.distance_to(position_before_ulti) < 5.0:
+		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
 			if not see_player:
@@ -341,7 +370,7 @@ func _on_eyes_body_exited(body):
 	if not see_player:
 		return
 	see_player = false
-	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI:
+	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		if global_position.x > global.player.global_position.x:
 			chasing_dir = -1
 		else:
