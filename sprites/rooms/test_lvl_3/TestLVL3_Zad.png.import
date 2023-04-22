@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djooxotatg8s6"
-path="res://.godot/imported/TestLVL3.png-decb4e75cc8276d27bc7e0928aa12df2.ctex"
+uid="uid://bvod5h3y21ol1"
+path="res://.godot/imported/TestLVL3_Zad.png-9ad25dd9fce92370ca433406fb0c5d98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/rooms/test_lvl_3/TestLVL3.png"
-dest_files=["res://.godot/imported/TestLVL3.png-decb4e75cc8276d27bc7e0928aa12df2.ctex"]
+source_file="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png"
+dest_files=["res://.godot/imported/TestLVL3_Zad.png-9ad25dd9fce92370ca433406fb0c5d98.ctex"]
 
 [params]
 

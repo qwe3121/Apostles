@@ -10,12 +10,13 @@ var flying_apart = true
 var x_vel
 var y_vel
 
+var rand_modulate
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 5
 
 
-func _ready():
-	var rand_modulate = randf_range(0.5, 1.0)
-
+func configurate():
+	rand_modulate = randf_range(0.5, 1.0)
 	trace.modulate.a = rand_modulate
 	drop.modulate.a = rand_modulate
 	drop.texture = load("res://sprites/blood/drops/%d.png" % randi_range(1, 10))

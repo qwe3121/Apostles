@@ -27,6 +27,7 @@ trans="*res://src/autoloads/transition.tscn"
 nt="*res://src/autoloads/notification.tscn"
 global="*res://src/autoloads/global.gd"
 WorldEnv="*res://src/autoloads/world_env.tscn"
+blood_manager="*res://src/autoloads/blood_manager.gd"
 
 [display]
 
@@ -123,7 +124,7 @@ BLOCK={
 2d_physics/layer_3="blocked_area_for_enemies"
 2d_physics/layer_4="trap_hitbox"
 2d_physics/layer_5="enemies"
-2d_physics/layer_6="BloodTraceArea"
+2d_physics/layer_6="blood_trace_area"
 2d_physics/layer_7="player_hurtbox"
 2d_physics/layer_8="player"
 2d_physics/layer_32="roomsArea"

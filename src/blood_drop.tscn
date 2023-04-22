@@ -52,6 +52,8 @@ _data = {
 size = Vector2(82, 84)
 
 [node name="BloodDrop" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_2dk2e")
 
 [node name="Drop" type="Sprite2D" parent="."]
@@ -94,12 +96,12 @@ libraries = {
 "": SubResource("AnimationLibrary_kifpo")
 }
 
-[node name="AreaForGrass" type="Area2D" parent="."]
+[node name="TraceArea" type="Area2D" parent="."]
 visible = false
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaForGrass"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TraceArea"]
 position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_h2mi4")
 

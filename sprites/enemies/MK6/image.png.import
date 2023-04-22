@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj7ayoo52a2md"
-path="res://.godot/imported/image.png-ff64dd1d17eaf7095e9efd957d067512.ctex"
+uid="uid://duovm3phxgsaf"
+path="res://.godot/imported/image.png-9ef79fc97fe7b3dc812e2d880467c9a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/rooms/test_lvl_3/image.png"
-dest_files=["res://.godot/imported/image.png-ff64dd1d17eaf7095e9efd957d067512.ctex"]
+source_file="res://sprites/enemies/MK6/image.png"
+dest_files=["res://.godot/imported/image.png-9ef79fc97fe7b3dc812e2d880467c9a9.ctex"]
 
 [params]
 

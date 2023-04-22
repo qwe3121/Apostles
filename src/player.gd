@@ -42,8 +42,8 @@ var learned_skills = {
 	"fruit_ninja": true
 }
 
-var blood_drop = preload("res://src/blood_drop.tscn")
-@onready var sprite_of_parent_level = get_parent().get_node("TestRoom3").get_node("Sprite2D")
+@onready var sprite_of_level_foreground = get_parent().get_node("TestRoom3").get_node("Foreground")
+@onready var sprite_of_level_background = get_parent().get_node("TestRoom3").get_node("Background")
 
 
 #debuffs section
@@ -77,7 +77,7 @@ func set_state(value):
 	if not state == value: 
 		state_started = false
 		single_anim_not_played_yet = true
-#	print("from " + str(state) + " to " + str(value) + " with value " + str(single_anim_not_played_yet))
+
 	state = value
 
 var dir = 0
@@ -241,88 +241,60 @@ func _physics_process(delta):
 
 	match state:
 		IDLE:
-			label.text = "IDLE " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			idle()
 		RUN:
-			label.text = "RUN " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			run()
 		AIR:
-			label.text = "AIR " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			air(delta)
 		JUMP:
-			label.text = "JUMP " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			jump(delta)
 		SIT:
-			label.text = "SIT " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			sit()
 		CROUCH:
-			label.text = "CROUCH " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			crouch()
 		WALL_SLIDE:
-			label.text = "WALL_SLIDE " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			wall_slide(delta)
 		DASH:
-			label.text = "DASH " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			dash()
 		ROLL:
-			label.text = "ROLL " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			roll()
 		WEAK_ATTACK_1:
-			label.text = "WEAK_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_1()
 		WEAK_ATTACK_2:
-			label.text = "WEAK_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_2()
 		WEAK_ATTACK_3:
-			label.text = "WEAK_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_3()
 		WEAK_ATTACK_4:
-			label.text = "WEAK_ATTACK_4 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			weak_attack_4()
 		STRONG_ATTACK_1:
-			label.text = "STRONG_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_1()
 		STRONG_ATTACK_2:
-			label.text = "STRONG_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_2()
 		STRONG_ATTACK_3:
-			label.text = "STRONG_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_3()
 		STRONG_ATTACK_4:
-			label.text = "STRONG_ATTACK_4 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			strong_attack_4(delta)
 		LANDING:
-			label.text = "LANDING " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			landing()
 		FIRST_JUMP_ATTACK_1:
-			label.text = "FIRST_JUMP_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_1()
 		FIRST_JUMP_ATTACK_2:
-			label.text = "FIRST_JUMP_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_2()
 		FIRST_JUMP_ATTACK_3:
-			label.text = "FIRST_JUMP_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			first_jump_attack_3()
 		SECOND_JUMP_ATTACK_1:
-			label.text = "SECOND_JUMP_ATTACK_1 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_1()
 		SECOND_JUMP_ATTACK_2:
-			label.text = "SECOND_JUMP_ATTACK_2 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_2()
 		SECOND_JUMP_ATTACK_3:
-			label.text = "SECOND_JUMP_ATTACK_3 " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			second_jump_attack_3()
 		DEAD:
-			label.text = "DEAD " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			dead(delta)
 		BLOCK:
-			label.text = "BLOCK " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			block()
 		FRUIT_NINJA:
-			label.text = "FRUIT_NINJA " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			fruit_ninja()
 		REINCARNATION:
-			label.text = "REINC " + str(single_anim_not_played_yet) + " " + str(anim.current_animation)
 			reincarnation(delta)
 			
 	if flying_cause_of_mk6 and not state == DASH:
@@ -1309,10 +1281,7 @@ func create_cuts_for_cut_dead():
 
 func create_blood(number: int = 5):
 	for c in range(number):
-		var blood_drop_instance = blood_drop.instantiate()
-		sprite_of_parent_level.add_child(blood_drop_instance)
-		blood_drop_instance.x_vel = randi_range(-800, 800)
-		blood_drop_instance.global_position = blood_pos.global_position
+		blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, 0, blood_pos)
 
 
 func reincarnation(delta):

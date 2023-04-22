@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 
-@export var speed = 100
+var speed = 4
 var default_speed
 var ulti_speed
 var position_before_ulti: Vector2
 
-@export var b_drops = 10
+var b_drops = 10
 
 var see_player = false
 
@@ -21,22 +21,42 @@ var see_player = false
 @onready var enemy_hitbox = $EnemyHitbox
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var ulti_hitbox = $EnemyHitbox/Ulti
-@onready var attack_hitbox = $EnemyHitbox/Attack
+@onready var ulti_hitbox = $EnemyHitbox/UltiDropdown
+@onready var attack_hitbox = $AttackHitbox/CollisionPolygon2D
 @onready var eyes = $Eyes
 
 
-@onready var sprite_of_parent_level = get_parent().get_node("Sprite2D")
-
-var blood_drop = preload("res://src/blood_drop.tscn")
+@onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
+@onready var sprite_of_level_background = get_parent().get_node("Background")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
+
+func const_to_str(index):
+	match index:
+		0:
+			return "IDLE"
+		1:
+			return "RUN"
+		2:
+			return "ATTACK"
+		3:
+			return "BEFORE_ULTI"
+		4:
+			return "ULTI"
+		5:
+			return "AFTER_ULTI"
+		6:
+			return "DEAD"
+		7:
+			return "FRUIT_DEAD"
+
 var state = IDLE : set = set_state
 
 func set_state(value):
 	if not state == value: state_started = false
+#	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
 
 var anim_dir = 1
@@ -70,7 +90,6 @@ var player_is_inside = false
 var fruit_ninja_anim_index = 1
 
 var destination
-var pre_destination
 @onready var nav_agent = $NavigationAgent2D
 
 var close_en_to_attack = false
@@ -103,8 +122,6 @@ func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
-		pre_destination = destination
-		set_destination(global_position + Vector2(100 * knockback_dir, 0))
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
@@ -115,7 +132,7 @@ func set_anim(animation_name):
 	animated_sprite.flip_h = anim_dir == 1
 	animated_sprite.position.x = 3 * anim_dir
 	blood.flip_h = !(last_knockback_dir == 1)
-	blood.position.x = 24 * last_knockback_dir
+	blood.position.x = 30 * last_knockback_dir
 
 	match animation_name:
 		IDLE: 
@@ -151,6 +168,12 @@ func start_moving_behavior():
 	if not state == RUN and not state == BEFORE_ULTI and not state == AFTER_ULTI:
 		if not knockback_dir:
 			return
+			
+	if knockback_dir:
+		velocity.x = knockback_dir * speed
+#		velocity.y = 0
+		move_and_slide()
+		return
 	
 	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
 		return
@@ -300,8 +323,8 @@ func after_ulti():
 	if !state_started:
 		state_started = true
 		set_destination(position_before_ulti)
-#		await nav_agent.target_reached
-	if global_position.distance_to(position_before_ulti) < 5.0:
+	if global_position.distance_to(position_before_ulti) < 2.0:
+		print("distance to pos before ulti is < 2.0")
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
@@ -319,10 +342,7 @@ func dead():
 		ulti_hitbox.disabled = true
 		attack_hitbox.disabled = true
 		for c in range(b_drops):
-			var blood_drop_instance = blood_drop.instantiate()
-			sprite_of_parent_level.add_child(blood_drop_instance)
-			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = blood_pos.global_position
+			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -360,7 +380,6 @@ func _on_eyes_body_entered(body):
 	if not chasing and can_attack:
 		qmark.visible = true
 		qmark.play("popup")
-	set_destination(Vector2(global.player.global_position.x, global_position.y))
 	walking_timer.stop()
 	chase_timer.stop()
 	see_player = true
@@ -418,8 +437,6 @@ func _on_flashlight_timer_timeout():
 		flashing = 0
 		knockback_dir = 0
 		
-		set_destination(pre_destination)
-		
 		#these two needs test
 		velocity.y = 0
 		velocity.x = 0
@@ -444,10 +461,7 @@ func fruit_dead():
 		attack_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
-			var blood_drop_instance = blood_drop.instantiate()
-			sprite_of_parent_level.add_child(blood_drop_instance)
-			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = blood_pos.global_position
+			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")

@@ -40,7 +40,7 @@
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
-[ext_resource type="PackedScene" uid="uid://cdyfm3llk1cu2" path="res://src/rooms/test_room_3.tscn" id="43_b8772"]
+[ext_resource type="PackedScene" uid="uid://odvoc0iuua6q" path="res://src/rooms/test_room_3.tscn" id="43_b8772"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")

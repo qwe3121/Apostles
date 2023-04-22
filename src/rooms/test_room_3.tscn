@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdyfm3llk1cu2"]
+[gd_scene load_steps=13 format=3 uid="uid://odvoc0iuua6q"]
 
-[ext_resource type="Texture2D" uid="uid://djooxotatg8s6" path="res://sprites/rooms/test_lvl_3/TestLVL3.png" id="1_txr47"]
+[ext_resource type="Texture2D" uid="uid://bvod5h3y21ol1" path="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png" id="1_xs3we"]
+[ext_resource type="Texture2D" uid="uid://0iuyavir7h5u" path="res://sprites/rooms/test_lvl_3/TestLVL3_Pered.png" id="2_440q8"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="2_rfmyv"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="4_5dhkf"]
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="5_87bht"]
-[ext_resource type="PackedScene" uid="uid://dgir3r81efgqj" path="res://src/enemies/creeps/floating/6mk.tscn" id="6_iyyj3"]
+[ext_resource type="PackedScene" uid="uid://bvl5q2m4e75mv" path="res://src/enemies/creeps/floating/mk_6.tscn" id="6_iyyj3"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="6_ugam0"]
+[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="8_1145s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
 size = Vector2(104, 152)
@@ -22,12 +24,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(2088, 1312, 2088, 1920, 3776, 1920, 3784, 1304)])
 
 [node name="TestRoom3" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-clip_children = 2
-z_index = 50
-texture = ExtResource("1_txr47")
-centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -51,6 +47,18 @@ polygon = PackedVector2Array(570, 1681, 574, 1681, 574, 1683, 576, 1683, 576, 16
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(425, 1745, 429, 1745, 429, 1747, 431, 1747, 431, 1751, 432, 1751, 432, 1801, 431, 1801, 431, 1805, 429, 1805, 429, 1807, 425, 1807, 425, 1808, 375, 1808, 375, 1807, 371, 1807, 371, 1805, 369, 1805, 369, 1801, 368, 1801, 368, 1751, 369, 1751, 369, 1747, 371, 1747, 371, 1745, 375, 1745, 375, 1744, 425, 1744)
 
+[node name="Background" type="Sprite2D" parent="."]
+clip_children = 2
+z_index = -50
+texture = ExtResource("1_xs3we")
+centered = false
+
+[node name="Foreground" type="Sprite2D" parent="."]
+clip_children = 2
+z_index = 50
+texture = ExtResource("2_440q8")
+centered = false
+
 [node name="1MK" parent="." instance=ExtResource("2_rfmyv")]
 position = Vector2(744, 760)
 
@@ -60,19 +68,20 @@ position = Vector2(352, 1008)
 [node name="1MK3" parent="." instance=ExtResource("2_rfmyv")]
 position = Vector2(856, 1848)
 
-[node name="1MK4" parent="." instance=ExtResource("2_rfmyv")]
-position = Vector2(1536, 1256)
-
 [node name="trap_c_pila" parent="." instance=ExtResource("4_5dhkf")]
+z_index = 0
 position = Vector2(336, 1440)
 
 [node name="trap_c_pila5" parent="." instance=ExtResource("4_5dhkf")]
+z_index = 0
 position = Vector2(856, 1584)
 
 [node name="trap_c_pila6" parent="." instance=ExtResource("4_5dhkf")]
+z_index = 0
 position = Vector2(1192, 1344)
 
 [node name="trap_westerenka" parent="." instance=ExtResource("5_87bht")]
+z_index = 0
 position = Vector2(576, 1712)
 
 [node name="TrapHitbox" parent="." instance=ExtResource("6_ugam0")]
@@ -89,8 +98,11 @@ shape = SubResource("RectangleShape2D_8buih")
 position = Vector2(501, 1712)
 shape = SubResource("RectangleShape2D_rlq2n")
 
-[node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
-position = Vector2(3016, 1730)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_ghiwn")
+
+[node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
+position = Vector2(3056, 1736)
+
+[node name="2MK" parent="." instance=ExtResource("8_1145s")]
+position = Vector2(1512, 1224)

@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 
-@export var speed = 150
+var speed = 150
 
 var close_en_to_attack = false
 var close_en_to_ulti = false
 
-@export var b_drops = 10
+var b_drops = 10
 
 var see_player = false
 
@@ -30,18 +30,43 @@ var see_player = false
 
 
 
-@onready var sprite_of_parent_level = get_parent().get_node("Sprite2D")
+@onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
+@onready var sprite_of_level_background = get_parent().get_node("Background")
 
-var blood_drop = preload("res://src/blood_drop.tscn")
 var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD}
+
+func const_to_str(index):
+	match index:
+		0:
+			return "IDLE"
+		1:
+			return "RUN"
+		2:
+			return "BEFORE_ATTACK"
+		3:
+			return "ATTACK"
+		4:
+			return "BEFORE_ULTI"
+		5:
+			return "ULTI"
+		6:
+			return "AFTER_ULTI"
+		7:
+			return "DEAD"
+		8:
+			return "AIR"
+		9:
+			return "FRUIT_DEAD"
+
 var state = AIR : set = set_state
 
 func set_state(value):
 	if not state == value: state_started = false
+#	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
 
 var dir = 1
@@ -244,7 +269,6 @@ func air(delta):
 	
 	
 func before_attack():
-	set_dir()
 	set_anim(BEFORE_ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
@@ -259,7 +283,6 @@ func before_attack():
 	
 	
 func attack():
-#	set_dir() # Sadge :(
 	set_anim(ATTACK)
 	if not knockback_dir: velocity.x = 0
 	velocity.y = 0
@@ -334,10 +357,7 @@ func dead():
 		state_started = true
 		enemy_hitbox_col.disabled = true
 		for c in range(b_drops):
-			var blood_drop_instance = blood_drop.instantiate()
-			sprite_of_parent_level.add_child(blood_drop_instance)
-			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = blood_pos.global_position
+			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -468,10 +488,7 @@ func fruit_dead():
 		enemy_hitbox_col.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
-			var blood_drop_instance = blood_drop.instantiate()
-			sprite_of_parent_level.add_child(blood_drop_instance)
-			blood_drop_instance.x_vel = randi_range(-800, -500) if last_knockback_dir == -1 else randi_range(500, 800)
-			blood_drop_instance.global_position = blood_pos.global_position
+			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")

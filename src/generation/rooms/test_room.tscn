@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bubwuri6fnq0a"]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Texture2D" uid="uid://b3j0bn52vt513" path="res://sprites/rooms/room_1/TestLVL_Black.png" id="1_m1d7m"]
-[ext_resource type="PackedScene" uid="uid://dgir3r81efgqj" path="res://src/enemies/creeps/floating/6mk.tscn" id="2_4s6a0"]
+[ext_resource type="PackedScene" path="res://src/enemies/creeps/floating/mk_6.tscn" id="2_4s6a0"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="3_pjklu"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="4_5gho0"]
 
