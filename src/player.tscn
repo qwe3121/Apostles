@@ -5565,6 +5565,7 @@ colors = PackedColorArray(0, 0.686275, 1, 1, 0, 0, 1, 1)
 [node name="Player" type="CharacterBody2D"]
 process_priority = -10
 modulate = Color(1.5, 1.5, 1.5, 1)
+z_index = 1
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_jdkiv")
