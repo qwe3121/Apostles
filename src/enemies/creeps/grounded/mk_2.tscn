@@ -1537,7 +1537,6 @@ light_mask = 0
 scale = Vector2(2, 2)
 collision_layer = 16
 collision_mask = 2
-input_pickable = true
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

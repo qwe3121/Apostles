@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var speed = 4
+var speed = 150
 var default_speed
 var ulti_speed
 var position_before_ulti: Vector2
@@ -18,12 +18,10 @@ var see_player = false
 @onready var blood = $Blood
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
-@onready var enemy_hitbox = $EnemyHitbox
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
 @onready var ulti_hitbox = $EnemyHitbox/UltiDropdown
 @onready var attack_hitbox = $AttackHitbox/CollisionPolygon2D
-@onready var eyes = $Eyes
 
 
 @onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
@@ -56,7 +54,7 @@ var state = IDLE : set = set_state
 
 func set_state(value):
 	if not state == value: state_started = false
-#	print("from " + const_to_str(state) + " into " + const_to_str(value))
+	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
 
 var anim_dir = 1
@@ -76,7 +74,7 @@ var there_is_blocked_area = false
 
 var is_on_wall
 
-var hp = 400
+var hp = 15
 
 var turned = false
 
@@ -86,8 +84,6 @@ var knockback_dir = 0
 var last_knockback_dir = 0
 
 var player_is_inside = false
-
-var fruit_ninja_anim_index = 1
 
 var destination
 @onready var nav_agent = $NavigationAgent2D
@@ -444,7 +440,6 @@ func _on_flashlight_timer_timeout():
 		
 		
 func kill_with_fruit_ninja():
-	fruit_ninja_anim_index = randi_range(1, 8)
 	chase_timer.stop()
 	walking_timer.stop()
 	state = FRUIT_DEAD

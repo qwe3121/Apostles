@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://odvoc0iuua6q"]
+[gd_scene load_steps=12 format=3 uid="uid://odvoc0iuua6q"]
 
 [ext_resource type="Texture2D" uid="uid://bvod5h3y21ol1" path="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png" id="1_xs3we"]
 [ext_resource type="Texture2D" uid="uid://0iuyavir7h5u" path="res://sprites/rooms/test_lvl_3/TestLVL3_Pered.png" id="2_440q8"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="5_87bht"]
 [ext_resource type="PackedScene" uid="uid://bvl5q2m4e75mv" path="res://src/enemies/creeps/floating/mk_6.tscn" id="6_iyyj3"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="6_ugam0"]
-[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="8_1145s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
 size = Vector2(104, 152)
@@ -18,10 +17,10 @@ size = Vector2(48, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rlq2n"]
 size = Vector2(26, 48)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ghiwn"]
-vertices = PackedVector2Array(3784, 1304, 3776, 1920, 2088, 1920, 2088, 1312)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o2fkp"]
+vertices = PackedVector2Array(3632, 1584, 3632, 1936, 2352, 1936, 2352, 1576)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(2088, 1312, 2088, 1920, 3776, 1920, 3784, 1304)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(3632, 1584, 3632, 1936, 2352, 1936, 2352, 1576)])
 
 [node name="TestRoom3" type="Node2D"]
 
@@ -59,15 +58,6 @@ z_index = 50
 texture = ExtResource("2_440q8")
 centered = false
 
-[node name="1MK" parent="." instance=ExtResource("2_rfmyv")]
-position = Vector2(744, 760)
-
-[node name="1MK2" parent="." instance=ExtResource("2_rfmyv")]
-position = Vector2(352, 1008)
-
-[node name="1MK3" parent="." instance=ExtResource("2_rfmyv")]
-position = Vector2(856, 1848)
-
 [node name="trap_c_pila" parent="." instance=ExtResource("4_5dhkf")]
 z_index = 0
 position = Vector2(336, 1440)
@@ -99,10 +89,10 @@ position = Vector2(501, 1712)
 shape = SubResource("RectangleShape2D_rlq2n")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_ghiwn")
+navigation_polygon = SubResource("NavigationPolygon_o2fkp")
 
 [node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
-position = Vector2(3056, 1736)
+position = Vector2(3136, 1744)
 
-[node name="2MK" parent="." instance=ExtResource("8_1145s")]
-position = Vector2(1512, 1224)
+[node name="1MK" parent="." instance=ExtResource("2_rfmyv")]
+position = Vector2(792, 1800)

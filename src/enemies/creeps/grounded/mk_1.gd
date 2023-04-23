@@ -207,7 +207,7 @@ func idle():
 		if close_en_to_attack and can_attack:
 			state = BEFORE_ATTACK
 			return
-		elif not close_en_to_attack or not close_en_to_ulti:
+		elif not close_en_to_ulti:
 			state = RUN
 			return
 	else:
@@ -237,7 +237,7 @@ func run():
 		if close_en_to_attack and can_attack:
 			state = BEFORE_ATTACK
 			return
-		elif close_en_to_attack or close_en_to_ulti:
+		elif close_en_to_ulti:
 			state = IDLE
 			return
 			
