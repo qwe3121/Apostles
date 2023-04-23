@@ -117,7 +117,7 @@ var hp = 1
 
 
 func get_damage(source: String): #fire, bullet, hit, cut
-	if state == DASH or state == DEAD or state == REINCARNATION or cfg.cfg_data.undead:
+	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead:
 		return
 		
 	last_damage_source = source

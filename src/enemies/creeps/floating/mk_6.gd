@@ -54,7 +54,7 @@ var state = IDLE : set = set_state
 
 func set_state(value):
 	if not state == value: state_started = false
-	print("from " + const_to_str(state) + " into " + const_to_str(value))
+#	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
 
 var anim_dir = 1
@@ -166,7 +166,7 @@ func start_moving_behavior():
 			return
 			
 	if knockback_dir:
-		velocity.x = knockback_dir * speed
+		velocity.x = knockback_dir * speed / 2
 #		velocity.y = 0
 		move_and_slide()
 		return
@@ -401,6 +401,10 @@ func check_if_vision_is_blocked_by_wall():
 	params.from = blood_pos.global_position
 	params.to = global.player.blood_pos.global_position
 	params.exclude = [self]
+	params.collide_with_areas = false
+	params.collide_with_bodies = true
+	params.hit_from_inside = true
+	params.collision_mask = 0b00000000000010000010
 	var result = space_state.intersect_ray(params)
 	if len(result) == 0: return true
 	if result.collider.name == "Player":

@@ -414,6 +414,10 @@ func check_if_vision_is_blocked_by_wall():
 	params.from = blood_pos.global_position
 	params.to = global.player.blood_pos.global_position
 	params.exclude = [self]
+	params.collide_with_areas = false
+	params.collide_with_bodies = true
+	params.hit_from_inside = true
+	params.collision_mask = 0b00000000000010000010
 	var result = space_state.intersect_ray(params)
 	if len(result) == 0: return true
 	if result.collider.name == "Player":

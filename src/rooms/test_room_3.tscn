@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://odvoc0iuua6q"]
+[gd_scene load_steps=13 format=3 uid="uid://odvoc0iuua6q"]
 
 [ext_resource type="Texture2D" uid="uid://bvod5h3y21ol1" path="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png" id="1_xs3we"]
 [ext_resource type="Texture2D" uid="uid://0iuyavir7h5u" path="res://sprites/rooms/test_lvl_3/TestLVL3_Pered.png" id="2_440q8"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="5_87bht"]
 [ext_resource type="PackedScene" uid="uid://bvl5q2m4e75mv" path="res://src/enemies/creeps/floating/mk_6.tscn" id="6_iyyj3"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="6_ugam0"]
+[ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="8_is0rg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
 size = Vector2(104, 152)
@@ -94,5 +95,32 @@ navigation_polygon = SubResource("NavigationPolygon_o2fkp")
 [node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
 position = Vector2(3136, 1744)
 
+[node name="6MK2" parent="." instance=ExtResource("6_iyyj3")]
+position = Vector2(3336, 1736)
+
+[node name="6MK3" parent="." instance=ExtResource("6_iyyj3")]
+position = Vector2(3512, 1736)
+
+[node name="6MK4" parent="." instance=ExtResource("6_iyyj3")]
+position = Vector2(3624, 1744)
+
 [node name="1MK" parent="." instance=ExtResource("2_rfmyv")]
-position = Vector2(792, 1800)
+position = Vector2(3360, 1832)
+
+[node name="1MK2" parent="." instance=ExtResource("2_rfmyv")]
+position = Vector2(3168, 1864)
+
+[node name="1MK3" parent="." instance=ExtResource("2_rfmyv")]
+position = Vector2(3520, 1848)
+
+[node name="1MK4" parent="." instance=ExtResource("2_rfmyv")]
+position = Vector2(3024, 1832)
+
+[node name="2MK" parent="." instance=ExtResource("8_is0rg")]
+position = Vector2(2568, 1872)
+
+[node name="2MK2" parent="." instance=ExtResource("8_is0rg")]
+position = Vector2(3088, 1688)
+
+[node name="2MK3" parent="." instance=ExtResource("8_is0rg")]
+position = Vector2(3456, 1856)
