@@ -1,5 +1,8 @@
-res://src/autoloads
 res://sprites/enemies/MK6
+res://sprites/enemies/MK2
+res://sprites/enemies/MK1
+res://sprites/player
+res://src/autoloads
 res://src/enemies/static_path
 res://src/rooms
 res://src/enemies
@@ -7,11 +10,8 @@ res://src/enemies/creeps/floating
 res://src/enemies/creeps/grounded
 res://src
 res://src/menus
-res://sprites/player
-res://sprites/enemies/MK1
 res://sprites/player/cut_dead
 res://src/player_cuts
 res://sprites/enemies/fruit_ninja_cuts
-res://sprites/enemies/MK2
 res://src/scene_tiles
 res://src/generation/rooms

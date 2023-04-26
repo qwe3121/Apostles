@@ -1,4 +1,4 @@
-[gd_scene load_steps=414 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=430 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://cvltbo6cql2ru" path="res://sprites/player/cut_dead/Smert_Ydar.png" id="35_o0h6v"]
 [ext_resource type="Texture2D" uid="uid://3llqnvr6s7qr" path="res://sprites/player/Padaet_Mertvi_Spina.png" id="35_t6p11"]
 [ext_resource type="Texture2D" uid="uid://cky3ib2pn5xfp" path="res://sprites/player/Vozrojdenie.png" id="36_yuknm"]
+[ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -1336,6 +1337,58 @@ region = Rect2(1056, 0, 96, 48)
 atlas = ExtResource("36_yuknm")
 region = Rect2(1152, 0, 96, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_g75yc"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1k62"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f7fl"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(192, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4e6q"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(288, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gmon"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(384, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qjps"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(480, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctonc"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(576, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gva6x"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(672, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o60l"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(768, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l48o0"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(864, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vam04"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(960, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qaamu"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(1056, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5v4h"]
+atlas = ExtResource("39_q40tj")
+region = Rect2(1152, 0, 96, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_nqx8a"]
 animations = [{
 "frames": [{
@@ -2491,6 +2544,50 @@ animations = [{
 "loop": true,
 "name": &"reincarnation",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g75yc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1k62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f7fl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4e6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gmon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qjps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctonc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gva6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2o60l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l48o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vam04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qaamu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5v4h")
+}],
+"loop": true,
+"name": &"stun",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnju1"]
@@ -3448,6 +3545,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_7bm6q"]
@@ -5473,6 +5582,81 @@ tracks/5/keys = {
 "values": [0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
 
+[sub_resource type="Animation" id="Animation_sbwdg"]
+resource_name = "stun"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"stun"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -45)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:shape:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 90)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u6j56"]
 _data = {
 "Block": SubResource("Animation_6s6d0"),
@@ -5513,7 +5697,8 @@ _data = {
 "cut_dead": SubResource("Animation_xljfq"),
 "fire_dead": SubResource("Animation_y7g6n"),
 "hit_dead": SubResource("Animation_cp3td"),
-"reincarnation": SubResource("Animation_drovn")
+"reincarnation": SubResource("Animation_drovn"),
+"stun": SubResource("Animation_sbwdg")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bstkj"]
@@ -5558,9 +5743,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
 size = Vector2(105, 101)
 
+[sub_resource type="Curve" id="Curve_8122t"]
+max_value = 2.0
+bake_resolution = 1000
+_data = [Vector2(0, 0.509091), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Gradient" id="Gradient_36n7b"]
-interpolation_mode = 2
-colors = PackedColorArray(0, 0.686275, 1, 1, 0, 0, 1, 1)
+colors = PackedColorArray(0.0901961, 0.670588, 0.737255, 1, 0.121569, 0.913725, 1, 1)
 
 [node name="Player" type="CharacterBody2D"]
 process_priority = -10
@@ -5575,7 +5765,7 @@ light_mask = 0
 position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"Block"
+animation = &"stun"
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -5755,6 +5945,7 @@ texture_scale = 0.3
 top_level = true
 z_index = 50
 width = 5.0
+width_curve = SubResource("Curve_8122t")
 gradient = SubResource("Gradient_36n7b")
 antialiased = true
 
@@ -5772,7 +5963,7 @@ gravity = Vector2(0, 19600)
 initial_velocity_max = 282.83
 scale_amount_min = 3.0
 scale_amount_max = 5.0
-color = Color(0, 0, 1, 1)
+color = Color(0.121569, 0.913725, 1, 1)
 
 [node name="FruitNinjaTimer" type="Timer" parent="."]
 wait_time = 2.0

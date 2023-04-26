@@ -4,7 +4,7 @@ extends CharacterBody2D
 var speed = 150
 var default_speed
 var ulti_speed
-var position_before_ulti: Vector2
+var y_pos_before_ulti
 
 var b_drops = 10
 
@@ -190,9 +190,9 @@ func start_moving_behavior():
 
 func set_anim_dir():
 	if not knockback_dir:
-		if velocity.x < 0:
+		if velocity.x < 5:
 			anim_dir = -1
-		elif velocity.x > 0:
+		elif velocity.x > 5:
 			anim_dir = 1
 		
 
@@ -224,7 +224,7 @@ func idle():
 			if can_attack and can_ulti:
 				speed = ulti_speed
 				refresh_desired_distance()
-				position_before_ulti = global_position
+				y_pos_before_ulti = global_position.y
 				state = BEFORE_ULTI
 				return
 			if can_attack:
@@ -253,7 +253,7 @@ func run():
 			if can_attack and can_ulti:
 				speed = ulti_speed
 				refresh_desired_distance()
-				position_before_ulti = global_position
+				y_pos_before_ulti = global_position.y
 				state = BEFORE_ULTI
 				return
 			if can_attack:
@@ -316,11 +316,8 @@ func ulti():
 			
 func after_ulti():
 	set_anim(AFTER_ULTI)
-	if !state_started:
-		state_started = true
-		set_destination(position_before_ulti)
-	if global_position.distance_to(position_before_ulti) < 2.0:
-		print("distance to pos before ulti is < 2.0")
+	set_destination(Vector2(global_position.x, global_position.y - 10))
+	if global_position.y - y_pos_before_ulti <= 1:
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=97 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -10,17 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://dbqvfafyipiwl" path="res://sprites/enemies/MK1/Mirni_Pokoi_MK1.png" id="6_m3mjy"]
 [ext_resource type="Texture2D" uid="uid://cjrh1lwih30jh" path="res://sprites/enemies/MK1/Smert_MK1.png" id="7_a3hiu"]
 [ext_resource type="Texture2D" uid="uid://cmoq6m0apiux" path="res://sprites/enemies/MK1/Mirni_Peredvijenie_MK1.png" id="7_kffpt"]
+[ext_resource type="Texture2D" uid="uid://cf5skmx5viom3" path="res://sprites/enemies/MK1/Razrez_Vbok_Vverh_MK1.png" id="8_n12ta"]
 [ext_resource type="Texture2D" uid="uid://coyq85meg64q" path="res://sprites/enemies/MK1/Peredvijenie_MK1.png" id="8_t4g6v"]
 [ext_resource type="Texture2D" uid="uid://davyuw7k7mxsr" path="res://sprites/enemies/MK1/Ylta_Ataka_MK1.png" id="9_3dn60"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="10_br5ay"]
 [ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="12_vi8p2"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="16_h0u1c"]
-[ext_resource type="Texture2D" uid="uid://cirxckox3cmv4" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vbok_Vniz.png" id="17_7bb88"]
-[ext_resource type="Texture2D" uid="uid://bf3uhyvlmlxn4" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vbok_Vverh.png" id="18_npfn2"]
-[ext_resource type="Texture2D" uid="uid://b7t76a5rfwe0w" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vniz.png" id="19_5eyd1"]
-[ext_resource type="Texture2D" uid="uid://bnqo0ihib1ox" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vpered.png" id="20_rk5ic"]
-[ext_resource type="Texture2D" uid="uid://dsqslraqodwwh" path="res://sprites/enemies/fruit_ninja_cuts/Razrez_Vverh.png" id="21_17nc4"]
 
 [sub_resource type="Animation" id="Animation_w10ag"]
 length = 0.001
@@ -74,46 +70,10 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("FruitNinjaCut:frame")
+tracks/4/path = NodePath("AnimationPlayer:speed_scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("FruitNinjaCut:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(51, -83.5)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("FruitNinjaCut:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("AnimationPlayer:speed_scale")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -439,10 +399,10 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_avl02"]
+[sub_resource type="Animation" id="Animation_b7cxd"]
 resource_name = "fruit_ninja_dead"
-length = 1.2
-step = 0.12
+length = 0.4
+step = 0.0778
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -453,78 +413,78 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"dead"]
+"values": [&"fruit_ninja_dead"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.72, 0.84, 0.96, 1.08),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [null]
 }
-tracks/3/type = "bezier"
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.389)
+}
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/3/path = NodePath("AnimationPlayer:speed_scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.6, 1.2)
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimationPlayer:speed_scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.8]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Blood:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.6, 0.96),
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Blood:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3112),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Blood:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0778, 0.1556, 0.2334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Blood:frame")
+tracks/6/path = NodePath("AnimatedSprite2D:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.6, 0.72, 0.84),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.0778, 0.1556, 0.2334, 0.3112),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 3]
+"values": [0, 1, 2, 3, 4]
 }
 tracks/7/type = "bezier"
 tracks/7/imported = false
@@ -534,56 +494,8 @@ tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("FruitNinjaCut:animation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"vbok_vverh"]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("FruitNinjaCut:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("FruitNinjaCut:frame")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.24, 0.36, 0.48),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("FruitNinjaCut:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-48.5, -10.5), Vector2(51, -83.5)]
 }
 
 [sub_resource type="Animation" id="Animation_fomo6"]
@@ -861,7 +773,7 @@ _data = {
 "before_attack": SubResource("Animation_aicud"),
 "before_ulti": SubResource("Animation_lsyul"),
 "dead": SubResource("Animation_5d0v3"),
-"fruit_ninja_dead": SubResource("Animation_avl02"),
+"fruit_ninja_dead": SubResource("Animation_b7cxd"),
 "idle": SubResource("Animation_fomo6"),
 "p_idle": SubResource("Animation_cotv5"),
 "p_run": SubResource("Animation_dqj04"),
@@ -1006,6 +918,26 @@ region = Rect2(256, 0, 64, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvngb"]
 atlas = ExtResource("7_a3hiu")
 region = Rect2(320, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71c7f"]
+atlas = ExtResource("8_n12ta")
+region = Rect2(0, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4aec"]
+atlas = ExtResource("8_n12ta")
+region = Rect2(144, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt7cb"]
+atlas = ExtResource("8_n12ta")
+region = Rect2(288, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4je4"]
+atlas = ExtResource("8_n12ta")
+region = Rect2(432, 0, 144, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adyg6"]
+atlas = ExtResource("8_n12ta")
+region = Rect2(576, 0, 144, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pwnyy"]
 atlas = ExtResource("5_ewbjr")
@@ -1215,6 +1147,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_71c7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4aec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt7cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4je4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adyg6")
+}],
+"loop": true,
+"name": &"fruit_ninja_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pwnyy")
 }, {
 "duration": 1.0,
@@ -1317,209 +1269,6 @@ size = Vector2(6, 36.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l5vs"]
 size = Vector2(75, 34.5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ds8i"]
-atlas = ExtResource("17_7bb88")
-region = Rect2(0, 0, 128, 68)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2i5ms"]
-atlas = ExtResource("17_7bb88")
-region = Rect2(128, 0, 128, 68)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ta1y7"]
-atlas = ExtResource("17_7bb88")
-region = Rect2(256, 0, 128, 68)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7qqnh"]
-atlas = ExtResource("17_7bb88")
-region = Rect2(384, 0, 128, 68)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibyf0"]
-atlas = ExtResource("17_7bb88")
-region = Rect2(512, 0, 128, 68)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4riie"]
-atlas = ExtResource("18_npfn2")
-region = Rect2(0, 0, 128, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sn5b1"]
-atlas = ExtResource("18_npfn2")
-region = Rect2(128, 0, 128, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6lf5k"]
-atlas = ExtResource("18_npfn2")
-region = Rect2(256, 0, 128, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_agb2j"]
-atlas = ExtResource("18_npfn2")
-region = Rect2(384, 0, 128, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mn7s3"]
-atlas = ExtResource("18_npfn2")
-region = Rect2(512, 0, 128, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gkltl"]
-atlas = ExtResource("19_5eyd1")
-region = Rect2(0, 0, 128, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ywqgn"]
-atlas = ExtResource("19_5eyd1")
-region = Rect2(128, 0, 128, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6corw"]
-atlas = ExtResource("19_5eyd1")
-region = Rect2(256, 0, 128, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_belu3"]
-atlas = ExtResource("19_5eyd1")
-region = Rect2(384, 0, 128, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4djab"]
-atlas = ExtResource("19_5eyd1")
-region = Rect2(512, 0, 128, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ghrvu"]
-atlas = ExtResource("20_rk5ic")
-region = Rect2(0, 0, 128, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_531ey"]
-atlas = ExtResource("20_rk5ic")
-region = Rect2(128, 0, 128, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_01r4a"]
-atlas = ExtResource("20_rk5ic")
-region = Rect2(256, 0, 128, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_djawj"]
-atlas = ExtResource("20_rk5ic")
-region = Rect2(384, 0, 128, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i5rg7"]
-atlas = ExtResource("20_rk5ic")
-region = Rect2(512, 0, 128, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_364yp"]
-atlas = ExtResource("21_17nc4")
-region = Rect2(0, 0, 128, 81)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bsva2"]
-atlas = ExtResource("21_17nc4")
-region = Rect2(128, 0, 128, 81)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6yvro"]
-atlas = ExtResource("21_17nc4")
-region = Rect2(256, 0, 128, 81)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vys4y"]
-atlas = ExtResource("21_17nc4")
-region = Rect2(384, 0, 128, 81)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gcvht"]
-atlas = ExtResource("21_17nc4")
-region = Rect2(512, 0, 128, 81)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8usqj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2ds8i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2i5ms")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ta1y7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7qqnh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ibyf0")
-}],
-"loop": true,
-"name": &"vbok_vniz",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4riie")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sn5b1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6lf5k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_agb2j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mn7s3")
-}],
-"loop": true,
-"name": &"vbok_vverh",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gkltl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ywqgn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6corw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_belu3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4djab")
-}],
-"loop": true,
-"name": &"vniz",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ghrvu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_531ey")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_01r4a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_djawj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i5rg7")
-}],
-"loop": true,
-"name": &"vpered",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_364yp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bsva2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6yvro")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vys4y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gcvht")
-}],
-"loop": true,
-"name": &"vverh",
-"speed": 5.0
-}]
-
 [node name="1MK" type="CharacterBody2D"]
 light_mask = 0
 scale = Vector2(2, 2)
@@ -1545,8 +1294,9 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wtpys")
+position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"ulti"
+animation = &"dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1644,13 +1394,6 @@ attack_type = "ulti"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
 position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
-
-[node name="FruitNinjaCut" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(51, -83.5)
-sprite_frames = SubResource("SpriteFrames_8usqj")
-animation = &"vbok_vverh"
-frame = 1
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
