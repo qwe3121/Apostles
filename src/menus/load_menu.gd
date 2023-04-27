@@ -34,7 +34,6 @@ func refresh():
 			saves_n_time.append([file_name, unix_time])
 			
 		saves_n_time.sort_custom(sort)
-		print(saves_n_time)
 		
 		for save in saves_n_time:
 			var file_name = save[0]

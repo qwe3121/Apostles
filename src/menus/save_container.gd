@@ -87,6 +87,11 @@ var normal_chars = ['-', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
 @onready var previous_caret_position = text_edit.get_caret_column()
 
 func _on_text_edit_text_changed():
+	if len(text_edit.text) > 16:
+		text_edit.text = previous_text
+		text_edit.set_caret_column(previous_caret_position, false)
+		return
+	
 	for char in text_edit.text:
 		if char not in normal_chars:
 			text_edit.text = previous_text
