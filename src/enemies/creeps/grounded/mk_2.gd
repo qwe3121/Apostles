@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 
+var hp = 4
 var speed = 150
 
 var close_en_to_attack = false
@@ -85,8 +86,6 @@ var chasing = false
 var there_is_blocked_area = false
 
 var is_on_wall
-
-var hp = 4
 
 var turned = false
 

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 
+var hp = 25
 var speed = 150
 var default_speed
 var ulti_speed
@@ -75,8 +76,6 @@ var chasing_dir
 var there_is_blocked_area = false
 
 var is_on_wall
-
-var hp = 25
 
 var turned = false
 

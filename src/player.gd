@@ -45,7 +45,6 @@ var learned_skills = {
 @onready var sprite_of_level_foreground = get_parent().get_node("TestRoom3").get_node("Foreground")
 @onready var sprite_of_level_background = get_parent().get_node("TestRoom3").get_node("Background")
 
-
 #debuffs section
 
 var flying_cause_of_mk6 = false
