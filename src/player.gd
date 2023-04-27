@@ -49,6 +49,7 @@ var learned_skills = {
 #debuffs section
 
 var flying_cause_of_mk6 = false
+var slowed_cause_of_mk6 = false
 
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
@@ -300,6 +301,9 @@ func _physics_process(delta):
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1
 		velocity.x /= 500 * delta
+		
+	if slowed_cause_of_mk6 and not state == DASH:
+		velocity = velocity/2
 			
 	move_and_slide()
 
@@ -535,7 +539,7 @@ func air(delta):
 		state = JUMP
 		return
 		
-	if Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK"):
+	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
 		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:
@@ -639,7 +643,7 @@ func jump(delta):
 		state = WALL_SLIDE
 		return
 		
-	if Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK"):
+	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
 		from_jump_to_air_timer.stop()
 		if pre_jump == 1:
 			if jump_attack_index == 1:

@@ -20,8 +20,10 @@ var see_player = false
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var ulti_hitbox = $EnemyHitbox/UltiDropdown
-@onready var attack_hitbox = $AttackHitbox/CollisionPolygon2D
+@onready var ulti_dropdown_hitbox = $EnemyHitbox/UltiDropdown
+@onready var attack_hitbox = $AttackHitbox/AttackCollision
+@onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
+@onready var ulti_rocks_dropdown_hitbox = $EnemyHitbox/RocksDropdown
 
 
 @onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
@@ -99,6 +101,8 @@ func refresh_desired_distance():
 
 
 func _ready():
+	y_pos_before_ulti = global_position.y
+	
 	default_speed = speed
 	ulti_speed = speed * 2
 	
@@ -224,7 +228,6 @@ func idle():
 			if can_attack and can_ulti:
 				speed = ulti_speed
 				refresh_desired_distance()
-				y_pos_before_ulti = global_position.y
 				state = BEFORE_ULTI
 				return
 			if can_attack:
@@ -253,7 +256,6 @@ func run():
 			if can_attack and can_ulti:
 				speed = ulti_speed
 				refresh_desired_distance()
-				y_pos_before_ulti = global_position.y
 				state = BEFORE_ULTI
 				return
 			if can_attack:
@@ -318,6 +320,7 @@ func after_ulti():
 	set_anim(AFTER_ULTI)
 	set_destination(Vector2(global_position.x, global_position.y - 10))
 	if global_position.y - y_pos_before_ulti <= 1:
+		global_position.y = y_pos_before_ulti
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
@@ -332,8 +335,10 @@ func dead():
 	set_anim(DEAD)
 	if !state_started:
 		state_started = true
-		ulti_hitbox.disabled = true
 		attack_hitbox.disabled = true
+		ulti_dropdown_hitbox.disabled = true
+		ulti_rocks_dropdown_hitbox.disabled = true
+		ulti_slow_hitbox.disabled = true
 		for c in range(b_drops):
 			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
@@ -453,8 +458,10 @@ func fruit_dead():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
-		ulti_hitbox.disabled = true
 		attack_hitbox.disabled = true
+		ulti_dropdown_hitbox.disabled = true
+		ulti_rocks_dropdown_hitbox.disabled = true
+		ulti_slow_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
 			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
@@ -470,3 +477,15 @@ func _on_attack_hitbox_body_entered(body):
 
 func _on_attack_hitbox_body_exited(body):
 	global.player.flying_cause_of_mk6 = false
+	
+	
+func shake_camera():
+	global.camera.shake()
+
+
+func _on_ulti_slow_hitbox_body_entered(body):
+	global.player.slowed_cause_of_mk6 = true
+
+
+func _on_ulti_slow_hitbox_body_exited(body):
+	global.player.slowed_cause_of_mk6 = false
