@@ -57,12 +57,12 @@ collision_mask = 0
 script = ExtResource("1_2dk2e")
 
 [node name="Drop" type="Sprite2D" parent="."]
-modulate = Color(1, 0.0117647, 0.243137, 1)
+modulate = Color(0.380392, 1, 0.956863, 1)
 z_index = 5
 scale = Vector2(4, 4)
 
 [node name="Trace" type="Sprite2D" parent="."]
-modulate = Color(1, 0.0117647, 0.243137, 1)
+modulate = Color(0.380392, 1, 0.956863, 1)
 scale = Vector2(1.25, 1.25)
 
 [node name="Timer" type="Timer" parent="."]

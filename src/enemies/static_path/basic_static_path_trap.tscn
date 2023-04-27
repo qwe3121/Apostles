@@ -90,7 +90,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 0.0117647, 0.243137, 1), Color(0, 0, 0, 1)]
+"values": [Color(0.380392, 1, 0.956863, 1), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o87ok"]
@@ -100,7 +100,7 @@ _data = {
 }
 
 [node name="BasicStaticPathEnemy" type="Path2D"]
-z_index = 51
+z_index = 55
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotates = false

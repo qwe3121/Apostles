@@ -103,6 +103,9 @@ func _ready():
 	
 
 func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+	
 	hp -= value
 	if k_dir: 
 		last_knockback_dir = k_dir

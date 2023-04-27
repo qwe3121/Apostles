@@ -104,6 +104,9 @@ func _ready():
 	
 
 func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+	
 	if state == ULTI:
 		return
 	

@@ -346,7 +346,7 @@ material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(1802, -318)
+position = Vector2(387, -1578)
 safe_margin = 0.24
 
 [node name="SubViewport" type="SubViewport" parent="."]

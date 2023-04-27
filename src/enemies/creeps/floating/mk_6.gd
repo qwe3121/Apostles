@@ -76,7 +76,7 @@ var there_is_blocked_area = false
 
 var is_on_wall
 
-var hp = 15
+var hp = 25
 
 var turned = false
 
@@ -113,6 +113,9 @@ func _ready():
 	
 
 func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+	
 	hp -= value
 	if k_dir: 
 		last_knockback_dir = k_dir
@@ -170,8 +173,7 @@ func start_moving_behavior():
 			return
 			
 	if knockback_dir:
-		velocity.x = knockback_dir * speed / 2
-#		velocity.y = 0
+		velocity.x = 0
 		move_and_slide()
 		return
 	
@@ -320,7 +322,6 @@ func after_ulti():
 	set_anim(AFTER_ULTI)
 	set_destination(Vector2(global_position.x, global_position.y - 10))
 	if global_position.y - y_pos_before_ulti <= 1:
-		global_position.y = y_pos_before_ulti
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
@@ -328,6 +329,7 @@ func after_ulti():
 				chasing = false
 				walking = 0
 				walking_timer_start()
+			global_position.y = y_pos_before_ulti
 			state = IDLE
 	
 	

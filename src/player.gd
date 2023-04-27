@@ -227,7 +227,7 @@ func set_anim(animation_name):
 		FRUIT_NINJA:
 			anim.play("FruitNinja", -1, 1, false)
 		REINCARNATION:
-			anim.play("reincarnation", -1, 1, false)
+			anim.play("reincarnation", -1, 2, false)
 				
 				
 func _ready():
@@ -1303,4 +1303,4 @@ func reincarnation(delta):
 			
 func change_scene_to_dead_screen():
 	get_tree().paused = true
-	trans.change_scene("res://src/menus/dead_screen.tscn")
+	trans.change_scene("res://src/world.tscn")
