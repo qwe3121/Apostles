@@ -11,5 +11,8 @@ radius = 21.2132
 [node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
 texture = ExtResource("2_f68vl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="1"]
+[node name="RotationAnim" parent="." index="2"]
+speed_scale = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="0"]
 shape = SubResource("CircleShape2D_1qaj1")

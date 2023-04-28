@@ -1,8 +1,9 @@
+CollisionShape2D
+TextureProgressBar
 Timer
 Button
 Label
 ColorRect
-CollisionShape2D
 Area2D
 AnimatedSprite2D
 Sprite2D
@@ -29,4 +30,3 @@ Path2D
 PathFollow2D
 Line2D
 WorldEnvironment
-PointLight2D

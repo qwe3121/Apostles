@@ -1,10 +1,10 @@
+res://src/enemies/static_path
 res://sprites/enemies/MK6
 res://src
 res://sprites/enemies/MK2
 res://sprites/enemies/MK1
 res://sprites/player
 res://src/autoloads
-res://src/enemies/static_path
 res://src/rooms
 res://src/enemies
 res://src/enemies/creeps/floating

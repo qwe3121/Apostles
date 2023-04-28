@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var np = false
+var np = true
 
 @onready var block_stamina_timer = $BlockStaminaTimer
 @onready var wall_slide_stamina_timer = $WallSlideStaminaTimer
@@ -16,18 +16,21 @@ var sc_strong_attack = 4
 var sc_first_jump_attack = 3
 var sc_second_jump_attack = 5
 
+var stamina_increasing_per_sec = 5
+
 #adrenaline cost
 var ac_fruit_ninja = 40
 
 
 @onready var death_screen = $CanvasLayer/DeathScreen
 
-
 @onready var anim = $AnimationPlayer
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
-@onready var adrenaline_bar = $CanvasLayer/PlayerUI/AdrenalineBar
-@onready var stamina_bar = $CanvasLayer/PlayerUI/StaminaBar
+@onready var adrenaline_bar_over = $CanvasLayer/PlayerUI/AdrenalineBarOver
+@onready var stamina_bar_over = $CanvasLayer/PlayerUI/StaminaBarOver
+@onready var adrenaline_bar_under = $CanvasLayer/PlayerUI/AdrenalineBarUnder
+@onready var stamina_bar_under = $CanvasLayer/PlayerUI/StaminaBarUnder
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
 @onready var label = $Label
@@ -136,7 +139,10 @@ func set_stamina(value):
 		stamina = 100
 	elif stamina < 0:
 		stamina = 0
-	stamina_bar.value = stamina
+	var tween1 = create_tween()
+	tween1.tween_property(stamina_bar_over, "value", stamina, 0.1)
+	var tween2 = create_tween()
+	tween2.tween_property(stamina_bar_under, "value", stamina, 0.25)
 	
 var adrenaline = 0 : set = set_adrenaline
 
@@ -146,7 +152,10 @@ func set_adrenaline(value):
 		adrenaline = 100
 	elif adrenaline < 0:
 		adrenaline = 0
-	adrenaline_bar.value = adrenaline
+	var tween1 = create_tween()
+	tween1.tween_property(adrenaline_bar_over, "value", adrenaline, 0.1)
+	var tween2 = create_tween()
+	tween2.tween_property(adrenaline_bar_under, "value", adrenaline, 0.2)
 
 var speed = 400 # было 300
 var jump_velocity = -450 # было -600
@@ -584,8 +593,8 @@ func air(delta):
 		return
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
-		from_jump_to_air_timer.stop()
-		if pre_jump == 1 and stamina >= sc_first_jump_attack:
+		if pre_jump == 1 and stamina >= sc_first_jump_attack and not jump_attack_index > 3:
+			from_jump_to_air_timer.stop()
 			stamina -= sc_first_jump_attack
 			if jump_attack_index == 1:
 				jump_attack_index = 2
@@ -605,7 +614,8 @@ func air(delta):
 					print("from air to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2 and stamina >= sc_second_jump_attack:
+		elif pre_jump == 2 and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
+			from_jump_to_air_timer.stop()
 			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
 				jump_attack_index = 5
@@ -693,45 +703,46 @@ func jump(delta):
 		return
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
-		from_jump_to_air_timer.stop()
-		if pre_jump == 1 and stamina >= sc_first_jump_attack:
+		if pre_jump == 1 and stamina >= sc_first_jump_attack and not jump_attack_index > 3:
+			from_jump_to_air_timer.stop()
 			stamina -= sc_first_jump_attack
 			if jump_attack_index == 1:
 				jump_attack_index = 2
 				if np:
-					print("from air to FIRST_JUMP_ATTACK_1")
+					print("from jump to FIRST_JUMP_ATTACK_1")
 				state = FIRST_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 2:
 				jump_attack_index = 3
 				if np:
-					print("from air to FIRST_JUMP_ATTACK_2")
+					print("from jump to FIRST_JUMP_ATTACK_2")
 				state = FIRST_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 3:
 				jump_attack_index = 4
 				if np:
-					print("from air to FIRST_JUMP_ATTACK_3")
+					print("from jump to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2 and stamina >= sc_second_jump_attack:
+		elif pre_jump == 2 and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
+			from_jump_to_air_timer.stop()
 			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
 				jump_attack_index = 5
 				if np:
-					print("from air to SECOND_JUMP_ATTACK_1")
+					print("from jump to SECOND_JUMP_ATTACK_1")
 				state = SECOND_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 5:
 				jump_attack_index = 6
 				if np:
-					print("from air to SECOND_JUMP_ATTACK_2")
+					print("from jump to SECOND_JUMP_ATTACK_2")
 				state = SECOND_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 6:
 				jump_attack_index = 0
 				if np:
-					print("from air to SECOND_JUMP_ATTACK_3")
+					print("from jump to SECOND_JUMP_ATTACK_3")
 				state = SECOND_JUMP_ATTACK_3
 				return
 		
@@ -1088,7 +1099,7 @@ func _on_strong_combo_timer_timeout():
 
 
 func _on_stamina_timer_timeout():
-	stamina += 5
+	stamina += stamina_increasing_per_sec
 
 
 func landing():

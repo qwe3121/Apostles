@@ -6322,6 +6322,7 @@ wait_time = 3.0
 wait_time = 3.0
 
 [node name="StaminaTimer" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

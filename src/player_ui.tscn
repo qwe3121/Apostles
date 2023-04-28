@@ -1,4 +1,13 @@
-[gd_scene format=3 uid="uid://c0rdcqmtntem8"]
+[gd_scene load_steps=9 format=3 uid="uid://c0rdcqmtntem8"]
+
+[ext_resource type="Texture2D" uid="uid://borxmkojsv42c" path="res://sprites/player/gui/Polosa_Stamini_Ybivanie.png" id="1_eh36h"]
+[ext_resource type="Texture2D" uid="uid://cpxux422uar6h" path="res://sprites/player/gui/Polosa_Stamini.png" id="1_i8f3l"]
+[ext_resource type="Texture2D" uid="uid://8ponlwt7pyhk" path="res://sprites/player/gui/Polosa_Stamini_Zad.png" id="1_qhw3n"]
+[ext_resource type="Texture2D" uid="uid://c177yn122ols1" path="res://sprites/player/gui/Polosa_Stamini_Pered.png" id="2_d04hw"]
+[ext_resource type="Texture2D" uid="uid://lxdbk3fuun80" path="res://sprites/player/gui/Polosa_Adrenalina.png" id="2_hw8ft"]
+[ext_resource type="Texture2D" uid="uid://dwkfohckdmmbk" path="res://sprites/player/gui/Polosa_Adrenalina_Zad.png" id="3_2jr83"]
+[ext_resource type="Texture2D" uid="uid://dm5wvcrd5sv7j" path="res://sprites/player/gui/Polosa_Adrenalina_Ybivanie.png" id="4_fnvj2"]
+[ext_resource type="Texture2D" uid="uid://y58hfgujgh40" path="res://sprites/player/gui/Polosa_Adrenalina_Pered.png" id="5_24elc"]
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
@@ -9,22 +18,40 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="StaminaBar" type="ProgressBar" parent="."]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-offset_right = 100.0
-offset_bottom = 27.0
-scale = Vector2(3, 3)
-step = 1.0
+[node name="StaminaBarUnder" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -6.0
+offset_right = 599.0
+offset_bottom = 34.0
 value = 100.0
+texture_progress = ExtResource("1_eh36h")
 
-[node name="AdrenalineBar" type="ProgressBar" parent="."]
-modulate = Color(1, 0, 1, 1)
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-offset_left = 400.0
-offset_right = 500.0
-offset_bottom = 27.0
-scale = Vector2(3, 3)
-step = 1.0
+[node name="StaminaBarOver" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -6.0
+offset_right = 599.0
+offset_bottom = 34.0
+value = 100.0
+texture_under = ExtResource("1_qhw3n")
+texture_over = ExtResource("2_d04hw")
+texture_progress = ExtResource("1_i8f3l")
+
+[node name="AdrenalineBarUnder" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 67.0
+offset_right = 639.0
+offset_bottom = 147.0
+texture_progress = ExtResource("4_fnvj2")
+
+[node name="AdrenalineBarOver" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 67.0
+offset_right = 639.0
+offset_bottom = 147.0
+texture_under = ExtResource("3_2jr83")
+texture_over = ExtResource("5_24elc")
+texture_progress = ExtResource("2_hw8ft")

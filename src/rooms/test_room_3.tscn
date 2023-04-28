@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://odvoc0iuua6q"]
+[gd_scene load_steps=16 format=3 uid="uid://odvoc0iuua6q"]
 
 [ext_resource type="Texture2D" uid="uid://bvod5h3y21ol1" path="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png" id="1_xs3we"]
 [ext_resource type="Texture2D" uid="uid://0iuyavir7h5u" path="res://sprites/rooms/test_lvl_3/TestLVL3_Pered.png" id="2_440q8"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="6_ugam0"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="7_7oebc"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="8_wl1td"]
+[ext_resource type="PackedScene" uid="uid://54cs3xqwi26p" path="res://src/enemies/static_path/trap_polaya_c_pila.tscn" id="9_v0mk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b4m4"]
 size = Vector2(92, 152)
@@ -68,12 +69,6 @@ centered = false
 [node name="trap_c_pila" parent="." instance=ExtResource("4_5dhkf")]
 position = Vector2(336, 1440)
 
-[node name="trap_c_pila5" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(856, 1584)
-
-[node name="trap_c_pila6" parent="." instance=ExtResource("4_5dhkf")]
-position = Vector2(1192, 1344)
-
 [node name="trap_westerenka" parent="." instance=ExtResource("5_87bht")]
 position = Vector2(576, 1712)
 
@@ -125,3 +120,11 @@ position = Vector2(2328, -2120)
 
 [node name="6MK" parent="." instance=ExtResource("6_iyyj3")]
 position = Vector2(3424, 1694)
+
+[node name="trap_polaya_c_pila" parent="." instance=ExtResource("9_v0mk0")]
+position = Vector2(856, 1584)
+scale = Vector2(1.3, 1.3)
+
+[node name="trap_polaya_c_pila2" parent="." instance=ExtResource("9_v0mk0")]
+position = Vector2(1192, 1344)
+scale = Vector2(1.3, 1.3)
