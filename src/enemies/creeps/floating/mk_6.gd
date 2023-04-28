@@ -124,6 +124,7 @@ func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 	if hp <= 0:
 		chase_timer.stop()
 		walking_timer.stop()
+		if not dead_by_trap: global.player.adrenaline += player_adrenaline_gain
 		state = DEAD
 	elif not flashing:
 		flashing = 1
@@ -339,7 +340,6 @@ func dead():
 			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
-			global.player.adrenaline += player_adrenaline_gain
 			queue_free()
 
 
