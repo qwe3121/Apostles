@@ -112,8 +112,8 @@ func set_adrenaline(value):
 	adrenaline = 100
 	adrenaline_bar.value = adrenaline
 
-var speed = 300
-var jump_velocity = -600
+var speed = 400 # было 300
+var jump_velocity = -450 # было -600
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var hp = 1

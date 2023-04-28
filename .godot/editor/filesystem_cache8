@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1682687299
+::res://::1682689697
 default_bus_layout.tres::AudioBusLayout::1184647652392673330::1681223171::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1681223171::0::1::::<><>::
 icon.svg::CompressedTexture2D::6911908752124116754::1681223171::1681223171::1::::<><>::
@@ -90,7 +90,7 @@ Smert_MK2.png::CompressedTexture2D::3821174364535661785::1681223171::1681223171:
 Vihod_iz_Ataki_MK2.png::CompressedTexture2D::7158946342826357115::1681223171::1681223171::1::::<><>::
 Vihod_iz_Ylta_Ataki_MK2.png::CompressedTexture2D::4798420078677933876::1681223171::1681223171::1::::<><>::
 Ylta_Ataka_MK2.png::CompressedTexture2D::1593984951203111117::1681223171::1681223171::1::::<><>::
-::res://sprites/enemies/MK6/::1682687491
+::res://sprites/enemies/MK6/::1682687493
 Ataka_MK6.png::CompressedTexture2D::4864149383049678796::1682435810::1682365763::1::::<><>::
 Mirni_Pokoi_i_Peredvijenie_MK6.png::CompressedTexture2D::5985441848724268901::1681223171::1681223171::1::::<><>::
 Podgotovka_k_Ylte_MK6.png::CompressedTexture2D::3439152992527626564::1681223171::1681223171::1::::<><>::
@@ -324,15 +324,15 @@ qmark.tscn::PackedScene::4414402185510310588::1681223172::0::1::::<><>::uid://cg
 trap_hitbox.gd::GDScript::-1::1682646235::0::1::::<>Area2D<>::
 trap_hitbox.tscn::PackedScene::4111833554539905900::1682646426::0::1::::<><>::res://src/enemies/trap_hitbox.gd
 ::res://src/enemies/creeps/::1681223172
-::res://src/enemies/creeps/floating/::1682687459
+::res://src/enemies/creeps/floating/::1682688635
 mk_6.gd::GDScript::-1::1682629006::0::1::::<>CharacterBody2D<>::
-mk_6.tscn::PackedScene::3884946075864283269::1682687459::0::1::::<><>::res://src/enemies/creeps/floating/mk_6.gd<>res://src/enemies/hitted.gdshader<>uid://cbkh3hdwgrmqu<>uid://bo87l2rc0fmgq<>uid://vtxuvan52elb<>uid://50e632sg261m<>uid://crjnl82b5gvxt<>uid://bxsavm7st1eud<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw<>uid://ctgggpeocdpgi
-::res://src/enemies/creeps/grounded/::1682687341
+mk_6.tscn::PackedScene::3884946075864283269::1682688635::0::1::::<><>::res://src/enemies/creeps/floating/mk_6.gd<>res://src/enemies/hitted.gdshader<>uid://cbkh3hdwgrmqu<>uid://bo87l2rc0fmgq<>uid://vtxuvan52elb<>uid://ctgq10wm5sr34<>uid://50e632sg261m<>uid://crjnl82b5gvxt<>uid://bxsavm7st1eud<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw<>uid://ctgggpeocdpgi
+::res://src/enemies/creeps/grounded/::1682688524
 mk1_bullet.tscn::PackedScene::269731696032485479::1681223172::0::1::::<><>::res://src/enemies/base_bullet.gd<>uid://cf453gtayy8vo
 mk_1.gd::GDScript::-1::1682628985::0::1::::<>CharacterBody2D<>::
 mk_1.tscn::PackedScene::6569567713944953364::1682645237::0::1::::<><>::uid://ckhj5wuho1fds<>res://src/enemies/creeps/grounded/mk_1.gd<>uid://vkgdafjw8qrk<>res://src/enemies/hitted.gdshader<>uid://pr537m1vrf8p<>uid://cob807vm2jr<>uid://di76ecijcw3nr<>uid://dbqvfafyipiwl<>uid://cjrh1lwih30jh<>uid://cmoq6m0apiux<>uid://cf5skmx5viom3<>uid://coyq85meg64q<>uid://davyuw7k7mxsr<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
 mk_2.gd::GDScript::-1::1682628995::0::1::::<>CharacterBody2D<>::
-mk_2.tscn::PackedScene::2181828922375978724::1682687341::0::1::::<><>::res://src/enemies/creeps/grounded/mk_2.gd<>uid://by3rgtf4t4xyy<>uid://c8832hghnnkfr<>res://src/enemies/hitted.gdshader<>uid://bxib1gky6ds8f<>uid://camnjo7jqyq5y<>uid://b3ysqhc0n1kxc<>uid://dm7h2dx06bh5y<>uid://bo8wr671fqrns<>uid://bupagieoedh2p<>uid://bvk4qb6jyjv3v<>uid://blnu8fohv2e3t<>uid://buomtftwhn0av<>uid://wyex1l2irpsf<>uid://b35mtaivpmt5e<>uid://fn3iekos5vpb<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
+mk_2.tscn::PackedScene::2181828922375978724::1682688524::0::1::::<><>::res://src/enemies/creeps/grounded/mk_2.gd<>uid://by3rgtf4t4xyy<>uid://c8832hghnnkfr<>res://src/enemies/hitted.gdshader<>uid://bxib1gky6ds8f<>uid://camnjo7jqyq5y<>uid://b3ysqhc0n1kxc<>uid://dm7h2dx06bh5y<>uid://bo8wr671fqrns<>uid://bupagieoedh2p<>uid://bvk4qb6jyjv3v<>uid://blnu8fohv2e3t<>uid://buomtftwhn0av<>uid://wyex1l2irpsf<>uid://b35mtaivpmt5e<>uid://fn3iekos5vpb<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
 ::res://src/enemies/static_path/::1682645237
 basic_static_path_trap.tscn::PackedScene::6891888090316732096::1682619904::0::1::::<><>::uid://byt2kemskw0hk
 trap_cerp_2x.tscn::PackedScene::3493574463063086317::1682645237::0::1::::<><>::uid://c5gqni02t3l8c<>uid://c4a6r6af1wvjs
