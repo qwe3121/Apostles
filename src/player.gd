@@ -154,90 +154,90 @@ func set_anim(animation_name):
 		hitbox.scale.x = anim_dir
 	match animation_name:
 		IDLE: 
-			anim.play("Idle", -1, 1, false)
+			anim.play("Idle")
 		RUN: 
-			anim.play("Run", -1, 1, false)
+			anim.play("Run")
 		AIR: 
 			if pre_jump == 1 or pre_jump == 0:
 				if single_anim_not_played_yet:
-					anim.play("FirstAir", -1, 1, false)
+					anim.play("FirstAir")
 				else:
-					anim.play("FirstAirCycle", -1, 1, false)
+					anim.play("FirstAirCycle")
 			elif pre_jump == 2:
 				if single_anim_not_played_yet:
-					anim.play("SecondAir", -1, 1, false)
+					anim.play("SecondAir")
 				else:
-					anim.play("SecondAirCycle", -1, 1, false)
+					anim.play("SecondAirCycle")
 		JUMP:
 			if pre_jump == 1 or pre_jump == 0:
 				if single_anim_not_played_yet:
-					anim.play("FirstJump", -1, 3.5, false)
+					anim.play("FirstJump")
 				else:
-					anim.play("FirstJumpCycle", -1, 1, false)
+					anim.play("FirstJumpCycle")
 			elif pre_jump == 2:
 				if single_anim_not_played_yet:
-					anim.play("SecondJump", -1, 2, false)
+					anim.play("SecondJump")
 				else:
-					anim.play("SecondJumpCycle", -1, 1, false)
+					anim.play("SecondJumpCycle")
 		SIT: 
-			anim.play("Sit", -1, 1, false)
+			anim.play("Sit")
 		CROUCH: 
-			anim.play("Crouch", -1, 1, false)
+			anim.play("Crouch")
 		ROLL:
-			anim.play("Roll", -1, 1.5, false) 
+			anim.play("Roll") 
 		DASH: 
-			anim.play("Dash", -1, 20.0, false)
+			anim.play("Dash")
 		WALL_SLIDE:
-			anim.play("WallSlide", -1, 1, false)
+			anim.play("WallSlide")
 		WEAK_ATTACK_1:
-			anim.play("WeakAttack1", -1, 2, false)
+			anim.play("WeakAttack1")
 		WEAK_ATTACK_2:
-			anim.play("WeakAttack2", -1, 2, false)
+			anim.play("WeakAttack2")
 		WEAK_ATTACK_3:
-			anim.play("WeakAttack3", -1, 2, false)
+			anim.play("WeakAttack3")
 		WEAK_ATTACK_4:
-			anim.play("WeakAttack4", -1, 2, false)
+			anim.play("WeakAttack4")
 		STRONG_ATTACK_1:
-			anim.play("StrongAttack1", -1, 0.8, false)
+			anim.play("StrongAttack1")
 		STRONG_ATTACK_2:
-			anim.play("StrongAttack2", -1, 0.8, false)
+			anim.play("StrongAttack2")
 		STRONG_ATTACK_3:
-			anim.play("StrongAttack3", -1, 0.8, false)
+			anim.play("StrongAttack3")
 		STRONG_ATTACK_4:
-			anim.play("StrongAttack4", -1, 0.6, false)
+			anim.play("StrongAttack4")
 		LANDING:
-			anim.play("SecondLanding", -1, 3, false)
+			anim.play("SecondLanding")
 		FIRST_JUMP_ATTACK_1:
-			anim.play("FirstJumpAttack1", -1, 2, false)
+			anim.play("FirstJumpAttack1")
 		FIRST_JUMP_ATTACK_2:
-			anim.play("FirstJumpAttack2", -1, 2, false)
+			anim.play("FirstJumpAttack2")
 		FIRST_JUMP_ATTACK_3:
-			anim.play("FirstJumpAttack3", -1, 2, false)
+			anim.play("FirstJumpAttack3")
 		SECOND_JUMP_ATTACK_1:
-			anim.play("SecondJumpAttack1", -1, 2, false)
+			anim.play("SecondJumpAttack1")
 		SECOND_JUMP_ATTACK_2:
-			anim.play("SecondJumpAttack2", -1, 1.5, false)
+			anim.play("SecondJumpAttack2")
 		SECOND_JUMP_ATTACK_3:
-			anim.play("SecondJumpAttack3", -1, 1, false)
+			anim.play("SecondJumpAttack3")
 		DEAD:
 			match last_damage_source:
 				"bullet":
 					if bullet_dead_anim_speredi:
-						anim.play("bullet_dead_speredi", -1, 2, false)
+						anim.play("bullet_dead_speredi")
 					else:
-						anim.play("bullet_dead_szadi", -1, 2, false)
+						anim.play("bullet_dead_szadi")
 				"hit":
-					anim.play("hit_dead", -1, 0.5, false)
+					anim.play("hit_dead")
 				"fire":
-					anim.play("fire_dead", -1, 0.5, false)
+					anim.play("fire_dead")
 				"cut":
-					anim.play("cut_dead", -1, 1, false)
+					anim.play("cut_dead")
 		BLOCK:
-			anim.play("Block", -1, 1, false)
+			anim.play("Block")
 		FRUIT_NINJA:
-			anim.play("FruitNinja", -1, 1, false)
+			anim.play("FruitNinja")
 		REINCARNATION:
-			anim.play("reincarnation", -1, 2, false)
+			anim.play("reincarnation")
 				
 				
 func _ready():

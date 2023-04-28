@@ -80,7 +80,6 @@ var is_on_wall
 var turned = false
 
 var flashing = 0
-var knockback_dir = 0
 
 var last_knockback_dir = 0
 
@@ -123,7 +122,6 @@ func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 		walking_timer.stop()
 		state = DEAD
 	elif not flashing:
-		knockback_dir = k_dir
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
@@ -168,12 +166,6 @@ func set_destination(new_destination: Vector2):
 	
 func start_moving_behavior():
 	if not state == RUN and not state == BEFORE_ULTI and not state == AFTER_ULTI:
-		if not knockback_dir:
-			return
-			
-	if knockback_dir:
-		velocity.x = 0
-		move_and_slide()
 		return
 	
 	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
@@ -194,11 +186,10 @@ func start_moving_behavior():
 
 
 func set_anim_dir():
-	if not knockback_dir:
-		if velocity.x < 5:
-			anim_dir = -1
-		elif velocity.x > 5:
-			anim_dir = 1
+	if velocity.x < 5:
+		anim_dir = -1
+	elif velocity.x > 5:
+		anim_dir = 1
 		
 
 func _physics_process(delta):
@@ -239,7 +230,7 @@ func idle():
 			return
 	else:
 		if walking: 
-			if not knockback_dir: set_destination(global_position + Vector2(randi_range(50, 200) * rand_minus_or_plus(), 0))
+			set_destination(global_position + Vector2(randi_range(50, 200) * rand_minus_or_plus(), 0))
 			set_anim(IDLE)
 			state = RUN
 			return
@@ -266,10 +257,10 @@ func run():
 			state = IDLE
 			return
 			
-		if not knockback_dir: set_destination(Vector2(global.player.global_position.x, global_position.y))
+		set_destination(Vector2(global.player.global_position.x, global_position.y))
 	
 	elif chasing:
-		if not knockback_dir: set_destination(Vector2(global_position.x + 150 * chasing_dir, global_position.y))
+		set_destination(Vector2(global_position.x + 150 * chasing_dir, global_position.y))
 	
 	set_anim_dir()
 	set_anim(RUN)
@@ -438,7 +429,6 @@ func _on_flashlight_timer_timeout():
 	elif flashing == 2:
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
-		knockback_dir = 0
 		
 		#these two needs test
 		velocity.y = 0
