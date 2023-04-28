@@ -1433,6 +1433,7 @@ collision_mask = 2
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1450,9 +1451,9 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_uljah")
-position = Vector2(0, -24)
+position = Vector2(0, -48)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"after_attack"
+animation = &"fruit_ninja_dead"
 frame = 1
 
 [node name="Blood" type="Sprite2D" parent="."]
