@@ -2,6 +2,14 @@ extends CharacterBody2D
 var np = false
 
 
+# multipliers section
+
+
+
+# stamina cost section
+
+
+
 @onready var death_screen = $CanvasLayer/DeathScreen
 
 
