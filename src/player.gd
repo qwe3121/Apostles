@@ -1,13 +1,23 @@
 extends CharacterBody2D
 var np = false
 
+@onready var block_stamina_timer = $BlockStaminaTimer
+@onready var wall_slide_stamina_timer = $WallSlideStaminaTimer
 
-# multipliers section
 
+#stamina cost
+var sc_second_jump = 10
+var sc_roll = 10
+var sc_dash = 20
+var sc_wall_slide = 2
+var sc_block = 2
+var sc_weak_attack = 2
+var sc_strong_attack = 4
+var sc_first_jump_attack = 3
+var sc_second_jump_attack = 5
 
-
-# stamina cost section
-
+#adrenaline cost
+var ac_fruit_ninja = 40
 
 
 @onready var death_screen = $CanvasLayer/DeathScreen
@@ -17,6 +27,7 @@ var np = false
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
 @onready var adrenaline_bar = $CanvasLayer/PlayerUI/AdrenalineBar
+@onready var stamina_bar = $CanvasLayer/PlayerUI/StaminaBar
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
 @onready var label = $Label
@@ -71,6 +82,9 @@ DEAD, FRUIT_NINJA, REINCARNATION}
 var state = REINCARNATION : set = set_state
 
 func set_state(value):
+	if state == DEAD:
+		return
+	
 	if value == DASH:
 		hurtbox_col.disabled = true
 		blocking = true
@@ -114,10 +128,24 @@ var bullet_knockback_dir
 var bullet_dead_anim_speredi: bool = false
 var bullet_knockback: bool = false
 
-var adrenaline = 100 : set = set_adrenaline # dash, roll and strong_attacks
+var stamina = 100 : set = set_stamina
+
+func set_stamina(value):
+	stamina = value
+	if stamina > 100:
+		stamina = 100
+	elif stamina < 0:
+		stamina = 0
+	stamina_bar.value = stamina
+	
+var adrenaline = 0 : set = set_adrenaline
 
 func set_adrenaline(value):
-	adrenaline = 100
+	adrenaline = value
+	if adrenaline > 100:
+		adrenaline = 100
+	elif adrenaline < 0:
+		adrenaline = 0
 	adrenaline_bar.value = adrenaline
 
 var speed = 400 # было 300
@@ -245,7 +273,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and adrenaline >= ac_fruit_ninja:
+		adrenaline -= ac_fruit_ninja
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = 0.3
 		state = FRUIT_NINJA
@@ -332,20 +361,22 @@ func idle():
 		state = AIR
 		return
 		
-	if Input.is_action_pressed("DASH") and adrenaline >= 50:
-		adrenaline -= 50
+	if Input.is_action_pressed("DASH") and stamina >= sc_dash:
+		stamina -= sc_dash
 		if np:
 			print("from idle to DASH")
 		state = DASH
 		return
 		
-	if Input.is_action_pressed("BLOCK"):
+	if Input.is_action_pressed("BLOCK") and stamina >= sc_block:
+		block_stamina_timer.start()
 		if np:
 			print("from idle to block")
 		state = BLOCK
 		return
 
-	if Input.is_action_pressed("RMB ATTACK"):
+	if Input.is_action_pressed("RMB ATTACK") and stamina >= sc_weak_attack:
+		stamina -= sc_weak_attack
 		if weak_combo_index == 1:
 			if np:
 				print("from idle to weak_attack_1")
@@ -369,7 +400,8 @@ func idle():
 		weak_combo_timer.start()
 		return
 		
-	if Input.is_action_pressed("LMB ATTACK") and adrenaline >= 15:
+	if Input.is_action_pressed("LMB ATTACK") and stamina >= sc_strong_attack:
+		stamina -= sc_strong_attack
 		if strong_combo_index == 1:
 			if np:
 				print("from idle to strong_attack_1")
@@ -390,12 +422,11 @@ func idle():
 				print("from idle to STRONG_attack_4")
 			state = STRONG_ATTACK_4
 			strong_combo_index = 1 
-		adrenaline -= 15
 		strong_combo_timer.start()
 		return
 		
-	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
-		adrenaline -= 20
+	if Input.is_action_pressed("ROLL") and stamina >= sc_roll:
+		stamina -= sc_roll
 		if np:
 			print("from idle to roll")
 		state = ROLL
@@ -428,20 +459,22 @@ func run():
 		state = AIR
 		return
 		
-	if Input.is_action_pressed("DASH") and adrenaline >= 50:
-		adrenaline -= 50
+	if Input.is_action_pressed("DASH") and stamina >= sc_dash:
+		stamina -= sc_dash
 		if np:
 			print("from run to DASH")
 		state = DASH
 		return
 		
-	if Input.is_action_pressed("BLOCK"):
+	if Input.is_action_pressed("BLOCK") and stamina >= sc_block:
+		block_stamina_timer.start()
 		if np:
 			print("from run to block")
 		state = BLOCK
 		return
 		
-	if Input.is_action_pressed("RMB ATTACK"):
+	if Input.is_action_pressed("RMB ATTACK") and stamina >= sc_weak_attack:
+		stamina -= sc_weak_attack
 		if weak_combo_index == 1:
 			if np:
 				print("from idle to weak_attack_1")
@@ -465,7 +498,8 @@ func run():
 		weak_combo_timer.start()
 		return
 		
-	if Input.is_action_pressed("LMB ATTACK") and adrenaline >= 15:
+	if Input.is_action_pressed("LMB ATTACK") and stamina >= sc_strong_attack:
+		stamina -= sc_strong_attack
 		if strong_combo_index == 1:
 			if np:
 				print("from idle to strong_attack_1")
@@ -486,12 +520,11 @@ func run():
 				print("from idle to STRONG_attack_4")
 			state = STRONG_ATTACK_4
 			strong_combo_index = 1 
-		adrenaline -= 15
 		strong_combo_timer.start()
 		return
 		
-	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
-		adrenaline -= 20
+	if Input.is_action_pressed("ROLL") and stamina >= sc_roll:
+		stamina -= sc_roll
 		if np:
 			print("from run to roll")
 		state = ROLL
@@ -531,14 +564,15 @@ func air(delta):
 		state = LANDING
 		return
 		
-	if Input.is_action_pressed("DASH") and adrenaline >= 50:
-		adrenaline -= 50
+	if Input.is_action_pressed("DASH") and stamina >= sc_dash:
+		stamina -= sc_dash
 		if np:
 			print("from air to DASH")
 		state = DASH
 		return
 		
-	if not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2:
+	if not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2 and stamina >= sc_second_jump:
+		stamina -= sc_second_jump
 		jump_attack_index = 4
 		jump_index = 0
 		pre_jump = 2
@@ -551,7 +585,8 @@ func air(delta):
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
 		from_jump_to_air_timer.stop()
-		if pre_jump == 1:
+		if pre_jump == 1 and stamina >= sc_first_jump_attack:
+			stamina -= sc_first_jump_attack
 			if jump_attack_index == 1:
 				jump_attack_index = 2
 				if np:
@@ -570,7 +605,8 @@ func air(delta):
 					print("from air to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2:
+		elif pre_jump == 2 and stamina >= sc_second_jump_attack:
+			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
 				jump_attack_index = 5
 				if np:
@@ -590,7 +626,8 @@ func air(delta):
 				state = SECOND_JUMP_ATTACK_3
 				return
 		
-	if wall_dir and !wall_jumping and !is_on_floor():
+	if wall_dir and !wall_jumping and !is_on_floor() and stamina >= sc_wall_slide:
+		wall_slide_stamina_timer.start()
 		velocity.y = 0
 		dir = -wall_dir
 		if dir:
@@ -618,7 +655,8 @@ func jump(delta):
 		jump_index = 2
 		from_jump_to_air_timer.start()
 		velocity.y = jump_velocity
-	elif not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2:
+	elif not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2 and stamina >= sc_second_jump:
+		stamina -= sc_second_jump
 		jump_attack_index = 4
 		single_anim_not_played_yet = true
 		pre_jump = 2
@@ -634,15 +672,16 @@ func jump(delta):
 		jump_attack_index = 1
 		return
 		
-	if Input.is_action_pressed("DASH") and adrenaline >= 50:
+	if Input.is_action_pressed("DASH") and stamina >= sc_dash:
 		from_jump_to_air_timer.stop()
-		adrenaline -= 50
+		stamina -= sc_dash
 		if np:
 			print("from jump to DASH")
 		state = DASH
 		return
 		
-	if wall_dir and !wall_jumping and !is_on_floor():
+	if wall_dir and !wall_jumping and !is_on_floor() and stamina >= sc_wall_slide:
+		wall_slide_stamina_timer.start()
 		from_jump_to_air_timer.stop()
 		velocity.y = 0
 		dir = -wall_dir
@@ -655,7 +694,8 @@ func jump(delta):
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
 		from_jump_to_air_timer.stop()
-		if pre_jump == 1:
+		if pre_jump == 1 and stamina >= sc_first_jump_attack:
+			stamina -= sc_first_jump_attack
 			if jump_attack_index == 1:
 				jump_attack_index = 2
 				if np:
@@ -674,7 +714,8 @@ func jump(delta):
 					print("from air to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2:
+		elif pre_jump == 2 and stamina >= sc_second_jump_attack:
+			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
 				jump_attack_index = 5
 				if np:
@@ -735,8 +776,8 @@ func sit():
 		state = CROUCH
 		return
 		
-	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
-		adrenaline -= 20
+	if Input.is_action_pressed("ROLL") and stamina >= sc_roll:
+		stamina -= sc_roll
 		if np:
 			print("from sit to roll")
 		state = ROLL
@@ -776,8 +817,8 @@ func crouch():
 		state = AIR
 		return
 		
-	if Input.is_action_pressed("ROLL") and adrenaline >= 20:
-		adrenaline -= 20
+	if Input.is_action_pressed("ROLL") and stamina >= sc_roll:
+		stamina -= sc_roll
 		if np:
 			print("from crouch to roll")
 		state = ROLL
@@ -832,15 +873,25 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
+	if stamina < sc_wall_slide:
+		if np:
+			print("from wall_slide to air cause of stamina luck")
+		jump_index = 2
+		wall_slide_stamina_timer.stop()
+		state = AIR
+		return
+	
 	if Input.is_action_just_pressed("DOWN"):
 		velocity.x = -wall_dir * speed
 		if np:
 			print("from wall_slide to air cause of DOWN button")
 		jump_index = 2
+		wall_slide_stamina_timer.stop()
 		state = AIR
 		return
 	
-	if Input.is_action_pressed("JUMP"):
+	if Input.is_action_pressed("JUMP") and stamina >= sc_second_jump:
+		stamina -= sc_second_jump
 		wall_slide_cooldown.start()
 		wall_jumping = true
 		jump_index = 0
@@ -848,6 +899,7 @@ func wall_slide(delta):
 		dir = 0
 		if np:
 			print("from wall_slide to jump")
+		wall_slide_stamina_timer.stop()
 		state = JUMP
 		return
 		
@@ -855,6 +907,7 @@ func wall_slide(delta):
 		jump_index = 1
 		if np:
 			print("from wall_slide to idle")
+		wall_slide_stamina_timer.stop()
 		state = IDLE
 		return
 		
@@ -862,6 +915,7 @@ func wall_slide(delta):
 		if np:
 			print("from wall_slide to air")
 		jump_index = 2
+		wall_slide_stamina_timer.stop()
 		state = AIR
 		return
 	
@@ -909,7 +963,7 @@ func roll():
 			state = SIT
 			return
 			
-	velocity.x = anim_dir * speed * 3
+	velocity.x = anim_dir * speed * 1.5
 #	velocity.y = 0 # комментирование этой строки фиксит баг, при котором
 #		происходит неправильное поведение velocity.y после того, как из roll попадаешь в air,
 #		но из-за этого в теории стоит ожидать других багов
@@ -1033,9 +1087,8 @@ func _on_strong_combo_timer_timeout():
 	strong_combo_index = 1
 
 
-func _on_adrenaline_timer_timeout():
-	if adrenaline < 100:
-		adrenaline += 10
+func _on_stamina_timer_timeout():
+	stamina += 5
 
 
 func landing():
@@ -1147,9 +1200,10 @@ func block():
 	set_anim(BLOCK)
 	velocity.x = 0
 	velocity.y = 0
-	if not Input.is_action_pressed("BLOCK"):
+	if not Input.is_action_pressed("BLOCK") or stamina < sc_block:
 		if np:
 			print("from block to idle")
+		block_stamina_timer.stop()
 		blocking = false
 		hurtbox_col.disabled = true
 		state = IDLE
@@ -1314,3 +1368,11 @@ func reincarnation(delta):
 func change_scene_to_dead_screen():
 	get_tree().paused = true
 	death_screen.visible = true
+
+
+func _on_block_stamina_timer_timeout():
+	stamina -= sc_block
+
+
+func _on_wall_slide_stamina_timer_timeout():
+	stamina -= sc_wall_slide

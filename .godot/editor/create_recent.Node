@@ -1,3 +1,4 @@
+Timer
 Button
 Label
 ColorRect
@@ -21,7 +22,6 @@ Node
 RayCast2D
 HBoxContainer
 CharacterBody2D
-Timer
 SubViewportContainer
 Camera2D
 SubViewport

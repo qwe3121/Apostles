@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://odvoc0iuua6q"]
+[gd_scene load_steps=15 format=3 uid="uid://odvoc0iuua6q"]
 
 [ext_resource type="Texture2D" uid="uid://bvod5h3y21ol1" path="res://sprites/rooms/test_lvl_3/TestLVL3_Zad.png" id="1_xs3we"]
 [ext_resource type="Texture2D" uid="uid://0iuyavir7h5u" path="res://sprites/rooms/test_lvl_3/TestLVL3_Pered.png" id="2_440q8"]
@@ -17,6 +17,12 @@ size = Vector2(48, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rlq2n"]
 size = Vector2(26, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqpjq"]
+size = Vector2(109, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ufe1"]
+size = Vector2(102.5, 168)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_o2fkp"]
 vertices = PackedVector2Array(3632, 1584, 3632, 1936, 2352, 1936, 2352, 1576)
@@ -84,6 +90,14 @@ shape = SubResource("RectangleShape2D_8buih")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="TrapHitbox"]
 position = Vector2(501, 1712)
 shape = SubResource("RectangleShape2D_rlq2n")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="TrapHitbox"]
+position = Vector2(1841.5, 1744)
+shape = SubResource("RectangleShape2D_xqpjq")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="TrapHitbox"]
+position = Vector2(3875.25, 1764)
+shape = SubResource("RectangleShape2D_1ufe1")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_o2fkp")

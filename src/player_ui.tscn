@@ -9,13 +9,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AdrenalineBar" type="ProgressBar" parent="."]
+[node name="StaminaBar" type="ProgressBar" parent="."]
+modulate = Color(1, 1, 0, 1)
 custom_minimum_size = Vector2(100, 0)
-layout_mode = 0
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 103.0
-offset_bottom = 31.0
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 27.0
 scale = Vector2(3, 3)
 step = 1.0
 value = 100.0
+
+[node name="AdrenalineBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 1, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+offset_left = 400.0
+offset_right = 500.0
+offset_bottom = 27.0
+scale = Vector2(3, 3)
+step = 1.0

@@ -9,6 +9,7 @@ var close_en_to_attack = false
 var b_drops = 10
 
 var see_player = false
+var player_adrenaline_gain = 20
 
 @onready var anim = $AnimationPlayer
 @onready var wall_detector_col = $WallDetector/CollisionShape2D
@@ -66,6 +67,9 @@ func const_to_str(index):
 var state = AIR : set = set_state
 
 func set_state(value):
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+	
 	if not state == value: state_started = false
 #	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
@@ -367,6 +371,7 @@ func dead():
 			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
+			global.player.adrenaline += player_adrenaline_gain
 			queue_free()
 
 
