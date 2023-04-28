@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://by8bc3v7k3d1"]
+
+[ext_resource type="Shader" path="res://src/retro_tv.gdshader" id="1_ckolj"]
+[ext_resource type="Script" path="res://src/death_screen.gd" id="2_7ay72"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14hwb"]
+shader = ExtResource("1_ckolj")
+shader_parameter/scanline_count = 50.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m0did"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ler3m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfxjy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_huph5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyt1m"]
+
+[node name="DeathScreen" type="Control"]
+process_mode = 3
+material = SubResource("ShaderMaterial_14hwb")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("2_7ay72")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.305882)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.5
+offset_top = -103.5
+offset_right = 280.5
+offset_bottom = 103.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 40
+text = "PRESS MOUSE BUTTON..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m0did")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ler3m")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wfxjy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_huph5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jyt1m")
+button_mask = 3
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

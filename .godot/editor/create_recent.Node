@@ -1,3 +1,6 @@
+Button
+Label
+ColorRect
 CollisionShape2D
 Area2D
 AnimatedSprite2D
@@ -5,7 +8,6 @@ Sprite2D
 NavigationAgent2D
 StaticBody2D
 NavigationRegion2D
-ColorRect
 CollisionPolygon2D
 TextureRect
 NavigationObstacle2D
@@ -18,7 +20,6 @@ ShapeCast2D
 Node
 RayCast2D
 HBoxContainer
-Button
 CharacterBody2D
 Timer
 SubViewportContainer
@@ -29,4 +30,3 @@ PathFollow2D
 Line2D
 WorldEnvironment
 PointLight2D
-Control

@@ -64,7 +64,7 @@ func load_main_menu():
 	
 	
 func hide_menu():
-	get_tree().paused = false
+	if not global.player.death_screen.visible: get_tree().paused = false
 	color_rect.visible = false
 	make_all_menus_invisible()
 	current_menu = "none"

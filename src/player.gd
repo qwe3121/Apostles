@@ -2,6 +2,9 @@ extends CharacterBody2D
 var np = false
 
 
+@onready var death_screen = $CanvasLayer/DeathScreen
+
+
 @onready var anim = $AnimationPlayer
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
@@ -1302,4 +1305,4 @@ func reincarnation(delta):
 			
 func change_scene_to_dead_screen():
 	get_tree().paused = true
-	trans.change_scene("res://src/world.tscn")
+	death_screen.visible = true

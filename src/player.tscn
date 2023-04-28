@@ -1,4 +1,4 @@
-[gd_scene load_steps=430 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=431 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://3llqnvr6s7qr" path="res://sprites/player/Padaet_Mertvi_Spina.png" id="35_t6p11"]
 [ext_resource type="Texture2D" uid="uid://cky3ib2pn5xfp" path="res://sprites/player/Vozrojdenie.png" id="36_yuknm"]
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
+[ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -5879,6 +5880,9 @@ wait_time = 3.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DeathScreen" parent="CanvasLayer" instance=ExtResource("43_dwywp")]
+visible = false
 
 [node name="SunLens" type="ColorRect" parent="CanvasLayer"]
 z_index = 5
