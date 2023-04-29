@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var hp = 25
+var hp = 3
 var speed = 150
 var default_speed
 var ulti_speed

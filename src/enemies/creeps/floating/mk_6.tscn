@@ -294,7 +294,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_biwmd"]
 resource_name = "dead"
 length = 0.5
-step = 0.0778
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1483,7 +1483,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_iv7jv")
 position = Vector2(-3, -20)
 sprite_frames = SubResource("SpriteFrames_0rin6")
-animation = &"fruit_ninja_dead"
+animation = &"dead"
 frame = 1
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
@@ -1499,6 +1499,7 @@ modulate = Color(0.380392, 1, 0.956863, 1)
 position = Vector2(30, -24.5)
 texture = ExtResource("9_5hqsu")
 hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
