@@ -185,19 +185,19 @@ func _physics_process(delta):
 		AIR:
 			air(delta)
 		BEFORE_ATTACK:
-			before_attack()
+			before_attack(delta)
 		ATTACK:
-			attack()
+			attack(delta)
 		BEFORE_ULTI:
-			before_ulti()
+			before_ulti(delta)
 		ULTI:
-			ulti()
+			ulti(delta)
 		AFTER_ULTI:
-			after_ulti()
+			after_ulti(delta)
 		DEAD:
-			dead()
+			dead(delta)
 		FRUIT_DEAD:
-			fruit_dead()
+			fruit_dead(delta)
 			
 	move_and_slide()
 
@@ -276,10 +276,10 @@ func air(delta):
 	if not knockback_dir: velocity.x = 0
 	
 	
-func before_attack():
+func before_attack(delta):
 	set_anim(BEFORE_ATTACK)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 #		can_ulti = false
@@ -290,10 +290,10 @@ func before_attack():
 			state = ATTACK
 	
 	
-func attack():
+func attack(delta):
 	set_anim(ATTACK)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -314,10 +314,10 @@ func shoot():
 	get_parent().get_parent().add_child(bullet_instance)
 			
 			
-func before_ulti():
+func before_ulti(delta):
 	set_anim(BEFORE_ULTI)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		attack_cooldown.stop()
@@ -328,10 +328,10 @@ func before_ulti():
 			state = ULTI
 	
 	
-func ulti():
+func ulti(delta):
 	set_anim(ULTI)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -339,10 +339,10 @@ func ulti():
 			state = AFTER_ULTI
 			
 			
-func after_ulti():
+func after_ulti(delta):
 	set_anim(AFTER_ULTI)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -357,10 +357,10 @@ func after_ulti():
 			state = IDLE
 	
 	
-func dead():
+func dead(delta):
 	set_anim(DEAD)
 	if not knockback_dir: velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		enemy_hitbox_col.disabled = true
@@ -491,10 +491,10 @@ func kill_with_fruit_ninja():
 	global.camera.shake()
 	
 	
-func fruit_dead():
+func fruit_dead(delta):
 	set_anim(FRUIT_DEAD)
 	velocity.x = 0
-	velocity.y = 0
+	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
 		enemy_hitbox_col.disabled = true

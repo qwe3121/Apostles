@@ -1,20 +1,20 @@
 extends CharacterBody2D
-var np = true
+var np = false
 
 @onready var block_stamina_timer = $BlockStaminaTimer
 @onready var wall_slide_stamina_timer = $WallSlideStaminaTimer
 
 
 #stamina cost
-var sc_second_jump = 10
+var sc_second_jump = 0
 var sc_roll = 10
 var sc_dash = 20
-var sc_wall_slide = 2
-var sc_block = 2
-var sc_weak_attack = 2
-var sc_strong_attack = 4
-var sc_first_jump_attack = 3
-var sc_second_jump_attack = 5
+var sc_wall_slide = 0
+var sc_block = 0
+var sc_weak_attack = 0
+var sc_strong_attack = 0
+var sc_first_jump_attack = 0
+var sc_second_jump_attack = 0
 
 var stamina_increasing_per_sec = 5
 

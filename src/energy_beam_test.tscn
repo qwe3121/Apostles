@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxpsywleguhnn"]
+
+[ext_resource type="Shader" path="res://src/energy_beam.gdshader" id="1_g0a21"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fbi7v"]
+shader = ExtResource("1_g0a21")
+shader_parameter/beams = 2
+shader_parameter/energy = 12.0
+shader_parameter/roughness = 10
+shader_parameter/frequency = 20
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.006
+shader_parameter/outline_thickness = 0.03
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(0.91, 1, 1, 1)
+shader_parameter/outline_color = Color(0.501961, 1, 0.960784, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[node name="EnergyBeamTest" type="ColorRect"]
+material = SubResource("ShaderMaterial_fbi7v")
+offset_right = 433.0
+offset_bottom = 272.0
