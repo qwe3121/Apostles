@@ -1,5 +1,8 @@
-res://src/enemies/creeps/floating/mk_6.tscn
 res://src/world.tscn
 res://src/player.tscn
 res://src/enemies/creeps/grounded/mk_2.tscn
 res://src/enemies/creeps/grounded/mk_1.tscn
+res://src/enemies/creeps/floating/mk_6.tscn
+res://src/rooms/test_room_3.tscn
+res://src/rooms/level_1.tscn
+res://src/player.gd

@@ -31,11 +31,6 @@ var player_adrenaline_gain = 20
 @onready var qmark = $Qmark
 @onready var eyes = $Eyes
 
-
-
-@onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
-@onready var sprite_of_level_background = get_parent().get_node("Background")
-
 var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -365,7 +360,7 @@ func dead(delta):
 		state_started = true
 		enemy_hitbox_col.disabled = true
 		for c in range(b_drops):
-			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
+			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -500,7 +495,7 @@ func fruit_dead(delta):
 		enemy_hitbox_col.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
-			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
+			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")

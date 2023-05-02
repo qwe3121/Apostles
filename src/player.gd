@@ -67,8 +67,6 @@ var learned_skills = {
 	"fruit_ninja": true
 }
 
-@onready var sprite_of_level_foreground = get_parent().get_node("TestRoom3").get_node("Foreground")
-@onready var sprite_of_level_background = get_parent().get_node("TestRoom3").get_node("Background")
 
 #debuffs section
 
@@ -1360,7 +1358,7 @@ func create_cuts_for_cut_dead():
 
 func create_blood(number: int = 5):
 	for c in range(number):
-		blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, 0, blood_pos)
+		blood_manager.create_blood(0, blood_pos)
 
 
 func reincarnation(delta):
@@ -1387,3 +1385,7 @@ func _on_block_stamina_timer_timeout():
 
 func _on_wall_slide_stamina_timer_timeout():
 	stamina -= sc_wall_slide
+	
+
+func shake_camera():
+	global.camera.shake(2)

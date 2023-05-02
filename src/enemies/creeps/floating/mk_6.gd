@@ -27,10 +27,6 @@ var player_adrenaline_gain = 20
 @onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
 @onready var ulti_rocks_dropdown_hitbox = $EnemyHitbox/RocksDropdown
 
-
-@onready var sprite_of_level_foreground = get_parent().get_node("Foreground")
-@onready var sprite_of_level_background = get_parent().get_node("Background")
-
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
@@ -337,7 +333,7 @@ func dead():
 		ulti_rocks_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
 		for c in range(b_drops):
-			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
+			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -460,7 +456,7 @@ func fruit_dead():
 		ulti_slow_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
-			blood_manager.create_blood(sprite_of_level_background, sprite_of_level_foreground, last_knockback_dir, blood_pos)
+			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")

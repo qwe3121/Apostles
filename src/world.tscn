@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=66 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -28,8 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://b17vrn2u66wi6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-8.png" id="17_oeoss"]
 [ext_resource type="Texture2D" uid="uid://p25lxpdkyton" path="res://sprites/location_1_parallaxes/Elki_3.png" id="18_a0w2n"]
 [ext_resource type="Texture2D" uid="uid://c3i3emiscl5w6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-9.png" id="18_sj0ra"]
+[ext_resource type="Texture2D" uid="uid://b5kgkf4kl6nry" path="res://sprites/location_1_parallaxes/Paralaks_Niz.png" id="19_h0wwn"]
 [ext_resource type="Texture2D" uid="uid://dtgacleckskp4" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-10.png" id="19_s87kj"]
 [ext_resource type="Texture2D" uid="uid://ddoo8vj0wbuxm" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-11.png" id="20_v8h1n"]
+[ext_resource type="Texture2D" uid="uid://bhhhu7a7psp3o" path="res://sprites/location_1_parallaxes/Paralaks_Niz_Mal.png" id="20_ywuup"]
 [ext_resource type="Texture2D" uid="uid://c3at3etxrsh42" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-12.png" id="21_g1wm1"]
 [ext_resource type="Texture2D" uid="uid://d1q8nirs6qs80" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-13.png" id="22_wor82"]
 [ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="23_2fdtg"]
@@ -40,7 +42,7 @@
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
-[ext_resource type="PackedScene" uid="uid://odvoc0iuua6q" path="res://src/rooms/test_room_3.tscn" id="43_b8772"]
+[ext_resource type="PackedScene" uid="uid://eorxnbpemt7i" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -322,6 +324,18 @@ material = SubResource("ShaderMaterial_cemph")
 position = Vector2(4096, 0)
 texture = ExtResource("18_a0w2n")
 
+[node name="Sprite2D4" type="Sprite2D" parent="Parallax/Forest"]
+position = Vector2(-3000, 547)
+texture = ExtResource("19_h0wwn")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Parallax/Forest"]
+position = Vector2(1000, 547)
+texture = ExtResource("19_h0wwn")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Parallax/Forest"]
+position = Vector2(4000, 547)
+texture = ExtResource("20_ywuup")
+
 [node name="Rain" type="ParallaxLayer" parent="Parallax"]
 visible = false
 position = Vector2(1307, -365)
@@ -462,13 +476,17 @@ material = SubResource("ShaderMaterial_cemph")
 position = Vector2(4096, 0)
 texture = ExtResource("18_a0w2n")
 
-[node name="ColorRect" type="ColorRect" parent="SubViewport/Parallax/Forest"]
-custom_minimum_size = Vector2(10000, 0)
-offset_left = -5000.0
-offset_top = 398.0
-offset_right = 5000.0
-offset_bottom = 855.0
-color = Color(0, 0, 0, 1)
+[node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+position = Vector2(-3000, 547)
+texture = ExtResource("19_h0wwn")
+
+[node name="Sprite2D5" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+position = Vector2(1000, 547)
+texture = ExtResource("19_h0wwn")
+
+[node name="Sprite2D6" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+position = Vector2(4000, 547)
+texture = ExtResource("20_ywuup")
 
 [node name="Scatter" type="Sprite2D" parent="SubViewport/Parallax"]
 material = SubResource("ShaderMaterial_8l6rx")
@@ -488,11 +506,5 @@ offset_top = -238.0
 offset_right = 1202.0
 offset_bottom = 35.0
 
-[node name="TestRoom3" parent="." instance=ExtResource("43_b8772")]
-position = Vector2(0, -1904)
-
-[node name="ColorRect" type="ColorRect" parent="TestRoom3"]
-offset_top = 2000.0
-offset_right = 4004.0
-offset_bottom = 4681.0
-color = Color(0, 0, 0, 1)
+[node name="Level1" parent="." instance=ExtResource("42_ie1i1")]
+position = Vector2(2000, -906)
