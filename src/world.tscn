@@ -360,7 +360,7 @@ material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
-position = Vector2(387, -1578)
+position = Vector2(458, -1617)
 safe_margin = 0.24
 
 [node name="SubViewport" type="SubViewport" parent="."]
@@ -508,3 +508,17 @@ offset_bottom = 35.0
 
 [node name="Level1" parent="." instance=ExtResource("42_ie1i1")]
 position = Vector2(2000, -906)
+
+[node name="ColorRect" type="ColorRect" parent="Level1"]
+offset_left = -2892.0
+offset_top = -1000.0
+offset_right = -1998.0
+offset_bottom = 2094.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Level1"]
+offset_left = -2000.0
+offset_top = 998.0
+offset_right = 11104.0
+offset_bottom = 3366.0
+color = Color(0, 0, 0, 1)

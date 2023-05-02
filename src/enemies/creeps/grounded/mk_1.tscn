@@ -1344,6 +1344,7 @@ position = Vector2(-15, -18)
 shape = SubResource("RectangleShape2D_mnkqd")
 
 [node name="TurnedTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="ChaseTimer" type="Timer" parent="."]
