@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/Trava_Nizka_1_bloody.png-1f7e4e5a2c3dfce0e2c4
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

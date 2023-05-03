@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/Tryba_Seredina_4.png-863885d720139ae3f1b14d2e
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

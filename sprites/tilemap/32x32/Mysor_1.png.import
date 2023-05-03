@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/Mysor_1.png-01979edec31b85ca6c4b3259b21c5e77.
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

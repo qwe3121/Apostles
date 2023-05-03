@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/Zemla_Kamni_Ygol_2R.png-e8d7590d02c15c9e3810b
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
