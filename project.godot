@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="TheGame"
+config/name="Apostles"
 run/main_scene="res://src/menus/main_menu_oog.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
