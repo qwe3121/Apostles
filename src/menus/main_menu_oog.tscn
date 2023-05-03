@@ -170,6 +170,7 @@ grow_vertical = 2
 script = ExtResource("1_ohkey")
 
 [node name="Background" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -179,6 +180,7 @@ texture = ExtResource("5_sk4ij")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 569.0
 offset_top = 19.0
@@ -187,6 +189,7 @@ offset_bottom = 326.0
 texture = ExtResource("3_xpsqe")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 88.0
 offset_top = 120.0
@@ -196,6 +199,7 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_tlapm")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = -1085.0
 offset_top = 120.0
@@ -205,6 +209,7 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_tlapm")
 
 [node name="Birds" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(-131, 278)
 sprite_frames = SubResource("SpriteFrames_kcuna")
@@ -260,6 +265,7 @@ libraries = {
 }
 
 [node name="RainControl" parent="." instance=ExtResource("8_82w1l")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="Main/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

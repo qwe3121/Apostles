@@ -1,6 +1,9 @@
 extends Control
 
 
+var some_action_button_toggled: bool = false
+
+
 func _ready():
 	$TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton.select(cfg.cfg_data.display_mode)
 	global_settings.update_display_mode(cfg.cfg_data.display_mode)
@@ -101,3 +104,15 @@ func _on_back_to_defaults_pressed():
 
 func _on_undead_check_button_toggled(button_pressed):
 	global_settings.toggle_undead_mode(button_pressed)
+	
+	
+func _process(delta):
+	if not some_action_button_toggled:
+		if Input.is_action_just_pressed("SETTINGS_TAB_1"):
+			$TabContainer.current_tab = 0
+		elif Input.is_action_just_pressed("SETTINGS_TAB_2"):
+			$TabContainer.current_tab = 1
+		elif Input.is_action_just_pressed("SETTINGS_TAB_3"):
+			$TabContainer.current_tab = 2
+		elif Input.is_action_just_pressed("SETTINGS_TAB_4"):
+			$TabContainer.current_tab = 3

@@ -11,6 +11,7 @@ func _ready():
 	$LoadMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	events.saves_is_updated.connect(saves_is_updated)
 	$AnimationPlayer.play("birds_flying")
+	$Main/VBoxContainer/ContinueButton.grab_focus()
 	
 	
 func make_all_menus_invisible():
@@ -35,11 +36,13 @@ func load_load_menu():
 	make_all_menus_invisible()
 	load_menu.refresh()
 	load_menu.visible = true
+	$LoadMenu/BackToMainMenu.grab_focus()
 	
 	
 func load_main_menu():
 	make_all_menus_invisible()
 	main_menu.visible = true
+	$Main/VBoxContainer/ContinueButton.grab_focus()
 
 
 func _on_quit_button_pressed():
@@ -49,6 +52,7 @@ func _on_quit_button_pressed():
 func _on_settings_button_pressed():
 	make_all_menus_invisible()
 	settings_menu.visible = true
+	$SettingsMenu/BackToMainMenu.grab_focus()
 
 
 func _on_continue_button_pressed():

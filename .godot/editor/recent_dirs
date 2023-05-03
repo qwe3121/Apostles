@@ -1,3 +1,4 @@
+res://src/menus
 res://src/rooms
 res://src/enemies
 res://src
@@ -9,7 +10,6 @@ res://sprites/player
 res://src/autoloads
 res://src/enemies/creeps/floating
 res://src/enemies/creeps/grounded
-res://src/menus
 res://sprites/player/cut_dead
 res://src/player_cuts
 res://sprites/enemies/fruit_ninja_cuts

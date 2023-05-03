@@ -52,9 +52,8 @@ func _input(input_event: InputEvent):
 			events.emit_signal("ready_to_load_keys_containers")
 			
 			on_focus_on_all_buttons()
-			action_button.release_focus()
-			await get_tree().create_timer(0.001).timeout
-			action_button.grab_focus()
+			
+			$"../../../../../..".some_action_button_toggled = false
 
 
 func update_button_text(input_event: InputEvent):
@@ -64,6 +63,7 @@ func update_button_text(input_event: InputEvent):
 func _on_action_button_toggled(button_pressed):
 	if button_pressed:
 		action_button.text = "press a key..."
+		$"../../../../../..".some_action_button_toggled = true
 		
 		
 func off_focus_on_all_buttons():
@@ -74,6 +74,8 @@ func off_focus_on_all_buttons():
 		else:
 			var button = container.get_node("ActionButton")
 			button.focus_mode = FOCUS_NONE
+	$"../../../../../../BackToMainMenu".focus_mode = FOCUS_NONE
+	$"../../../../../../BackToDefaults".focus_mode = FOCUS_NONE
 			
 			
 func on_focus_on_all_buttons():
@@ -84,3 +86,5 @@ func on_focus_on_all_buttons():
 		else:
 			var button = container.get_node("ActionButton")
 			button.focus_mode = FOCUS_ALL
+	$"../../../../../../BackToMainMenu".focus_mode = FOCUS_ALL
+	$"../../../../../../BackToDefaults".focus_mode = FOCUS_ALL

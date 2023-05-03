@@ -1,4 +1,6 @@
+res://src/death_screen.tscn
 res://src/rooms/level_1.tscn
+res://src/rooms/level_1.gd
 res://src/world.tscn
 res://src/player.tscn
 res://src/enemies/creeps/grounded/mk_2.tscn
@@ -6,5 +8,10 @@ res://src/enemies/creeps/grounded/mk_1.tscn
 res://src/enemies/creeps/floating/mk_6.tscn
 res://src/rooms/test_room_3.tscn
 res://src/enemies/trap_hitbox.tscn
-res://src/enemies/creeps/grounded/mk_2.gd
-res://src/death_screen.tscn
+res://src/player.gd
+res://src/menus/settings_menu.tscn
+res://src/menus/main_menu_ig.tscn
+res://src/menus/main_menu_oog.tscn
+res://src/menus/main_menu_oog.gd
+res://src/menus/settings_menu.gd
+res://src/menus/action_container.gd
