@@ -36,6 +36,7 @@ func _on_confirm_save_name_confirmed():
 			return
 			
 	snl.save_game(text_edit.text, "save")
+	$"../../../BackToMainMenu".grab_focus()
 	events.emit_signal("saves_is_updated")
 
 

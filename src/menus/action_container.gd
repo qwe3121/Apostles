@@ -38,7 +38,7 @@ func _input(input_event: InputEvent):
 			elif input_event is InputEventKey:
 				cfg.cfg_data[action] = [input_event.keycode, "InputEventKey"]
 				
-			for cycle_action_name in InputMap.get_actions():
+			for cycle_action_name in cfg.default_keys.keys():
 				if cycle_action_name == action:
 					continue
 				if InputMap.action_has_event(cycle_action_name, input_event):

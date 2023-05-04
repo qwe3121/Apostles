@@ -39,7 +39,6 @@ var ac_fruit_ninja = 40
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
 @onready var can_stand_up_raycasts = $CanStandUpRaycasts
 @onready var wall_slide_cooldown = $WallSlideCooldown
-@onready var hurtbox_col = $Hurtbox/CollisionShape2D
 @onready var hitbox_col = $Hitbox/CollisionShape2D
 @onready var blood_pos = $BloodPos
 
@@ -78,27 +77,13 @@ enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATT
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
-DEAD, FRUIT_NINJA, REINCARNATION}
+DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED}
 
 var state = REINCARNATION : set = set_state
 
 func set_state(value):
 	if state == DEAD:
 		return
-	
-	if value == DASH:
-		hurtbox_col.disabled = true
-		blocking = true
-	elif value == BLOCK or value == ROLL:
-		blocking = true
-		events.emit_signal("player_blocking")
-	elif state == DASH:
-		hurtbox_col.disabled = false
-		blocking = false
-		events.emit_signal("player_blocking")
-	elif state == BLOCK or state == ROLL:
-		blocking = false
-		events.emit_signal("player_blocking")
 		
 	if not state == value: 
 		state_started = false
@@ -113,8 +98,6 @@ var wall_dir = 0
 var weak_combo_index = 1
 var strong_combo_index = 1
 var jump_attack_index = 1
-
-var blocking = false
 
 var jump_index = 1
 var pre_jump = 1
@@ -162,7 +145,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 1
 
 
-func get_damage(source: String): #fire, bullet, hit, cut
+func get_damage(source: String, can_block, damager = null): #fire, bullet, hit, cut
+	if can_block and (state == BLOCK or state == ROLL or state == BLOCKED):
+		if state == BLOCK:
+			block_stamina_timer.stop()
+			state = BLOCKED
+		return
+	
 	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead:
 		return
 		
@@ -172,6 +161,9 @@ func get_damage(source: String): #fire, bullet, hit, cut
 	if hp <= 0:
 		state_started = false
 		from_jump_to_air_timer.stop()
+		if damager != null:
+			if damager.name == "TrapHitbox":
+				damager.turn_into_bloody_version()
 		state = DEAD
 	pass
 
@@ -180,13 +172,13 @@ func set_dir():
 	if dir:
 		anim_dir = dir
 
-
 func set_anim(animation_name):
 	if animation_name == WALL_SLIDE:
 		animated_sprite.flip_h = wall_dir == -1
 	else:
 		animated_sprite.flip_h = !(anim_dir == 1)
 		hitbox.scale.x = anim_dir
+		
 	match animation_name:
 		IDLE: 
 			anim.play("Idle")
@@ -269,6 +261,8 @@ func set_anim(animation_name):
 					anim.play("cut_dead")
 		BLOCK:
 			anim.play("Block")
+		BLOCKED:
+			anim.play("Blocked")
 		FRUIT_NINJA:
 			anim.play("FruitNinja")
 		REINCARNATION:
@@ -339,6 +333,8 @@ func _physics_process(delta):
 			dead(delta)
 		BLOCK:
 			block()
+		BLOCKED:
+			blocked()
 		FRUIT_NINJA:
 			fruit_ninja()
 		REINCARNATION:
@@ -1213,11 +1209,20 @@ func block():
 		if np:
 			print("from block to idle")
 		block_stamina_timer.stop()
-		blocking = false
-		hurtbox_col.disabled = true
 		state = IDLE
-		hurtbox_col.disabled = false
-
+		
+		
+func blocked():
+	set_anim(BLOCKED)
+	velocity.x = 0
+	velocity.y = 0
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == BLOCKED:
+			if np:
+				print("from BLOCKED to BLOCK")
+		state = BLOCK
 
 func _on_hitbox_body_entered(body):
 	if global_position.x > body.global_position.x:

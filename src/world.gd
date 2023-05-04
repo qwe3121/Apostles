@@ -1,8 +1,6 @@
 extends Node2D
 
 
-@onready var clouds = $Parallax/Clouds
-
 @onready var viewport_camera = $SubViewport/Camera2D
 @onready var player_camera = $Player/Camera2D
 

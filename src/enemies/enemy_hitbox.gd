@@ -5,15 +5,17 @@ extends Area2D
 @export_enum("hit", "fire", "bullet", "cut") var damage_source: String = "hit"
 
 
-func _ready():
-	if can_block:
-		set_collision_mask_value(7, not global.player.blocking)
-		events.player_blocking.connect(_on_player_blocking)
-		
-		
-func _on_player_blocking():
-	set_collision_mask_value(7, not global.player.blocking)
+var see_player = false
 
 
-func _on_area_entered(area):
-	global.player.get_damage(damage_source)
+func _process(delta):
+	if see_player:
+		global.player.get_damage(damage_source, can_block)
+
+
+func _on_body_entered(body):
+	see_player = true
+
+
+func _on_body_exited(body):
+	see_player = false

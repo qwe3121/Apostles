@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc0n2u5dlt6rp"]
+[gd_scene load_steps=3 format=3 uid="uid://cc0n2u5dlt6rp"]
 
 [ext_resource type="Script" path="res://src/menus/load_menu.gd" id="1_ab4hj"]
+[ext_resource type="PackedScene" uid="uid://dye0ucgc1tl1y" path="res://src/menus/load_container.tscn" id="2_jalcs"]
 
 [node name="LoadMenu" type="Control"]
 layout_mode = 3
@@ -33,3 +34,6 @@ vertical_scroll_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 190
+
+[node name="LoadContainer" parent="ScrollContainer/VBoxContainer" instance=ExtResource("2_jalcs")]
+layout_mode = 2

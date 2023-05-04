@@ -27,14 +27,18 @@ func _process(delta):
 			snl.make_screenshot()
 			color_rect.visible = true
 			load_main_menu()
+			$Main/VBoxContainer/ResumeButton.grab_focus()
 		elif current_menu == "main":
 			hide_menu()
 		elif current_menu == "load":
 			load_main_menu()
+			$Main/VBoxContainer/ResumeButton.grab_focus()
 		elif current_menu == "save":
 			load_main_menu()
+			$Main/VBoxContainer/ResumeButton.grab_focus()
 		elif current_menu == "settings":
 			load_main_menu()
+			$Main/VBoxContainer/ResumeButton.grab_focus()
 			
 			
 func make_all_menus_invisible():
@@ -53,6 +57,7 @@ func load_save_menu():
 	make_all_menus_invisible()
 	save_menu.refresh()
 	save_menu.visible = true
+	$SaveMenu/BackToMainMenu.grab_focus()
 	current_menu = "save"
 
 
@@ -60,6 +65,7 @@ func load_main_menu():
 	get_tree().paused = true
 	make_all_menus_invisible()
 	main_menu.visible = true
+	$Main/VBoxContainer/ResumeButton.grab_focus()
 	current_menu = "main"
 	
 	
@@ -74,6 +80,7 @@ func load_load_menu():
 	make_all_menus_invisible()
 	load_menu.refresh()
 	load_menu.visible = true
+	$LoadMenu/BackToMainMenu.grab_focus()
 	current_menu = "load"
 	
 
@@ -111,4 +118,5 @@ func _on_settings_button_pressed():
 func load_settings_menu():
 	make_all_menus_invisible()
 	settings_menu.visible = true
+	$SettingsMenu/BackToMainMenu.grab_focus()
 	current_menu = "settings"

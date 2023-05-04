@@ -22,17 +22,13 @@ func _on_timer_timeout():
 
 func _on_body_entered(body):
 	if body.name == "Player":
-		if can_block and global.player.blocking:
-			queue_free()
-			return
-		if global.player.state != 25:
-			global.player.bullet_knockback = true
-			if global.player.anim_dir == 1 and dir == -1 or global.player.anim_dir == -1 and dir == 1:
-				global.player.bullet_dead_anim_speredi = true
-			else:
-				global.player.bullet_dead_anim_speredi = false
-			global.player.bullet_knockback_dir = dir
-			global.player.get_damage("bullet")
+		global.player.bullet_knockback = true
+		if global.player.anim_dir == 1 and dir == -1 or global.player.anim_dir == -1 and dir == 1:
+			global.player.bullet_dead_anim_speredi = true
+		else:
+			global.player.bullet_dead_anim_speredi = false
+		global.player.bullet_knockback_dir = dir
+		global.player.get_damage("bullet", can_block)
 		queue_free()
 	else:
 		queue_free()

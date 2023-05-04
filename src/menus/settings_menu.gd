@@ -107,12 +107,16 @@ func _on_undead_check_button_toggled(button_pressed):
 	
 	
 func _process(delta):
-	if not some_action_button_toggled:
+	if not some_action_button_toggled and visible:
 		if Input.is_action_just_pressed("SETTINGS_TAB_1"):
 			$TabContainer.current_tab = 0
+			$BackToMainMenu.grab_focus()
 		elif Input.is_action_just_pressed("SETTINGS_TAB_2"):
 			$TabContainer.current_tab = 1
+			$BackToMainMenu.grab_focus()
 		elif Input.is_action_just_pressed("SETTINGS_TAB_3"):
 			$TabContainer.current_tab = 2
+			$BackToMainMenu.grab_focus()
 		elif Input.is_action_just_pressed("SETTINGS_TAB_4"):
 			$TabContainer.current_tab = 3
+			$BackToMainMenu.grab_focus()

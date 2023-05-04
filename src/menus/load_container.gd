@@ -52,4 +52,5 @@ func _on_confirm_load_confirmed():
 
 func _on_confirm_delete_confirmed():
 	snl.delete_save(save_name.text)
+	$"../../../BackToMainMenu".grab_focus()
 	events.emit_signal("saves_is_updated")

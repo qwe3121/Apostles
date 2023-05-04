@@ -4,8 +4,9 @@
 
 [node name="TrapHitbox" type="Area2D"]
 collision_layer = 4
-collision_mask = 112
+collision_mask = 176
 script = ExtResource("1_e8c8q")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

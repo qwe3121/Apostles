@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci8ty15k5xxow"]
+[gd_scene load_steps=6 format=3 uid="uid://ci8ty15k5xxow"]
 
 [ext_resource type="Script" path="res://src/menus/new_save_container.gd" id="1_ldt6i"]
 
@@ -9,8 +9,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmgvy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l228m"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftvb3"]
 
 [node name="NewSaveContainer" type="Control"]
 layout_mode = 3
@@ -36,7 +34,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_inmey")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_u76cv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_bmgvy")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_l228m")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ftvb3")
 
 [node name="ConfirmSaveName" type="ConfirmationDialog" parent="."]
 title = "Give save a name..."
@@ -47,7 +44,7 @@ min_size = Vector2i(200, 130)
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 192.0
-offset_bottom = 81.0
+offset_bottom = 84.0
 placeholder_text = "enter name here"
 
 [node name="FNAlert" type="AcceptDialog" parent="."]

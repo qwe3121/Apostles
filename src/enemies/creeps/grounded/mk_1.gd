@@ -29,7 +29,7 @@ var player_adrenaline_gain = 20
 @onready var enemy_hitbox_col = $EnemyHitbox/CollisionPolygon2D
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var eyes = $Eyes
+var need_to_check_if_see_player = false
 
 var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
 
@@ -102,7 +102,7 @@ func _ready():
 	
 	
 
-func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
+func get_damage(value, k_dir = 0, damager = null):
 	if state == DEAD or state == FRUIT_DEAD:
 		return
 	
@@ -114,14 +114,18 @@ func get_damage(value, k_dir = 0, dead_by_trap: bool = false):
 	if hp <= 0:
 		chase_timer.stop()
 		walking_timer.stop()
-		if not dead_by_trap: global.player.adrenaline += player_adrenaline_gain
+		if damager != null:
+			if damager.name == "TrapHitbox":
+				damager.turn_into_bloody_version()
+		else:
+			global.player.adrenaline += player_adrenaline_gain
 		state = DEAD
 	elif not flashing:
 		knockback_dir = k_dir
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
-	if not dead_by_trap: global.camera.shake()
+	if damager == null: global.camera.shake()
 		
 func set_anim(animation_name):
 	animated_sprite.flip_h = anim_dir == 1
@@ -169,6 +173,10 @@ func set_dir():
 
 
 func _physics_process(delta):
+	if need_to_check_if_see_player:
+		if not check_if_vision_is_blocked_by_wall():
+			on_see_player()
+	
 	if knockback_dir:
 		velocity.x = knockback_dir * 100
 	
@@ -390,18 +398,21 @@ func _on_ulti_cooldown_timeout():
 
 
 func _on_eyes_body_entered(body):
-	if check_if_vision_is_blocked_by_wall():
-		return
-	if body.name == "Player":
-		if not chasing and can_attack:
-			qmark.visible = true
-			qmark.play("popup")
-		walking_timer.stop()
-		chase_timer.stop()
-		see_player = true
+	need_to_check_if_see_player = true
+	
+	
+func on_see_player():
+	need_to_check_if_see_player = false
+	if not chasing and can_attack:
+		qmark.visible = true
+		qmark.play("popup")
+	walking_timer.stop()
+	chase_timer.stop()
+	see_player = true
 
 
 func _on_eyes_body_exited(body):
+	need_to_check_if_see_player = false
 	if not see_player:
 		return
 	see_player = false

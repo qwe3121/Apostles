@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Apostles"
-run/main_scene="res://src/menus/main_menu_oog.tscn"
+run/main_scene="res://src/world.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 boot_splash/size/transparent=false
@@ -145,7 +145,6 @@ BLOCK={
 2d_physics/layer_4="trap_hitbox"
 2d_physics/layer_5="enemies"
 2d_physics/layer_6="blood_trace_area"
-2d_physics/layer_7="player_hurtbox"
 2d_physics/layer_8="player"
 2d_physics/layer_32="roomsArea"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dye0ucgc1tl1y"]
+[gd_scene load_steps=6 format=3 uid="uid://dye0ucgc1tl1y"]
 
 [ext_resource type="Script" path="res://src/menus/load_container.gd" id="1_452rs"]
 
@@ -9,8 +9,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0opdd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdcmf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2tpuy"]
 
 [node name="LoadContainer" type="Control"]
 layout_mode = 3
@@ -70,7 +68,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_dql27")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qglvl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_0opdd")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_gdcmf")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2tpuy")
 
 [node name="ConfirmLoad" type="ConfirmationDialog" parent="."]
 dialog_text = "load save asd.save"

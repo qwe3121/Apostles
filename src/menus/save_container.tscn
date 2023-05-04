@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bi63ragfg4xd4"]
+[gd_scene load_steps=7 format=3 uid="uid://bi63ragfg4xd4"]
 
 [ext_resource type="Script" path="res://src/menus/save_container.gd" id="1_7giip"]
 
@@ -11,8 +11,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7jrt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ik74f"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pro0j"]
 
 [node name="SaveContainer" type="Control"]
 layout_mode = 3
@@ -72,7 +70,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_s3j08")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_dg1g8")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_j7jrt")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ik74f")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pro0j")
 
 [node name="ConfirmOverwrite" type="ConfirmationDialog" parent="."]
 title = "Give save a name..."

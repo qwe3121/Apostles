@@ -49,6 +49,7 @@ func _on_delete_button_pressed():
 
 func _on_confirm_delete_confirmed():
 	snl.delete_save(save_name.text)
+	$"../../../BackToMainMenu".grab_focus()
 	events.emit_signal("saves_is_updated")
 
 
@@ -79,6 +80,7 @@ func _on_confirm_overwrite_confirmed():
 			
 	snl.delete_save(save_name.text)
 	snl.save_game(text_edit.text, "save")
+	$"../../../BackToMainMenu".grab_focus()
 	events.emit_signal("saves_is_updated")
 
 

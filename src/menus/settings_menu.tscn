@@ -300,6 +300,30 @@ offset_bottom = 71.0
 grow_horizontal = 0
 text = "Back to defaults"
 
+[node name="NavTipPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -97.5
+offset_top = 7.0
+offset_right = 97.5
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="NavTipLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 7.0
+offset_right = 92.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "PRESS 1-4 TO
+NAVIGATE BETWEEN TABS"
+
 [connection signal="item_selected" from="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton" to="." method="_on_display_mode_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton" to="." method="_on_vsync_check_button_toggled"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider" to="." method="_on_master_volume_h_slider_value_changed"]
