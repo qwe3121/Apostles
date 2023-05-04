@@ -40,7 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://ct6vweeumc21h" path="res://src/dust_particles.tscn" id="27_palko"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
-[ext_resource type="Texture2D" uid="uid://c5qgelfuhvft7" path="res://icon.svg" id="30_4eis4"]
+[ext_resource type="Texture2D" uid="uid://cfa27gulmsn45" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="Shader" path="res://src/godrays.gdshader" id="31_t4yqa"]
 [ext_resource type="PackedScene" uid="uid://eorxnbpemt7i" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 

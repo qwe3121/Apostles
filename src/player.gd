@@ -1392,6 +1392,7 @@ func reincarnation(delta):
 			
 			
 func change_scene_to_dead_screen():
+	$CanvasLayer/PlayerUI.visible = false
 	get_tree().paused = true
 	death_screen.visible = true
 
