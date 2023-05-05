@@ -1,8 +1,7 @@
-res://src/blood_drop.tscn
-res://src/blood_drop.gd
 res://src/world.tscn
 res://src/player.tscn
 res://src/enemies/creeps/floating/mk_6.tscn
 res://src/player_ui.tscn
+res://src/blood_drop.tscn
 res://src/death_screen.tscn
 res://src/menus/save_container.tscn
