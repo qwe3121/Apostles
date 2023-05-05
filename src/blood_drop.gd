@@ -43,7 +43,7 @@ func _on_area_2d_body_entered(body):
 	trace.visible = true
 	drop.visible = false
 	$AnimationPlayer.play("fades_out")
-	process_mode = PROCESS_MODE_DISABLED
+	call_deferred("set_process_mode", PROCESS_MODE_DISABLED)
 	
 	
 func delete_blood():

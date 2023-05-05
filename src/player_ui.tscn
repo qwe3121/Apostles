@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0rdcqmtntem8"]
+[gd_scene load_steps=10 format=3 uid="uid://c0rdcqmtntem8"]
 
 [ext_resource type="Texture2D" uid="uid://borxmkojsv42c" path="res://sprites/player/gui/Polosa_Stamini_Ybivanie.png" id="1_eh36h"]
+[ext_resource type="Script" path="res://src/player_ui.gd" id="1_gwm1g"]
 [ext_resource type="Texture2D" uid="uid://cpxux422uar6h" path="res://sprites/player/gui/Polosa_Stamini.png" id="1_i8f3l"]
 [ext_resource type="Texture2D" uid="uid://8ponlwt7pyhk" path="res://sprites/player/gui/Polosa_Stamini_Zad.png" id="1_qhw3n"]
 [ext_resource type="Texture2D" uid="uid://c177yn122ols1" path="res://sprites/player/gui/Polosa_Stamini_Pered.png" id="2_d04hw"]
@@ -17,6 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_gwm1g")
 
 [node name="StaminaBarUnder" type="TextureProgressBar" parent="."]
 layout_mode = 0
@@ -55,3 +57,12 @@ offset_bottom = 147.0
 texture_under = ExtResource("3_2jr83")
 texture_over = ExtResource("5_24elc")
 texture_progress = ExtResource("2_hw8ft")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 14.0
+offset_right = 1132.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 70
+text = "FPS: 60"
