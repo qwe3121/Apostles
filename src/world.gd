@@ -11,13 +11,13 @@ func _ready():
 	get_tree().get_root().size_changed.connect(_on_size_changed)
 	_on_size_changed()
 	$Parallax/Sprite2D.texture = $SubViewport.get_texture()
-	
-	
+
+
 func _on_size_changed():
 	var viewport_size = get_viewport_rect().size
 	$SubViewport/Parallax/ColorRect.size = viewport_size
 	$SubViewport.size = viewport_size
-	
+
 
 func _physics_process(delta):
 	viewport_camera.position = player_camera.global_position

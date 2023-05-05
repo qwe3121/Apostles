@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6btu7mme5wwk"]
+
+[ext_resource type="Script" path="res://src/enemies/some_traps/stomp_trap.gd" id="1_4hj50"]
+[ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_6hdef"]
+
+[sub_resource type="Animation" id="Animation_yulbc"]
+resource_name = "default"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(18, 4), Vector2(18, 27), Vector2(18, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrapHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shake_screen"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1jbqy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrapHitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dukh3"]
+_data = {
+"RESET": SubResource("Animation_1jbqy"),
+"default": SubResource("Animation_yulbc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjq5d"]
+size = Vector2(18, 27)
+
+[node name="StompTrap" type="Node2D"]
+z_index = 100
+scale = Vector2(10, 10)
+script = ExtResource("1_4hj50")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 18.0
+offset_bottom = 4.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 6.0
+libraries = {
+"": SubResource("AnimationLibrary_dukh3")
+}
+
+[node name="TrapHitbox" parent="." instance=ExtResource("1_6hdef")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox"]
+position = Vector2(9, 13.5)
+shape = SubResource("RectangleShape2D_fjq5d")
+disabled = true
+
+[node name="TimeBeforeStart" type="Timer" parent="."]
+one_shot = true
+
+[node name="StompCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(9, 13.5)
+scale = Vector2(0.9, 1.35)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="TimeBeforeStart" to="." method="_on_time_before_start_timeout"]
+[connection signal="timeout" from="StompCooldown" to="." method="_on_stomp_cooldown_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -339,14 +339,14 @@ func _physics_process(delta):
 			fruit_ninja()
 		REINCARNATION:
 			reincarnation(delta)
-			
+
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1
 		velocity.x /= 500 * delta
-		
+
 	if slowed_cause_of_mk6 and not state == DASH:
 		velocity = velocity/2
-			
+
 	move_and_slide()
 
 
@@ -1331,8 +1331,8 @@ func _on_area_2d_body_entered(body):
 		params.collision_mask = 0b00000000000000010010
 		var result = space_state.intersect_ray(params)
 		if len(result) == 0: return
-		if result.collider == body:
-			fruit_ninja_targets.append(body)
+		if result.collider.get_collision_layer() == 0b00000000000000000010: return
+		fruit_ninja_targets.append(body)
 
 
 func _on_sun_lens_anim_animation_finished(anim_name):

@@ -1,1 +1,7 @@
+VisibleOnScreenEnabler2D
+VisibleOnScreenNotifier2D
+Timer
+CollisionShape2D
+AnimationPlayer
+ColorRect
 Label

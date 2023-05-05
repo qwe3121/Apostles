@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://eorxnbpemt7i"]
+[gd_scene load_steps=29 format=3 uid="uid://eorxnbpemt7i"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/rooms/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="12_u7idq"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="13_c42u2"]
 [ext_resource type="PackedScene" uid="uid://bvl5q2m4e75mv" path="res://src/enemies/creeps/floating/mk_6.tscn" id="14_tinov"]
+[ext_resource type="PackedScene" uid="uid://c6btu7mme5wwk" path="res://src/enemies/some_traps/stomp_trap.tscn" id="15_mv2lf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf63l"]
 size = Vector2(48, 29)
@@ -292,3 +293,10 @@ position = Vector2(4432, 696)
 
 [node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_wtpjt")
+
+[node name="StompTrap" parent="." instance=ExtResource("15_mv2lf")]
+position = Vector2(-13, 449)
+
+[node name="StompTrap2" parent="." instance=ExtResource("15_mv2lf")]
+position = Vector2(187, 447)
+time_before_start = 2.0
