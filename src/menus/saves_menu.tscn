@@ -143,6 +143,7 @@ ok_button_text = "CONFIRM"
 cancel_button_text = "CANCEL"
 
 [node name="BackToMainMenu" type="Button" parent="."]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 8.0
 offset_right = 218.0

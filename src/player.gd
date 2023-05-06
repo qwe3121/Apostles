@@ -34,7 +34,6 @@ var ac_fruit_ninja = 40
 @onready var stamina_bar_under = $CanvasLayer/PlayerUI/StaminaBarUnder
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
-@onready var label = $Label
 @onready var weak_combo_timer = $WeakComboTimer
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer

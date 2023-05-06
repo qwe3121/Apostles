@@ -2,7 +2,6 @@ extends Node
 
 
 signal scene_is_loaded
-signal saves_is_updated
 
 signal ready_to_load_keys_containers
 
