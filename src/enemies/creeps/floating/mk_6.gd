@@ -359,7 +359,7 @@ func _on_walking_timer_timeout():
 	
 func walking_timer_start():
 	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.start()
+	walking_timer.autostart = true
 	
 	
 func _on_attack_cooldown_timeout():
@@ -389,6 +389,8 @@ func on_see_player():
 
 
 func _on_eyes_body_exited(body):
+	if state == DEAD or state == FRUIT_DEAD:
+		return
 	need_to_check_if_see_player = false
 	if not see_player:
 		return

@@ -34,6 +34,10 @@ blood_manager="*res://src/autoloads/blood_manager.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 theme/custom_font="res://fonts/molot_font.tres"
