@@ -27,7 +27,6 @@ var default_cfg_data = {
 	"music_vol": -10,
 	"sfx_vol": - 10,
 	"glitchy_transition_on": true,
-	"last_save": null,
 	"undead": false,
 	#KEYS
 	"QUICK SAVE": [KEY_F5, "InputEventKey"],

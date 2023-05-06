@@ -2,47 +2,26 @@ extends Control
 
 
 @onready var main_menu = $Main
-@onready var load_menu = $LoadMenu
 @onready var settings_menu = $SettingsMenu
-
+@onready var saves_menu = $SavesMenu
 
 func _ready():
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
-	$LoadMenu/BackToMainMenu.pressed.connect(load_main_menu)
-	events.saves_is_updated.connect(saves_is_updated)
+	$SavesMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	$AnimationPlayer.play("birds_flying")
-	$Main/VBoxContainer/ContinueButton.grab_focus()
+	$Main/VBoxContainer/PlayButton.grab_focus()
 	
 	
 func make_all_menus_invisible():
 	main_menu.visible = false
-	load_menu.visible = false
 	settings_menu.visible = false
-
-
-func saves_is_updated():
-	load_menu.refresh()
-
-
-func _on_new_game_button_pressed():
-	trans.change_scene("res://src/world.tscn")
-
-
-func _on_load_button_pressed():
-	load_load_menu()
-	
-	
-func load_load_menu():
-	make_all_menus_invisible()
-	load_menu.refresh()
-	load_menu.visible = true
-	$LoadMenu/BackToMainMenu.grab_focus()
+	saves_menu.visible = false
 	
 	
 func load_main_menu():
 	make_all_menus_invisible()
 	main_menu.visible = true
-	$Main/VBoxContainer/ContinueButton.grab_focus()
+	$Main/VBoxContainer/PlayButton.grab_focus()
 
 
 func _on_quit_button_pressed():
@@ -53,10 +32,10 @@ func _on_settings_button_pressed():
 	make_all_menus_invisible()
 	settings_menu.visible = true
 	$SettingsMenu/BackToMainMenu.grab_focus()
-
-
-func _on_continue_button_pressed():
-	if cfg.cfg_data.last_save != null:
-		snl.load_game(cfg.cfg_data.last_save)
-	else:
-		nt.add_nt("Cannot find last save")
+	
+	
+func _on_play_button_pressed():
+	make_all_menus_invisible()
+	saves_menu.update()
+	saves_menu.visible = true
+	$SavesMenu/BackToMainMenu.grab_focus()

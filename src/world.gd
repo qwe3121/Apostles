@@ -22,7 +22,3 @@ func _on_size_changed():
 func _physics_process(delta):
 	viewport_camera.position = player_camera.global_position
 	viewport_camera.offset = player_camera.offset
-
-
-func save_world():
-	return "res://src/world.tscn"

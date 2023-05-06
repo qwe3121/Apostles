@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=63 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -37,11 +37,10 @@
 [ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="23_2fdtg"]
 [ext_resource type="Texture2D" uid="uid://b3aknyh1a4jlg" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-15.png" id="24_naoei"]
 [ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
-[ext_resource type="PackedScene" uid="uid://ct6vweeumc21h" path="res://src/dust_particles.tscn" id="27_palko"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://cfa27gulmsn45" path="res://icon.svg" id="30_4eis4"]
-[ext_resource type="PackedScene" uid="uid://eorxnbpemt7i" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
+[ext_resource type="PackedScene" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 shader = ExtResource("8_h6pdf")
@@ -330,13 +329,6 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nl81k")
 animation = &"Raining"
 autoplay = "Raining"
-
-[node name="Dust" type="ParallaxLayer" parent="Parallax"]
-visible = false
-position = Vector2(1152, -793)
-motion_mirroring = Vector2(1152, 0)
-
-[node name="DustParticles" parent="Parallax/Dust" instance=ExtResource("27_palko")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax"]
 material = SubResource("CanvasItemMaterial_bra5p")

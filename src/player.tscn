@@ -1,4 +1,4 @@
-[gd_scene load_steps=433 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=432 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -39,7 +39,6 @@
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
 [ext_resource type="Texture2D" uid="uid://caomoayau5pu2" path="res://sprites/player/Padaet_Mertvi_Jivot.png" id="34_n1hn4"]
 [ext_resource type="Shader" path="res://src/lens_flare.gdshader" id="35_18ku5"]
-[ext_resource type="Texture2D" uid="uid://dwu3cfdbtjm8c" path="res://sprites/FlashlightTextures/flashlight5.png" id="35_f3h3w"]
 [ext_resource type="Texture2D" uid="uid://cvltbo6cql2ru" path="res://sprites/player/cut_dead/Smert_Ydar.png" id="35_o0h6v"]
 [ext_resource type="Texture2D" uid="uid://3llqnvr6s7qr" path="res://sprites/player/Padaet_Mertvi_Spina.png" id="35_t6p11"]
 [ext_resource type="Texture2D" uid="uid://cky3ib2pn5xfp" path="res://sprites/player/Vozrojdenie.png" id="36_yuknm"]
@@ -6016,19 +6015,6 @@ collision_mask = 2
 wait_time = 0.2
 one_shot = true
 
-[node name="Label" type="Label" parent="."]
-visible = false
-modulate = Color(1, 1, 0, 1)
-z_index = 50
-offset_left = -29.0
-offset_top = -132.0
-offset_right = 2.0
-offset_bottom = -109.0
-scale = Vector2(2, 2)
-text = "IDLE"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="WeakComboTimer" type="Timer" parent="."]
 wait_time = 3.0
 
@@ -6085,15 +6071,6 @@ collision_mask = 16
 position = Vector2(52.5, -50.5)
 shape = SubResource("RectangleShape2D_11min")
 disabled = true
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(0, -45)
-color = Color(0, 1, 0.933333, 1)
-energy = 3.1
-shadow_enabled = true
-texture = ExtResource("35_f3h3w")
-texture_scale = 0.3
 
 [node name="FruitNinjaLine" type="Line2D" parent="."]
 top_level = true

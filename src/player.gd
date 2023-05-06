@@ -23,6 +23,7 @@ var ac_fruit_ninja = 40
 
 
 @onready var death_screen = $CanvasLayer/DeathScreen
+@onready var ui = $CanvasLayer/PlayerUI
 
 @onready var anim = $AnimationPlayer
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
@@ -1394,7 +1395,7 @@ func reincarnation(delta):
 			
 			
 func change_scene_to_dead_screen():
-	$CanvasLayer/PlayerUI.visible = false
+	ui.visible = false
 	get_tree().paused = true
 	death_screen.visible = true
 

@@ -1,0 +1,158 @@
+[gd_scene load_steps=3 format=3 uid="uid://biwl3o1dv7eti"]
+
+[ext_resource type="Texture2D" uid="uid://cfa27gulmsn45" path="res://icon.svg" id="1_keyp1"]
+[ext_resource type="Script" path="res://src/menus/saves_menu.gd" id="1_sr6cb"]
+
+[node name="SavesMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sr6cb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+columns = 3
+
+[node name="Save1" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GridContainer/Save1"]
+custom_minimum_size = Vector2(329.143, 185.143)
+layout_mode = 2
+texture = ExtResource("1_keyp1")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/GridContainer/Save1"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer/Save1/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Load1" type="Button" parent="MarginContainer/GridContainer/Save1"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "LOAD INTO THIS STORY"
+
+[node name="Delete1" type="Button" parent="MarginContainer/GridContainer/Save1"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "DELETE THAT!"
+
+[node name="Save2" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GridContainer/Save2"]
+custom_minimum_size = Vector2(329.143, 185.143)
+layout_mode = 2
+texture = ExtResource("1_keyp1")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/GridContainer/Save2"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer/Save2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Load2" type="Button" parent="MarginContainer/GridContainer/Save2"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "LOAD INTO THIS STORY"
+
+[node name="Delete2" type="Button" parent="MarginContainer/GridContainer/Save2"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "DELETE THAT!"
+
+[node name="Save3" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GridContainer/Save3"]
+custom_minimum_size = Vector2(329.143, 185.143)
+layout_mode = 2
+texture = ExtResource("1_keyp1")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/GridContainer/Save3"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer/Save3/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Load3" type="Button" parent="MarginContainer/GridContainer/Save3"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "LOAD INTO THIS STORY"
+
+[node name="Delete3" type="Button" parent="MarginContainer/GridContainer/Save3"]
+custom_minimum_size = Vector2(329, 50)
+layout_mode = 2
+text = "DELETE THAT!"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Are you sure?"
+size = Vector2i(263, 100)
+ok_button_text = "CONFIRM"
+cancel_button_text = "CANCEL"
+
+[node name="BackToMainMenu" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 218.0
+offset_bottom = 71.0
+text = "Back to main menu"
+
+[connection signal="pressed" from="MarginContainer/GridContainer/Save1/Load1" to="." method="_on_load_1_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/Save1/Delete1" to="." method="_on_delete_1_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/Save2/Load2" to="." method="_on_load_2_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/Save2/Delete2" to="." method="_on_delete_2_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/Save3/Load3" to="." method="_on_load_3_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/Save3/Delete3" to="." method="_on_delete_3_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

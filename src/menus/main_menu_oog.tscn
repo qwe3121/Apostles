@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://b7srus3byt3rd"]
 
 [ext_resource type="Script" path="res://src/menus/main_menu_oog.gd" id="1_ohkey"]
-[ext_resource type="PackedScene" uid="uid://cc0n2u5dlt6rp" path="res://src/menus/load_menu.tscn" id="2_t8gug"]
 [ext_resource type="Texture2D" uid="uid://blqfnudxaxbg6" path="res://sprites/Ptici_Letat.png" id="3_kwbjt"]
 [ext_resource type="PackedScene" uid="uid://cqkil170brmc4" path="res://src/menus/settings_menu.tscn" id="3_lkhll"]
 [ext_resource type="Texture2D" uid="uid://bvwpadvlmypcm" path="res://sprites/Oblaka_1_ALL.png" id="3_tlapm"]
 [ext_resource type="Texture2D" uid="uid://b28mamkf5umey" path="res://sprites/Paralaks2.png" id="3_xpsqe"]
 [ext_resource type="Texture2D" uid="uid://dp3456nbcqhfs" path="res://sprites/Zastavka1_5_var1.png" id="5_sk4ij"]
+[ext_resource type="PackedScene" uid="uid://biwl3o1dv7eti" path="res://src/menus/saves_menu.tscn" id="6_gcdun"]
 [ext_resource type="PackedScene" uid="uid://c7645126n6rqf" path="res://src/rain_control.tscn" id="8_82w1l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_45mot"]
@@ -231,17 +231,9 @@ offset_right = 378.0
 offset_bottom = 345.0
 theme_override_constants/separation = 20
 
-[node name="ContinueButton" type="Button" parent="Main/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="Main/VBoxContainer"]
 layout_mode = 2
-text = "CONTINUE"
-
-[node name="NewGameButton" type="Button" parent="Main/VBoxContainer"]
-layout_mode = 2
-text = "NEW GAME"
-
-[node name="LoadButton" type="Button" parent="Main/VBoxContainer"]
-layout_mode = 2
-text = "LOAD GAME"
+text = "PLAY"
 
 [node name="SettingsButton" type="Button" parent="Main/VBoxContainer"]
 layout_mode = 2
@@ -251,7 +243,7 @@ text = "SETTINGS"
 layout_mode = 2
 text = "QUIT"
 
-[node name="LoadMenu" parent="." instance=ExtResource("2_t8gug")]
+[node name="SavesMenu" parent="." instance=ExtResource("6_gcdun")]
 visible = false
 layout_mode = 1
 
@@ -268,8 +260,6 @@ libraries = {
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="Main/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="Main/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="Main/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Main/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Main/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
