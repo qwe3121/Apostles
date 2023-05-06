@@ -1,4 +1,4 @@
-[gd_scene load_steps=432 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=433 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -5843,6 +5843,9 @@ _data = {
 "stun": SubResource("Animation_sbwdg")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37nia"]
+size = Vector2(70, 10)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bstkj"]
 shader = ExtResource("35_18ku5")
 shader_parameter/sun_position = Vector2(150, 150)
@@ -5958,41 +5961,56 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CanStandUpRaycasts" type="Node2D" parent="."]
-visible = false
 
 [node name="LeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+visible = false
 position = Vector2(-15, 0)
 rotation = 3.14159
+enabled = false
 target_position = Vector2(0, 90.5)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="MiddleRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+visible = false
 rotation = 3.14159
+enabled = false
 target_position = Vector2(0, 90.5)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="MiddleLeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+visible = false
 position = Vector2(-8, 0)
 rotation = 3.14159
+enabled = false
 target_position = Vector2(0, 90.5)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="MiddleRightRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+visible = false
 position = Vector2(9, 0)
 rotation = 3.14159
+enabled = false
 target_position = Vector2(0, 90.5)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="RightRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
+visible = false
 position = Vector2(15, 0)
 rotation = 3.14159
+enabled = false
 target_position = Vector2(0, 90.5)
 collision_mask = 2
 hit_from_inside = true
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="CanStandUpRaycasts"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_37nia")
+target_position = Vector2(0, -80)
+collision_mask = 2
 
 [node name="WallSlideCooldown" type="Timer" parent="."]
 wait_time = 0.2

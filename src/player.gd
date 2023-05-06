@@ -37,7 +37,8 @@ var ac_fruit_ninja = 40
 @onready var weak_combo_timer = $WeakComboTimer
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
-@onready var can_stand_up_raycasts = $CanStandUpRaycasts
+#@onready var can_stand_up_raycasts = $CanStandUpRaycasts
+@onready var can_stand_up_shapecast = $CanStandUpRaycasts/ShapeCast2D
 @onready var wall_slide_cooldown = $WallSlideCooldown
 @onready var hitbox_col = $Hitbox/CollisionShape2D
 @onready var blood_pos = $BloodPos
@@ -867,14 +868,15 @@ func check_is_valid_wall(wall_raycasts):
 		
 		
 func check_if_can_stand_up():
-	var count = 0
-	for raycast in can_stand_up_raycasts.get_children():
-		if raycast.is_colliding():
-			count += 1
-	if count:
-		return false
-	else:
-		return true
+#	var count = 0
+#	for raycast in can_stand_up_raycasts.get_children():
+#		if raycast.is_colliding():
+#			count += 1
+#	if count:
+#		return false
+#	else:
+#		return true
+	return not can_stand_up_shapecast.is_colliding()
 	
 
 func wall_slide(delta):

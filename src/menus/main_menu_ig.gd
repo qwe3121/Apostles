@@ -108,7 +108,7 @@ func _on_save_button_pressed():
 func _on_autosave_timer_timeout():
 		snl.make_screenshot()
 		snl.save_game("autosave", "autosave")
-		print("autosaved")
+#		print("autosaved")
 
 
 func _on_settings_button_pressed():
