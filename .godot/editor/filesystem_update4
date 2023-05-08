@@ -1,9 +1,6 @@
 res://src/player.tscn
 res://addons/dialogic/Editor/Events/styles/ResourceMenuPanelBackground.tres
-res://src/dialogues/chars/test.dch
-res://src/enemies/creeps/grounded/mk_1.tscn
 res://src/dialogues/timelines/test.dtl
 res://addons/dialogic/Editor/Events/styles/InputFieldsStyle.tres
-res://src/world.gd
 res://src/autoloads/dialog.gd
-res://src/menus/main_menu_ig.gd
+res://src/dialogues/chars/test.dch

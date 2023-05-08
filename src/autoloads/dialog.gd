@@ -24,6 +24,6 @@ func _on_the_end_of_dialog():
 	
 	global.player.ui.visible = true
 	
-	await get_tree().create_timer(0.1).timeout
-	
+	await get_tree().create_timer(0.2).timeout
+
 	get_tree().paused = false

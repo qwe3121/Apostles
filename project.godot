@@ -34,13 +34,13 @@ dialog="*res://src/autoloads/dialog.gd"
 [dialogic]
 
 editor/character_preview_mode=0
-editor/current_editor=&"Settings"
+editor/current_editor=&"Timeline Editor"
 editor/current_resources={
 "Character Editor": "res://src/dialogues/chars/test.dch",
 "Timeline Editor": "res://src/dialogues/timelines/test.dtl"
 }
-editor/last_resources=PackedStringArray("", "res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch")
-editor/last/resources=["", "res://src/dialogues/timelines/test-timeline.dtl", "res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch"]
+editor/last_resources=PackedStringArray("res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch", "")
+editor/last/resources=["res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch"]
 editor/visual_timeline_editor_sidebar=200.0
 editor/current_timeline_path="res://src/dialogues/timelines/test.dtl"
 variables={}
@@ -59,6 +59,8 @@ text/autocontinue_delay=1.0
 text/autopauses={}
 editor/timeline_editor_mode=0
 portrait_mode=0
+text/autocolor_names=false
+layout/end_behaviour=0
 
 [display]
 

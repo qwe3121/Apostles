@@ -1,6 +1,6 @@
 Join test 1
 test: Привет. Хочешь получить по голове? Спускайся вниз.
 - Хочу, жди!
-	test: Жду с нетерпением!
+	test: Жду с [wave][color=red]нет[/color][color=orange]ерп[/color][color=yellow]ени[/color][color=green]ем[/color]![/wave]
 - Не хочу, я тебя боюсь!
-	test: Я реально страшный.
+	test: Я реально [wave][color=red]ст[/color][color=orange]ра[/color][color=yellow]шн[/color][color=green]ый[/color].[/wave]
