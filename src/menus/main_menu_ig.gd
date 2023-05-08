@@ -19,7 +19,7 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("ESCAPE"):
+	if Input.is_action_just_pressed("ESCAPE") and not dialog.dialog_is_showed:
 		if current_menu == "none":
 			global.player.ui.visible = false
 			color_rect.visible = true
@@ -47,7 +47,7 @@ func load_main_menu():
 	
 	
 func hide_menu():
-	if not global.player.death_screen.visible: get_tree().paused = false
+	if not global.player.death_screen.visible and not dialog.dialog_is_showed: get_tree().paused = false
 	color_rect.visible = false
 	global.player.ui.visible = true
 	make_all_menus_invisible()

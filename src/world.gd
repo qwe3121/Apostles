@@ -11,6 +11,9 @@ func _ready():
 	get_tree().get_root().size_changed.connect(_on_size_changed)
 	_on_size_changed()
 	$Parallax/Sprite2D.texture = $SubViewport.get_texture()
+	
+	await get_tree().create_timer(2.5).timeout
+	dialog.start("res://src/dialogues/timelines/test.dtl")
 
 
 func _on_size_changed():
