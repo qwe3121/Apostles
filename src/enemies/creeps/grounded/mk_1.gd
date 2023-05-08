@@ -98,7 +98,8 @@ var player_is_inside = false
 
 func _ready():
 	blood.modulate.a = randf_range(0.6, 1.0)
-	walking_timer_start()
+	walking_timer.wait_time = randi_range(1,5)
+	walking_timer.autostart = true
 	
 	
 

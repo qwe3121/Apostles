@@ -97,7 +97,9 @@ var player_is_inside = false
 
 func _ready():
 	blood.modulate.a = randf_range(0.6, 1.0)
-	walking_timer_start()
+	
+	walking_timer.wait_time = randi_range(1,5)
+	walking_timer.autostart = true
 	
 
 func get_damage(value, k_dir = 0, damager = null):
@@ -389,7 +391,7 @@ func _on_walking_timer_timeout():
 	
 func walking_timer_start():
 	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.autostart = true
+	walking_timer.start()
 	
 	
 func _on_attack_cooldown_timeout():

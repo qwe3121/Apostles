@@ -37,6 +37,10 @@ var ac_fruit_ninja = 40
 @onready var weak_combo_timer = $WeakComboTimer
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
+
+var can_get_damage = true
+@onready var gettin_damage_CD = $GettinDamageCD
+
 #@onready var can_stand_up_raycasts = $CanStandUpRaycasts
 @onready var can_stand_up_shapecast = $CanStandUpRaycasts/ShapeCast2D
 @onready var wall_slide_cooldown = $WallSlideCooldown
@@ -139,14 +143,17 @@ func set_adrenaline(value):
 	var tween2 = create_tween()
 	tween2.tween_property(adrenaline_bar_under, "value", adrenaline, 0.2)
 
-var speed = 400 # было 300
-var jump_velocity = -450 # было -600
+var speed = 400
+var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 1
+var hp = 3
 
 
-func get_damage(source: String, can_block, damager = null): #fire, bullet, hit, cut
+func get_damage(source: String, damage: int, can_block: bool, damager = null): #fire, bullet, hit, cut
+	if damager == null and not can_get_damage:
+		return
+	
 	if can_block and (state == BLOCK or state == ROLL or state == BLOCKED):
 		if state == BLOCK:
 			block_stamina_timer.stop()
@@ -158,7 +165,11 @@ func get_damage(source: String, can_block, damager = null): #fire, bullet, hit, 
 		
 	last_damage_source = source
 
-	hp -= 1
+	hp -= damage
+	
+	can_get_damage = false
+	gettin_damage_CD.start()
+	
 	if hp <= 0:
 		state_started = false
 		from_jump_to_air_timer.stop()
@@ -1409,3 +1420,7 @@ func _on_wall_slide_stamina_timer_timeout():
 
 func shake_camera():
 	global.camera.shake(2)
+
+
+func _on_gettin_damage_cd_timeout():
+	can_get_damage = true

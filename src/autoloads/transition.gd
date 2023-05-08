@@ -6,6 +6,8 @@ extends CanvasLayer
 
 
 func change_scene(target: String):
+	global.cur_menu.process_mode = Node.PROCESS_MODE_DISABLED
+	
 	events.emit_signal("scene_is_about_to_be_changed")
 	if cfg.cfg_data.glitchy_transition_on:
 		anim.play("fade_in")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://biwl3o1dv7eti"]
 
-[ext_resource type="Texture2D" uid="uid://cfa27gulmsn45" path="res://icon.svg" id="1_keyp1"]
+[ext_resource type="Texture2D" uid="uid://cjfuismmke2hv" path="res://icon.svg" id="1_keyp1"]
 [ext_resource type="Script" path="res://src/menus/saves_menu.gd" id="1_sr6cb"]
 
 [node name="SavesMenu" type="Control"]

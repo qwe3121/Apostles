@@ -10,6 +10,10 @@ var current_menu = "none" #none, main, saves, settings
 
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	global.cur_menu = self
+	
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	$SavesMenu/BackToMainMenu.pressed.connect(load_main_menu)
 
@@ -55,7 +59,6 @@ func _on_resume_button_pressed():
 
 
 func _on_quit_tmm_button_pressed():
-	get_tree().paused = false
 	trans.change_scene("res://src/menus/main_menu_oog.tscn")
 	
 

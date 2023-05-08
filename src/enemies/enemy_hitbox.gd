@@ -10,7 +10,7 @@ var see_player = false
 
 func _process(delta):
 	if see_player:
-		global.player.get_damage(damage_source, can_block)
+		global.player.get_damage(damage_source, 1, can_block)
 
 
 func _on_body_entered(body):

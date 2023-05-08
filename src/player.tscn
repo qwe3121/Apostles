@@ -6107,6 +6107,9 @@ position = Vector2(0, -44)
 
 [node name="WallSlideStaminaTimer" type="Timer" parent="."]
 
+[node name="GettinDamageCD" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]
 [connection signal="timeout" from="WallSlideCooldown" to="." method="_on_wall_slide_cooldown_timeout"]
@@ -6120,3 +6123,4 @@ position = Vector2(0, -44)
 [connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]
 [connection signal="timeout" from="BlockStaminaTimer" to="." method="_on_block_stamina_timer_timeout"]
 [connection signal="timeout" from="WallSlideStaminaTimer" to="." method="_on_wall_slide_stamina_timer_timeout"]
+[connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
