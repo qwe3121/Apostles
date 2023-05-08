@@ -386,7 +386,7 @@ func _on_walking_timer_timeout():
 	
 func walking_timer_start():
 	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.autostart = true
+	walking_timer.start()
 	
 	
 func _on_attack_cooldown_timeout():
