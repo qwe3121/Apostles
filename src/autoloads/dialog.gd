@@ -6,6 +6,8 @@ var dialog_is_showed: bool = false
 
 func _ready():
 	Dialogic.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	Dialogic.timeline_ended.connect(_on_the_end_of_dialog)
 
 
 func start(path: String):
@@ -14,7 +16,6 @@ func start(path: String):
 	global.player.ui.visible = false
 	
 	Dialogic.start(path).process_mode = Node.PROCESS_MODE_ALWAYS
-	Dialogic.timeline_ended.connect(_on_the_end_of_dialog)
 	
 	get_tree().paused = true
 

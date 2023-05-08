@@ -39,7 +39,7 @@ editor/current_resources={
 "Character Editor": "res://src/dialogues/chars/test.dch",
 "Timeline Editor": "res://src/dialogues/timelines/test.dtl"
 }
-editor/last_resources=PackedStringArray("res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch", "")
+editor/last_resources=PackedStringArray("res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch")
 editor/last/resources=["res://src/dialogues/timelines/test.dtl", "res://src/dialogues/chars/test.dch"]
 editor/visual_timeline_editor_sidebar=200.0
 editor/current_timeline_path="res://src/dialogues/timelines/test.dtl"

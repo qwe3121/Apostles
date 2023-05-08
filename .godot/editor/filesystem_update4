@@ -3,4 +3,3 @@ res://addons/dialogic/Editor/Events/styles/ResourceMenuPanelBackground.tres
 res://src/dialogues/timelines/test.dtl
 res://addons/dialogic/Editor/Events/styles/InputFieldsStyle.tres
 res://src/autoloads/dialog.gd
-res://src/dialogues/chars/test.dch
