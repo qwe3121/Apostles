@@ -38,6 +38,9 @@ var ac_fruit_ninja = 40
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
 
+var flashing = 0
+@onready var flashlight_timer = $FlashlightTimer
+
 var can_get_damage = true
 @onready var gettin_damage_CD = $GettinDamageCD
 
@@ -177,6 +180,11 @@ func get_damage(source: String, damage: int, can_block: bool, damager = null): #
 			if damager.name == "TrapHitbox":
 				damager.turn_into_bloody_version()
 		state = DEAD
+	elif not flashing:
+		flashing = 1
+		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
+		flashlight_timer.start()
+	
 	pass
 
 func set_dir():
@@ -1424,3 +1432,12 @@ func shake_camera():
 
 func _on_gettin_damage_cd_timeout():
 	can_get_damage = true
+	
+func _on_flashlight_timer_timeout():
+	if flashing == 1:
+		animated_sprite.material.set_shader_parameter("flash_modifier", 0.5)
+		flashing = 2
+		flashlight_timer.start()
+	elif flashing == 2:
+		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
+		flashing = 0

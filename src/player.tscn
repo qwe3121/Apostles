@@ -1,7 +1,8 @@
-[gd_scene load_steps=432 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=434 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
+[ext_resource type="Shader" path="res://src/enemies/hitted.gdshader" id="2_e15ku"]
 [ext_resource type="Texture2D" uid="uid://dlbtntefymj8n" path="res://sprites/player/air2.png" id="3_3ghpb"]
 [ext_resource type="Texture2D" uid="uid://c4c52pel7u3ei" path="res://sprites/player/crouch.png" id="3_oi8ox"]
 [ext_resource type="Texture2D" uid="uid://otuie4ycem16" path="res://sprites/player/dash.png" id="4_8cdn5"]
@@ -44,6 +45,11 @@
 [ext_resource type="Texture2D" uid="uid://cky3ib2pn5xfp" path="res://sprites/player/Vozrojdenie.png" id="36_yuknm"]
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iel4b"]
+shader = ExtResource("2_e15ku")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -5906,6 +5912,7 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
+material = SubResource("ShaderMaterial_iel4b")
 position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
@@ -6110,6 +6117,10 @@ position = Vector2(0, -44)
 [node name="GettinDamageCD" type="Timer" parent="."]
 one_shot = true
 
+[node name="FlashlightTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]
 [connection signal="timeout" from="WallSlideCooldown" to="." method="_on_wall_slide_cooldown_timeout"]
@@ -6124,3 +6135,4 @@ one_shot = true
 [connection signal="timeout" from="BlockStaminaTimer" to="." method="_on_block_stamina_timer_timeout"]
 [connection signal="timeout" from="WallSlideStaminaTimer" to="." method="_on_wall_slide_stamina_timer_timeout"]
 [connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
+[connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout"]

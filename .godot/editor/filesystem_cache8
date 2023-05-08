@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1683507832
+::res://::1683508015
 default_bus_layout.tres::AudioBusLayout::1184647652392673330::1683343278::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1683343278::0::1::::<><>::
 icon.svg::CompressedTexture2D::5416092439622093615::1683343278::1683356949::1::::<><>::
@@ -249,10 +249,10 @@ trap_hitbox.tscn::PackedScene::4111833554539905900::1683343279::0::1::::<><>::re
 death_effect.gdshader::Shader::-1::1683343279::0::1::::<><>::
 mk_6.gd::GDScript::-1::1683495116::0::1::::<>CharacterBody2D<>::
 mk_6.tscn::PackedScene::3884946075864283269::1683346783::0::1::::<><>::res://src/enemies/creeps/floating/mk_6.gd<>res://src/enemies/hitted.gdshader<>uid://cbkh3hdwgrmqu<>uid://bo87l2rc0fmgq<>uid://vtxuvan52elb<>uid://ctgq10wm5sr34<>uid://50e632sg261m<>uid://crjnl82b5gvxt<>uid://bxsavm7st1eud<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw<>uid://ctgggpeocdpgi
-::res://src/enemies/creeps/grounded/::1683507489
+::res://src/enemies/creeps/grounded/::1683507945
 mk1_bullet.tscn::PackedScene::269731696032485479::1683343279::0::1::::<><>::res://src/enemies/base_bullet.gd<>uid://cf453gtayy8vo
-mk_1.gd::GDScript::-1::1683507412::0::1::::<>CharacterBody2D<>::
-mk_1.tscn::PackedScene::6569567713944953364::1683507489::0::1::::<><>::uid://ckhj5wuho1fds<>res://src/enemies/creeps/grounded/mk_1.gd<>uid://vkgdafjw8qrk<>res://src/enemies/hitted.gdshader<>uid://pr537m1vrf8p<>uid://cob807vm2jr<>uid://di76ecijcw3nr<>uid://dbqvfafyipiwl<>uid://cjrh1lwih30jh<>uid://cmoq6m0apiux<>uid://cf5skmx5viom3<>uid://coyq85meg64q<>uid://davyuw7k7mxsr<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
+mk_1.gd::GDScript::-1::1683507854::0::1::::<>CharacterBody2D<>::
+mk_1.tscn::PackedScene::6569567713944953364::1683507945::0::1::::<><>::uid://ckhj5wuho1fds<>res://src/enemies/creeps/grounded/mk_1.gd<>uid://vkgdafjw8qrk<>res://src/enemies/hitted.gdshader<>uid://pr537m1vrf8p<>uid://cob807vm2jr<>uid://di76ecijcw3nr<>uid://dbqvfafyipiwl<>uid://cjrh1lwih30jh<>uid://cmoq6m0apiux<>uid://cf5skmx5viom3<>uid://coyq85meg64q<>uid://davyuw7k7mxsr<>uid://fn3iekos5vpb<>uid://b35mtaivpmt5e<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
 mk_2.gd::GDScript::-1::1683495135::0::1::::<>CharacterBody2D<>::
 mk_2.tscn::PackedScene::2181828922375978724::1683346783::0::1::::<><>::res://src/enemies/creeps/grounded/mk_2.gd<>uid://by3rgtf4t4xyy<>uid://c8832hghnnkfr<>res://src/enemies/hitted.gdshader<>uid://bxib1gky6ds8f<>uid://camnjo7jqyq5y<>uid://b3ysqhc0n1kxc<>uid://dm7h2dx06bh5y<>uid://bo8wr671fqrns<>uid://bupagieoedh2p<>uid://bvk4qb6jyjv3v<>uid://blnu8fohv2e3t<>uid://buomtftwhn0av<>uid://wyex1l2irpsf<>uid://b35mtaivpmt5e<>uid://fn3iekos5vpb<>uid://pntwe7skdrvm<>uid://ba775s7f7qadw
 ::res://src/enemies/some_traps/::1683346783

@@ -1,2 +1,3 @@
+res://src/player.tscn
 res://src/enemies/creeps/grounded/mk_1.tscn
-res://src/enemies/creeps/grounded/mk_1.gd
+res://src/player.gd
