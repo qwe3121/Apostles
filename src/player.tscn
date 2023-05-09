@@ -6033,6 +6033,11 @@ wait_time = 5.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="MainMenuIG" parent="CanvasLayer" instance=ExtResource("17_23wrp")]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("16_pe3io")]
 
 [node name="DeathScreen" parent="CanvasLayer" instance=ExtResource("43_dwywp")]
 visible = false
@@ -6056,10 +6061,6 @@ libraries = {
 
 [node name="SunlensTimer" type="Timer" parent="CanvasLayer/SunLens"]
 one_shot = true
-
-[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("16_pe3io")]
-
-[node name="MainMenuIG" parent="CanvasLayer" instance=ExtResource("17_23wrp")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -44)

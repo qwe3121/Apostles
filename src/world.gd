@@ -11,9 +11,6 @@ func _ready():
 	get_tree().get_root().size_changed.connect(_on_size_changed)
 	_on_size_changed()
 	$Parallax/Sprite2D.texture = $SubViewport.get_texture()
-	
-	await get_tree().create_timer(2.5).timeout
-	dialog.start("res://src/dialogues/timelines/test.dtl")
 
 
 func _on_size_changed():
@@ -25,3 +22,7 @@ func _on_size_changed():
 func _physics_process(delta):
 	viewport_camera.position = player_camera.global_position
 	viewport_camera.offset = player_camera.offset
+
+
+func _on_timer_timeout():
+	dialog.start("res://src/dialogues/timelines/test.dtl")

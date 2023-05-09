@@ -1414,7 +1414,9 @@ func reincarnation(delta):
 			
 func change_scene_to_dead_screen():
 	ui.visible = false
+	$CanvasLayer/SunLens.visible = false
 	get_tree().paused = true
+	death_screen.set_process_input(true)
 	death_screen.visible = true
 
 

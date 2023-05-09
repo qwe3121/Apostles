@@ -8,28 +8,43 @@ var current_menu = "none" #none, main, saves, settings
 @onready var saves_menu = $SavesMenu
 @onready var settings_menu = $SettingsMenu
 
+@onready var main_menu_focus = $Main/VBoxContainer/ResumeButton
+@onready var saves_menu_focus = $SavesMenu/BackToMainMenu
+@onready var settings_menu_focus = $SettingsMenu/BackToMainMenu
+
 
 func _ready():
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
+	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	global.cur_menu = self
 	
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	$SavesMenu/BackToMainMenu.pressed.connect(load_main_menu)
+	
+	
+func _on_focus_changed(control):
+	if control != null:
+		match current_menu:
+			"main":
+				main_menu_focus = control
+			"saves":
+				saves_menu_focus = control
+			"settings":
+				settings_menu_focus = control
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("ESCAPE") and not dialog.dialog_is_showed:
+	if Input.is_action_just_pressed("ESCAPE") and not dialog.dialog_is_showed and not global.player.death_screen.visible:
 		if current_menu == "none":
 			global.player.ui.visible = false
 			color_rect.visible = true
 			load_main_menu()
-			$Main/VBoxContainer/ResumeButton.grab_focus()
 		elif current_menu == "main":
 			hide_menu()
 		else:
 			load_main_menu()
-			$Main/VBoxContainer/ResumeButton.grab_focus()
 			
 			
 func make_all_menus_invisible():
@@ -42,8 +57,8 @@ func load_main_menu():
 	get_tree().paused = true
 	make_all_menus_invisible()
 	main_menu.visible = true
-	$Main/VBoxContainer/ResumeButton.grab_focus()
 	current_menu = "main"
+	main_menu_focus.grab_focus()
 	
 	
 func hide_menu():
@@ -69,13 +84,13 @@ func _on_quit_oog_button_pressed():
 func _on_settings_button_pressed():
 	make_all_menus_invisible()
 	settings_menu.visible = true
-	$SettingsMenu/BackToMainMenu.grab_focus()
 	current_menu = "settings"
+	settings_menu_focus.grab_focus()
 
 
 func _on_saves_button_pressed():
 	make_all_menus_invisible()
 	saves_menu.update()
 	saves_menu.visible = true
-	$SavesMenu/BackToMainMenu.grab_focus()
 	current_menu = "saves"
+	saves_menu_focus.grab_focus()
