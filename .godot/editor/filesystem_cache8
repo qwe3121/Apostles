@@ -1,5 +1,5 @@
 2a60927148abd1d33b818b535e306557
-::res://::1683527165
+::res://::1683599687
 default_bus_layout.tres::AudioBusLayout::1184647652392673330::1683343278::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1683343278::0::1::::<><>::
 icon.svg::CompressedTexture2D::5416092439622093615::1683343278::1683356949::1::::<><>::
@@ -64,11 +64,11 @@ SinglelineText.gd::GDScript::-1::1683520696::0::1::::<>LineEdit<>::
 SinglelineText.tscn::PackedScene::193280157467062682::1683520696::0::1::::<><>::res://addons/dialogic/Editor/Events/Fields/SinglelineText.gd
 Vector2.gd::GDScript::-1::1683520696::0::1::::<>Control<>::
 Vector2.tscn::PackedScene::250297584763637452::1683520696::0::1::::<><>::res://addons/dialogic/Editor/Events/Fields/Vector2.gd<>uid://kdpp3mibml33
-::res://addons/dialogic/Editor/Events/styles/::1683527117
-InputFieldsStyle.tres::Theme::9138712547249545382::1683527117::0::1::::<><>::
+::res://addons/dialogic/Editor/Events/styles/::1683527416
+InputFieldsStyle.tres::Theme::9138712547249545382::1683527416::0::1::::<><>::
 ResourceMenuHover.tres::StyleBoxFlat::-1::1683520696::0::1::::<><>::
 ResourceMenuNormal.tres::StyleBoxFlat::-1::1683520696::0::1::::<><>::
-ResourceMenuPanelBackground.tres::StyleBoxFlat::209165682571293718::1683527117::0::1::::<><>::
+ResourceMenuPanelBackground.tres::StyleBoxFlat::209165682571293718::1683527416::0::1::::<><>::
 SectionPanel.tres::StyleBoxFlat::-1::1683520696::0::1::::<><>::
 selected_styleboxflat.tres::StyleBoxFlat::986196691045147741::1683520696::0::1::::<><>::
 SettingsFieldBackground.tres::StyleBoxFlat::-1::1683520696::0::1::::<><>::
@@ -604,7 +604,7 @@ Cerp_4X_v_Krovi.png::CompressedTexture2D::8608584880795814226::1683343279::16833
 Cirkylarna_Pila_Polaa_v_Krovi.png::CompressedTexture2D::3487724925754152909::1683343279::1683356949::1::::<><>::
 Cirkylarna_Pila_v_Krovi.png::CompressedTexture2D::239568090403646614::1683343279::1683356949::1::::<><>::
 Wecterenka_v_Krovi.png::CompressedTexture2D::4914276329485612975::1683343279::1683356949::1::::<><>::
-::res://src/::1683527149
+::res://src/::1683527416
 blood_drop.gd::GDScript::-1::1683343279::0::1::::<>CharacterBody2D<>::
 blood_drop.tscn::PackedScene::347899410260400630::1683346783::0::1::::<><>::res://src/blood_drop.gd
 Camera2D.gd::GDScript::-1::1683343279::0::1::::<>Camera2D<>::
@@ -616,7 +616,7 @@ energy_beam_test.tscn::PackedScene::4032866691299362467::1683343279::0::1::::<><
 godrays.gdshader::Shader::-1::1683343279::0::1::::<><>::
 lens_flare.gdshader::Shader::-1::1683343279::0::1::::<><>::
 player.gd::GDScript::-1::1683509148::0::1::::<>CharacterBody2D<>::
-player.tscn::PackedScene::625273419597997624::1683527149::0::1::::<><>::res://src/player.gd<>uid://b8ewi5rtt87u3<>res://src/enemies/hitted.gdshader<>uid://dlbtntefymj8n<>uid://c4c52pel7u3ei<>uid://otuie4ycem16<>uid://cgit7n1mhu6n7<>uid://bijwibx8d2vdc<>uid://ikb2us3yrrm5<>uid://bbna01swj6up2<>uid://cnwj70lsnkq0k<>uid://detl2cyssdwpl<>uid://hrj7clb1p1eg<>uid://b0ud8m6tjmlfa<>uid://l5p8nhjvph8x<>uid://bphh7rpl0keih<>uid://b6sr1bsm3deu4<>uid://d3ftshn2vrj8u<>uid://d2hy6t8bnqijc<>uid://bhxyxuygbhof5<>uid://cjoggey4d4thm<>uid://dvgnle0ag8874<>uid://b6irwyej8yo37<>uid://ckdpq1d5jex8s<>uid://cvbpraioj4okf<>uid://c0rdcqmtntem8<>uid://md64urrxtfyp<>uid://dprdolhr3jar<>uid://db8x8ya1u5whi<>uid://ufl12grdk1dn<>uid://iutl04nugwdx<>uid://uyegvkjcrebl<>uid://n7i2kakprr3i<>uid://cvntnxh5cmar<>uid://n3vmei0jw4rj<>uid://b657fi5hccwv6<>uid://cbvwdtvybsxl5<>res://src/Camera2D.gd<>uid://caomoayau5pu2<>res://src/lens_flare.gdshader<>uid://cvltbo6cql2ru<>uid://3llqnvr6s7qr<>uid://cky3ib2pn5xfp<>uid://b4d67jbml821x<>uid://by8bc3v7k3d1
+player.tscn::PackedScene::625273419597997624::1683527416::0::1::::<><>::res://src/player.gd<>uid://b8ewi5rtt87u3<>res://src/enemies/hitted.gdshader<>uid://dlbtntefymj8n<>uid://c4c52pel7u3ei<>uid://otuie4ycem16<>uid://cgit7n1mhu6n7<>uid://bijwibx8d2vdc<>uid://ikb2us3yrrm5<>uid://bbna01swj6up2<>uid://cnwj70lsnkq0k<>uid://detl2cyssdwpl<>uid://hrj7clb1p1eg<>uid://b0ud8m6tjmlfa<>uid://l5p8nhjvph8x<>uid://bphh7rpl0keih<>uid://b6sr1bsm3deu4<>uid://d3ftshn2vrj8u<>uid://d2hy6t8bnqijc<>uid://bhxyxuygbhof5<>uid://cjoggey4d4thm<>uid://dvgnle0ag8874<>uid://b6irwyej8yo37<>uid://ckdpq1d5jex8s<>uid://cvbpraioj4okf<>uid://c0rdcqmtntem8<>uid://md64urrxtfyp<>uid://dprdolhr3jar<>uid://db8x8ya1u5whi<>uid://ufl12grdk1dn<>uid://iutl04nugwdx<>uid://uyegvkjcrebl<>uid://n7i2kakprr3i<>uid://cvntnxh5cmar<>uid://n3vmei0jw4rj<>uid://b657fi5hccwv6<>uid://cbvwdtvybsxl5<>res://src/Camera2D.gd<>uid://caomoayau5pu2<>res://src/lens_flare.gdshader<>uid://cvltbo6cql2ru<>uid://3llqnvr6s7qr<>uid://cky3ib2pn5xfp<>uid://b4d67jbml821x<>uid://by8bc3v7k3d1
 player_ui.gd::GDScript::-1::1683343279::0::1::::<>Control<>::
 player_ui.tscn::PackedScene::6562843462514789649::1683346783::0::1::::<><>::uid://borxmkojsv42c<>res://src/player_ui.gd<>uid://cpxux422uar6h<>uid://8ponlwt7pyhk<>uid://c177yn122ols1<>uid://lxdbk3fuun80<>uid://dwkfohckdmmbk<>uid://dm5wvcrd5sv7j<>uid://y58hfgujgh40
 pxl_clr.gdshader::Shader::-1::1683343279::0::1::::<><>::
@@ -626,10 +626,10 @@ wind_sway.gdshader::Shader::-1::1683343279::0::1::::<><>::
 world.gd::GDScript::-1::1683524592::0::1::::<>Node2D<>::
 world.tscn::PackedScene::5725004148394110849::1683507303::0::1::::<><>::res://src/world.gd<>uid://b0oy8qsfoiv64<>uid://tkpkec1y3ytj<>uid://ci2iricjlqxey<>uid://g00tuah2w7k7<>uid://dpcbmgvicm7y6<>uid://ca60fs7qfw1pe<>uid://76xlsn0n7a61<>res://src/wind_sway.gdshader<>uid://cojtabxrc4x8i<>uid://b8wt3svwlvvd1<>uid://dtpsyp7uneawe<>uid://n61nlc7rghsl<>uid://c8jaorqupva46<>uid://lvw1r3xpbf5y<>uid://dbcym3yce7ivp<>uid://cjx13xh1h7ta6<>uid://muqfvkemu52a<>uid://81s8ims6ayj0<>uid://cenquk4datjbn<>uid://ch14v3q4vbqxp<>uid://df8rsit15tl14<>uid://bf8tdrnfravgg<>uid://p44co2uk2omi<>uid://0cc71b7nyx2x<>uid://b17vrn2u66wi6<>uid://p25lxpdkyton<>uid://c3i3emiscl5w6<>uid://b5kgkf4kl6nry<>uid://dtgacleckskp4<>uid://ddoo8vj0wbuxm<>uid://bhhhu7a7psp3o<>uid://c3at3etxrsh42<>uid://d1q8nirs6qs80<>uid://bfjhvjxp0s1jw<>uid://b3aknyh1a4jlg<>uid://bsg4bbfw34hb<>uid://i55frea7mtlw<>res://src/rays.gdshader<>uid://cjfuismmke2hv<>res://src/rooms/level_1.tscn
 world_env.tres::Environment::4518038099092379378::1683343279::0::1::::<><>::
-::res://src/autoloads/::1683526977
+::res://src/autoloads/::1683527219
 blood_manager.gd::GDScript::-1::1683512561::0::1::::<>Node<>::
 cfg.gd::GDScript::-1::1683356098::0::1::::<>Node<>::
-dialog.gd::GDScript::-1::1683526977::0::1::::<>Node<>::
+dialog.gd::GDScript::-1::1683527219::0::1::::<>Node<>::
 events.gd::GDScript::-1::1683356649::0::1::::<>Node<>::
 global.gd::GDScript::-1::1683505008::0::1::::<>Node<>::
 global_settings.gd::GDScript::-1::1683343279::0::1::::<>Node<>::

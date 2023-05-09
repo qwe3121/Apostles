@@ -62,6 +62,7 @@ z_index = 5
 scale = Vector2(4, 4)
 
 [node name="Trace" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.380392, 1, 0.956863, 1)
 scale = Vector2(1.25, 1.25)
 

@@ -2,4 +2,5 @@ res://src/player.tscn
 res://addons/dialogic/Editor/Events/styles/ResourceMenuPanelBackground.tres
 res://src/dialogues/timelines/test.dtl
 res://addons/dialogic/Editor/Events/styles/InputFieldsStyle.tres
-res://src/autoloads/dialog.gd
+res://src/enemies/some_traps/stomp_trap.tscn
+res://src/blood_drop.tscn
