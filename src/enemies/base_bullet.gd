@@ -21,14 +21,22 @@ func _on_timer_timeout():
 
 
 func _on_body_entered(body):
+	var k_dir
+	
 	if body.name == "Player":
-		global.player.bullet_knockback = true
-		if global.player.anim_dir == 1 and dir == -1 or global.player.anim_dir == -1 and dir == 1:
-			global.player.bullet_dead_anim_speredi = true
+		if global_position.x > global.player.global_position.x:
+			k_dir = -1
+			if global.player.anim_dir == 1:
+				global.player.bullet_dead_anim_speredi = true
+			else:
+				global.player.bullet_dead_anim_speredi = false
 		else:
-			global.player.bullet_dead_anim_speredi = false
-		global.player.bullet_knockback_dir = dir
-		global.player.get_damage("bullet", 1, can_block)
+			k_dir = 1
+			if global.player.anim_dir == 1:
+				global.player.bullet_dead_anim_speredi = false
+			else:
+				global.player.bullet_dead_anim_speredi = true
+		global.player.get_damage("bullet", 1, can_block, null, k_dir)
 		queue_free()
 	else:
 		queue_free()

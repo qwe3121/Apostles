@@ -26,7 +26,7 @@ var player_adrenaline_gain = 20
 @onready var turned_timer = $TurnedTimer
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
-@onready var enemy_hitbox_col = $EnemyHitbox/CollisionPolygon2D
+@onready var ulti_hitbox = $UltiHitbox/Col
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
 var need_to_check_if_see_player = false
@@ -97,6 +97,9 @@ var last_knockback_dir = 0
 var player_is_inside = false
 
 func _ready():
+	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
+	animated_sprite.material.set_shader_parameter("alpha", 1.0)
+	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer.wait_time = randi_range(1,5)
 	walking_timer.autostart = true
@@ -367,7 +370,7 @@ func dead(delta):
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
-		enemy_hitbox_col.disabled = true
+		ulti_hitbox.disabled = true
 		for c in range(b_drops):
 			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
@@ -506,7 +509,7 @@ func fruit_dead(delta):
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
-		enemy_hitbox_col.disabled = true
+		ulti_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
 			blood_manager.create_blood(last_knockback_dir, blood_pos)

@@ -23,11 +23,10 @@ var player_adrenaline_gain = 20
 @onready var turned_timer = $TurnedTimer
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
-@onready var enemy_hitbox = $EnemyHitbox
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var ulti_hitbox = $EnemyHitbox/Ulti
-@onready var attack_hitbox = $EnemyHitbox/Attack
+@onready var ulti_hitbox = $UltiHitbox/Col
+@onready var attack_hitbox = $AttackHitbox/Col
 var need_to_check_if_see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -96,6 +95,9 @@ var last_knockback_dir = 0
 var player_is_inside = false
 
 func _ready():
+	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
+	animated_sprite.material.set_shader_parameter("alpha", 1.0)
+	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	
 	walking_timer.wait_time = randi_range(1,5)
@@ -130,7 +132,8 @@ func set_anim(animation_name):
 	blood.flip_h = !(last_knockback_dir == 1)
 	blood.position.x = 30 * last_knockback_dir
 	check_for_pit.position.x = 24.75 * anim_dir
-	enemy_hitbox.scale.x = -1 * anim_dir
+	attack_hitbox.position.x = 33 * anim_dir
+	ulti_hitbox.position.x = 50.5 * anim_dir
 	check_for_blocked_area_col.position.x = 31 * anim_dir
 	wall_detector_col.position.x = 18.25 * anim_dir
 

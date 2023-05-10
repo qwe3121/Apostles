@@ -1,4 +1,4 @@
-[gd_scene load_steps=434 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=439 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://cvltbo6cql2ru" path="res://sprites/player/cut_dead/Smert_Ydar.png" id="35_o0h6v"]
 [ext_resource type="Texture2D" uid="uid://3llqnvr6s7qr" path="res://sprites/player/Padaet_Mertvi_Spina.png" id="35_t6p11"]
 [ext_resource type="Texture2D" uid="uid://cky3ib2pn5xfp" path="res://sprites/player/Vozrojdenie.png" id="36_yuknm"]
+[ext_resource type="Texture2D" uid="uid://do1jwfm5yy5yy" path="res://sprites/player/Polychenie_Yrona_na_zemle.png" id="38_2jei0"]
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
 
@@ -50,6 +51,7 @@
 shader = ExtResource("2_e15ku")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
+shader_parameter/alpha = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxd7c"]
 atlas = ExtResource("2_dsqah")
@@ -1262,6 +1264,18 @@ region = Rect2(480, 0, 96, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_13q54"]
 atlas = ExtResource("32_rj08r")
 region = Rect2(576, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijv1w"]
+atlas = ExtResource("38_2jei0")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgyfv"]
+atlas = ExtResource("38_2jei0")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qis32"]
+atlas = ExtResource("38_2jei0")
+region = Rect2(192, 0, 96, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5ono"]
 atlas = ExtResource("35_o0h6v")
@@ -2483,6 +2497,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ijv1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgyfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qis32")
+}],
+"loop": true,
+"name": &"gettin_damage_on_floor",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_c5ono")
 }, {
 "duration": 1.0,
@@ -3641,6 +3669,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_7bm6q"]
@@ -5599,6 +5639,81 @@ tracks/4/keys = {
 "values": [0.5]
 }
 
+[sub_resource type="Animation" id="Animation_453c1"]
+resource_name = "gettin_damage_floor"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"gettin_damage_on_floor"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:shape:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 90)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -45)]
+}
+
 [sub_resource type="Animation" id="Animation_cp3td"]
 resource_name = "hit_dead"
 length = 1.3
@@ -5843,6 +5958,7 @@ _data = {
 "bullet_dead_szadi": SubResource("Animation_p1p4y"),
 "cut_dead": SubResource("Animation_xljfq"),
 "fire_dead": SubResource("Animation_y7g6n"),
+"gettin_damage_floor": SubResource("Animation_453c1"),
 "hit_dead": SubResource("Animation_cp3td"),
 "reincarnation": SubResource("Animation_drovn"),
 "stun": SubResource("Animation_sbwdg")
@@ -5916,14 +6032,15 @@ material = SubResource("ShaderMaterial_iel4b")
 position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"fire_dead"
+animation = &"bullet_dead_speredi"
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -45)
 shape = SubResource("RectangleShape2D_vnju1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 0.5
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_u6j56")
 }
@@ -5967,6 +6084,7 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CanStandUpRaycasts" type="Node2D" parent="."]
+visible = false
 
 [node name="LeftRaycast" type="RayCast2D" parent="CanStandUpRaycasts"]
 visible = false
@@ -6116,6 +6234,7 @@ position = Vector2(0, -44)
 [node name="WallSlideStaminaTimer" type="Timer" parent="."]
 
 [node name="GettinDamageCD" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="FlashlightTimer" type="Timer" parent="."]

@@ -22,10 +22,10 @@ var player_adrenaline_gain = 20
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
-@onready var ulti_dropdown_hitbox = $EnemyHitbox/UltiDropdown
 @onready var attack_hitbox = $AttackHitbox/AttackCollision
 @onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
-@onready var ulti_rocks_dropdown_hitbox = $EnemyHitbox/RocksDropdown
+@onready var rocks_dropdown_hitbox = $RocksDropdownHitbox/Col
+@onready var ulti_dropdown_hitbox = $UltiDropdownHitbox/Col
 var need_to_check_if_see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -100,6 +100,9 @@ func refresh_desired_distance():
 
 
 func _ready():
+	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
+	animated_sprite.material.set_shader_parameter("alpha", 1.0)
+	
 	y_pos_before_ulti = global_position.y
 	
 	default_speed = speed
@@ -340,8 +343,8 @@ func dead():
 	if !state_started:
 		state_started = true
 		attack_hitbox.disabled = true
+		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
-		ulti_rocks_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
 		for c in range(b_drops):
 			blood_manager.create_blood(last_knockback_dir, blood_pos)
@@ -468,8 +471,8 @@ func fruit_dead():
 	if !state_started:
 		state_started = true
 		attack_hitbox.disabled = true
+		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
-		ulti_rocks_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):

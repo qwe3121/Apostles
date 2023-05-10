@@ -30,8 +30,10 @@ var ac_fruit_ninja = 40
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
 @onready var adrenaline_bar_over = $CanvasLayer/PlayerUI/AdrenalineBarOver
 @onready var stamina_bar_over = $CanvasLayer/PlayerUI/StaminaBarOver
+@onready var health_bar_over = $CanvasLayer/PlayerUI/HealthBarOver
 @onready var adrenaline_bar_under = $CanvasLayer/PlayerUI/AdrenalineBarUnder
 @onready var stamina_bar_under = $CanvasLayer/PlayerUI/StaminaBarUnder
+@onready var health_bar_under = $CanvasLayer/PlayerUI/HealthBarUnder
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
 @onready var weak_combo_timer = $WeakComboTimer
@@ -116,9 +118,9 @@ var wall_jumping
 var single_anim_not_played_yet = true
 
 var last_damage_source: String
-var bullet_knockback_dir
 var bullet_dead_anim_speredi: bool = false
-var bullet_knockback: bool = false
+
+var knockback_dir = 0
 
 var stamina = 100 : set = set_stamina
 
@@ -150,10 +152,18 @@ var speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 3
+var hp = 3 : set = set_hp
 
 
-func get_damage(source: String, damage: int, can_block: bool, damager = null): #fire, bullet, hit, cut
+func set_hp(value):
+	hp = value
+	var tween1 = create_tween()
+	tween1.tween_property(health_bar_over, "value", hp, 0.1)
+	var tween2 = create_tween()
+	tween2.tween_property(health_bar_under, "value", hp, 0.2)
+
+
+func get_damage(source: String, damage: int, can_block: bool, damager = null, k_dir = 0): #fire, bullet, hit, cut
 	if damager == null and not can_get_damage:
 		return
 	
@@ -170,8 +180,12 @@ func get_damage(source: String, damage: int, can_block: bool, damager = null): #
 
 	hp -= damage
 	
+	global.camera.shake()
+	
 	can_get_damage = false
 	gettin_damage_CD.start()
+	
+	knockback_dir = k_dir
 	
 	if hp <= 0:
 		state_started = false
@@ -290,6 +304,8 @@ func set_anim(animation_name):
 				
 				
 func _ready():
+	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
+	animated_sprite.material.set_shader_parameter("alpha", 1.0)
 	global.player = self
 
 
@@ -359,6 +375,9 @@ func _physics_process(delta):
 			fruit_ninja()
 		REINCARNATION:
 			reincarnation(delta)
+			
+	if knockback_dir and is_on_floor() and not state == DEAD:
+		velocity.x = 200 * knockback_dir
 
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1
@@ -1255,8 +1274,8 @@ func _on_hitbox_body_entered(body):
 func dead(delta):
 	set_anim(DEAD)
 	velocity.y += gravity * delta
-	if last_damage_source == "bullet" and bullet_knockback:
-		velocity.x = bullet_knockback_dir * 200
+	if last_damage_source == "bullet" and knockback_dir:
+		velocity.x = knockback_dir * 200
 	else:
 		velocity.x = 0
 	if !state_started:
@@ -1265,10 +1284,6 @@ func dead(delta):
 		await anim.animation_finished
 		Engine.time_scale = 1.0
 		get_tree().reload_current_scene()
-		
-		
-func off_bullet_knockback():
-	bullet_knockback = false
 		
 		
 func fruit_ninja():
@@ -1443,3 +1458,9 @@ func _on_flashlight_timer_timeout():
 	elif flashing == 2:
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
+		knockback_dir = 0
+		
+		#these two needs test
+		velocity.y = 0
+		velocity.x = 0
+		####################
