@@ -40,6 +40,11 @@ var ac_fruit_ninja = 40
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
 
+@onready var col = $CollisionShape2D
+var need_to_change_col_size: bool = false
+var can_increase_col: bool = true
+var pre_anim: String
+
 var flashing = 0
 @onready var flashlight_timer = $FlashlightTimer
 
@@ -207,6 +212,11 @@ func set_dir():
 		anim_dir = dir
 
 func set_anim(animation_name):
+	pre_anim = anim.current_animation
+	
+	if need_to_change_col_size:
+		change_col_size()
+	
 	if animation_name == WALL_SLIDE:
 		animated_sprite.flip_h = wall_dir == -1
 	else:
@@ -301,6 +311,9 @@ func set_anim(animation_name):
 			anim.play("FruitNinja")
 		REINCARNATION:
 			anim.play("reincarnation")
+			
+	if anim.current_animation != pre_anim:
+		need_to_change_col_size = true
 				
 				
 func _ready():
@@ -376,7 +389,7 @@ func _physics_process(delta):
 		REINCARNATION:
 			reincarnation(delta)
 			
-	if knockback_dir and is_on_floor() and not state == DEAD:
+	if knockback_dir and is_on_floor():
 		velocity.x = 200 * knockback_dir
 
 	if flying_cause_of_mk6 and not state == DASH:
@@ -1153,8 +1166,8 @@ func landing():
 		await anim.animation_finished
 		if state == LANDING:
 			if np:
-				print("from landing to idle")
-			state = IDLE
+				print("from landing to sit")
+			state = SIT
 
 
 func first_jump_attack_1():
@@ -1274,10 +1287,7 @@ func _on_hitbox_body_entered(body):
 func dead(delta):
 	set_anim(DEAD)
 	velocity.y += gravity * delta
-	if last_damage_source == "bullet" and knockback_dir:
-		velocity.x = knockback_dir * 200
-	else:
-		velocity.x = 0
+	velocity.x = 0
 	if !state_started:
 		hitbox_col.disabled = true
 		state_started = true
@@ -1464,3 +1474,36 @@ func _on_flashlight_timer_timeout():
 		velocity.y = 0
 		velocity.x = 0
 		####################
+		
+		
+func change_col_to_crouch_mode():
+	col.shape.size = Vector2(32, 63)
+	col.position = Vector2(0, -31.5)
+	need_to_change_col_size = false
+	
+	
+func change_col_to_full_size():
+	col.shape.size = Vector2(32, 90)
+	col.position = Vector2(0, -45)
+	need_to_change_col_size = false
+	
+	
+func change_col_size():
+	if anim.current_animation == "Crouch" or anim.current_animation == "FirstJump" or anim.current_animation == "FirstJumpCycle" \
+	 or anim.current_animation == "Roll" or anim.current_animation == "Sit" or anim.current_animation == "WallSlide":
+		change_col_to_crouch_mode()
+	elif can_increase_col:
+		change_col_to_full_size()
+
+
+func _on_can_change_collision_checker_body_entered(body):
+	can_increase_col = false
+
+
+func _on_can_change_collision_checker_body_exited(body):
+	can_increase_col = true
+
+
+func _on_animation_player_animation_changed(old_name, new_name):
+#	need_to_change_col_size = true
+	pass
