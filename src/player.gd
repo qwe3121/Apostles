@@ -51,7 +51,6 @@ var flashing = 0
 var can_get_damage = true
 @onready var gettin_damage_CD = $GettinDamageCD
 
-#@onready var can_stand_up_raycasts = $CanStandUpRaycasts
 @onready var can_stand_up_shapecast = $CanStandUpRaycasts/ShapeCast2D
 @onready var wall_slide_cooldown = $WallSlideCooldown
 @onready var hitbox_col = $Hitbox/CollisionShape2D
@@ -1470,10 +1469,9 @@ func _on_flashlight_timer_timeout():
 		flashing = 0
 		knockback_dir = 0
 		
-		#these two needs test
-		velocity.y = 0
-		velocity.x = 0
-		####################
+		if not is_on_floor():
+			velocity.y = 0
+			velocity.x= 0
 		
 		
 func change_col_to_crouch_mode():
@@ -1502,8 +1500,3 @@ func _on_can_change_collision_checker_body_entered(body):
 
 func _on_can_change_collision_checker_body_exited(body):
 	can_increase_col = true
-
-
-func _on_animation_player_animation_changed(old_name, new_name):
-#	need_to_change_col_size = true
-	pass

@@ -482,10 +482,9 @@ func _on_flashlight_timer_timeout():
 		flashing = 0
 		knockback_dir = 0
 		
-		#these two needs test
-		velocity.y = 0
-		velocity.x = 0
-		####################
+		if not is_on_floor():
+			velocity.y = 0
+			velocity.x= 0
 
 
 func _on_wall_detector_body_entered(body):

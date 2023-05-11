@@ -451,10 +451,9 @@ func _on_flashlight_timer_timeout():
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
 		
-		#these two needs test
-		velocity.y = 0
-		velocity.x = 0
-		####################
+		if not is_on_floor():
+			velocity.y = 0
+			velocity.x= 0
 		
 		
 func kill_with_fruit_ninja():
