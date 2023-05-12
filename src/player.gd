@@ -388,8 +388,8 @@ func _physics_process(delta):
 		REINCARNATION:
 			reincarnation(delta)
 			
-	if knockback_dir and is_on_floor():
-		velocity.x = 200 * knockback_dir
+	if knockback_dir:
+		velocity.x += 15000 * delta * knockback_dir
 
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1

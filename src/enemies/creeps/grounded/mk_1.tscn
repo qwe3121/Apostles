@@ -1282,6 +1282,7 @@ position = Vector2(-31, -18.5)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -1290,6 +1291,7 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -1313,6 +1315,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -1327,6 +1330,7 @@ position = Vector2(0, -19)
 position = Vector2(3, -15.5)
 
 [node name="UltiHitbox" parent="." instance=ExtResource("13_ytu7v")]
+visible = false
 damage_source = "fire"
 
 [node name="Col" type="CollisionPolygon2D" parent="UltiHitbox"]
@@ -1334,12 +1338,14 @@ polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 3
 disabled = true
 
 [node name="CloseEnToAttack" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
 position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]

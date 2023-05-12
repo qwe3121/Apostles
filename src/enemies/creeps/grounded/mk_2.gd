@@ -109,6 +109,8 @@ func get_damage(value, k_dir = 0, damager = null):
 		return
 	
 	hp -= value
+	knockback_dir = k_dir
+	
 	if k_dir: 
 		last_knockback_dir = k_dir
 	if hp <= 0:
@@ -121,7 +123,6 @@ func get_damage(value, k_dir = 0, damager = null):
 			global.player.adrenaline += player_adrenaline_gain
 		state = DEAD
 	elif not flashing:
-		knockback_dir = k_dir
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
@@ -178,10 +179,7 @@ func _physics_process(delta):
 	if need_to_check_if_see_player:
 		if not check_if_vision_is_blocked_by_wall():
 			on_see_player()
-	
-	if knockback_dir:
-		velocity.x = knockback_dir * 100
-	
+
 	match state:
 		IDLE: 
 			idle()
@@ -205,6 +203,9 @@ func _physics_process(delta):
 			dead(delta)
 		FRUIT_DEAD:
 			fruit_dead(delta)
+			
+	if knockback_dir:
+		velocity.x = 100 * knockback_dir
 			
 	move_and_slide()
 
@@ -237,7 +238,7 @@ func idle():
 	set_anim(IDLE)
 	
 	velocity.y = 0
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 			
 			
 func run():
@@ -271,7 +272,7 @@ func run():
 		set_anim(RUN)
 		
 	velocity.y = 0
-	if not knockback_dir: velocity.x = dir * speed
+	velocity.x = dir * speed
 	
 	
 func air(delta):
@@ -282,12 +283,12 @@ func air(delta):
 	set_anim(AIR)
 	
 	velocity.y += gravity * delta
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	
 	
 func before_attack(delta):
 	set_anim(BEFORE_ATTACK)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -301,7 +302,7 @@ func before_attack(delta):
 	
 func attack(delta):
 	set_anim(ATTACK)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -312,7 +313,7 @@ func attack(delta):
 			
 func after_attack(delta):
 	set_anim(AFTER_ATTACK)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -328,7 +329,7 @@ func after_attack(delta):
 			
 func before_ulti(delta):
 	set_anim(BEFORE_ULTI)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -342,7 +343,7 @@ func before_ulti(delta):
 	
 func ulti(delta):
 	set_anim(ULTI)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -353,7 +354,7 @@ func ulti(delta):
 			
 func after_ulti(delta):
 	set_anim(AFTER_ULTI)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
@@ -370,7 +371,7 @@ func after_ulti(delta):
 	
 func dead(delta):
 	set_anim(DEAD)
-	if not knockback_dir: velocity.x = 0
+	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
 	if !state_started:
 		state_started = true
