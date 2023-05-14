@@ -389,7 +389,8 @@ func _physics_process(delta):
 			reincarnation(delta)
 			
 	if knockback_dir:
-		velocity.x += 15000 * delta * knockback_dir
+		velocity.x += speed * 60 * delta * knockback_dir
+		velocity.x = clamp(velocity.x, -speed * 2, speed * 2)
 
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1

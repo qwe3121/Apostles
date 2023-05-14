@@ -204,8 +204,9 @@ func _physics_process(delta):
 		FRUIT_DEAD:
 			fruit_dead(delta)
 			
-	if knockback_dir:
-		velocity.x = 100 * knockback_dir
+	if knockback_dir and (not state == DEAD and not state == FRUIT_DEAD):
+		velocity.x += speed * 60 * delta * knockback_dir
+		velocity.x = clamp(velocity.x, -speed * 2, speed * 2)
 			
 	move_and_slide()
 
