@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=104 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://coyq85meg64q" path="res://sprites/enemies/MK1/Peredvijenie_MK1.png" id="8_t4g6v"]
 [ext_resource type="Texture2D" uid="uid://davyuw7k7mxsr" path="res://sprites/enemies/MK1/Ylta_Ataka_MK1.png" id="9_3dn60"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="10_br5ay"]
+[ext_resource type="Texture2D" uid="uid://1a2r78og7aqt" path="res://sprites/enemies/MK1/Otskok_MK1.png" id="10_w5x4m"]
 [ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="12_vi8p2"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="16_h0u1c"]
@@ -504,6 +505,57 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_nlysx"]
+resource_name = "move_back"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"move_back"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
+
 [sub_resource type="Animation" id="Animation_cotv5"]
 resource_name = "p_idle"
 length = 0.4
@@ -730,6 +782,7 @@ _data = {
 "dead": SubResource("Animation_5d0v3"),
 "fruit_ninja_dead": SubResource("Animation_b7cxd"),
 "idle": SubResource("Animation_fomo6"),
+"move_back": SubResource("Animation_nlysx"),
 "p_idle": SubResource("Animation_cotv5"),
 "p_run": SubResource("Animation_dqj04"),
 "run": SubResource("Animation_3ldyx"),
@@ -909,6 +962,22 @@ region = Rect2(128, 0, 64, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hadqd"]
 atlas = ExtResource("5_ewbjr")
+region = Rect2(192, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihfcu"]
+atlas = ExtResource("10_w5x4m")
+region = Rect2(0, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kojgc"]
+atlas = ExtResource("10_w5x4m")
+region = Rect2(64, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvita"]
+atlas = ExtResource("10_w5x4m")
+region = Rect2(128, 0, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sklab"]
+atlas = ExtResource("10_w5x4m")
 region = Rect2(192, 0, 64, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kgo7"]
@@ -1140,6 +1209,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ihfcu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kojgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvita")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sklab")
+}],
+"loop": true,
+"name": &"move_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6kgo7")
 }, {
 "duration": 1.0,
@@ -1208,7 +1294,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgkk2"]
-size = Vector2(25, 36)
+size = Vector2(25, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oljvb"]
 size = Vector2(20, 37)
@@ -1220,7 +1306,10 @@ size = Vector2(209, 34.5)
 size = Vector2(5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otajc"]
-size = Vector2(6, 36.5)
+size = Vector2(34, 40.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2d5l"]
+size = Vector2(4, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l5vs"]
 size = Vector2(75, 34.5)
@@ -1230,10 +1319,10 @@ light_mask = 0
 scale = Vector2(2, 2)
 collision_layer = 16
 collision_mask = 2
+floor_snap_length = 10.0
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.2
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1242,7 +1331,7 @@ libraries = {
 one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
@@ -1251,9 +1340,9 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wtpys")
+position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"ulti"
-frame = 3
+animation = &"after_ulti"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1263,16 +1352,19 @@ texture = ExtResource("10_br5ay")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -18.5)
+visible = false
+position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -1320,8 +1412,17 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerInside"]
-position = Vector2(0, -18.25)
+position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_otajc")
+
+[node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerDeepInside"]
+position = Vector2(0, -20.75)
+shape = SubResource("RectangleShape2D_p2d5l")
 
 [node name="BloodPos" type="Node2D" parent="."]
 position = Vector2(0, -19)
@@ -1332,6 +1433,7 @@ position = Vector2(3, -15.5)
 [node name="UltiHitbox" parent="." instance=ExtResource("13_ytu7v")]
 visible = false
 damage_source = "fire"
+damage = 2
 
 [node name="Col" type="CollisionPolygon2D" parent="UltiHitbox"]
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)
@@ -1367,3 +1469,5 @@ shape = SubResource("RectangleShape2D_6l5vs")
 [connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout" flags=18]
 [connection signal="body_entered" from="CheckIfPlayerInside" to="." method="_on_check_if_player_inside_body_entered" flags=18]
 [connection signal="body_exited" from="CheckIfPlayerInside" to="." method="_on_check_if_player_inside_body_exited" flags=18]
+[connection signal="body_entered" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_entered"]
+[connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited"]

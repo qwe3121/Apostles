@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=31 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -9,40 +9,23 @@
 [ext_resource type="Texture2D" uid="uid://ca60fs7qfw1pe" path="res://sprites/location_1_parallaxes/Srednie_Domiki_2.png" id="7_xc4xd"]
 [ext_resource type="Texture2D" uid="uid://76xlsn0n7a61" path="res://sprites/location_1_parallaxes/Srednie_Domiki_3.png" id="8_5xrlj"]
 [ext_resource type="Shader" path="res://src/wind_sway.gdshader" id="8_h6pdf"]
-[ext_resource type="Texture2D" uid="uid://cojtabxrc4x8i" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-0.png" id="9_acnr4"]
 [ext_resource type="Texture2D" uid="uid://b8wt3svwlvvd1" path="res://sprites/location_1_parallaxes/Srednie_Domiki_4.png" id="9_gcsoy"]
 [ext_resource type="Texture2D" uid="uid://dtpsyp7uneawe" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_1.png" id="10_0b0ph"]
-[ext_resource type="Texture2D" uid="uid://n61nlc7rghsl" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-1.png" id="10_2tkt8"]
-[ext_resource type="Texture2D" uid="uid://c8jaorqupva46" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-2.png" id="11_mc3a3"]
 [ext_resource type="Texture2D" uid="uid://lvw1r3xpbf5y" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_2.png" id="11_pmvvc"]
-[ext_resource type="Texture2D" uid="uid://dbcym3yce7ivp" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-3.png" id="12_38jma"]
 [ext_resource type="Texture2D" uid="uid://cjx13xh1h7ta6" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_3.png" id="12_k2vrb"]
 [ext_resource type="Texture2D" uid="uid://muqfvkemu52a" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_4.png" id="13_cbkdp"]
-[ext_resource type="Texture2D" uid="uid://81s8ims6ayj0" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-4.png" id="13_uxcj4"]
 [ext_resource type="Texture2D" uid="uid://cenquk4datjbn" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_5.png" id="14_ieh5s"]
-[ext_resource type="Texture2D" uid="uid://ch14v3q4vbqxp" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-5.png" id="14_uuuwf"]
-[ext_resource type="Texture2D" uid="uid://df8rsit15tl14" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-6.png" id="15_6jdvk"]
 [ext_resource type="Texture2D" uid="uid://bf8tdrnfravgg" path="res://sprites/location_1_parallaxes/Elki_1.png" id="16_hghuy"]
-[ext_resource type="Texture2D" uid="uid://p44co2uk2omi" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-7.png" id="16_j2em8"]
 [ext_resource type="Texture2D" uid="uid://0cc71b7nyx2x" path="res://sprites/location_1_parallaxes/Elki_2.png" id="17_78uej"]
-[ext_resource type="Texture2D" uid="uid://b17vrn2u66wi6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-8.png" id="17_oeoss"]
 [ext_resource type="Texture2D" uid="uid://p25lxpdkyton" path="res://sprites/location_1_parallaxes/Elki_3.png" id="18_a0w2n"]
-[ext_resource type="Texture2D" uid="uid://c3i3emiscl5w6" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-9.png" id="18_sj0ra"]
 [ext_resource type="Texture2D" uid="uid://b5kgkf4kl6nry" path="res://sprites/location_1_parallaxes/Paralaks_Niz.png" id="19_h0wwn"]
-[ext_resource type="Texture2D" uid="uid://dtgacleckskp4" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-10.png" id="19_s87kj"]
-[ext_resource type="Texture2D" uid="uid://ddoo8vj0wbuxm" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-11.png" id="20_v8h1n"]
 [ext_resource type="Texture2D" uid="uid://bhhhu7a7psp3o" path="res://sprites/location_1_parallaxes/Paralaks_Niz_Mal.png" id="20_ywuup"]
-[ext_resource type="Texture2D" uid="uid://c3at3etxrsh42" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-12.png" id="21_g1wm1"]
-[ext_resource type="Texture2D" uid="uid://d1q8nirs6qs80" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-13.png" id="22_wor82"]
-[ext_resource type="Texture2D" uid="uid://bfjhvjxp0s1jw" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-14.png" id="23_2fdtg"]
-[ext_resource type="Texture2D" uid="uid://b3aknyh1a4jlg" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-15.png" id="24_naoei"]
-[ext_resource type="Texture2D" uid="uid://bsg4bbfw34hb" path="res://sprites/rain_sprites/b9a739fa3def4d73f68f22ad749f809bP2p4DnY5jbLLOG7B-16.png" id="25_2fkwx"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="Texture2D" uid="uid://cjfuismmke2hv" path="res://icon.svg" id="30_4eis4"]
-[ext_resource type="PackedScene" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
+[ext_resource type="PackedScene" uid="uid://mrkh2vbdyfbi" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0gkpm"]
 shader = ExtResource("8_h6pdf")
 shader_parameter/speed = 1.0
 shader_parameter/minStrength = 0.161
@@ -50,139 +33,38 @@ shader_parameter/maxStrength = 0.371
 shader_parameter/strengthScale = 100.0
 shader_parameter/interval = 3.5
 shader_parameter/detail = 1.0
-shader_parameter/distortion = 0.0
+shader_parameter/distortion = null
 shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o36q2"]
-atlas = ExtResource("9_acnr4")
-region = Rect2(0, 0, 1280, 600)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scw57"]
+shader = ExtResource("8_h6pdf")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.161
+shader_parameter/maxStrength = 0.371
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ejb8q"]
-atlas = ExtResource("10_2tkt8")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6pssv"]
-atlas = ExtResource("11_mc3a3")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f8wxl"]
-atlas = ExtResource("12_38jma")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_huf4r"]
-atlas = ExtResource("13_uxcj4")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m1b50"]
-atlas = ExtResource("14_uuuwf")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u4e1v"]
-atlas = ExtResource("15_6jdvk")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_arrt4"]
-atlas = ExtResource("16_j2em8")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dxen2"]
-atlas = ExtResource("17_oeoss")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vtjx7"]
-atlas = ExtResource("18_sj0ra")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dh4de"]
-atlas = ExtResource("19_s87kj")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s0hae"]
-atlas = ExtResource("20_v8h1n")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3gkwo"]
-atlas = ExtResource("21_g1wm1")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_up18a"]
-atlas = ExtResource("22_wor82")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4mct"]
-atlas = ExtResource("23_2fdtg")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vihnf"]
-atlas = ExtResource("24_naoei")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4mrii"]
-atlas = ExtResource("25_2fkwx")
-region = Rect2(0, 0, 1280, 600)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_nl81k"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o36q2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ejb8q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6pssv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f8wxl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_huf4r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m1b50")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u4e1v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_arrt4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dxen2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vtjx7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dh4de")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s0hae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3gkwo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_up18a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t4mct")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vihnf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mrii")
-}],
-"loop": true,
-"name": &"Raining",
-"speed": 15.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6gub"]
+shader = ExtResource("8_h6pdf")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.161
+shader_parameter/maxStrength = 0.371
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bra5p"]
 blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8l6rx"]
 shader = ExtResource("30_3pdf4")
@@ -200,137 +82,142 @@ script = ExtResource("1_xc62c")
 [node name="Parallax" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(5000, -3888)
-motion_mirroring = Vector2(4096, 4096)
+position = Vector2(0, -200)
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(4096, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Sky"]
 texture_filter = 2
-position = Vector2(0, 1840)
 texture = ExtResource("2_qpqqr")
+centered = false
 
 [node name="BigB" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(5000, -151)
-motion_scale = Vector2(0.1, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(10000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/BigB"]
 texture_filter = 2
-position = Vector2(-2952, 1)
 texture = ExtResource("3_44eu1")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax/BigB"]
 texture_filter = 2
-position = Vector2(1144, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("4_6b502")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax/BigB"]
 texture_filter = 2
-position = Vector2(4096, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("5_lcggt")
+centered = false
 
 [node name="MedB" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(7500, -151)
-motion_scale = Vector2(0.15, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(15000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/MedB"]
 texture_filter = 2
-position = Vector2(-5452, 1)
 texture = ExtResource("6_xwyuj")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax/MedB"]
 texture_filter = 2
-position = Vector2(-1356, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("7_xc4xd")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax/MedB"]
 texture_filter = 2
-position = Vector2(2740, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("8_5xrlj")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="Parallax/MedB"]
 texture_filter = 2
-position = Vector2(6144, 1)
+position = Vector2(12288, 0)
 texture = ExtResource("9_gcsoy")
+centered = false
 
 [node name="SmallB" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(10000, -151)
-motion_scale = Vector2(0.2, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(20000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(-7952, 1)
 texture = ExtResource("10_0b0ph")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(-3856, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("11_pmvvc")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(240, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("12_k2vrb")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(4336, 1)
+position = Vector2(12288, 0)
 texture = ExtResource("13_cbkdp")
+centered = false
 
 [node name="Sprite2D5" type="Sprite2D" parent="Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(8192, 1)
+position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
+centered = false
 
 [node name="Forest" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(5000, -398)
-motion_scale = Vector2(0.4, 1)
+visible = false
+position = Vector2(0, -400)
+motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(10000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(-2952, 0)
+material = SubResource("ShaderMaterial_0gkpm")
 texture = ExtResource("16_hghuy")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(1144, 0)
+material = SubResource("ShaderMaterial_scw57")
+position = Vector2(4096, 0)
 texture = ExtResource("17_78uej")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(4096, 0)
+material = SubResource("ShaderMaterial_m6gub")
+position = Vector2(8192, 0)
 texture = ExtResource("18_a0w2n")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="Parallax/Forest"]
-position = Vector2(-3000, 547)
+position = Vector2(0, 844)
 texture = ExtResource("19_h0wwn")
+centered = false
 
 [node name="Sprite2D5" type="Sprite2D" parent="Parallax/Forest"]
-position = Vector2(1000, 547)
+position = Vector2(4000, 844)
 texture = ExtResource("19_h0wwn")
+centered = false
 
 [node name="Sprite2D6" type="Sprite2D" parent="Parallax/Forest"]
-position = Vector2(4000, 547)
+position = Vector2(8000, 844)
 texture = ExtResource("20_ywuup")
-
-[node name="Rain" type="ParallaxLayer" parent="Parallax"]
-visible = false
-position = Vector2(1307, -365)
-motion_mirroring = Vector2(2560, 1200)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Parallax/Rain"]
-modulate = Color(0, 1, 1, 0.372549)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_nl81k")
-animation = &"Raining"
-autoplay = "Raining"
+centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax"]
+visible = false
 material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
@@ -338,6 +225,7 @@ centered = false
 disable_3d = true
 transparent_bg = true
 size = Vector2i(1152, 648)
+render_target_update_mode = 0
 
 [node name="Parallax" type="ParallaxBackground" parent="SubViewport"]
 

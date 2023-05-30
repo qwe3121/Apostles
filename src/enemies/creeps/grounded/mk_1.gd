@@ -35,7 +35,7 @@ var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD}
+enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD, MOVE_BACK}
 
 func const_to_str(index):
 	match index:
@@ -59,6 +59,8 @@ func const_to_str(index):
 			return "AIR"
 		9:
 			return "FRUIT_DEAD"
+		10:
+			return "MOVE_BACK"
 
 var state = AIR : set = set_state
 
@@ -95,6 +97,8 @@ var knockback_dir = 0
 var last_knockback_dir = 0
 
 var player_is_inside = false
+var need_to_choose_dir_to_move_back = false
+var player_is_deep_inside = false
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
@@ -133,7 +137,10 @@ func get_damage(value, k_dir = 0, damager = null):
 	if damager == null: global.camera.shake()
 		
 func set_anim(animation_name):
-	animated_sprite.flip_h = anim_dir == 1
+	if animation_name == MOVE_BACK:
+		animated_sprite.flip_h = anim_dir == -1
+	else:
+		animated_sprite.flip_h = anim_dir == 1
 	blood.flip_h = !(last_knockback_dir == 1)
 	blood.position.x = 30 * last_knockback_dir
 	check_for_pit.position.x = 24.75 * anim_dir
@@ -166,10 +173,12 @@ func set_anim(animation_name):
 			anim.play("dead")
 		FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
+		MOVE_BACK:
+			anim.play("move_back")
 			
 			
 func set_dir():
-	if player_is_inside: return
+	if player_is_deep_inside: return
 	if global_position.x < global.player.global_position.x:
 		dir = 1
 	else:
@@ -204,9 +213,10 @@ func _physics_process(delta):
 		FRUIT_DEAD:
 			fruit_dead(delta)
 			
-	if knockback_dir and (not state == DEAD and not state == FRUIT_DEAD):
-		velocity.x += speed * 60 * delta * knockback_dir
-		velocity.x = clamp(velocity.x, -speed * 2, speed * 2)
+	if knockback_dir and not (state == DEAD or state == FRUIT_DEAD):
+		if knockback_dir == dir:
+			velocity.x = speed * 2 * knockback_dir
+		else: velocity.x = speed * knockback_dir
 			
 	move_and_slide()
 
@@ -214,6 +224,10 @@ func _physics_process(delta):
 func idle():
 	if not is_on_floor():
 		state = AIR
+		return
+		
+	if player_is_inside and not (close_en_to_ulti and can_ulti):
+		state = RUN
 		return
 	
 	if see_player:
@@ -246,29 +260,37 @@ func run():
 		state = AIR
 		return
 		
-	if see_player:
-		set_dir()
-		if close_en_to_ulti and can_ulti:
-			state = BEFORE_ULTI
-			return
-		if close_en_to_attack and can_attack:
-			state = BEFORE_ATTACK
-			return
-		elif close_en_to_ulti:
-			state = IDLE
-			return
+	if player_is_inside and not (close_en_to_ulti and can_ulti):
+		if need_to_choose_dir_to_move_back:
+			need_to_choose_dir_to_move_back = false
+			dir = 1 if randi_range(0,1) else -1
+			anim_dir = dir
+	else:
+		if see_player:
+			set_dir()
+			if close_en_to_ulti and can_ulti:
+				state = BEFORE_ULTI
+				return
+			if close_en_to_attack and can_attack:
+				state = BEFORE_ATTACK
+				return
+			elif close_en_to_ulti:
+				state = IDLE
+				return
 			
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and not see_player and not chasing:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing) and not player_is_inside:
 		dir = 0
 		set_anim(IDLE)
-	else:
+	elif not player_is_inside:
 		set_anim(RUN)
+	else:
+		set_anim(MOVE_BACK)
 		
 	velocity.y = 0
 	velocity.x = dir * speed
@@ -286,6 +308,7 @@ func air(delta):
 	
 	
 func before_attack(delta):
+	set_dir()
 	set_anim(BEFORE_ATTACK)
 	if not knockback_dir: velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -300,6 +323,7 @@ func before_attack(delta):
 	
 	
 func attack(delta):
+	set_dir()
 	set_anim(ATTACK)
 	velocity.x = 0
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -491,6 +515,7 @@ func _on_wall_detector_body_exited(body):
 
 func _on_check_if_player_inside_body_entered(body):
 	player_is_inside = true
+	need_to_choose_dir_to_move_back = true
 
 
 func _on_check_if_player_inside_body_exited(body):
@@ -518,3 +543,11 @@ func fruit_dead(delta):
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")
 			queue_free()
+
+
+func _on_check_if_player_deep_inside_body_entered(body):
+	player_is_deep_inside = true
+
+
+func _on_check_if_player_deep_inside_body_exited(body):
+	player_is_deep_inside = false

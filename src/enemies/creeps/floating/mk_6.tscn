@@ -1521,6 +1521,10 @@ polygon = PackedVector2Array(-5, -44, 3, -44, 15, 86.5, -15, 86.5)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.25, -22.5)
+scale = Vector2(18.375, 2.25)
+
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout" flags=18]
@@ -1532,3 +1536,5 @@ polygon = PackedVector2Array(-5, -44, 3, -44, 15, 86.5, -15, 86.5)
 [connection signal="body_exited" from="AttackHitbox" to="." method="_on_attack_hitbox_body_exited"]
 [connection signal="body_entered" from="UltiSlowHitbox" to="." method="_on_ulti_slow_hitbox_body_entered"]
 [connection signal="body_exited" from="UltiSlowHitbox" to="." method="_on_ulti_slow_hitbox_body_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

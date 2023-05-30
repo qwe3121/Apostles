@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 
+var visible_on_screen = false
+
+
 var hp = 3
 var speed = 150
 var default_speed
@@ -491,7 +494,7 @@ func _on_attack_hitbox_body_exited(body):
 	
 	
 func shake_camera():
-	global.camera.shake()
+	if visible_on_screen: global.camera.shake()
 
 
 func _on_ulti_slow_hitbox_body_entered(body):
@@ -500,3 +503,11 @@ func _on_ulti_slow_hitbox_body_entered(body):
 
 func _on_ulti_slow_hitbox_body_exited(body):
 	global.player.slowed_cause_of_mk6 = false
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	visible_on_screen = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	visible_on_screen = false

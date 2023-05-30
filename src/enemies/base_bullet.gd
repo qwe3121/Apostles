@@ -2,7 +2,9 @@ extends Area2D
 
 
 @export var can_block: bool = false
-@export var speed = 600
+@export var speed: int = 600
+
+@export var damage: int = 1
 
 var dir = 1 : set = set_dir
 
@@ -36,7 +38,7 @@ func _on_body_entered(body):
 				global.player.bullet_dead_anim_speredi = false
 			else:
 				global.player.bullet_dead_anim_speredi = true
-		global.player.get_damage("bullet", 1, can_block, null, k_dir)
+		global.player.get_damage("bullet", damage, can_block, null, k_dir)
 		queue_free()
 	else:
 		queue_free()
