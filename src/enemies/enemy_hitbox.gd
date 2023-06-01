@@ -19,7 +19,6 @@ func _process(delta):
 			global.player.get_damage(damage_source, damage, can_block, null, 1)
 
 
-
 func _on_body_entered(body):
 	see_player = true
 

@@ -11,7 +11,7 @@ func _process(delta):
 	if len(targets_array) > 0:
 		for target in targets_array:
 			if target.name == "Player":
-				target.get_damage("cut", target.hp, false, self)
+				target.get_damage("cut", target.hp, false, self, 0, false)
 			else:
 				target.get_damage(target.hp, 0, self)
 

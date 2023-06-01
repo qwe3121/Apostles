@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var hp = 4000
+var hp = 4
 var speed = 75
 
 var close_en_to_attack = false
@@ -383,13 +383,9 @@ func idle():
 	if not is_on_floor():
 		state = AIR
 		return
-		
-	if player_is_inside:
-		state = RUN
-		return
 	
 	if see_player:
-		set_dir()
+		if not player_is_inside: set_dir()
 		if close_en_to_attack and can_attack:
 			if can_ulti:
 				state = BEFORE_ULTI
@@ -397,7 +393,7 @@ func idle():
 			if can_attack:
 				state = BEFORE_ATTACK
 				return
-		elif not close_en_to_attack:
+		if player_is_inside or not close_en_to_attack:
 			state = RUN
 			return
 	else:
@@ -419,23 +415,22 @@ func run():
 		state = AIR
 		return
 		
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
-			set_dir()
-			if close_en_to_attack and can_attack:
-				if can_ulti:
-					state = BEFORE_ULTI
-					return
-				if can_attack:
-					state = BEFORE_ATTACK
-					return
-			elif close_en_to_attack:
-				state = IDLE
+	if see_player:
+		if not player_is_inside: set_dir()
+		if close_en_to_attack and can_attack:
+			if can_ulti:
+				state = BEFORE_ULTI
 				return
+			if can_attack:
+				state = BEFORE_ATTACK
+				return
+		if player_is_inside:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
+		elif close_en_to_attack:
+			state = IDLE
+			return
 			
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -475,13 +470,13 @@ func air(delta):
 	
 	
 func before_attack(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -519,13 +514,13 @@ func before_attack(delta):
 	
 	
 func attack(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -560,13 +555,13 @@ func attack(delta):
 			
 			
 func after_attack(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -606,13 +601,13 @@ func after_attack(delta):
 			
 			
 func before_ulti(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -650,13 +645,13 @@ func before_ulti(delta):
 	
 	
 func ulti(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
@@ -691,13 +686,13 @@ func ulti(delta):
 			
 			
 func after_ulti(delta):
-	if player_is_inside:
-		if need_to_choose_dir_to_move_back:
-			need_to_choose_dir_to_move_back = false
-			set_dir_to_move_back(false)
-	else:
-		if see_player:
+	if see_player:
+		if not player_is_inside: 
 			set_dir()
+		else:
+			if need_to_choose_dir_to_move_back:
+				need_to_choose_dir_to_move_back = false
+				set_dir_to_move_back(false)
 				
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
 		turned = true
