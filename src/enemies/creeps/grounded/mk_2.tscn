@@ -3009,6 +3009,7 @@ one_shot = true
 [node name="Col" type="CollisionShape2D" parent="EnemyColHitbox"]
 position = Vector2(0, -17.25)
 shape = SubResource("RectangleShape2D_yg73c")
+disabled = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
