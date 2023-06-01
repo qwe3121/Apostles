@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var hp = 4
+var hp = 4000
 var speed = 75
 
 var close_en_to_attack = false
