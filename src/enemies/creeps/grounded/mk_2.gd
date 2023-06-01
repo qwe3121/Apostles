@@ -138,7 +138,9 @@ func get_damage(value, k_dir = 0, damager = null):
 		
 func set_anim(animation_name):
 	if animation_name == MOVE_BACK or animation_name == ATTACK_N_MOVE_BACK \
-	or animation_name == BEFORE_ATTACK_N_MOVE_BACK or animation_name == AFTER_ATTACK_N_MOVE_BACK:
+	or animation_name == BEFORE_ATTACK_N_MOVE_BACK or animation_name == AFTER_ATTACK_N_MOVE_BACK \
+	or animation_name == BEFORE_ULTI_N_MOVE_BACK or animation_name == ULTI_N_MOVE_BACK \
+	or animation_name == AFTER_ULTI_N_MOVE_BACK:
 		if move_back_timer.is_stopped():
 			move_back_timer.start()
 		animated_sprite.flip_h = anim_dir == -1
