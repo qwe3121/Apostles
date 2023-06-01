@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 var hp = 4
-var speed = 150
+var speed = 75
 
 var close_en_to_attack = false
 
@@ -99,6 +99,8 @@ var last_knockback_dir = 0
 var player_is_inside = false
 var need_to_choose_dir_to_move_back = false
 var player_is_deep_inside = false
+var player_move_state
+enum move_state_const {IDLE, RUN, MOVE_BACK}
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
@@ -441,11 +443,19 @@ func run():
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(IDLE)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(IDLE)
+		move_state_const.RUN:
+			set_anim(RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(MOVE_BACK)
 		
 	velocity.y = 0
 	velocity.x = dir * speed
@@ -479,11 +489,19 @@ func before_attack(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(BEFORE_ATTACK)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(BEFORE_ATTACK_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(BEFORE_ATTACK_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(BEFORE_ATTACK)
+		move_state_const.RUN:
+			set_anim(BEFORE_ATTACK_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(BEFORE_ATTACK_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -515,11 +533,19 @@ func attack(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(ATTACK)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(ATTACK_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(ATTACK_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(ATTACK)
+		move_state_const.RUN:
+			set_anim(ATTACK_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(ATTACK_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -548,11 +574,19 @@ func after_attack(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(AFTER_ATTACK)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(AFTER_ATTACK_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(AFTER_ATTACK_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(AFTER_ATTACK)
+		move_state_const.RUN:
+			set_anim(AFTER_ATTACK_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(AFTER_ATTACK_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -586,11 +620,19 @@ func before_ulti(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(BEFORE_ULTI)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(BEFORE_ATTACK_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(BEFORE_ULTI_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(BEFORE_ULTI)
+		move_state_const.RUN:
+			set_anim(BEFORE_ULTI_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(BEFORE_ULTI_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -622,11 +664,19 @@ func ulti(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(ULTI)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(ULTI_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(ULTI_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(ULTI)
+		move_state_const.RUN:
+			set_anim(ULTI_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(ULTI_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -655,11 +705,19 @@ func after_ulti(delta):
 	
 	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
 		dir = 0
-		set_anim(AFTER_ULTI)
+		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
-		set_anim(AFTER_ULTI_N_RUN)
+		player_move_state = move_state_const.RUN
 	else:
-		set_anim(AFTER_ULTI_N_MOVE_BACK)
+		player_move_state = move_state_const.MOVE_BACK
+		
+	match player_move_state:
+		move_state_const.IDLE:
+			set_anim(AFTER_ULTI)
+		move_state_const.RUN:
+			set_anim(AFTER_ULTI_N_RUN)
+		move_state_const.MOVE_BACK:
+			set_anim(AFTER_ULTI_N_MOVE_BACK)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
