@@ -167,31 +167,6 @@ func set_hp(value):
 	tween2.tween_property(health_bar_under, "value", hp, 0.2)
 	
 	
-func get_col_damage(source: String, damage: int, k_dir = 0):
-	if state == DASH or state == ROLL or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead or not can_get_damage:
-		return
-		
-	last_damage_source = source
-
-	hp -= damage
-	
-	global.camera.shake()
-	
-	can_get_damage = false
-	gettin_damage_CD.start()
-	
-	knockback_dir = k_dir
-	
-	if hp <= 0:
-		state_started = false
-		from_jump_to_air_timer.stop()
-		state = DEAD
-	elif not flashing:
-		flashing = 1
-		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
-		flashlight_timer.start()
-
-
 func get_damage(source: String, damage: int, can_block: bool, damager = null, k_dir = 0, respect_damage_cd: bool = true): #fire, bullet, hit, cut
 	if not can_get_damage and respect_damage_cd:
 		return

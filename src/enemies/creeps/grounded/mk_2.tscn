@@ -1,4 +1,4 @@
-[gd_scene load_steps=237 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=236 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="22_55i2o"]
 [ext_resource type="Texture2D" uid="uid://dqtbcxfsm0bcp" path="res://sprites/enemies/MK2/Ylta_Ataka_v_Dvijeni_MK2.png" id="25_f14hn"]
 [ext_resource type="Texture2D" uid="uid://qys7l8phxbc2" path="res://sprites/enemies/MK2/Otskok_i_Ylta_Ataka_MK2.png" id="26_vjhmf"]
-[ext_resource type="PackedScene" uid="uid://1mo4374hniym" path="res://src/enemies/enemy_col_hitbox.tscn" id="32_hdj0v"]
 
 [sub_resource type="Animation" id="Animation_2hxqp"]
 length = 0.001
@@ -3003,13 +3002,6 @@ shape = SubResource("RectangleShape2D_dy02x")
 
 [node name="MoveBackTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="EnemyColHitbox" parent="." instance=ExtResource("32_hdj0v")]
-
-[node name="Col" type="CollisionShape2D" parent="EnemyColHitbox"]
-position = Vector2(0, -17.25)
-shape = SubResource("RectangleShape2D_yg73c")
-disabled = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
