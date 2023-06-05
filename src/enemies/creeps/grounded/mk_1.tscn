@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=153 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -153,30 +153,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
-tracks/3/type = "method"
+tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".")
+tracks/3/path = NodePath("AnimatedSprite2D:position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.3, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"shoot"
-}, {
-"args": [],
-"method": &"shoot"
-}]
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprite2D:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
@@ -221,30 +204,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
-tracks/3/type = "method"
+tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".")
+tracks/3/path = NodePath("AnimatedSprite2D:position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.3, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"shoot"
-}, {
-"args": [],
-"method": &"shoot"
-}]
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprite2D:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
@@ -289,30 +255,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
-tracks/3/type = "method"
+tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".")
+tracks/3/path = NodePath("AnimatedSprite2D:position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.3, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"shoot"
-}, {
-"args": [],
-"method": &"shoot"
-}]
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprite2D:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
@@ -1931,6 +1880,9 @@ size = Vector2(4, 40.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l5vs"]
 size = Vector2(75, 34.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jny05"]
+size = Vector2(136, 34.5)
+
 [node name="1MK" type="CharacterBody2D"]
 light_mask = 0
 scale = Vector2(2, 2)
@@ -1960,7 +1912,8 @@ one_shot = true
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"attack"
+animation = &"attack_n_run"
+frame = 2
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2065,14 +2018,25 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("16_h0u1c")]
-visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
 position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
 
+[node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("16_h0u1c")]
+attack_type = "ulti"
+prefire = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireUlti"]
+position = Vector2(0, -19.25)
+shape = SubResource("RectangleShape2D_jny05")
+
 [node name="MoveBackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
@@ -2093,3 +2057,4 @@ one_shot = true
 [connection signal="body_entered" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_entered"]
 [connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited"]
 [connection signal="timeout" from="MoveBackTimer" to="." method="_on_move_back_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

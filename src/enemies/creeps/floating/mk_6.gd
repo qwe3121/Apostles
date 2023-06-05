@@ -4,6 +4,10 @@ extends CharacterBody2D
 var visible_on_screen = false
 
 
+
+var close_en_to_attack = false
+
+
 var hp = 3
 var speed = 150
 var default_speed
@@ -91,8 +95,6 @@ var player_is_inside = false
 
 var destination
 @onready var nav_agent = $NavigationAgent2D
-
-var close_en_to_attack = false
 
 @onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 

@@ -5,6 +5,9 @@ var hp = 4
 var speed = 75
 
 var close_en_to_attack = false
+var close_en_to_ulti = false
+var close_en_to_prefire_attack = false
+var close_en_to_prefire_ulti = false
 
 var b_drops = 10
 
@@ -64,6 +67,13 @@ func const_to_str(index):
 var state = AIR : set = set_state
 
 func set_state(value):
+	if value == DEAD or value == FRUIT_DEAD:
+		if player_move_state == move_state_const.MOVE_BACK:
+			dir *= -1
+			anim_dir *= -1
+			
+	player_move_state = move_state_const.RUN
+	
 	if state == DEAD or state == FRUIT_DEAD:
 		return
 	
@@ -386,11 +396,11 @@ func idle():
 	
 	if see_player:
 		if not player_is_inside: set_dir()
-		if close_en_to_attack and can_attack:
-			if can_ulti:
+		if can_attack:
+			if can_ulti and close_en_to_prefire_ulti:
 				state = BEFORE_ULTI
 				return
-			if can_attack:
+			if can_attack and close_en_to_prefire_attack:
 				state = BEFORE_ATTACK
 				return
 		if player_is_inside or not close_en_to_attack:
@@ -417,11 +427,11 @@ func run():
 		
 	if see_player:
 		if not player_is_inside: set_dir()
-		if close_en_to_attack and can_attack:
-			if can_ulti:
+		if can_attack:
+			if can_ulti and close_en_to_prefire_ulti:
 				state = BEFORE_ULTI
 				return
-			if can_attack:
+			if can_attack and close_en_to_prefire_attack:
 				state = BEFORE_ATTACK
 				return
 		if player_is_inside:
@@ -615,7 +625,7 @@ func before_ulti(delta):
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_ulti) and (see_player or chasing) and not player_is_inside:
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -659,7 +669,7 @@ func ulti(delta):
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_ulti) and (see_player or chasing) and not player_is_inside:
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -901,5 +911,6 @@ func _on_check_if_player_deep_inside_body_exited(body):
 
 
 func _on_move_back_timer_timeout():
+	move_back_timer.wait_time = randf_range(1.0, 3.0)
 	dir *= -1
 	if dir: anim_dir = dir

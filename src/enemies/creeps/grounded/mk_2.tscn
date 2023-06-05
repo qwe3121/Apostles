@@ -1,4 +1,4 @@
-[gd_scene load_steps=236 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=239 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
@@ -2858,6 +2858,15 @@ size = Vector2(50, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy02x"]
 size = Vector2(76, 33)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qir3g"]
+size = Vector2(141, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n0ad2"]
+size = Vector2(111, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkq4u"]
+size = Vector2(185, 33)
+
 [node name="2MK" type="CharacterBody2D"]
 light_mask = 0
 scale = Vector2(2, 2)
@@ -2993,12 +3002,32 @@ shape = SubResource("RectangleShape2D_5udau")
 disabled = true
 
 [node name="CloseEnToAttack" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
-visible = false
 position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_dy02x")
+
+[node name="CloseEnToUlti" parent="." instance=ExtResource("22_55i2o")]
+attack_type = "ulti"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
+position = Vector2(0, -18.5)
+shape = SubResource("RectangleShape2D_qir3g")
+
+[node name="CloseEnToPrefireAttack" parent="." instance=ExtResource("22_55i2o")]
+prefire = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireAttack"]
+position = Vector2(0, -18.5)
+shape = SubResource("RectangleShape2D_n0ad2")
+
+[node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("22_55i2o")]
+attack_type = "ulti"
+prefire = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireUlti"]
+position = Vector2(0, -18.5)
+shape = SubResource("RectangleShape2D_xkq4u")
 
 [node name="MoveBackTimer" type="Timer" parent="."]
 one_shot = true

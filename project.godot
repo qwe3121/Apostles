@@ -21,7 +21,6 @@ boot_splash/size/transparent=false
 snl="*res://src/autoloads/snl.gd"
 events="*res://src/autoloads/events.gd"
 cfg="*res://src/autoloads/cfg.gd"
-MusicTestAutoload="*res://src/autoloads/music_test_autoload.tscn"
 global_settings="*res://src/autoloads/global_settings.gd"
 trans="*res://src/autoloads/transition.tscn"
 nt="*res://src/autoloads/notification.tscn"
@@ -30,6 +29,7 @@ WorldEnv="*res://src/autoloads/world_env.tscn"
 blood_manager="*res://src/autoloads/blood_manager.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 dialog="*res://src/autoloads/dialog.gd"
+AudioAutoload="*res://src/autoloads/audio_autoload.tscn"
 
 [dialogic]
 

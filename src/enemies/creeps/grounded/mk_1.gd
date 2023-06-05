@@ -6,6 +6,7 @@ var speed = 150
 
 var close_en_to_attack = false
 var close_en_to_ulti = false
+var close_en_to_prefire_ulti = false
 
 var b_drops = 10
 
@@ -30,6 +31,9 @@ var player_adrenaline_gain = 20
 @onready var blood_pos = $BloodPos
 @onready var qmark = $Qmark
 @onready var move_back_timer = $MoveBackTimer
+@onready var shoot_timer = $ShootTimer
+var attack_index = 1
+
 var need_to_check_if_see_player = false
 
 var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
@@ -65,6 +69,13 @@ func const_to_str(index):
 var state = AIR : set = set_state
 
 func set_state(value):
+	if value == DEAD or value == FRUIT_DEAD:
+		if player_move_state == move_state_const.MOVE_BACK:
+			dir *= -1
+			anim_dir *= -1
+			
+	player_move_state = move_state_const.RUN
+	
 	if state == DEAD or state == FRUIT_DEAD:
 		return
 	
@@ -307,7 +318,7 @@ func idle():
 		
 	if see_player:
 		if not player_is_inside: set_dir()
-		if close_en_to_ulti and can_ulti:
+		if close_en_to_prefire_ulti and can_ulti:
 			can_move_now = 1
 			state = BEFORE_ULTI
 			return
@@ -338,7 +349,7 @@ func run():
 		
 	if see_player:
 		if not player_is_inside: set_dir()
-		if close_en_to_ulti and can_ulti:
+		if close_en_to_prefire_ulti and can_ulti:
 			can_move_now = 1
 			state = BEFORE_ULTI
 			return
@@ -431,6 +442,7 @@ func before_attack(delta):
 		can_attack = false
 		await anim.animation_finished
 		if state == BEFORE_ATTACK:
+			shoot_timer.start()
 			state = ATTACK
 	
 	
@@ -723,5 +735,17 @@ func _on_check_if_player_deep_inside_body_exited(body):
 
 
 func _on_move_back_timer_timeout():
+	move_back_timer.wait_time = randf_range(1.0, 3.0)
 	dir *= -1
 	if dir: anim_dir = dir
+
+
+func _on_shoot_timer_timeout():
+	shoot()
+	if attack_index == 1:
+		attack_index = 2
+		shoot_timer.wait_time = 0.7
+		shoot_timer.start()
+	elif attack_index == 2:
+		attack_index = 1
+		shoot_timer.wait_time = 0.4

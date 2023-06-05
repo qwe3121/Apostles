@@ -1,6 +1,9 @@
 extends Node
 
 
+var default_time_scale = 1.0
+
+
 const CFG_PATH = "user://config.cfg"
 
 var cfg_data = {}

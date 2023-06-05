@@ -80,14 +80,13 @@ var learned_skills = {
 	"fruit_ninja": true
 }
 
-
 #debuffs section
 
 var flying_cause_of_mk6 = false
 var slowed_cause_of_mk6 = false
 
 
-enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BLOCK, WEAK_ATTACK_1, 
+enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BEFORE_BLOCK, BLOCK, AFTER_BLOCK, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
@@ -171,7 +170,7 @@ func get_damage(source: String, damage: int, can_block: bool, damager = null, k_
 	if not can_get_damage and respect_damage_cd:
 		return
 	
-	if can_block and (state == BLOCK or state == ROLL or state == BLOCKED):
+	if can_block and (state == BLOCK or state == BLOCKED):
 		if state == BLOCK:
 			block_stamina_timer.stop()
 			state = BLOCKED
@@ -325,7 +324,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and adrenaline >= ac_fruit_ninja:
 		adrenaline -= ac_fruit_ninja
 		from_jump_to_air_timer.stop()
-		Engine.time_scale = 0.3
+		Engine.time_scale = cfg.default_time_scale/4
 		state = FRUIT_NINJA
 
 	match state:
@@ -414,6 +413,8 @@ func idle():
 		if np:
 			print("from idle to air")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		state = AIR
 		return
 		
@@ -512,6 +513,8 @@ func run():
 		if np:
 			print("from idle to air")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		state = AIR
 		return
 		
@@ -661,7 +664,7 @@ func air(delta):
 					print("from air to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2 and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
+		elif (pre_jump == 2 or pre_jump == 0) and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
 			from_jump_to_air_timer.stop()
 			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
@@ -708,8 +711,9 @@ func air(delta):
 
 func jump(delta):
 	if is_on_floor() and jump_index == 1:
-		pre_jump = 1
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		from_jump_to_air_timer.start()
 		velocity.y = jump_velocity
 	elif not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2 and stamina >= sc_second_jump:
@@ -771,7 +775,7 @@ func jump(delta):
 					print("from jump to FIRST_JUMP_ATTACK_3")
 				state = FIRST_JUMP_ATTACK_3
 				return
-		elif pre_jump == 2 and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
+		elif (pre_jump == 2 or pre_jump == 0) and stamina >= sc_second_jump_attack and not jump_attack_index < 4:
 			from_jump_to_air_timer.stop()
 			stamina -= sc_second_jump_attack
 			if jump_attack_index == 4:
@@ -845,6 +849,8 @@ func sit():
 		if np:
 			print("from sit to air")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		state = AIR
 		return
 		
@@ -872,6 +878,8 @@ func crouch():
 		if np:
 			print("from crouch to air")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		state = AIR
 		return
 		
@@ -936,6 +944,8 @@ func wall_slide(delta):
 		if np:
 			print("from wall_slide to air cause of stamina luck")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		wall_slide_stamina_timer.stop()
 		state = AIR
 		return
@@ -945,6 +955,8 @@ func wall_slide(delta):
 		if np:
 			print("from wall_slide to air cause of DOWN button")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		wall_slide_stamina_timer.stop()
 		state = AIR
 		return
@@ -954,6 +966,7 @@ func wall_slide(delta):
 		wall_slide_cooldown.start()
 		wall_jumping = true
 		jump_index = 0
+		jump_attack_index = 4
 		pre_jump = 0
 		dir = 0
 		if np:
@@ -974,6 +987,8 @@ func wall_slide(delta):
 		if np:
 			print("from wall_slide to air")
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		wall_slide_stamina_timer.stop()
 		state = AIR
 		return
@@ -998,6 +1013,7 @@ func dash():
 			if np:
 				print("from dash to AIR")
 			pre_jump = 2
+			jump_attack_index = 4
 			state = AIR
 			return
 			
@@ -1008,6 +1024,8 @@ func dash():
 func roll():
 	if not is_on_floor():
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		if np:
 			print("from ROLL to AIR")
 		state = AIR
@@ -1035,7 +1053,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 func weak_attack_1():
 	set_anim(WEAK_ATTACK_1)
-	velocity.x = anim_dir * speed / 16
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1048,7 +1066,7 @@ func weak_attack_1():
 			
 func weak_attack_2():
 	set_anim(WEAK_ATTACK_2)
-	velocity.x = anim_dir * speed / 16
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1061,7 +1079,7 @@ func weak_attack_2():
 			
 func weak_attack_3():
 	set_anim(WEAK_ATTACK_3)
-	velocity.x = anim_dir * speed / 16
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1074,7 +1092,7 @@ func weak_attack_3():
 		
 func weak_attack_4():
 	set_anim(WEAK_ATTACK_4)
-	velocity.x = anim_dir * speed / 16
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1091,7 +1109,7 @@ func _on_weak_combo_timer_timeout():
 
 func strong_attack_1():
 	set_anim(STRONG_ATTACK_1)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1104,7 +1122,7 @@ func strong_attack_1():
 			
 func strong_attack_2():
 	set_anim(STRONG_ATTACK_2)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1118,7 +1136,7 @@ func strong_attack_2():
 func strong_attack_3():
 	set_anim(STRONG_ATTACK_3)
 	velocity.y = 0
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 30
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1130,7 +1148,7 @@ func strong_attack_3():
 			
 func strong_attack_4(delta):
 	set_anim(STRONG_ATTACK_4)
-	velocity.x = anim_dir * speed / 10
+	velocity.x = anim_dir * speed / 30
 	velocity.y += gravity * 15 * delta 
 	if !state_started:
 		velocity.y = jump_velocity * 3
@@ -1155,6 +1173,8 @@ func landing():
 	set_dir()
 	if not is_on_floor():
 		jump_index = 2
+		pre_jump = 1
+		jump_attack_index = 1
 		state_started = false
 		if np:
 			print("from landing to AIR")
@@ -1173,7 +1193,7 @@ func landing():
 
 func first_jump_attack_1():
 	set_anim(FIRST_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1187,7 +1207,7 @@ func first_jump_attack_1():
 	
 func first_jump_attack_2():
 	set_anim(FIRST_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1201,7 +1221,7 @@ func first_jump_attack_2():
 	
 func first_jump_attack_3():
 	set_anim(FIRST_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1215,7 +1235,7 @@ func first_jump_attack_3():
 	
 func second_jump_attack_1():
 	set_anim(SECOND_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1229,7 +1249,7 @@ func second_jump_attack_1():
 	
 func second_jump_attack_2():
 	set_anim(SECOND_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1243,7 +1263,7 @@ func second_jump_attack_2():
 	
 func second_jump_attack_3():
 	set_anim(SECOND_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 20
+	velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1253,8 +1273,8 @@ func second_jump_attack_3():
 			if np:
 				print("from SECOND_JUMP_ATTACK_3 to AIR")
 			state = AIR
-			
-			
+
+
 func block():
 	set_anim(BLOCK)
 	velocity.x = 0
@@ -1264,8 +1284,8 @@ func block():
 			print("from block to idle")
 		block_stamina_timer.stop()
 		state = IDLE
-		
-		
+
+
 func blocked():
 	set_anim(BLOCKED)
 	velocity.x = 0
@@ -1277,6 +1297,7 @@ func blocked():
 			if np:
 				print("from BLOCKED to BLOCK")
 		state = BLOCK
+
 
 func _on_hitbox_body_entered(body):
 	if global_position.x > body.global_position.x:
@@ -1306,7 +1327,7 @@ func fruit_ninja():
 			animated_sprite.visible = false
 			
 			state_started = true
-			Engine.time_scale = 1.0
+			Engine.time_scale = cfg.default_time_scale
 			
 			fruit_ninja_line.clear_points()
 			
