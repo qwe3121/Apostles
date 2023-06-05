@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=30 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -63,8 +63,6 @@ shader_parameter/offset = 0.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bra5p"]
 blend_mode = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cemph"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8l6rx"]
 shader = ExtResource("30_3pdf4")
@@ -217,7 +215,6 @@ texture = ExtResource("20_ywuup")
 centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax"]
-visible = false
 material = SubResource("CanvasItemMaterial_bra5p")
 centered = false
 
@@ -225,7 +222,6 @@ centered = false
 disable_3d = true
 transparent_bg = true
 size = Vector2i(1152, 648)
-render_target_update_mode = 0
 
 [node name="Parallax" type="ParallaxBackground" parent="SubViewport"]
 
@@ -234,119 +230,145 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(1, 1, 1, 0.0705882)
 
+[node name="Sky" type="ParallaxLayer" parent="SubViewport/Parallax"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(4096, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/Sky"]
+texture_filter = 2
+texture = ExtResource("2_qpqqr")
+centered = false
+
 [node name="BigB" type="ParallaxLayer" parent="SubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(5000, -151)
-motion_scale = Vector2(0.1, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(10000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
 texture_filter = 2
-position = Vector2(-2952, 1)
 texture = ExtResource("3_44eu1")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
 texture_filter = 2
-position = Vector2(1144, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("4_6b502")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
 texture_filter = 2
-position = Vector2(4096, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("5_lcggt")
+centered = false
 
 [node name="MedB" type="ParallaxLayer" parent="SubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(7500, -151)
-motion_scale = Vector2(0.15, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(15000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
 texture_filter = 2
-position = Vector2(-5452, 1)
 texture = ExtResource("6_xwyuj")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
 texture_filter = 2
-position = Vector2(-1356, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("7_xc4xd")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
 texture_filter = 2
-position = Vector2(2740, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("8_5xrlj")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
 texture_filter = 2
-position = Vector2(6144, 1)
+position = Vector2(12288, 0)
 texture = ExtResource("9_gcsoy")
+centered = false
 
 [node name="SmallB" type="ParallaxLayer" parent="SubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(10000, -151)
-motion_scale = Vector2(0.2, 1)
+position = Vector2(0, -200)
+motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(20000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(-7952, 1)
 texture = ExtResource("10_0b0ph")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(-3856, 1)
+position = Vector2(4096, 0)
 texture = ExtResource("11_pmvvc")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(240, 1)
+position = Vector2(8192, 0)
 texture = ExtResource("12_k2vrb")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(4336, 1)
+position = Vector2(12288, 0)
 texture = ExtResource("13_cbkdp")
+centered = false
 
 [node name="Sprite2D5" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
 texture_filter = 2
-position = Vector2(8192, 1)
+position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
+centered = false
 
 [node name="Forest" type="ParallaxLayer" parent="SubViewport/Parallax"]
+visible = false
 modulate = Color(0, 0, 0, 1)
-position = Vector2(5000, -398)
-motion_scale = Vector2(0.4, 1)
+position = Vector2(0, -400)
+motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(10000, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(-2952, 0)
+material = SubResource("ShaderMaterial_0gkpm")
 texture = ExtResource("16_hghuy")
+centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(1144, 0)
+material = SubResource("ShaderMaterial_scw57")
+position = Vector2(4096, 0)
 texture = ExtResource("17_78uej")
+centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_cemph")
-position = Vector2(4096, 0)
+material = SubResource("ShaderMaterial_m6gub")
+position = Vector2(8192, 0)
 texture = ExtResource("18_a0w2n")
+centered = false
 
 [node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
-position = Vector2(-3000, 547)
+position = Vector2(0, 844)
 texture = ExtResource("19_h0wwn")
+centered = false
 
 [node name="Sprite2D5" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
-position = Vector2(1000, 547)
+position = Vector2(4000, 844)
 texture = ExtResource("19_h0wwn")
+centered = false
 
 [node name="Sprite2D6" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
-position = Vector2(4000, 547)
+position = Vector2(8000, 844)
 texture = ExtResource("20_ywuup")
+centered = false
 
 [node name="Scatter" type="Sprite2D" parent="SubViewport/Parallax"]
 material = SubResource("ShaderMaterial_8l6rx")

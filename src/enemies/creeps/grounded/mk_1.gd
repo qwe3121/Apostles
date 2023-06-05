@@ -735,7 +735,7 @@ func _on_check_if_player_deep_inside_body_exited(body):
 
 
 func _on_move_back_timer_timeout():
-	move_back_timer.wait_time = randf_range(1.0, 3.0)
+	move_back_timer.wait_time = randf_range(1.0, 6.0)
 	dir *= -1
 	if dir: anim_dir = dir
 
