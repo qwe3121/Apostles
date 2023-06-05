@@ -741,7 +741,7 @@ func _on_move_back_timer_timeout():
 
 
 func _on_shoot_timer_timeout():
-	shoot()
+	if state == ATTACK: shoot()
 	if attack_index == 1:
 		attack_index = 2
 		shoot_timer.wait_time = 0.7
