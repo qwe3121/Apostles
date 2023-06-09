@@ -38,8 +38,7 @@ func _on_body_entered(body):
 				global.player.bullet_dead_anim_speredi = false
 			else:
 				global.player.bullet_dead_anim_speredi = true
-		global.player.get_damage("bullet", damage, can_block, null, k_dir, false)
+		global.player.get_damage("bullet", damage, can_block, self, k_dir, false)
 		queue_free()
 	else:
 		queue_free()
-	

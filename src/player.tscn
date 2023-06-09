@@ -2786,7 +2786,7 @@ size = Vector2(32, 90)
 
 [sub_resource type="Animation" id="Animation_6s6d0"]
 resource_name = "Block"
-length = 0.8
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2797,7 +2797,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Block2"]
+"values": [&"Block"]
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -2829,10 +2829,10 @@ tracks/3/path = NodePath("AnimatedSprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_rfwno"]
@@ -5390,10 +5390,10 @@ script = ExtResource("1_jdkiv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
 material = SubResource("ShaderMaterial_iel4b")
-position = Vector2(0, -48)
+position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"Block2"
+animation = &"SecondJumpAttack3"
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

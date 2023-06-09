@@ -64,7 +64,7 @@ layout/end_behaviour=0
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="ignore"
 
 [editor_plugins]
 
