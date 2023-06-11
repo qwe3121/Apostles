@@ -1928,13 +1928,13 @@ animations = [{
 size = Vector2(25, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oljvb"]
-size = Vector2(20, 37)
+size = Vector2(20, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
 size = Vector2(209, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
-size = Vector2(5, 20)
+size = Vector2(5, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otajc"]
 size = Vector2(34, 40.5)
@@ -1987,7 +1987,6 @@ texture = ExtResource("10_br5ay")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
@@ -1999,13 +1998,12 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForBlockedArea"]
-position = Vector2(-31, -18.5)
+position = Vector2(-31, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
@@ -2018,12 +2016,11 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector"]
-position = Vector2(-15, -18)
+position = Vector2(-15, -20.75)
 shape = SubResource("RectangleShape2D_mnkqd")
 
 [node name="TurnedTimer" type="Timer" parent="."]

@@ -1636,7 +1636,6 @@ polygon = PackedVector2Array(-5, -44, 3, -44, 15, 86.5, -15, 86.5)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
 position = Vector2(0.25, -22.5)
 scale = Vector2(18.375, 2.25)
 
