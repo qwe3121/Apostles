@@ -20,9 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://p25lxpdkyton" path="res://sprites/location_1_parallaxes/Elki_3.png" id="18_a0w2n"]
 [ext_resource type="Texture2D" uid="uid://b5kgkf4kl6nry" path="res://sprites/location_1_parallaxes/Paralaks_Niz.png" id="19_h0wwn"]
 [ext_resource type="Texture2D" uid="uid://bhhhu7a7psp3o" path="res://sprites/location_1_parallaxes/Paralaks_Niz_Mal.png" id="20_ywuup"]
+[ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://128x128.png" id="21_yxnab"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
-[ext_resource type="Texture2D" uid="uid://cjfuismmke2hv" path="res://icon.svg" id="30_4eis4"]
 [ext_resource type="PackedScene" uid="uid://mrkh2vbdyfbi" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0gkpm"]
@@ -63,8 +63,8 @@ shader_parameter/offset = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ygmg"]
 shader = ExtResource("30_3pdf4")
-shader_parameter/lightScreenPosition = null
-shader_parameter/halfPixel = null
+shader_parameter/lightScreenPosition = Vector2(0.408, 0)
+shader_parameter/halfPixel = Vector2(0, 0)
 shader_parameter/Density = 0.5
 shader_parameter/Decay = 0.95
 shader_parameter/Weight = 1.0
@@ -89,7 +89,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.0705882)
+color = Color(1, 1, 1, 0.0784314)
 
 [node name="BigB" type="ParallaxLayer" parent="SubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
@@ -223,18 +223,19 @@ centered = false
 material = SubResource("ShaderMaterial_0ygmg")
 position = Vector2(-100, -100)
 scale = Vector2(15, 15)
-texture = ExtResource("30_4eis4")
+texture = ExtResource("21_yxnab")
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="SubViewport"]
 zoom = Vector2(1.2, 1.2)
 process_callback = 0
+position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Parallax" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="ParallaxLayer" parent="Parallax"]
-position = Vector2(0, -300)
+position = Vector2(0, -3220)
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/Sky"]

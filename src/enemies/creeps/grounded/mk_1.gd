@@ -117,14 +117,12 @@ var can_move_now = 1 #for BEFORE_ULTI state
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
-	animated_sprite.material.set_shader_parameter("alpha", 1.0)
 	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	walking_timer.wait_time = randi_range(1,5)
 	walking_timer.autostart = true
 	
 	
-
 func get_damage(value, k_dir = 0, damager = null):
 	if state == DEAD or state == FRUIT_DEAD:
 		return
@@ -500,7 +498,7 @@ func shoot():
 		bullet_instance.dir = -anim_dir
 	else:
 		bullet_instance.dir = anim_dir
-	get_parent().get_parent().add_child(bullet_instance)
+	get_parent().get_parent().get_parent().add_child(bullet_instance)
 			
 			
 func before_ulti(delta):

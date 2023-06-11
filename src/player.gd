@@ -128,7 +128,8 @@ var knockback_dir = 0
 var stamina = 100 : set = set_stamina
 
 func set_stamina(value):
-	stamina = value
+#	stamina = value
+	stamina = 100
 	if stamina > 100:
 		stamina = 100
 	elif stamina < 0:
@@ -141,7 +142,8 @@ func set_stamina(value):
 var adrenaline = 0 : set = set_adrenaline
 
 func set_adrenaline(value):
-	adrenaline = value
+#	adrenaline = value
+	adrenaline = 100
 	if adrenaline > 100:
 		adrenaline = 100
 	elif adrenaline < 0:
@@ -1179,6 +1181,11 @@ func landing():
 		if np:
 			print("from landing to AIR")
 		state = AIR
+		return
+	if Input.is_action_pressed("JUMP"):
+		if np:
+			print("from landing to jump")
+		state = JUMP
 		return
 	velocity.x = dir * speed
 	velocity.y = 0

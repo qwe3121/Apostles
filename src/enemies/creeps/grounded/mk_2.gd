@@ -114,7 +114,6 @@ enum move_state_const {IDLE, RUN, MOVE_BACK}
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
-	animated_sprite.material.set_shader_parameter("alpha", 1.0)
 
 	blood.modulate.a = randf_range(0.6, 1.0)
 

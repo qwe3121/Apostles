@@ -106,7 +106,6 @@ func refresh_desired_distance():
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
-	animated_sprite.material.set_shader_parameter("alpha", 1.0)
 	
 	y_pos_before_ulti = global_position.y
 	
