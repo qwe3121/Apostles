@@ -136,7 +136,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var hp = 3 : set = set_hp
 
 
+@onready var hp_bar_anim = $CanvasLayer/PlayerUI/HP_bar/HP_bar_anim
+
 func set_hp(value):
+	if value == 2:
+		hp_bar_anim.play("2hp")
+	elif value == 1:
+		hp_bar_anim.play("1hp")
+	elif value <= 0:
+		hp_bar_anim.play("0hp")
 	hp = value
 #	var tween1 = create_tween()
 #	tween1.tween_property(health_bar_over, "value", hp, 0.1)
