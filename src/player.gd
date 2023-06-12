@@ -154,6 +154,7 @@ func set_adrenaline(value):
 	tween2.tween_property(adrenaline_bar_under, "value", adrenaline, 0.2)
 
 var speed = 400
+var knockback_speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -391,8 +392,8 @@ func _physics_process(delta):
 
 	if knockback_dir:
 		if knockback_dir == dir:
-			velocity.x = speed * 2 * knockback_dir
-		else: velocity.x = speed * knockback_dir
+			velocity.x = knockback_speed * 2 * knockback_dir
+		else: velocity.x = knockback_speed * knockback_dir
 
 	if flying_cause_of_mk6 and not state == DASH:
 		velocity.y = -1

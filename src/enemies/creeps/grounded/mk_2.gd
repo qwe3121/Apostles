@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 var hp = 4
 var speed = 75
+var knockback_speed = 150
 
 var close_en_to_attack = false
 var close_en_to_ulti = false
@@ -382,8 +383,8 @@ func _physics_process(delta):
 			
 	if knockback_dir and not (state == DEAD or state == FRUIT_DEAD):
 		if knockback_dir == dir:
-			velocity.x = speed * 2 * knockback_dir
-		else: velocity.x = speed * knockback_dir
+			velocity.x = knockback_speed * 2 * knockback_dir
+		else: velocity.x = knockback_speed * knockback_dir
 			
 	move_and_slide()
 
