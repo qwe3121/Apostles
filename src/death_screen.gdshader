@@ -1,8 +1,5 @@
-// Based on: https://www.shadertoy.com/view/Ms23DR
 shader_type canvas_item;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
-
-// Loosely based on postprocessing shader by inigo quilez, License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
 vec2 curve(vec2 uv)
 {

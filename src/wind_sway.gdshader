@@ -1,6 +1,3 @@
-// original wind shader from https://github.com/Maujoe/godot-simple-wind-shader-2d/tree/master/assets/maujoe.simple_wind_shader_2d
-// original script modified by HungryProton so that the assets are moving differently : https://pastebin.com/VL3AfV8D
-//
 // speed - The speed of the wind movement.
 // minStrength - The minimal strength of the wind movement.
 // maxStrength - The maximal strength of the wind movement.

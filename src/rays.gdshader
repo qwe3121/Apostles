@@ -1,5 +1,4 @@
 shader_type canvas_item;
-// copied from http://xnauk-randomchaosblogarchive.blogspot.com/2012/10/2d-crepuscular-god-rays.html
 
 uniform sampler2D mask;
 
