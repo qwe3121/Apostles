@@ -1,4 +1,4 @@
-[gd_scene load_steps=465 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=464 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -50,7 +50,6 @@
 [ext_resource type="Texture2D" uid="uid://do1jwfm5yy5yy" path="res://sprites/player/Polychenie_Yrona_na_zemle.png" id="38_2jei0"]
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
-[ext_resource type="Texture2D" uid="uid://bhwmdjml68jrt" path="res://sprites/light.webp" id="51_gvof3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iel4b"]
 shader = ExtResource("2_e15ku")
@@ -5565,13 +5564,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanChangeCollisionChecker"]
 position = Vector2(0, -50)
 shape = SubResource("RectangleShape2D_hlk31")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(0, -44)
-range_layer_min = -100
-texture = ExtResource("51_gvof3")
-texture_scale = 4.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]

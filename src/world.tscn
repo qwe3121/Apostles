@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=32 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -20,7 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://p25lxpdkyton" path="res://sprites/location_1_parallaxes/Elki_3.png" id="18_a0w2n"]
 [ext_resource type="Texture2D" uid="uid://b5kgkf4kl6nry" path="res://sprites/location_1_parallaxes/Paralaks_Niz.png" id="19_h0wwn"]
 [ext_resource type="Texture2D" uid="uid://bhhhu7a7psp3o" path="res://sprites/location_1_parallaxes/Paralaks_Niz_Mal.png" id="20_ywuup"]
-[ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://128x128.png" id="21_yxnab"]
+[ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://sprites/128x128.png" id="21_f32jt"]
+[ext_resource type="PackedScene" uid="uid://74a08m6w4i62" path="res://src/dust_particles.tscn" id="23_j08bk"]
+[ext_resource type="Environment" uid="uid://duay6t40dsnjh" path="res://src/world_env_resource.tres" id="26_8kskc"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
 [ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="PackedScene" uid="uid://mrkh2vbdyfbi" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
@@ -223,7 +225,7 @@ centered = false
 material = SubResource("ShaderMaterial_0ygmg")
 position = Vector2(-100, -100)
 scale = Vector2(15, 15)
-texture = ExtResource("21_yxnab")
+texture = ExtResource("21_f32jt")
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="SubViewport"]
@@ -371,6 +373,12 @@ centered = false
 material = SubResource("CanvasItemMaterial_drf02")
 centered = false
 
+[node name="DustParallax" type="ParallaxBackground" parent="."]
+process_mode = 3
+layer = 128
+
+[node name="DustParticles" parent="DustParallax" instance=ExtResource("23_j08bk")]
+
 [node name="Level1" parent="." instance=ExtResource("42_ie1i1")]
 position = Vector2(2000, -906)
 
@@ -394,5 +402,8 @@ position = Vector2(399, -1575)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("26_8kskc")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

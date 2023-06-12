@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://74a08m6w4i62"]
+
+[ext_resource type="Texture2D" uid="uid://c7kw0txqmp7ix" path="res://sprites/dust_particle.png" id="1_ht5w2"]
+
+[sub_resource type="Curve" id="Curve_xru7r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.277108, 1), 0.0, 0.0, 0, 0, Vector2(0.789157, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_gf423"]
+curve = SubResource("Curve_xru7r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_epeba"]
+emission_shape = 3
+emission_box_extents = Vector3(1152, 648, 1)
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_gf423")
+color = Color(1, 1, 1, 0.419608)
+turbulence_enabled = true
+
+[node name="DustParticles" type="GPUParticles2D"]
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_epeba")
+texture = ExtResource("1_ht5w2")
