@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0tb823iavgwk"
-path="res://.godot/imported/Polosa_Zdorovia_Pered.png-0a7d30d25d93b747890a3454746c2e0d.ctex"
+uid="uid://c37fofapkmxer"
+path="res://.godot/imported/Ikonka_Rivok_Primenenie.png-a5b2880c8b105dcb13645b8af6394297.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/gui/Polosa_Zdorovia_Pered.png"
-dest_files=["res://.godot/imported/Polosa_Zdorovia_Pered.png-0a7d30d25d93b747890a3454746c2e0d.ctex"]
+source_file="res://sprites/player/gui/Ikonka_Rivok_Primenenie.png"
+dest_files=["res://.godot/imported/Ikonka_Rivok_Primenenie.png-a5b2880c8b105dcb13645b8af6394297.ctex"]
 
 [params]
 

@@ -29,3 +29,4 @@ turbulence_enabled = true
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_epeba")
 texture = ExtResource("1_ht5w2")
+local_coords = true

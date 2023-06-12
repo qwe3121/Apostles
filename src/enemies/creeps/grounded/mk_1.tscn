@@ -1,4 +1,4 @@
-[gd_scene load_steps=171 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=168 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -25,7 +25,6 @@
 [ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="12_vi8p2"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="16_h0u1c"]
-[ext_resource type="Texture2D" uid="uid://6okxrwhnr6da" path="res://sprites/bloom_light.png" id="26_rlm5p"]
 
 [sub_resource type="Animation" id="Animation_w10ag"]
 length = 0.001
@@ -1925,12 +1924,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o5sxv"]
-blend_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dliw7"]
-blend_mode = 1
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgkk2"]
 size = Vector2(25, 40.5)
 
@@ -1938,7 +1931,7 @@ size = Vector2(25, 40.5)
 size = Vector2(20, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
-size = Vector2(209, 34.5)
+size = Vector2(209, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
 size = Vector2(5, 40.5)
@@ -1986,22 +1979,6 @@ position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
 animation = &"dead"
 
-[node name="Lights" type="Node2D" parent="."]
-visible = false
-position = Vector2(-3, -27)
-
-[node name="BloomLight" type="Sprite2D" parent="Lights"]
-modulate = Color(0, 100, 100, 1)
-material = SubResource("CanvasItemMaterial_o5sxv")
-scale = Vector2(0.328125, 0.320312)
-texture = ExtResource("26_rlm5p")
-
-[node name="BloomLight2" type="Sprite2D" parent="Lights"]
-modulate = Color(0, 100, 100, 1)
-material = SubResource("CanvasItemMaterial_dliw7")
-scale = Vector2(0.234375, 0.242188)
-texture = ExtResource("26_rlm5p")
-
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.380392, 1, 0.956863, 1)
@@ -2032,12 +2009,11 @@ position = Vector2(-31, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, -19.25)
+position = Vector2(0, -41.5)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]

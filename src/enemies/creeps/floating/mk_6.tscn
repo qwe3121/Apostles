@@ -1510,7 +1510,7 @@ animations = [{
 size = Vector2(38, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyenh"]
-size = Vector2(310, 149.5)
+size = Vector2(310, 215.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vsh"]
 size = Vector2(368, 28)
@@ -1567,12 +1567,11 @@ position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_4fvhl")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, 11.75)
+position = Vector2(0, -21.25)
 shape = SubResource("RectangleShape2D_oyenh")
 
 [node name="ChaseTimer" type="Timer" parent="."]

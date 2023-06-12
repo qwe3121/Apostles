@@ -5461,10 +5461,6 @@ wait_time = 3.0
 [node name="StrongComboTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="StaminaTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
@@ -5544,10 +5540,6 @@ one_shot = true
 [node name="BloodPos" type="Node2D" parent="."]
 position = Vector2(0, -44)
 
-[node name="BlockStaminaTimer" type="Timer" parent="."]
-
-[node name="WallSlideStaminaTimer" type="Timer" parent="."]
-
 [node name="GettinDamageCD" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
@@ -5570,14 +5562,11 @@ shape = SubResource("RectangleShape2D_hlk31")
 [connection signal="timeout" from="WallSlideCooldown" to="." method="_on_wall_slide_cooldown_timeout"]
 [connection signal="timeout" from="WeakComboTimer" to="." method="_on_weak_combo_timer_timeout"]
 [connection signal="timeout" from="StrongComboTimer" to="." method="_on_strong_combo_timer_timeout"]
-[connection signal="timeout" from="StaminaTimer" to="." method="_on_stamina_timer_timeout"]
 [connection signal="animation_finished" from="CanvasLayer/SunLens/SunLensAnim" to="." method="_on_sun_lens_anim_animation_finished"]
 [connection signal="timeout" from="CanvasLayer/SunLens/SunlensTimer" to="." method="_on_sunlens_timer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="FruitNinjaLine/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]
-[connection signal="timeout" from="BlockStaminaTimer" to="." method="_on_block_stamina_timer_timeout"]
-[connection signal="timeout" from="WallSlideStaminaTimer" to="." method="_on_wall_slide_stamina_timer_timeout"]
 [connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
 [connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout"]
 [connection signal="body_entered" from="CanChangeCollisionChecker" to="." method="_on_can_change_collision_checker_body_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y58hfgujgh40"
-path="res://.godot/imported/Polosa_Adrenalina_Pered.png-aa30975a28de96006ce0eaeb04fbae06.ctex"
+uid="uid://wfod336kiwgn"
+path="res://.godot/imported/Ikonka_Rivok_Zarajaetca.png-13aaefd171e0a80a38580c7c02d30454.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/gui/Polosa_Adrenalina_Pered.png"
-dest_files=["res://.godot/imported/Polosa_Adrenalina_Pered.png-aa30975a28de96006ce0eaeb04fbae06.ctex"]
+source_file="res://sprites/player/gui/Ikonka_Rivok_Zarajaetca.png"
+dest_files=["res://.godot/imported/Ikonka_Rivok_Zarajaetca.png-13aaefd171e0a80a38580c7c02d30454.ctex"]
 
 [params]
 
