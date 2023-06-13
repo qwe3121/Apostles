@@ -33,6 +33,7 @@ var player_adrenaline_gain = 20
 @onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
 @onready var rocks_dropdown_hitbox = $RocksDropdownHitbox/Col
 @onready var ulti_dropdown_hitbox = $UltiDropdownHitbox/Col
+@onready var dead_zone = $AnimatedSprite2D/DeadZone
 var need_to_check_if_see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -350,6 +351,7 @@ func dead():
 		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
+		dead_zone.visible = false
 		for c in range(b_drops):
 			blood_manager.create_blood(last_knockback_dir, blood_pos)
 		await anim.animation_finished
@@ -477,6 +479,7 @@ func fruit_dead():
 		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
+		dead_zone.visible = false
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
 			blood_manager.create_blood(last_knockback_dir, blood_pos)

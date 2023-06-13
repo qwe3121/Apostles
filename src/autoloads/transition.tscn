@@ -95,7 +95,7 @@ _data = {
 
 [node name="Transition" type="CanvasLayer"]
 process_mode = 3
-layer = 2
+layer = 128
 script = ExtResource("1_tcfmf")
 
 [node name="ColorRect" type="ColorRect" parent="."]

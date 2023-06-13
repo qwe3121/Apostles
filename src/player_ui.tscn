@@ -725,9 +725,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_mt0hb"]
-resource_name = "2hp"
-length = 1.8
+[sub_resource type="Animation" id="Animation_qupj5"]
+resource_name = "0hp"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -738,7 +737,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"2hp"]
+"values": [&"0hp"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -747,10 +746,10 @@ tracks/1/path = NodePath(".:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -762,7 +761,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [4.0]
+"values": [2.2]
 }
 
 [sub_resource type="Animation" id="Animation_sshjo"]
@@ -805,8 +804,9 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 }
 
-[sub_resource type="Animation" id="Animation_qupj5"]
-resource_name = "0hp"
+[sub_resource type="Animation" id="Animation_mt0hb"]
+resource_name = "2hp"
+length = 1.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -817,7 +817,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"0hp"]
+"values": [&"2hp"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -826,10 +826,10 @@ tracks/1/path = NodePath(".:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -841,7 +841,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [2.2]
+"values": [4.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rlfwc"]

@@ -185,7 +185,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "before_attack_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack")
 		BEFORE_ATTACK_N_MOVE_BACK:
@@ -193,7 +193,7 @@ func set_anim(animation_name):
 			anim.current_animation == "before_attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack_n_move_back")
 		BEFORE_ATTACK_N_RUN:
@@ -201,7 +201,7 @@ func set_anim(animation_name):
 			anim.current_animation == "before_attack_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack_n_run")
 		ATTACK:
@@ -209,7 +209,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "attack_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack")
 		ATTACK_N_RUN:
@@ -217,7 +217,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "attack_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack_n_run")
 		ATTACK_N_MOVE_BACK:
@@ -225,7 +225,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack_n_move_back")
 		AFTER_ATTACK:
@@ -233,7 +233,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_attack_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_attack")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_attack")
 		AFTER_ATTACK_N_RUN:
@@ -241,7 +241,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_attack_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_attack_n_run")
 		AFTER_ATTACK_N_MOVE_BACK:
@@ -249,7 +249,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_attack_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_attack_n_move_back")
 		BEFORE_ULTI:
@@ -257,7 +257,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "before_ulti_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_ulti")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_ulti")
 		BEFORE_ULTI_N_RUN:
@@ -265,7 +265,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "before_ulti_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_ulti_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_ulti_n_run")
 		BEFORE_ULTI_N_MOVE_BACK:
@@ -273,7 +273,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "before_ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_ulti_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_ulti_n_move_back")
 		ULTI:
@@ -281,7 +281,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "ulti_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("ulti")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("ulti")
 		ULTI_N_RUN:
@@ -289,7 +289,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("ulti_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("ulti_n_run")
 		ULTI_N_MOVE_BACK:
@@ -297,7 +297,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("ulti_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("ulti_n_move_back")
 		AFTER_ULTI:
@@ -305,7 +305,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_ulti_n_move_back":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_ulti")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_ulti")
 		AFTER_ULTI_N_RUN:
@@ -313,7 +313,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_ulti_n_run")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_ulti_n_run")
 		AFTER_ULTI_N_MOVE_BACK:
@@ -321,7 +321,7 @@ func set_anim(animation_name):
 			or anim.current_animation == "after_ulti_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_ulti_n_move_back")
-				anim.seek(cur_pos)
+				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_ulti_n_move_back")
 		DEAD:
@@ -452,8 +452,10 @@ func run():
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -498,8 +500,10 @@ func before_attack(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -542,8 +546,10 @@ func attack(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -583,8 +589,10 @@ func after_attack(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -629,8 +637,10 @@ func before_ulti(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -673,8 +683,10 @@ func ulti(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -714,8 +726,10 @@ func after_ulti(delta):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
+		dir = anim_dir
 		player_move_state = move_state_const.RUN
 	else:
+		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
 	match player_move_state:
@@ -911,6 +925,6 @@ func _on_check_if_player_deep_inside_body_exited(body):
 
 
 func _on_move_back_timer_timeout():
-	move_back_timer.wait_time = randf_range(1.0, 6.0)
+	move_back_timer.wait_time = randf_range(1.0, 4.0)
 	dir *= -1
 	if dir: anim_dir = dir

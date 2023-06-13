@@ -2963,7 +2963,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
+speed_scale = 0.8
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -2983,7 +2983,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"dead"
+animation = &"attack_n_move_back"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2997,7 +2997,6 @@ position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
