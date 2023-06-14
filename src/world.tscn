@@ -375,7 +375,7 @@ centered = false
 
 [node name="DustParallax" type="ParallaxBackground" parent="."]
 process_mode = 3
-layer = 128
+layer = 100
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="DustParallax"]
 motion_mirroring = Vector2(1152, 648)
