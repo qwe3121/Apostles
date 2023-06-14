@@ -2885,20 +2885,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [1.0]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"shake_camera"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_h0vhc"]
 resource_name = "Crouch"
@@ -5389,10 +5375,10 @@ script = ExtResource("1_jdkiv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
 material = SubResource("ShaderMaterial_iel4b")
-position = Vector2(0, -48)
+position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"Block2"
+animation = &"SecondJumpAttack3"
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

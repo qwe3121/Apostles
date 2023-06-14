@@ -89,7 +89,7 @@ var flying_cause_of_mk6 = false
 var slowed_cause_of_mk6 = false
 
 
-enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, BEFORE_BLOCK, BLOCK, AFTER_BLOCK, WEAK_ATTACK_1, 
+enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
@@ -152,13 +152,12 @@ func set_hp(value):
 #	tween2.tween_property(health_bar_under, "value", hp, 0.2)
 	
 	
-func get_damage(source: String, damage: int, can_block: bool, damager = null, k_dir = 0, respect_damage_cd: bool = true): #fire, bullet, hit, cut
+func get_damage(source: String, damage: int, can_block_that_damage: bool, damager = null, k_dir = 0, respect_damage_cd: bool = true): #fire, bullet, hit, cut
 	if not can_get_damage and respect_damage_cd:
 		return
 	
-	if can_block and (state == BLOCK or state == BLOCKED):
-		if state == BLOCK:
-			state = BLOCKED
+	if can_block_that_damage and state == BLOCKED:
+		shake_camera()
 		return
 	
 	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead:
@@ -286,8 +285,6 @@ func set_anim(animation_name):
 					anim.play("fire_dead")
 				"cut":
 					anim.play("cut_dead")
-		BLOCK:
-			anim.play("Block")
 		BLOCKED:
 			anim.play("Blocked")
 		FRUIT_NINJA:
@@ -363,8 +360,6 @@ func _physics_process(delta):
 			second_jump_attack_3()
 		DEAD:
 			dead(delta)
-		BLOCK:
-			block()
 		BLOCKED:
 			blocked()
 		FRUIT_NINJA:
@@ -413,8 +408,8 @@ func idle():
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
-			print("from idle to block")
-		state = BLOCK
+			print("from idle to BLOCKED")
+		state = BLOCKED
 		return
 
 	if Input.is_action_pressed("RMB ATTACK"):
@@ -511,8 +506,8 @@ func run():
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
-			print("from run to block")
-		state = BLOCK
+			print("from run to BLOCKED")
+		state = BLOCKED
 		return
 		
 	if Input.is_action_pressed("RMB ATTACK"):
@@ -609,6 +604,13 @@ func air(delta):
 		if np:
 			print("from air to DASH")
 		state = DASH
+		return
+		
+	if Input.is_action_pressed("BLOCK") and can_block:
+		can_block = false
+		if np:
+			print("from air to BLOCKED")
+		state = BLOCKED
 		return
 		
 	if not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2:
@@ -715,6 +717,13 @@ func jump(delta):
 		if np:
 			print("from jump to DASH")
 		state = DASH
+		return
+		
+	if Input.is_action_pressed("BLOCK") and can_block:
+		can_block = false
+		if np:
+			print("from jump to BLOCKED")
+		state = BLOCKED
 		return
 		
 	if wall_dir and !wall_jumping and !is_on_floor():
@@ -1234,16 +1243,6 @@ func second_jump_attack_3():
 			state = AIR
 
 
-func block():
-	set_anim(BLOCK)
-	velocity.x = 0
-	velocity.y = 0
-	if not Input.is_action_pressed("BLOCK"):
-		if np:
-			print("from block to idle")
-		state = IDLE
-
-
 func blocked():
 	set_anim(BLOCKED)
 	velocity.x = 0
@@ -1253,8 +1252,8 @@ func blocked():
 		await anim.animation_finished
 		if state == BLOCKED:
 			if np:
-				print("from BLOCKED to BLOCK")
-		state = BLOCK
+				print("from BLOCKED to AIR")
+		state = AIR
 
 
 func _on_hitbox_body_entered(body):

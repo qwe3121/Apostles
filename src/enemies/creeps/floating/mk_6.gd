@@ -189,12 +189,12 @@ func start_moving_behavior():
 	if nav_agent.is_target_reachable():
 		var target = nav_agent.get_next_path_position()
 		var nav_velocity = global_position.direction_to(target).normalized() * speed
-#		nav_agent.set_velocity(nav_velocity) # FOR RVO AVOIDANCE
+#		nav_agent.set_velocity(nav_velocity) # FOR RVO AVOIDANCE (traps, for example, as I understand)
 		velocity = nav_velocity
 		move_and_slide()
 
 
-# FOR RVO AVOIDANCE
+# FOR RVO AVOIDANCE (traps, for example, as I understand)
 
 #func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 #	velocity = safe_velocity

@@ -88,8 +88,11 @@ var anim_dir = 1
 var state_started = false
 
 var can_attack = true
-var can_ulti = true
-	
+var can_ulti = false : set = set_can_ulti
+
+func set_can_ulti(value):
+	can_ulti = false
+
 var need_to_reset_ulti = false
 
 var walking = 1 #1 is walking 0 is chilling
@@ -925,6 +928,6 @@ func _on_check_if_player_deep_inside_body_exited(body):
 
 
 func _on_move_back_timer_timeout():
-	move_back_timer.wait_time = randf_range(1.0, 4.0)
+	move_back_timer.wait_time = randf_range(1.0, 8.0)
 	dir *= -1
 	if dir: anim_dir = dir
