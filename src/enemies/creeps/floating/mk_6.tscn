@@ -1526,7 +1526,7 @@ collision_mask = 2
 script = ExtResource("1_xn6rm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.8
+speed_scale = 0.7
 libraries = {
 "": SubResource("AnimationLibrary_dkqww")
 }
@@ -1544,9 +1544,9 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_iv7jv")
-position = Vector2(-3, -20)
+position = Vector2(-3, 25)
 sprite_frames = SubResource("SpriteFrames_0rin6")
-animation = &"fruit_ninja_dead"
+animation = &"attack"
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false

@@ -1,12 +1,3 @@
-/*
-Shader from Godot Shaders - the free shader library.
-godotshaders.com/shader/energy-beams
-
-This shader is under CC0 license. Feel free to use, improve and 
-change this shader according to your needs and consider sharing 
-the modified result to godotshaders.com.
-*/
-
 shader_type canvas_item;
 render_mode blend_add; // Remove this if you want to use HDR glow instead (use "Glow" and "Outline Glow" sliders)
 
