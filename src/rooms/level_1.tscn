@@ -248,10 +248,12 @@ position = Vector2(-1424, 712)
 
 [node name="StompTrap" parent="Traps" instance=ExtResource("15_mv2lf")]
 position = Vector2(-13, 449)
+stomp_cooldown = 2.0
 
 [node name="StompTrap2" parent="Traps" instance=ExtResource("15_mv2lf")]
 position = Vector2(187, 447)
 time_before_start = 2.0
+stomp_cooldown = 4.0
 
 [node name="Enemies" type="Node2D" parent="."]
 
