@@ -10,7 +10,6 @@ func _ready():
 	global.is_in_world = true
 	Engine.time_scale = cfg.default_time_scale
 	$BackgroundParallax/SkylightTexture.texture = $SkylightViewportContainer/SkylightSubViewport.get_texture()
-	events.emit_signal("world_is_ready")
 
 
 func _physics_process(delta):

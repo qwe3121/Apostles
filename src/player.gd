@@ -103,6 +103,47 @@ func set_state(value):
 		single_anim_not_played_yet = true
 
 	state = value
+	
+var animations_speed_scales = {
+	"Blocked": 1,
+	"Crouch": 1,
+	"Dash": 20, 
+	"FirstAir": 1, 
+	"FirstAirCycle": 1, 
+	"FirstJump": 3.5, 
+	"FirstJumpAttack1": 1.8,
+	"FirstJumpAttack2": 1.8,
+	"FirstJumpAttack3": 1.8,
+	"FirstJumpCycle": 1, 
+	"Idle": 1,
+	"Roll": 2, 
+	"Run": 1,
+	"SecondAir": 1,
+	"SecondAirCycle": 1,
+	"SecondJump": 2, 
+	"SecondJumpAttack1": 1.8,
+	"SecondJumpAttack2": 1.35,
+	"SecondJumpAttack3": 0.9,
+	"SecondJumpCycle": 1,
+	"SecondLanding": 3.5,
+	"Sit": 1,
+	"StrongAttack1": 0.8,
+	"StrongAttack2": 0.8,
+	"StrongAttack3": 0.8,
+	"StrongAttack4": 0.6,
+	"WallSlide": 1,
+	"WeakAttack1": 1.8,
+	"WeakAttack2": 1.8,
+	"WeakAttack3": 1.8,
+	"WeakAttack4": 1.8,
+	"bullet_dead_speredi": 2,
+	"bullet_dead_szadi": 2,
+	"cut_dead": 1,
+	"fire_dead": 0.5,
+	"hit_dead": 0.5,
+	"reincarnation": 2,
+	"stun": 2
+}
 
 var dir = 0
 var anim_dir = 1
@@ -289,11 +330,18 @@ func set_anim(animation_name):
 			
 	if anim.current_animation != pre_anim:
 		need_to_change_col_size = true
-				
-				
+	elif slowed_cause_of_mk6:
+		if animations_speed_scales[anim.current_animation] == anim.speed_scale:
+			anim.speed_scale /= 2
+
+
 func _ready():
+	for anim_name in anim.get_animation_list():
+		if anim_name == "RESET": continue
+		if anim_name not in animations_speed_scales.keys():
+			assert(false, "animations_time_scales dictionary is not full!")
+	
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
-	animated_sprite.material.set_shader_parameter("alpha", 1.0)
 	global.player = self
 
 
