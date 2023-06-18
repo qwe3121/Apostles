@@ -83,7 +83,20 @@ var learned_skills = {
 #debuffs section
 
 var flying_cause_of_mk6 = false
-var slowed_cause_of_mk6 = false
+var slowed_cause_of_mk6 = false : set = set_slowed_cause_of_mk6
+
+func set_slowed_cause_of_mk6(value):
+	slowed_cause_of_mk6 = value
+	
+	var cur_anim_name = anim.current_animation
+	
+	if cur_anim_name == "" or cur_anim_name == " " or cur_anim_name == null:
+		return
+	
+	if value:
+		anim.speed_scale = animations_speed_scales[cur_anim_name] / 2
+	else:
+		anim.speed_scale = animations_speed_scales[cur_anim_name]
 
 
 enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1, 
@@ -330,9 +343,11 @@ func set_anim(animation_name):
 			
 	if anim.current_animation != pre_anim:
 		need_to_change_col_size = true
-	elif slowed_cause_of_mk6:
-		if animations_speed_scales[anim.current_animation] == anim.speed_scale:
-			anim.speed_scale /= 2
+			
+			
+func _on_animation_player_animation_started(anim_name):
+	anim.speed_scale = animations_speed_scales[anim_name]
+	if slowed_cause_of_mk6: anim.speed_scale /= 2
 
 
 func _ready():
