@@ -5527,7 +5527,7 @@ one_shot = true
 position = Vector2(0, -44)
 
 [node name="GettinDamageCD" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 one_shot = true
 
 [node name="FlashlightTimer" type="Timer" parent="."]

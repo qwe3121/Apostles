@@ -57,3 +57,17 @@ func toggle_undead_mode(value):
 	if not cfg.cfg_data.undead == value:
 		cfg.cfg_data.undead = value
 		cfg.save_data()
+		
+		
+func toggle_skylight(value):
+	if not cfg.cfg_data.skylight_on == value:
+		if global.is_in_world:
+			var world = get_tree().get_node("World")
+			var result = world.get_node_or_null("SkylightViewportContainer")
+			if result != null:
+				result.visible = value
+			result = world.get_node_or_null("BackgroundParallax/SkylightTexture")
+			if result != null:
+				result.visible = value
+		cfg.cfg_data.skylight_on = value
+		cfg.save_data()

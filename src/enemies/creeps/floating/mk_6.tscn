@@ -1601,7 +1601,7 @@ disabled = true
 [node name="UltiDropdownHitbox" parent="." instance=ExtResource("11_vwxtd")]
 visible = false
 damage_source = "cut"
-damage = 175
+damage = 40
 
 [node name="Col" type="CollisionShape2D" parent="UltiDropdownHitbox"]
 position = Vector2(0, -13.75)

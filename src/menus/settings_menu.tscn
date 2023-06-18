@@ -79,6 +79,21 @@ layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 
+[node name="SkylightContainer" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="SkylightLabel" type="Label" parent="TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Skylight"
+
+[node name="SkylightCheckButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+disabled = true
+
 [node name="Audio" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -327,6 +342,7 @@ NAVIGATE BETWEEN TABS"
 
 [connection signal="item_selected" from="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton" to="." method="_on_display_mode_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton" to="." method="_on_vsync_check_button_toggled"]
+[connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton" to="." method="_on_skylight_check_button_toggled"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider" to="." method="_on_master_volume_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider" to="." method="_on_sfx_volume_h_slider_value_changed"]

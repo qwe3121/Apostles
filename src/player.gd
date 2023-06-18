@@ -141,8 +141,8 @@ func set_hp(value):
 	if value < 0: value = 0
 	var frame = ((175 - value) * 3) + 2
 	hp_bar_sprite.frame = frame
-#	var tween = create_tween()
-#	tween.tween_property(hp_bar_sprite, "frame", frame, 0.1)
+	var tween = create_tween()
+	tween.tween_property(hp_bar_sprite, "frame", frame, 0.3)
 	hp_number.text = str(value) + "%"
 	hp = value
 	

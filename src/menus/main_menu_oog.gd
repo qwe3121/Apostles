@@ -24,6 +24,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_INHERIT
 	
 	global.cur_menu = self
+	global.is_in_world = false
 	
 	$SettingsMenu/BackToMainMenu.pressed.connect(load_main_menu)
 	$SavesMenu/BackToMainMenu.pressed.connect(load_main_menu)

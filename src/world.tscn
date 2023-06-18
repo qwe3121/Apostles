@@ -79,13 +79,27 @@ blend_mode = 1
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SkylightViewportContainer" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkylightSubViewport" type="SubViewport" parent="SkylightViewportContainer"]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1152, 648)
+render_target_update_mode = 4
 
-[node name="Parallax" type="ParallaxBackground" parent="SubViewport"]
+[node name="Parallax" type="ParallaxBackground" parent="SkylightViewportContainer/SkylightSubViewport"]
 
-[node name="ColorRect" type="ColorRect" parent="SubViewport/Parallax"]
+[node name="ColorRect" type="ColorRect" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -93,283 +107,283 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.0784314)
 
-[node name="BigB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+[node name="BigB" type="ParallaxLayer" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(-32, -252)
 motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(10000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
+[node name="Sprite2D" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/BigB"]
 texture_filter = 2
 texture = ExtResource("3_44eu1")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
+[node name="Sprite2D2" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/BigB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("4_6b502")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/BigB"]
+[node name="Sprite2D3" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/BigB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("5_lcggt")
 centered = false
 
-[node name="MedB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+[node name="MedB" type="ParallaxLayer" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -252)
 motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(15000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
+[node name="Sprite2D" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/MedB"]
 texture_filter = 2
 texture = ExtResource("6_xwyuj")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
+[node name="Sprite2D2" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/MedB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("7_xc4xd")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
+[node name="Sprite2D3" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/MedB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("8_5xrlj")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/MedB"]
+[node name="Sprite2D4" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/MedB"]
 texture_filter = 2
 position = Vector2(12288, 0)
 texture = ExtResource("9_gcsoy")
 centered = false
 
-[node name="SmallB" type="ParallaxLayer" parent="SubViewport/Parallax"]
+[node name="SmallB" type="ParallaxLayer" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(-72, -252)
 motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(20000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+[node name="Sprite2D" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/SmallB"]
 texture_filter = 2
 texture = ExtResource("10_0b0ph")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+[node name="Sprite2D2" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/SmallB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("11_pmvvc")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+[node name="Sprite2D3" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/SmallB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("12_k2vrb")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+[node name="Sprite2D4" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/SmallB"]
 texture_filter = 2
 position = Vector2(12288, 0)
 texture = ExtResource("13_cbkdp")
 centered = false
 
-[node name="Sprite2D5" type="Sprite2D" parent="SubViewport/Parallax/SmallB"]
+[node name="Sprite2D5" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/SmallB"]
 texture_filter = 2
 position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
 centered = false
 
-[node name="Forest" type="ParallaxLayer" parent="SubViewport/Parallax"]
+[node name="Forest" type="ParallaxLayer" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -158)
 motion_scale = Vector2(0.4, 0)
 motion_mirroring = Vector2(10000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_0gkpm")
 texture = ExtResource("16_hghuy")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D2" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_scw57")
 position = Vector2(4096, 0)
 texture = ExtResource("17_78uej")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D3" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_m6gub")
 position = Vector2(8192, 0)
 texture = ExtResource("18_a0w2n")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D4" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 position = Vector2(0, 844)
 texture = ExtResource("19_h0wwn")
 centered = false
 
-[node name="Sprite2D5" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D5" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 position = Vector2(4000, 844)
 texture = ExtResource("19_h0wwn")
 centered = false
 
-[node name="Sprite2D6" type="Sprite2D" parent="SubViewport/Parallax/Forest"]
+[node name="Sprite2D6" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
 position = Vector2(8000, 844)
 texture = ExtResource("20_ywuup")
 centered = false
 
-[node name="Scatter" type="Sprite2D" parent="SubViewport/Parallax"]
+[node name="Scatter" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 material = SubResource("ShaderMaterial_0ygmg")
 position = Vector2(-100, -100)
 scale = Vector2(15, 15)
 texture = ExtResource("21_f32jt")
 centered = false
 
-[node name="Camera2D" type="Camera2D" parent="SubViewport"]
+[node name="Camera2D" type="Camera2D" parent="SkylightViewportContainer/SkylightSubViewport"]
 zoom = Vector2(1.2, 1.2)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="Parallax" type="ParallaxBackground" parent="."]
+[node name="BackgroundParallax" type="ParallaxBackground" parent="."]
 
-[node name="Sky" type="ParallaxLayer" parent="Parallax"]
+[node name="Sky" type="ParallaxLayer" parent="BackgroundParallax"]
 position = Vector2(0, -3220)
 motion_scale = Vector2(0, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax/Sky"]
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/Sky"]
 texture_filter = 2
 texture = ExtResource("2_qpqqr")
 centered = false
 
-[node name="BigB" type="ParallaxLayer" parent="Parallax"]
+[node name="BigB" type="ParallaxLayer" parent="BackgroundParallax"]
 position = Vector2(-32, -252)
 motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(10000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax/BigB"]
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/BigB"]
 texture_filter = 2
 texture = ExtResource("3_44eu1")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="Parallax/BigB"]
+[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax/BigB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("4_6b502")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="Parallax/BigB"]
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax/BigB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("5_lcggt")
 centered = false
 
-[node name="MedB" type="ParallaxLayer" parent="Parallax"]
+[node name="MedB" type="ParallaxLayer" parent="BackgroundParallax"]
 position = Vector2(0, -252)
 motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(15000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax/MedB"]
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/MedB"]
 texture_filter = 2
 texture = ExtResource("6_xwyuj")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="Parallax/MedB"]
+[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax/MedB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("7_xc4xd")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="Parallax/MedB"]
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax/MedB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("8_5xrlj")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="Parallax/MedB"]
+[node name="Sprite2D4" type="Sprite2D" parent="BackgroundParallax/MedB"]
 texture_filter = 2
 position = Vector2(12288, 0)
 texture = ExtResource("9_gcsoy")
 centered = false
 
-[node name="SmallB" type="ParallaxLayer" parent="Parallax"]
+[node name="SmallB" type="ParallaxLayer" parent="BackgroundParallax"]
 position = Vector2(-72, -252)
 motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(20000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax/SmallB"]
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/SmallB"]
 texture_filter = 2
 texture = ExtResource("10_0b0ph")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="Parallax/SmallB"]
+[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax/SmallB"]
 texture_filter = 2
 position = Vector2(4096, 0)
 texture = ExtResource("11_pmvvc")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="Parallax/SmallB"]
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax/SmallB"]
 texture_filter = 2
 position = Vector2(8192, 0)
 texture = ExtResource("12_k2vrb")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="Parallax/SmallB"]
+[node name="Sprite2D4" type="Sprite2D" parent="BackgroundParallax/SmallB"]
 texture_filter = 2
 position = Vector2(12288, 0)
 texture = ExtResource("13_cbkdp")
 centered = false
 
-[node name="Sprite2D5" type="Sprite2D" parent="Parallax/SmallB"]
+[node name="Sprite2D5" type="Sprite2D" parent="BackgroundParallax/SmallB"]
 texture_filter = 2
 position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
 centered = false
 
-[node name="Forest" type="ParallaxLayer" parent="Parallax"]
+[node name="Forest" type="ParallaxLayer" parent="BackgroundParallax"]
 position = Vector2(0, -158)
 motion_scale = Vector2(0.4, 0)
 motion_mirroring = Vector2(10000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_0gkpm")
 texture = ExtResource("16_hghuy")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_scw57")
 position = Vector2(4096, 0)
 texture = ExtResource("17_78uej")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax/Forest"]
 texture_filter = 2
 material = SubResource("ShaderMaterial_m6gub")
 position = Vector2(8192, 0)
 texture = ExtResource("18_a0w2n")
 centered = false
 
-[node name="Sprite2D4" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D4" type="Sprite2D" parent="BackgroundParallax/Forest"]
 position = Vector2(0, 844)
 texture = ExtResource("19_h0wwn")
 centered = false
 
-[node name="Sprite2D5" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D5" type="Sprite2D" parent="BackgroundParallax/Forest"]
 position = Vector2(4000, 844)
 texture = ExtResource("19_h0wwn")
 centered = false
 
-[node name="Sprite2D6" type="Sprite2D" parent="Parallax/Forest"]
+[node name="Sprite2D6" type="Sprite2D" parent="BackgroundParallax/Forest"]
 position = Vector2(8000, 844)
 texture = ExtResource("20_ywuup")
 centered = false
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax"]
+[node name="SkylightTexture" type="Sprite2D" parent="BackgroundParallax"]
 material = SubResource("CanvasItemMaterial_drf02")
 centered = false
 

@@ -8,7 +8,7 @@ func _ready():
 	$TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton.select(cfg.cfg_data.display_mode)
 	global_settings.update_display_mode(cfg.cfg_data.display_mode)
 	$TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton.button_pressed = cfg.cfg_data.vsync_on
-	global_settings.toggle_vsync($TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton.button_pressed)
+	global_settings.toggle_vsync(cfg.cfg_data.vsync_on)
 	$TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider.value = cfg.cfg_data.master_vol
 	$TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider.value = cfg.cfg_data.music_vol
 	$TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider.value = cfg.cfg_data.sfx_vol
@@ -19,6 +19,10 @@ func _ready():
 	for key in cfg.default_keys:
 		update_action_event(key)
 	events.emit_signal("ready_to_load_keys_containers")
+	await events.world_is_loaded
+	$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = cfg.cfg_data.skylight_on
+	global_settings.toggle_skylight(cfg.cfg_data.skylight_on)
+	
 	
 	
 func update_action_event(action: String, defaults = false):
@@ -120,3 +124,7 @@ func _process(delta):
 		elif Input.is_action_just_pressed("SETTINGS_TAB_4"):
 			$TabContainer.current_tab = 3
 			$BackToMainMenu.grab_focus()
+
+
+func _on_skylight_check_button_toggled(button_pressed):
+	global_settings.toggle_skylight(button_pressed)

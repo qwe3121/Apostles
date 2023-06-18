@@ -4105,7 +4105,6 @@ mouse_filter = 2
 script = ExtResource("1_gwm1g")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 886.0
 offset_top = 14.0

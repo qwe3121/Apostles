@@ -31,6 +31,7 @@ var default_cfg_data = {
 	"sfx_vol": - 10,
 	"glitchy_transition_on": true,
 	"undead": false,
+	"skylight_on": true,
 	#KEYS
 	"QUICK SAVE": [KEY_F5, "InputEventKey"],
 	"ROLL": [KEY_SHIFT, "InputEventKey"],
