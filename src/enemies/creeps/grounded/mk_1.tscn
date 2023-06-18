@@ -1940,7 +1940,7 @@ size = Vector2(5, 40)
 size = Vector2(34, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2d5l"]
-size = Vector2(4, 40.5)
+size = Vector2(4, 80.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l5vs"]
 size = Vector2(75, 34.5)
@@ -1966,11 +1966,9 @@ libraries = {
 one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
-wait_time = 8.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -2005,7 +2003,6 @@ position = Vector2(-31, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2046,12 +2043,11 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_otajc")
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerDeepInside"]
-position = Vector2(0, -20.75)
+position = Vector2(0, -40.75)
 shape = SubResource("RectangleShape2D_p2d5l")
 
 [node name="BloodPos" type="Node2D" parent="."]
@@ -2063,7 +2059,7 @@ position = Vector2(3, -15.5)
 [node name="UltiHitbox" parent="." instance=ExtResource("13_ytu7v")]
 visible = false
 damage_source = "fire"
-damage = 2
+damage = 20
 
 [node name="Col" type="CollisionPolygon2D" parent="UltiHitbox"]
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)

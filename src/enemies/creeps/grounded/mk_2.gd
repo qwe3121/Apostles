@@ -63,7 +63,7 @@ func const_to_str(index):
 		9:
 			return "AIR"
 		10:
-			return "FRUID_DEAD"
+			return "FRUIT_DEAD"
 
 var state = AIR : set = set_state
 
@@ -92,8 +92,6 @@ var can_ulti = false : set = set_can_ulti
 
 func set_can_ulti(value):
 	can_ulti = false
-
-var need_to_reset_ulti = false
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -333,7 +331,8 @@ func set_anim(animation_name):
 			anim.play("fruit_ninja_dead")
 		MOVE_BACK:
 			anim.play("move_back")
-			
+
+
 func set_dir():
 	if player_is_deep_inside: return
 	if global_position.x < global.player.global_position.x:
@@ -359,6 +358,8 @@ func _physics_process(delta):
 	if need_to_check_if_see_player:
 		if not check_if_vision_is_blocked_by_wall():
 			on_see_player()
+		else:
+			on_unsee_player()
 
 	match state:
 		IDLE: 
@@ -413,7 +414,6 @@ func idle():
 		if walking:
 			dir = 1 if randi_range(0,1) else -1
 			anim_dir = dir
-			set_anim(IDLE)
 			state = RUN
 			return
 			
@@ -522,9 +522,7 @@ func before_attack(delta):
 	
 	if !state_started:
 		state_started = true
-		can_ulti = false
 		can_attack = false
-#		need_to_reset_ulti = true
 		await anim.animation_finished
 		if state == BEFORE_ATTACK:
 			state = ATTACK
@@ -614,11 +612,12 @@ func after_attack(delta):
 		await anim.animation_finished
 		if state == AFTER_ATTACK:
 			attack_cooldown.start()
-			if not see_player:
-				chasing = false
+			if not chasing:
 				walking = 0
 				walking_timer_start()
-			state = IDLE
+				state = IDLE
+			else:
+				state = RUN
 			
 			
 func before_ulti(delta):
@@ -750,13 +749,14 @@ func after_ulti(delta):
 		state_started = true
 		await anim.animation_finished
 		if state == AFTER_ULTI:
-#			ulti_cooldown.start()
+			ulti_cooldown.start()
 			attack_cooldown.start()
-			if not see_player:
-				chasing = false
+			if not chasing:
 				walking = 0
 				walking_timer_start()
-			state = IDLE
+				state = IDLE
+			else:
+				state = RUN
 	
 	
 func dead(delta):
@@ -775,12 +775,13 @@ func dead(delta):
 
 
 func _on_walking_timer_timeout():
-	if walking:
-		walking = 0
-		state = IDLE
-	else:
-		walking = 1
-	walking_timer_start()
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+		if walking:
+			walking = 0
+			state = IDLE
+		else:
+			walking = 1
+		walking_timer_start()
 	
 	
 func walking_timer_start():
@@ -790,22 +791,25 @@ func walking_timer_start():
 	
 func _on_attack_cooldown_timeout():
 	can_attack = true
-	if need_to_reset_ulti:
-		need_to_reset_ulti = false
-		can_ulti = true
 	
 	
 func _on_ulti_cooldown_timeout():
-	if not need_to_reset_ulti:
-		can_ulti = true
+	can_ulti = true
 
 
 func _on_eyes_body_entered(body):
 	need_to_check_if_see_player = true
+	
+	
+func _on_eyes_body_exited(body):
+	need_to_check_if_see_player = false
+	on_unsee_player()
 
 
 func on_see_player():
-	need_to_check_if_see_player = false
+	if see_player:
+		return
+		
 	if not chasing and can_attack:
 		qmark.visible = true
 		qmark.play("popup")
@@ -814,16 +818,19 @@ func on_see_player():
 	see_player = true
 
 
-func _on_eyes_body_exited(body):
-	if state == DEAD or state == FRUIT_DEAD:
-		return
-	need_to_check_if_see_player = false
+func on_unsee_player():
 	if not see_player:
 		return
+	
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+		
 	see_player = false
+	
+	chasing = true
+	chase_timer.start()
+	
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
-		chasing = true
-		chase_timer.start()
 		state = RUN
 		
 		
@@ -850,9 +857,10 @@ func _on_turned_timer_timeout():
 
 func _on_chase_timer_timeout():
 	chasing = false
-	walking = 0
-	walking_timer_start()
-	state = IDLE
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+		walking = 0
+		walking_timer_start()
+		state = IDLE
 
 
 func _on_check_for_blocked_area_area_entered(area):

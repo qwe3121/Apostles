@@ -34,9 +34,6 @@ var adrenaline = 100
 @onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
 
-#@onready var health_bar_over = $CanvasLayer/PlayerUI/HealthBarOver
-#@onready var health_bar_under = $CanvasLayer/PlayerUI/HealthBarUnder
-
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
 @onready var weak_combo_timer = $WeakComboTimer
@@ -133,23 +130,21 @@ var knockback_speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 3 : set = set_hp
+var hp = 175 : set = set_hp
 
 
-@onready var hp_bar_anim = $CanvasLayer/PlayerUI/HP_bar/HP_bar_anim
+@onready var hp_bar_sprite = $CanvasLayer/PlayerUI/hpBar
+@onready var hp_number = $CanvasLayer/PlayerUI/hpNumber
+
 
 func set_hp(value):
-	if value == 2:
-		hp_bar_anim.play("2hp")
-	elif value == 1:
-		hp_bar_anim.play("1hp")
-	elif value <= 0:
-		hp_bar_anim.play("0hp")
+	if value < 0: value = 0
+	var frame = ((175 - value) * 3) + 2
+	hp_bar_sprite.frame = frame
+#	var tween = create_tween()
+#	tween.tween_property(hp_bar_sprite, "frame", frame, 0.1)
+	hp_number.text = str(value) + "%"
 	hp = value
-#	var tween1 = create_tween()
-#	tween1.tween_property(health_bar_over, "value", hp, 0.1)
-#	var tween2 = create_tween()
-#	tween2.tween_property(health_bar_under, "value", hp, 0.2)
 	
 	
 func get_damage(source: String, damage: int, can_block_that_damage: bool, damager = null, k_dir = 0, respect_damage_cd: bool = true): #fire, bullet, hit, cut

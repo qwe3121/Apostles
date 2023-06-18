@@ -2934,7 +2934,7 @@ size = Vector2(5.5, 33.75)
 size = Vector2(53, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg73c"]
-size = Vector2(6, 33.5)
+size = Vector2(6, 55.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_whayr"]
 size = Vector2(18, 4)
@@ -2972,7 +2972,6 @@ libraries = {
 one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
@@ -3013,7 +3012,6 @@ position = Vector2(-35.5, -17.75)
 shape = SubResource("RectangleShape2D_ht1n4")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3054,12 +3052,11 @@ position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_ur1u2")
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerDeepInside"]
-position = Vector2(0, -17.25)
+position = Vector2(0, -28.25)
 shape = SubResource("RectangleShape2D_yg73c")
 
 [node name="BloodPos" type="Node2D" parent="."]
@@ -3069,6 +3066,7 @@ position = Vector2(0, -18.5)
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false
 damage_source = "fire"
+damage = 10
 
 [node name="Col" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(-32, -34)

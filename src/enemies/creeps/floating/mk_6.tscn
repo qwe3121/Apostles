@@ -1535,11 +1535,10 @@ libraries = {
 one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 4.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -1547,6 +1546,7 @@ material = SubResource("ShaderMaterial_iv7jv")
 position = Vector2(-3, 25)
 sprite_frames = SubResource("SpriteFrames_0rin6")
 animation = &"attack"
+frame = 14
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false
@@ -1591,6 +1591,7 @@ position = Vector2(0, -22)
 [node name="RocksDropdownHitbox" parent="." instance=ExtResource("11_vwxtd")]
 visible = false
 damage_source = "cut"
+damage = 20
 
 [node name="Col" type="CollisionShape2D" parent="RocksDropdownHitbox"]
 position = Vector2(0, -14)
@@ -1600,6 +1601,7 @@ disabled = true
 [node name="UltiDropdownHitbox" parent="." instance=ExtResource("11_vwxtd")]
 visible = false
 damage_source = "cut"
+damage = 175
 
 [node name="Col" type="CollisionShape2D" parent="UltiDropdownHitbox"]
 position = Vector2(0, -13.75)

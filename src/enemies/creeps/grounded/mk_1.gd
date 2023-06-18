@@ -52,19 +52,19 @@ func const_to_str(index):
 			return "RUN"
 		2:
 			return "BEFORE_ATTACK"
-		3:
-			return "ATTACK"
-		4:
-			return "BEFORE_ULTI"
 		5:
-			return "ULTI"
-		6:
-			return "AFTER_ULTI"
-		7:
-			return "DEAD"
+			return "ATTACK"
 		8:
+			return "BEFORE_ULTI"
+		10:
+			return "ULTI"
+		11:
+			return "AFTER_ULTI"
+		12:
+			return "DEAD"
+		13:
 			return "AIR"
-		9:
+		14:
 			return "FRUIT_DEAD"
 
 var state = AIR : set = set_state
@@ -91,7 +91,6 @@ var state_started = false
 
 var can_attack = true
 var can_ulti = true
-var need_to_reset_ulti = false
 
 var walking = 1 #1 is walking 0 is chilling
 
@@ -279,6 +278,8 @@ func _physics_process(delta):
 	if need_to_check_if_see_player:
 		if not check_if_vision_is_blocked_by_wall():
 			on_see_player()
+		else:
+			on_unsee_player()
 	
 	match state:
 		IDLE: 
@@ -331,7 +332,6 @@ func idle():
 		if walking:
 			dir = 1 if randi_range(0,1) else -1
 			anim_dir = dir
-			set_anim(IDLE)
 			state = RUN
 			return
 			
@@ -440,8 +440,6 @@ func before_attack(delta):
 	
 	if !state_started:
 		state_started = true
-#		can_ulti = false
-#		need_to_reset_ulti = true
 		can_attack = false
 		await anim.animation_finished
 		if state == BEFORE_ATTACK:
@@ -490,12 +488,12 @@ func attack(delta):
 		await anim.animation_finished
 		if state == ATTACK:
 			attack_cooldown.start()
-#			can_ulti = true
-			if not see_player:
-				chasing = false
+			if not chasing:
 				walking = 0
 				walking_timer_start()
-			state = IDLE
+				state = IDLE
+			else:
+				state = RUN
 			
 			
 func shoot():
@@ -569,12 +567,12 @@ func after_ulti(delta):
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
-			if not see_player:
-				chasing = false
+			if not chasing:
 				walking = 0
 				walking_timer_start()
-			set_anim(IDLE)
-			state = IDLE
+				state = IDLE
+			else:
+				state = RUN
 	
 	
 func dead(delta):
@@ -592,12 +590,13 @@ func dead(delta):
 
 
 func _on_walking_timer_timeout():
-	if walking:
-		walking = 0
-		state = IDLE
-	else:
-		walking = 1
-	walking_timer_start()
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+		if walking:
+			walking = 0
+			state = IDLE
+		else:
+			walking = 1
+		walking_timer_start()
 	
 	
 func walking_timer_start():
@@ -610,34 +609,43 @@ func _on_attack_cooldown_timeout():
 	
 	
 func _on_ulti_cooldown_timeout():
-	if not need_to_reset_ulti:
-		can_ulti = true
+	can_ulti = true
 
 
 func _on_eyes_body_entered(body):
 	need_to_check_if_see_player = true
-	
-	
-func on_see_player():
+
+
+func _on_eyes_body_exited(body):
 	need_to_check_if_see_player = false
+	on_unsee_player()
+
+
+func on_see_player():
+	if see_player:
+		return
+
 	if not chasing and can_attack:
 		qmark.visible = true
 		qmark.play("popup")
 	walking_timer.stop()
 	chase_timer.stop()
 	see_player = true
-
-
-func _on_eyes_body_exited(body):
-	if state == DEAD or state == FRUIT_DEAD:
-		return
-	need_to_check_if_see_player = false
+	
+	
+func on_unsee_player():
 	if not see_player:
 		return
+	
+	if state == DEAD or state == FRUIT_DEAD:
+		return
+		
 	see_player = false
+	
+	chasing = true
+	chase_timer.start()
+	
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
-		chasing = true
-		chase_timer.start()
 		state = RUN
 		
 		
@@ -664,9 +672,10 @@ func _on_turned_timer_timeout():
 
 func _on_chase_timer_timeout():
 	chasing = false
-	walking = 0
-	walking_timer_start()
-	state = IDLE
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+		walking = 0
+		walking_timer_start()
+		state = IDLE
 
 
 func _on_check_for_blocked_area_area_entered(area):

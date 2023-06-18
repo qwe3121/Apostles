@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw74swwqg7ur7"
-path="res://.godot/imported/Polosa_Zdorovia_Ybivaet_do_1XP.png-12091cae1c0a6cebe3843a2d06b9516b.ctex"
+uid="uid://bb1khhl2ii8f6"
+path="res://.godot/imported/XP_Bar_Mozg_8.png-8884c9ba7a7c3bb4147745b09dc8a53b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/gui/Polosa_Zdorovia_Ybivaet_do_1XP.png"
-dest_files=["res://.godot/imported/Polosa_Zdorovia_Ybivaet_do_1XP.png-12091cae1c0a6cebe3843a2d06b9516b.ctex"]
+source_file="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_8.png"
+dest_files=["res://.godot/imported/XP_Bar_Mozg_8.png-8884c9ba7a7c3bb4147745b09dc8a53b.ctex"]
 
 [params]
 

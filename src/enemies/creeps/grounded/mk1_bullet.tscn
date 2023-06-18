@@ -11,6 +11,7 @@ collision_layer = 0
 collision_mask = 130
 script = ExtResource("1_a6uif")
 can_block = true
+damage = 10
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
