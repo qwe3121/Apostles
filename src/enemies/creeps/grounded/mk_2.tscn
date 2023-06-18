@@ -2949,7 +2949,7 @@ size = Vector2(76, 33)
 size = Vector2(141, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0ad2"]
-size = Vector2(111, 33)
+size = Vector2(157, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xkq4u"]
 size = Vector2(185, 33)
@@ -3098,7 +3098,6 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_qir3g")
 
 [node name="CloseEnToPrefireAttack" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 prefire = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireAttack"]

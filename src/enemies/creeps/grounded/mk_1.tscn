@@ -1946,7 +1946,7 @@ size = Vector2(4, 80.5)
 size = Vector2(75, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jny05"]
-size = Vector2(136, 34.5)
+size = Vector2(159, 34.5)
 
 [node name="1MK" type="CharacterBody2D"]
 light_mask = 0
@@ -2081,7 +2081,6 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("16_h0u1c")]
-visible = false
 attack_type = "ulti"
 prefire = true
 
