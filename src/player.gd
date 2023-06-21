@@ -56,8 +56,8 @@ var can_get_damage = true
 @onready var hitbox_col = $Hitbox/CollisionShape2D
 @onready var blood_pos = $BloodPos
 
-@onready var sunlens_anim = $CanvasLayer/SunLens/SunLensAnim
-@onready var sunlens_timer = $CanvasLayer/SunLens/SunlensTimer
+@onready var lens_flare_anim = $CanvasLayer/LensFlare/LensFlareAnim
+@onready var lens_flare_timer = $CanvasLayer/LensFlare/LensFlareTimer
 
 #wall raycasts
 @onready var ws_left_top_raycast = $WallRaycasts/LeftWallRaycasts/LeftTopRaycast
@@ -195,8 +195,8 @@ func set_hp(value):
 	if value < 0: value = 0
 	var frame = ((175 - value) * 3) + 2
 	hp_bar_sprite.frame = frame
-	var tween = create_tween()
-	tween.tween_property(hp_bar_sprite, "frame", frame, 0.3)
+#	var tween = create_tween()
+#	tween.tween_property(hp_bar_sprite, "frame", frame, 0.3)
 	hp_number.text = str(value) + "%"
 	hp = value
 	
@@ -1418,17 +1418,17 @@ func _on_area_2d_body_entered(body):
 		fruit_ninja_targets.append(body)
 
 
-func _on_sun_lens_anim_animation_finished(anim_name):
-	sunlens_anim.get_animation("default").track_set_key_value(0, 1, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
-	sunlens_anim.get_animation("default").track_set_key_value(0, 0, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
-#	sunlens_anim.get_animation("default").track_set_key_value(1, 1, randf_range(0.7, 1.0))
-	sunlens_anim.speed_scale = randf_range(0.5, 1.2)
-	sunlens_timer.wait_time = randi_range(10, 20)
-	sunlens_timer.start()
+func _on_lens_flare_anim_animation_finished(anim_name):
+	lens_flare_anim.get_animation("default").track_set_key_value(0, 1, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
+	lens_flare_anim.get_animation("default").track_set_key_value(0, 0, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
+#	lens_flare_anim.get_animation("default").track_set_key_value(1, 1, randf_range(0.7, 1.0))
+	lens_flare_anim.speed_scale = randf_range(0.5, 1.2)
+	lens_flare_timer.wait_time = randi_range(10, 20)
+	lens_flare_timer.start()
 
 
-func _on_sunlens_timer_timeout():
-	sunlens_anim.play("default")
+func _on_lens_flare_timer_timeout():
+	lens_flare_anim.play("default")
 	
 	
 func create_cuts_for_cut_dead():
@@ -1476,7 +1476,7 @@ func reincarnation(delta):
 			
 func change_scene_to_dead_screen():
 	ui.visible = false
-	$CanvasLayer/SunLens.visible = false
+	$CanvasLayer/LensFlare.visible = false
 	get_tree().paused = true
 	death_screen.set_process_input(true)
 	death_screen.visible = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=24 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -8,63 +8,22 @@
 [ext_resource type="Texture2D" uid="uid://dpcbmgvicm7y6" path="res://sprites/location_1_parallaxes/Srednie_Domiki_1.png" id="6_xwyuj"]
 [ext_resource type="Texture2D" uid="uid://ca60fs7qfw1pe" path="res://sprites/location_1_parallaxes/Srednie_Domiki_2.png" id="7_xc4xd"]
 [ext_resource type="Texture2D" uid="uid://76xlsn0n7a61" path="res://sprites/location_1_parallaxes/Srednie_Domiki_3.png" id="8_5xrlj"]
-[ext_resource type="Shader" path="res://src/wind_sway.gdshader" id="8_h6pdf"]
 [ext_resource type="Texture2D" uid="uid://b8wt3svwlvvd1" path="res://sprites/location_1_parallaxes/Srednie_Domiki_4.png" id="9_gcsoy"]
 [ext_resource type="Texture2D" uid="uid://dtpsyp7uneawe" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_1.png" id="10_0b0ph"]
 [ext_resource type="Texture2D" uid="uid://lvw1r3xpbf5y" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_2.png" id="11_pmvvc"]
 [ext_resource type="Texture2D" uid="uid://cjx13xh1h7ta6" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_3.png" id="12_k2vrb"]
 [ext_resource type="Texture2D" uid="uid://muqfvkemu52a" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_4.png" id="13_cbkdp"]
 [ext_resource type="Texture2D" uid="uid://cenquk4datjbn" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_5.png" id="14_ieh5s"]
-[ext_resource type="Texture2D" uid="uid://bf8tdrnfravgg" path="res://sprites/location_1_parallaxes/Elki_1.png" id="16_hghuy"]
-[ext_resource type="Texture2D" uid="uid://0cc71b7nyx2x" path="res://sprites/location_1_parallaxes/Elki_2.png" id="17_78uej"]
-[ext_resource type="Texture2D" uid="uid://p25lxpdkyton" path="res://sprites/location_1_parallaxes/Elki_3.png" id="18_a0w2n"]
-[ext_resource type="Texture2D" uid="uid://b5kgkf4kl6nry" path="res://sprites/location_1_parallaxes/Paralaks_Niz.png" id="19_h0wwn"]
-[ext_resource type="Texture2D" uid="uid://bhhhu7a7psp3o" path="res://sprites/location_1_parallaxes/Paralaks_Niz_Mal.png" id="20_ywuup"]
+[ext_resource type="Shader" path="res://src/shaders/rays.gdshader" id="20_koxn0"]
 [ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://sprites/128x128.png" id="21_f32jt"]
+[ext_resource type="PackedScene" uid="uid://d3hb7h2a3k4u1" path="res://src/menus/tech_info.tscn" id="21_xfkdn"]
 [ext_resource type="PackedScene" uid="uid://74a08m6w4i62" path="res://src/dust_particles.tscn" id="23_j08bk"]
 [ext_resource type="Environment" uid="uid://duay6t40dsnjh" path="res://src/world_env_resource.tres" id="26_8kskc"]
 [ext_resource type="PackedScene" uid="uid://i55frea7mtlw" path="res://src/player.tscn" id="28_d6hma"]
-[ext_resource type="Shader" path="res://src/rays.gdshader" id="30_3pdf4"]
 [ext_resource type="PackedScene" uid="uid://mrkh2vbdyfbi" path="res://src/rooms/level_1.tscn" id="42_ie1i1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0gkpm"]
-shader = ExtResource("8_h6pdf")
-shader_parameter/speed = 1.0
-shader_parameter/minStrength = 0.161
-shader_parameter/maxStrength = 0.371
-shader_parameter/strengthScale = 100.0
-shader_parameter/interval = 3.5
-shader_parameter/detail = 1.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
-shader_parameter/offset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_scw57"]
-shader = ExtResource("8_h6pdf")
-shader_parameter/speed = 1.0
-shader_parameter/minStrength = 0.161
-shader_parameter/maxStrength = 0.371
-shader_parameter/strengthScale = 100.0
-shader_parameter/interval = 3.5
-shader_parameter/detail = 1.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
-shader_parameter/offset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m6gub"]
-shader = ExtResource("8_h6pdf")
-shader_parameter/speed = 1.0
-shader_parameter/minStrength = 0.161
-shader_parameter/maxStrength = 0.371
-shader_parameter/strengthScale = 100.0
-shader_parameter/interval = 3.5
-shader_parameter/detail = 1.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
-shader_parameter/offset = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ygmg"]
-shader = ExtResource("30_3pdf4")
+shader = ExtResource("20_koxn0")
 shader_parameter/lightScreenPosition = Vector2(0.408, 0)
 shader_parameter/halfPixel = Vector2(0, 0)
 shader_parameter/Density = 0.5
@@ -194,47 +153,6 @@ position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
 centered = false
 
-[node name="Forest" type="ParallaxLayer" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(0, -158)
-motion_scale = Vector2(0.4, 0)
-motion_mirroring = Vector2(10000, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_0gkpm")
-texture = ExtResource("16_hghuy")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_scw57")
-position = Vector2(4096, 0)
-texture = ExtResource("17_78uej")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_m6gub")
-position = Vector2(8192, 0)
-texture = ExtResource("18_a0w2n")
-centered = false
-
-[node name="Sprite2D4" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-position = Vector2(0, 844)
-texture = ExtResource("19_h0wwn")
-centered = false
-
-[node name="Sprite2D5" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-position = Vector2(4000, 844)
-texture = ExtResource("19_h0wwn")
-centered = false
-
-[node name="Sprite2D6" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax/Forest"]
-position = Vector2(8000, 844)
-texture = ExtResource("20_ywuup")
-centered = false
-
 [node name="Scatter" type="Sprite2D" parent="SkylightViewportContainer/SkylightSubViewport/Parallax"]
 material = SubResource("ShaderMaterial_0ygmg")
 position = Vector2(-100, -100)
@@ -343,46 +261,6 @@ position = Vector2(16384, 0)
 texture = ExtResource("14_ieh5s")
 centered = false
 
-[node name="Forest" type="ParallaxLayer" parent="BackgroundParallax"]
-position = Vector2(0, -158)
-motion_scale = Vector2(0.4, 0)
-motion_mirroring = Vector2(10000, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_0gkpm")
-texture = ExtResource("16_hghuy")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_scw57")
-position = Vector2(4096, 0)
-texture = ExtResource("17_78uej")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax/Forest"]
-texture_filter = 2
-material = SubResource("ShaderMaterial_m6gub")
-position = Vector2(8192, 0)
-texture = ExtResource("18_a0w2n")
-centered = false
-
-[node name="Sprite2D4" type="Sprite2D" parent="BackgroundParallax/Forest"]
-position = Vector2(0, 844)
-texture = ExtResource("19_h0wwn")
-centered = false
-
-[node name="Sprite2D5" type="Sprite2D" parent="BackgroundParallax/Forest"]
-position = Vector2(4000, 844)
-texture = ExtResource("19_h0wwn")
-centered = false
-
-[node name="Sprite2D6" type="Sprite2D" parent="BackgroundParallax/Forest"]
-position = Vector2(8000, 844)
-texture = ExtResource("20_ywuup")
-centered = false
-
 [node name="SkylightTexture" type="Sprite2D" parent="BackgroundParallax"]
 material = SubResource("CanvasItemMaterial_drf02")
 centered = false
@@ -422,5 +300,11 @@ one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("26_8kskc")
+
+[node name="TechInfoCanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 20
+
+[node name="TechInfo" parent="TechInfoCanvasLayer" instance=ExtResource("21_xfkdn")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

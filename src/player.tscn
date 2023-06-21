@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
-[ext_resource type="Shader" path="res://src/enemies/hitted.gdshader" id="2_e15ku"]
+[ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_npce2"]
 [ext_resource type="Texture2D" uid="uid://dlbtntefymj8n" path="res://sprites/player/air2.png" id="3_3ghpb"]
 [ext_resource type="Texture2D" uid="uid://c4c52pel7u3ei" path="res://sprites/player/crouch.png" id="3_oi8ox"]
 [ext_resource type="Texture2D" uid="uid://otuie4ycem16" path="res://sprites/player/dash.png" id="4_8cdn5"]
@@ -41,7 +41,6 @@
 [ext_resource type="Script" path="res://src/Camera2D.gd" id="33_vq8xm"]
 [ext_resource type="Texture2D" uid="uid://bp6qpukep8j47" path="res://sprites/player/Vixod_iz_Bloka.png" id="34_8xs70"]
 [ext_resource type="Texture2D" uid="uid://caomoayau5pu2" path="res://sprites/player/Padaet_Mertvi_Jivot.png" id="34_n1hn4"]
-[ext_resource type="Shader" path="res://src/lens_flare.gdshader" id="35_18ku5"]
 [ext_resource type="Texture2D" uid="uid://cv7waafswrbqj" path="res://sprites/player/Perexod_v_Blok.png" id="35_aqo4h"]
 [ext_resource type="Texture2D" uid="uid://cvltbo6cql2ru" path="res://sprites/player/cut_dead/Smert_Ydar.png" id="35_o0h6v"]
 [ext_resource type="Texture2D" uid="uid://3llqnvr6s7qr" path="res://sprites/player/Padaet_Mertvi_Spina.png" id="35_t6p11"]
@@ -50,9 +49,10 @@
 [ext_resource type="Texture2D" uid="uid://do1jwfm5yy5yy" path="res://sprites/player/Polychenie_Yrona_na_zemle.png" id="38_2jei0"]
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
+[ext_resource type="Shader" path="res://src/shaders/lens_flare.gdshader" id="49_35m48"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iel4b"]
-shader = ExtResource("2_e15ku")
+shader = ExtResource("2_npce2")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 
@@ -4634,10 +4634,10 @@ _data = {
 size = Vector2(32, 10)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bstkj"]
-shader = ExtResource("35_18ku5")
-shader_parameter/sun_position = Vector2(150, 150)
+shader = ExtResource("49_35m48")
+shader_parameter/sun_position = Vector2(300, 150)
 shader_parameter/tint = Vector3(1.4, 1.2, 1)
-shader_parameter/alpha = 1.0
+shader_parameter/alpha = 0.0
 
 [sub_resource type="Animation" id="Animation_tnir6"]
 resource_name = "default"
@@ -4645,7 +4645,7 @@ length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/SunLens:material:shader_parameter/sun_position")
+tracks/0/path = NodePath("CanvasLayer/LensFlare:material:shader_parameter/sun_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -4657,7 +4657,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/SunLens:material:shader_parameter/alpha")
+tracks/1/path = NodePath("CanvasLayer/LensFlare:material:shader_parameter/alpha")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4781,7 +4781,7 @@ layer = 10
 [node name="DeathScreen" parent="CanvasLayer" instance=ExtResource("43_dwywp")]
 visible = false
 
-[node name="SunLens" type="ColorRect" parent="CanvasLayer"]
+[node name="LensFlare" type="ColorRect" parent="CanvasLayer"]
 z_index = 5
 material = SubResource("ShaderMaterial_bstkj")
 anchors_preset = 15
@@ -4791,14 +4791,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SunLensAnim" type="AnimationPlayer" parent="CanvasLayer/SunLens"]
+[node name="LensFlareAnim" type="AnimationPlayer" parent="CanvasLayer/LensFlare"]
 root_node = NodePath("../../..")
 autoplay = "default"
 libraries = {
 "": SubResource("AnimationLibrary_7xbdp")
 }
 
-[node name="SunlensTimer" type="Timer" parent="CanvasLayer/SunLens"]
+[node name="LensFlareTimer" type="Timer" parent="CanvasLayer/LensFlare"]
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -4873,8 +4873,8 @@ shape = SubResource("RectangleShape2D_hlk31")
 [connection signal="timeout" from="WallSlideCooldown" to="." method="_on_wall_slide_cooldown_timeout"]
 [connection signal="timeout" from="WeakComboTimer" to="." method="_on_weak_combo_timer_timeout"]
 [connection signal="timeout" from="StrongComboTimer" to="." method="_on_strong_combo_timer_timeout"]
-[connection signal="animation_finished" from="CanvasLayer/SunLens/SunLensAnim" to="." method="_on_sun_lens_anim_animation_finished"]
-[connection signal="timeout" from="CanvasLayer/SunLens/SunlensTimer" to="." method="_on_sunlens_timer_timeout"]
+[connection signal="animation_finished" from="CanvasLayer/LensFlare/LensFlareAnim" to="." method="_on_lens_flare_anim_animation_finished"]
+[connection signal="timeout" from="CanvasLayer/LensFlare/LensFlareTimer" to="." method="_on_lens_flare_timer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="FruitNinjaLine/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]

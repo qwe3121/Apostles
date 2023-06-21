@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
 [ext_resource type="Texture2D" uid="uid://vkgdafjw8qrk" path="res://sprites/enemies/MK1/Ataka_MK1.png" id="2_aqviu"]
-[ext_resource type="Shader" path="res://src/enemies/hitted.gdshader" id="2_ghlk4"]
+[ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_dyaex"]
 [ext_resource type="Texture2D" uid="uid://pr537m1vrf8p" path="res://sprites/enemies/MK1/Podgotovka_k_Atake_MK1.png" id="3_bylwh"]
 [ext_resource type="Texture2D" uid="uid://d88lkscdqi5i" path="res://sprites/enemies/MK1/Raspad_Smerti_MK1.png" id="3_ylwvl"]
 [ext_resource type="Texture2D" uid="uid://cob807vm2jr" path="res://sprites/enemies/MK1/Podgotovka_k_Ylta_Atake_MK1.png" id="4_e5rlx"]
@@ -1031,7 +1031,7 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wtpys"]
 resource_local_to_scene = true
-shader = ExtResource("2_ghlk4")
+shader = ExtResource("2_dyaex")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 

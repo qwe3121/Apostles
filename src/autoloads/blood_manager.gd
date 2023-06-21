@@ -5,6 +5,8 @@ var blood_drop = preload("res://src/blood_drop.tscn")
 
 
 func create_blood(last_knockback_dir, blood_pos):
+	if not cfg.cfg_data.blood_traces_on: return
+	
 	var level_sprites = global.cur_level.sprites
 
 	var blood_drop_instance = blood_drop.instantiate()

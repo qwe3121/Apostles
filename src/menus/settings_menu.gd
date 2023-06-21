@@ -9,6 +9,16 @@ func _ready():
 	global_settings.update_display_mode(cfg.cfg_data.display_mode)
 	$TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton.button_pressed = cfg.cfg_data.vsync_on
 	global_settings.toggle_vsync(cfg.cfg_data.vsync_on)
+	$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = cfg.cfg_data.skylight_on
+	global_settings.toggle_skylight(cfg.cfg_data.skylight_on)
+	$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = cfg.cfg_data.glow_on
+	global_settings.toggle_glow(cfg.cfg_data.glow_on)
+	$TabContainer/Video/MarginContainer/VBoxContainer/fpsContainer/fpsCheckButton.button_pressed = cfg.cfg_data.show_fps_on
+	global_settings.toggle_show_fps(cfg.cfg_data.show_fps_on)
+	$TabContainer/Video/MarginContainer/VBoxContainer/BloodTracesContainer/BloodTracesCheckButton.button_pressed = cfg.cfg_data.blood_traces_on
+	global_settings.toggle_blood_traces(cfg.cfg_data.blood_traces_on)
+	$TabContainer/Video/MarginContainer/VBoxContainer/LensFlareContainer/LensFlareCheckButton.button_pressed = cfg.cfg_data.lens_flare_on
+	global_settings.toggle_lens_flare(cfg.cfg_data.lens_flare_on)
 	$TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider.value = cfg.cfg_data.master_vol
 	$TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider.value = cfg.cfg_data.music_vol
 	$TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider.value = cfg.cfg_data.sfx_vol
@@ -19,12 +29,8 @@ func _ready():
 	for key in cfg.default_keys:
 		update_action_event(key)
 	events.emit_signal("ready_to_load_keys_containers")
-	await events.world_is_loaded
-	$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = cfg.cfg_data.skylight_on
-	global_settings.toggle_skylight(cfg.cfg_data.skylight_on)
-	
-	
-	
+
+
 func update_action_event(action: String, defaults = false):
 	var data
 	
@@ -91,6 +97,16 @@ func _on_back_to_defaults_pressed():
 			global_settings.update_display_mode(2)
 			$TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton.button_pressed = true
 			global_settings.toggle_vsync(true)
+			$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = true
+			global_settings.toggle_skylight(true)
+			$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = true
+			global_settings.toggle_glow(true)
+			$TabContainer/Video/MarginContainer/VBoxContainer/fpsContainer/fpsCheckButton.button_pressed = false
+			global_settings.toggle_show_fps(false)
+			$TabContainer/Video/MarginContainer/VBoxContainer/BloodTracesContainer/BloodTracesCheckButton.button_pressed = true
+			global_settings.toggle_blood_traces(true)
+			$TabContainer/Video/MarginContainer/VBoxContainer/LensFlareContainer/LensFlareCheckButton.button_pressed = true
+			global_settings.toggle_lens_flare(true)
 		1: #audio
 			$TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider.value = -10
 			$TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider.value = -10
@@ -128,3 +144,19 @@ func _process(delta):
 
 func _on_skylight_check_button_toggled(button_pressed):
 	global_settings.toggle_skylight(button_pressed)
+
+
+func _on_glow_check_button_toggled(button_pressed):
+	global_settings.toggle_glow(button_pressed)
+
+
+func _on_fps_check_button_toggled(button_pressed):
+	global_settings.toggle_show_fps(button_pressed)
+
+
+func _on_blood_traces_check_button_toggled(button_pressed):
+	global_settings.toggle_blood_traces(button_pressed)
+
+
+func _on_lens_flare_check_button_toggled(button_pressed):
+	global_settings.toggle_lens_flare(button_pressed)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=30 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dxv7b5xoc5721" path="res://sprites/levels/level1/part3/TestLVL1_3_Zad.png" id="5_f0t4p"]
 [ext_resource type="Texture2D" uid="uid://cw21x76213cri" path="res://sprites/levels/level1/part3/TestLVL1_3_Pered.png" id="6_5faot"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="8_4fmmj"]
+[ext_resource type="PackedScene" uid="uid://cvk0amtpner26" path="res://src/leaf_particles.tscn" id="8_obl2v"]
 [ext_resource type="PackedScene" uid="uid://54cs3xqwi26p" path="res://src/enemies/static_path/trap_polaya_c_pila.tscn" id="9_f72s2"]
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="11_mks8e"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="12_u7idq"]
@@ -62,62 +63,127 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(3352, 936, 3352, 552, 4
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_u80bw")
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="CoreVisuals" type="Node2D" parent="."]
 
-[node name="Part1Zad" type="Sprite2D" parent="Visuals"]
+[node name="Part1Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
 texture = ExtResource("1_h8mk1")
 
-[node name="Part1Pered" type="Sprite2D" parent="Visuals"]
+[node name="Part1Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
 texture = ExtResource("2_e81dv")
 
-[node name="ColorRect" type="ColorRect" parent="Visuals"]
+[node name="ColorRect" type="ColorRect" parent="CoreVisuals"]
 offset_left = 1955.0
 offset_top = -586.0
 offset_right = 2052.0
 offset_bottom = -328.0
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="Visuals"]
+[node name="ColorRect2" type="ColorRect" parent="CoreVisuals"]
 offset_left = 1970.0
 offset_top = -185.0
 offset_right = 2051.0
 offset_bottom = 1000.0
 color = Color(0, 0, 0, 1)
 
-[node name="Part2Zad" type="Sprite2D" parent="Visuals"]
+[node name="Part2Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
 position = Vector2(4000, 0)
 texture = ExtResource("3_rb0cf")
 
-[node name="Part2Pered" type="Sprite2D" parent="Visuals"]
+[node name="Part2Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
 position = Vector2(4000, 0)
 texture = ExtResource("4_crbji")
 
-[node name="ColorRect3" type="ColorRect" parent="Visuals"]
+[node name="ColorRect3" type="ColorRect" parent="CoreVisuals"]
 offset_left = 5823.0
 offset_top = 296.0
 offset_right = 6150.0
 offset_bottom = 1000.0
 color = Color(0, 0, 0, 1)
 
-[node name="Part3Zad" type="Sprite2D" parent="Visuals"]
+[node name="Part3Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
 position = Vector2(8000, 0)
 texture = ExtResource("5_f0t4p")
 
-[node name="Part3Pered" type="Sprite2D" parent="Visuals"]
+[node name="Part3Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
 position = Vector2(8000, 0)
 texture = ExtResource("6_5faot")
+
+[node name="SemiVisuals" type="Node2D" parent="."]
+
+[node name="LeafParticles" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1513, -980)
+
+[node name="LeafParticles2" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1517, -874)
+
+[node name="LeafParticles3" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1498, -833)
+
+[node name="LeafParticles4" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1445, -692)
+
+[node name="LeafParticles5" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-746, -292)
+
+[node name="LeafParticles6" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-776, -238)
+
+[node name="LeafParticles7" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1111, -223)
+
+[node name="LeafParticles8" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1202, -213)
+
+[node name="LeafParticles9" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1846, -433)
+
+[node name="LeafParticles10" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-1785, -463)
+
+[node name="LeafParticles11" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-591, 255)
+
+[node name="LeafParticles12" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(-426, 217)
+
+[node name="LeafParticles13" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(422, -338)
+
+[node name="LeafParticles14" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(442, -417)
+
+[node name="LeafParticles15" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(719, -325)
+
+[node name="LeafParticles16" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(752, -249)
+
+[node name="LeafParticles17" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(763, -381)
+
+[node name="LeafParticles18" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(8898, 270)
+
+[node name="LeafParticles19" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(8980, 260)
+
+[node name="LeafParticles20" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(9195, 282)
+
+[node name="LeafParticles21" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
+position = Vector2(9259, 255)
 
 [node name="Collision" type="StaticBody2D" parent="."]
 z_index = 150

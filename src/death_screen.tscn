@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://by8bc3v7k3d1"]
 
 [ext_resource type="Script" path="res://src/death_screen.gd" id="2_7ay72"]
-[ext_resource type="Shader" path="res://src/death_screen.gdshader" id="3_spvlh"]
+[ext_resource type="Shader" path="res://src/shaders/death_screen.gdshader" id="3_spvlh"]
 
 [sub_resource type="Shader" id="Shader_7xv8b"]
 code = "//---CRT Shader---

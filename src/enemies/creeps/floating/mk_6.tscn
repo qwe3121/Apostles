@@ -1,7 +1,7 @@
 [gd_scene load_steps=147 format=3 uid="uid://bvl5q2m4e75mv"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/floating/mk_6.gd" id="1_xn6rm"]
-[ext_resource type="Shader" path="res://src/enemies/hitted.gdshader" id="2_fr0we"]
+[ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_orm7s"]
 [ext_resource type="Texture2D" uid="uid://cbkh3hdwgrmqu" path="res://sprites/enemies/MK6/Ataka_MK6.png" id="3_6dc8q"]
 [ext_resource type="Texture2D" uid="uid://cshobsrwgnvqt" path="res://sprites/enemies/MK6/Raspad_Smerti_MK6.png" id="3_acjpe"]
 [ext_resource type="Texture2D" uid="uid://dx2aiys1ebpfq" path="res://sprites/enemies/MK6/Raspad_Razreza_MK6.png" id="4_mrr6d"]
@@ -655,7 +655,7 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iv7jv"]
 resource_local_to_scene = true
-shader = ExtResource("2_fr0we")
+shader = ExtResource("2_orm7s")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 

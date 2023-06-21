@@ -5,9 +5,8 @@ extends Node2D
 @onready var player_camera = $Player/Camera2D
 
 
-func _ready():	
+func _ready():
 	get_tree().paused = false
-	global.is_in_world = true
 	Engine.time_scale = cfg.default_time_scale
 	$BackgroundParallax/SkylightTexture.texture = $SkylightViewportContainer/SkylightSubViewport.get_texture()
 

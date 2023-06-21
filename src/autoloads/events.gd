@@ -11,5 +11,3 @@ signal fruit_kill
 signal fruit_points_calculated
 
 signal time_scale_changed
-
-signal world_is_loaded

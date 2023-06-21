@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://biwl3o1dv7eti"]
+[gd_scene load_steps=4 format=3 uid="uid://biwl3o1dv7eti"]
 
 [ext_resource type="Texture2D" uid="uid://cjfuismmke2hv" path="res://icon.svg" id="1_keyp1"]
 [ext_resource type="Script" path="res://src/menus/saves_menu.gd" id="1_sr6cb"]
+
+[sub_resource type="Theme" id="Theme_nvvpb"]
+default_font_size = 30
 
 [node name="SavesMenu" type="Control"]
 layout_mode = 3
@@ -138,8 +141,10 @@ text = "DELETE THAT!"
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 title = "Are you sure?"
-size = Vector2i(263, 100)
+size = Vector2i(400, 104)
+theme = SubResource("Theme_nvvpb")
 ok_button_text = "CONFIRM"
+dialog_autowrap = true
 cancel_button_text = "CANCEL"
 
 [node name="BackToMainMenu" type="Button" parent="."]

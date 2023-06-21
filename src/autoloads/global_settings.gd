@@ -48,26 +48,62 @@ func update_sfx_vol(vol):
 		
 	
 func toggle_transition_mode(value):
-	if not cfg.cfg_data.glitchy_transition_on == value:
-		cfg.cfg_data.glitchy_transition_on = value
-		cfg.save_data()
+	cfg.cfg_data.glitchy_transition_on = value
+	cfg.save_data()
 		
 		
 func toggle_undead_mode(value):
-	if not cfg.cfg_data.undead == value:
-		cfg.cfg_data.undead = value
-		cfg.save_data()
+	cfg.cfg_data.undead = value
+	cfg.save_data()
 		
 		
 func toggle_skylight(value):
-	if not cfg.cfg_data.skylight_on == value:
-		if global.is_in_world:
-			var world = get_tree().get_node("World")
-			var result = world.get_node_or_null("SkylightViewportContainer")
-			if result != null:
-				result.visible = value
-			result = world.get_node_or_null("BackgroundParallax/SkylightTexture")
-			if result != null:
-				result.visible = value
-		cfg.cfg_data.skylight_on = value
-		cfg.save_data()
+	var world = get_parent().get_node_or_null("World")
+	if world != null:
+		var result = world.get_node_or_null("SkylightViewportContainer")
+		if result != null:
+			result.visible = value
+		result = world.get_node_or_null("BackgroundParallax/SkylightTexture")
+		if result != null:
+			result.visible = value
+	cfg.cfg_data.skylight_on = value
+	cfg.save_data()
+	
+	
+func toggle_glow(value):
+	var main_node = get_parent().get_node_or_null("World")
+	if main_node == null:
+		main_node = get_parent().get_node_or_null("MainMenuOOG")
+	if main_node != null:
+		var world_env = main_node.get_node_or_null("WorldEnvironment")
+		if world_env != null:
+			world_env.environment.glow_enabled = value
+	cfg.cfg_data.glow_on = value
+	cfg.save_data()
+	
+	
+func toggle_show_fps(value):
+	var main_node = get_parent().get_node_or_null("World")
+	if main_node == null:
+		main_node = get_parent().get_node_or_null("MainMenuOOG")
+	if main_node != null:
+		var fps_label = main_node.get_node_or_null("TechInfoCanvasLayer/TechInfo/fpsLabel")
+		if fps_label != null:
+			fps_label.visible = value
+	cfg.cfg_data.show_fps_on = value
+	cfg.save_data()
+	
+	
+func toggle_blood_traces(value):
+	cfg.cfg_data.blood_traces_on = value
+	cfg.save_data()
+	
+	
+func toggle_lens_flare(value):
+	var player_node = get_parent().get_node_or_null("World/Player")
+	if player_node != null:
+		var lens_flare_node = player_node.get_node("CanvasLayer/LensFlare")
+		if lens_flare_node != null:
+			lens_flare_node.visible = value
+	cfg.cfg_data.sun_lens_on = value
+	cfg.save_data()
