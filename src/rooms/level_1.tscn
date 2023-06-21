@@ -187,7 +187,7 @@ position = Vector2(9195, 282)
 position = Vector2(9259, 255)
 
 [node name="WaterDropSpawner" parent="SemiVisuals" instance=ExtResource("9_bceg6")]
-position = Vector2(-1329, -425)
+position = Vector2(-1328, -424)
 
 [node name="Collision" type="StaticBody2D" parent="."]
 z_index = 150

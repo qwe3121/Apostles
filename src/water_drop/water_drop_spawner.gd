@@ -11,7 +11,6 @@ func _ready():
 
 
 func _on_timer_timeout():
-	print("spawned")
 	var water_drop_ins = water_drop.instantiate()
 	get_parent().add_child(water_drop_ins)
 	water_drop_ins.global_position = global_position
