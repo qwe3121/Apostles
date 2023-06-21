@@ -9,6 +9,7 @@ radius = 21.3776
 [node name="trap_polaya_c_pila" instance=ExtResource("1_sp1wq")]
 
 [node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+rotation = 4.7982
 texture = ExtResource("2_j05sq")
 
 [node name="RotationAnim" parent="." index="2"]

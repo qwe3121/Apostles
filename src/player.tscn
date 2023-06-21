@@ -4689,7 +4689,6 @@ size = Vector2(22, 80)
 
 [node name="Player" type="CharacterBody2D"]
 process_priority = -10
-modulate = Color(1.5, 1.5, 1.5, 1)
 z_index = 1
 collision_layer = 128
 collision_mask = 2
@@ -4705,6 +4704,7 @@ sprite_frames = SubResource("SpriteFrames_nqx8a")
 animation = &"stun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -45)
 shape = SubResource("RectangleShape2D_vnju1")
 

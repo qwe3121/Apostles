@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://kp0ulk4r7tpi"]
+
+[ext_resource type="Script" path="res://src/water_drop/water_drop_spawner.gd" id="1_a30pd"]
+
+[node name="WaterDropSpawner" type="Node2D"]
+script = ExtResource("1_a30pd")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

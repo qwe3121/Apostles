@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://c57fqe0v13v7o"]
+
+[ext_resource type="Script" path="res://src/water_drop/water_drop.gd" id="1_fkg7g"]
+[ext_resource type="Texture2D" uid="uid://vi5npjf1y1et" path="res://sprites/water_drop/Kapla.png" id="2_lkk1w"]
+[ext_resource type="Texture2D" uid="uid://b0pm5x8umwthf" path="res://sprites/water_drop/Brizg.png" id="3_ujv31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x31ps"]
+atlas = ExtResource("3_ujv31")
+region = Rect2(0, 0, 11, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h1d5"]
+atlas = ExtResource("3_ujv31")
+region = Rect2(11, 0, 11, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74jg3"]
+atlas = ExtResource("3_ujv31")
+region = Rect2(22, 0, 11, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkfiq"]
+atlas = ExtResource("3_ujv31")
+region = Rect2(33, 0, 11, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwwai"]
+atlas = ExtResource("3_ujv31")
+region = Rect2(44, 0, 11, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ak84t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x31ps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h1d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74jg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkfiq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwwai")
+}],
+"loop": false,
+"name": &"water_drop",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj6y2"]
+size = Vector2(1.5, 1.5)
+
+[node name="WaterDrop" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_fkg7g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_lkk1w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ak84t")
+animation = &"water_drop"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tj6y2")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

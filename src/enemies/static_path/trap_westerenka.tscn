@@ -9,6 +9,7 @@ radius = 32.0156
 [node name="trap_westerenka" instance=ExtResource("1_s12je")]
 
 [node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+rotation = 2.58136
 texture = ExtResource("2_0eoia")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="0"]

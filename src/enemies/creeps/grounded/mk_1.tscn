@@ -1957,7 +1957,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.5
+speed_scale = 1.2
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1975,10 +1975,8 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wtpys")
-position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"before_ulti"
-frame = 9
+animation = &"ulti"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -1988,6 +1986,7 @@ texture = ExtResource("10_br5ay")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
@@ -1998,6 +1997,7 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -2007,6 +2007,7 @@ position = Vector2(-31, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2015,6 +2016,7 @@ position = Vector2(0, -41.5)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -2047,6 +2049,7 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_otajc")
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2085,6 +2088,7 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
 attack_type = "ulti"
 prefire = true
 

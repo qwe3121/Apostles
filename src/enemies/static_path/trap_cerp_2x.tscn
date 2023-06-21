@@ -9,6 +9,7 @@ radius = 40.7922
 [node name="trap_cerp_2x" instance=ExtResource("1_hpmf6")]
 
 [node name="Sprite2D" parent="PathFollow2D/Node2D" index="0"]
+rotation = 3.35479
 texture = ExtResource("2_aif17")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrapHitbox" index="0"]

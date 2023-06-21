@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=31 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cw21x76213cri" path="res://sprites/levels/level1/part3/TestLVL1_3_Pered.png" id="6_5faot"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="8_4fmmj"]
 [ext_resource type="PackedScene" uid="uid://cvk0amtpner26" path="res://src/leaf_particles.tscn" id="8_obl2v"]
+[ext_resource type="PackedScene" uid="uid://kp0ulk4r7tpi" path="res://src/water_drop/water_drop_spawner.tscn" id="9_bceg6"]
 [ext_resource type="PackedScene" uid="uid://54cs3xqwi26p" path="res://src/enemies/static_path/trap_polaya_c_pila.tscn" id="9_f72s2"]
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="11_mks8e"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="12_u7idq"]
@@ -185,6 +186,9 @@ position = Vector2(9195, 282)
 [node name="LeafParticles21" parent="SemiVisuals" instance=ExtResource("8_obl2v")]
 position = Vector2(9259, 255)
 
+[node name="WaterDropSpawner" parent="SemiVisuals" instance=ExtResource("9_bceg6")]
+position = Vector2(-1329, -425)
+
 [node name="Collision" type="StaticBody2D" parent="."]
 z_index = 150
 collision_layer = 2
@@ -318,8 +322,8 @@ stomp_cooldown = 2.0
 
 [node name="StompTrap2" parent="Traps" instance=ExtResource("15_mv2lf")]
 position = Vector2(187, 447)
-time_before_start = 2.0
-stomp_cooldown = 4.0
+time_before_start = 1.0
+stomp_cooldown = 3.0
 
 [node name="Enemies" type="Node2D" parent="."]
 
