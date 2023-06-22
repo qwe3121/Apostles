@@ -1970,6 +1970,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

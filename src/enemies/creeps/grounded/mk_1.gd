@@ -762,3 +762,9 @@ func _on_shoot_timer_timeout():
 	elif attack_index == 2:
 		attack_index = 1
 		shoot_timer.wait_time = 0.4
+		
+
+func is_alive():
+	if state != DEAD and state != FRUIT_DEAD:
+		return true
+	return false

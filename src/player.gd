@@ -1402,7 +1402,7 @@ func create_fruit_ninja_col():
 
 
 func _on_area_2d_body_entered(body):
-	if state == FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line:
+	if state == FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line and body.is_alive():
 		var space_state = get_world_2d().get_direct_space_state()
 		var params = PhysicsRayQueryParameters2D.new()
 		params.from = blood_pos.global_position

@@ -948,3 +948,9 @@ func _on_move_back_timer_timeout():
 	move_back_timer.wait_time = randf_range(1.0, 8.0)
 	dir *= -1
 	if dir: anim_dir = dir
+	
+	
+func is_alive():
+	if state != DEAD and state != FRUIT_DEAD:
+		return true
+	return false

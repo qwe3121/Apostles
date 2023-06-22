@@ -525,4 +525,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	visible_on_screen = false
 
 
+func is_alive():
+	if state != DEAD and state != FRUIT_DEAD:
+		return true
+	return false
 
