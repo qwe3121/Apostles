@@ -28,7 +28,6 @@ var player_adrenaline_gain = 20
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
-@onready var qmark = $Qmark
 @onready var ulti_hitbox = $UltiHitbox/Col
 @onready var attack_hitbox = $AttackHitbox/Col
 @onready var move_back_timer = $MoveBackTimer
@@ -118,9 +117,11 @@ func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 
 	blood.modulate.a = randf_range(0.6, 1.0)
-
-	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.autostart = true
+	
+	
+func _on_walking_timer_ready():
+	$WalkingTimer.wait_time = randi_range(1,5)
+	$WalkingTimer.start()
 	
 
 func get_damage(value, k_dir = 0, damager = null):
@@ -354,7 +355,18 @@ func set_dir_to_move_back(choose_dir_randomly: bool):
 	anim_dir = dir
 
 
+@onready var small_move_back_col = $CheckIfPlayerInside/SmallCol
+@onready var big_move_back_col = $CheckIfPlayerInside/BigCol
+
+
 func _physics_process(delta):
+	if not can_attack and not attack_cooldown.is_stopped():
+		small_move_back_col.disabled = true
+		big_move_back_col.disabled = false
+	else:
+		small_move_back_col.disabled = false
+		big_move_back_col.disabled = true
+	
 	if need_to_check_if_see_player:
 		if not check_if_vision_is_blocked_by_wall():
 			on_see_player()
@@ -810,9 +822,6 @@ func on_see_player():
 	if see_player:
 		return
 		
-	if not chasing and can_attack:
-		qmark.visible = true
-		qmark.play("popup")
 	walking_timer.stop()
 	chase_timer.stop()
 	see_player = true

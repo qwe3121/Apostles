@@ -392,7 +392,7 @@ position = Vector2(1184, 728)
 position = Vector2(1472, -680)
 
 [node name="6MK2" parent="Enemies" instance=ExtResource("14_tinov")]
-position = Vector2(4432, 696)
+position = Vector2(4510, 695)
 
 [node name="NavRegs" type="Node2D" parent="."]
 

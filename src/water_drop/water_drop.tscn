@@ -51,7 +51,7 @@ animations = [{
 size = Vector2(1.5, 1.5)
 
 [node name="WaterDrop" type="CharacterBody2D"]
-scale = Vector2(3, 3)
+scale = Vector2(2, 2)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_fkg7g")
@@ -62,7 +62,7 @@ texture = ExtResource("2_lkk1w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(0, -1)
+position = Vector2(0, -1.5)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_ak84t")
 animation = &"water_drop"

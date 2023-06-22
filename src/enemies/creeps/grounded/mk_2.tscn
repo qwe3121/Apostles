@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://buomtftwhn0av" path="res://sprites/enemies/MK2/p_run.png" id="9_pr6cg"]
 [ext_resource type="Texture2D" uid="uid://wyex1l2irpsf" path="res://sprites/enemies/MK2/Ylta_Ataka_MK2.png" id="9_smaqd"]
 [ext_resource type="Texture2D" uid="uid://cm8djmujwyovu" path="res://sprites/enemies/MK2/Otskok_MK2.png" id="11_uu5iw"]
-[ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="13_uby3k"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="14_fkigc"]
 [ext_resource type="Texture2D" uid="uid://3a0vac8evh3n" path="res://sprites/enemies/MK2/Podgotovka_k_Ylta_Atake_v_Dvijeni_MK2.png" id="14_y4igu"]
 [ext_resource type="Texture2D" uid="uid://bf77yvc6n1cg7" path="res://sprites/enemies/MK2/Otskok_i_Podgotovka_k_Ylta_Atake_MK2.png" id="15_h2rd8"]
@@ -2925,13 +2924,16 @@ size = Vector2(30.5, 34.25)
 size = Vector2(25, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
-size = Vector2(293, 54)
+size = Vector2(1223, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejhby"]
 size = Vector2(5.5, 33.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur1u2"]
 size = Vector2(53, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aku80"]
+size = Vector2(134, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg73c"]
 size = Vector2(6, 55.5)
@@ -2983,7 +2985,6 @@ material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
 animation = &"before_attack"
-frame = 6
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2991,18 +2992,22 @@ modulate = Color(0.380392, 1, 0.956863, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -3012,6 +3017,7 @@ position = Vector2(-35.5, -17.75)
 shape = SubResource("RectangleShape2D_ht1n4")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3020,6 +3026,7 @@ position = Vector2(0, -29)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -3035,23 +3042,25 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="Qmark" parent="." instance=ExtResource("13_uby3k")]
-position = Vector2(0, -50)
-
 [node name="FlashlightTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerInside"]
+[node name="SmallCol" type="CollisionShape2D" parent="CheckIfPlayerInside"]
 position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_ur1u2")
 
+[node name="BigCol" type="CollisionShape2D" parent="CheckIfPlayerInside"]
+position = Vector2(0, -17)
+shape = SubResource("RectangleShape2D_aku80")
+disabled = true
+
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3098,6 +3107,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_qir3g")
 
 [node name="CloseEnToPrefireAttack" parent="." instance=ExtResource("22_55i2o")]
+visible = false
 prefire = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireAttack"]
@@ -3118,6 +3128,7 @@ wait_time = 3.0
 one_shot = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout"]

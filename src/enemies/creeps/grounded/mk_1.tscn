@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=167 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="10_br5ay"]
 [ext_resource type="Texture2D" uid="uid://1a2r78og7aqt" path="res://sprites/enemies/MK1/Otskok_MK1.png" id="10_w5x4m"]
 [ext_resource type="Texture2D" uid="uid://wkt1s8h5ylus" path="res://sprites/enemies/MK1/Podgotovka_k_Ylta_Atake_v_DvijeniiMK1.png" id="11_qi2uu"]
-[ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="12_vi8p2"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="16_h0u1c"]
 
@@ -1931,13 +1930,13 @@ size = Vector2(25, 40.5)
 size = Vector2(20, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
-size = Vector2(209, 79)
+size = Vector2(1215, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
 size = Vector2(5, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otajc"]
-size = Vector2(34, 40.5)
+size = Vector2(97, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2d5l"]
 size = Vector2(4, 80.5)
@@ -1991,6 +1990,7 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
@@ -2032,15 +2032,11 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="Qmark" parent="." instance=ExtResource("12_vi8p2")]
-position = Vector2(0, -56)
-
 [node name="FlashlightTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2105,6 +2101,7 @@ wait_time = 0.3
 one_shot = true
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
+[connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout" flags=18]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://bvl5q2m4e75mv"]
+[gd_scene load_steps=146 format=3 uid="uid://bvl5q2m4e75mv"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/floating/mk_6.gd" id="1_xn6rm"]
 [ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_orm7s"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://crjnl82b5gvxt" path="res://sprites/enemies/MK6/Mirni_Pokoi_i_Peredvijenie_MK6.png" id="7_yy3b5"]
 [ext_resource type="Texture2D" uid="uid://bxsavm7st1eud" path="res://sprites/enemies/MK6/Ylta_MK6.png" id="8_76h00"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="9_5hqsu"]
-[ext_resource type="PackedScene" uid="uid://b35mtaivpmt5e" path="res://src/enemies/qmark.tscn" id="10_goiwt"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="11_vwxtd"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="17_3wc5d"]
 [ext_resource type="Texture2D" uid="uid://ctgggpeocdpgi" path="res://sprites/enemies/MK6/Ylta_Cmert_Zona_MK6.png" id="18_6a287"]
@@ -1510,7 +1509,7 @@ animations = [{
 size = Vector2(38, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyenh"]
-size = Vector2(310, 215.5)
+size = Vector2(1178, 215.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vsh"]
 size = Vector2(368, 28)
@@ -1546,7 +1545,6 @@ material = SubResource("ShaderMaterial_iv7jv")
 position = Vector2(-3, 25)
 sprite_frames = SubResource("SpriteFrames_0rin6")
 animation = &"attack"
-frame = 14
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false
@@ -1577,9 +1575,6 @@ shape = SubResource("RectangleShape2D_oyenh")
 [node name="ChaseTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="Qmark" parent="." instance=ExtResource("10_goiwt")]
-position = Vector2(0, -62)
 
 [node name="FlashlightTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -1640,6 +1635,7 @@ polygon = PackedVector2Array(-5, -44, 3, -44, 15, 86.5, -15, 86.5)
 position = Vector2(0.25, -22.5)
 scale = Vector2(18.375, 2.25)
 
+[connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout" flags=18]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=460 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=461 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
-[ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_npce2"]
+[ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_kapy4"]
 [ext_resource type="Texture2D" uid="uid://dlbtntefymj8n" path="res://sprites/player/air2.png" id="3_3ghpb"]
 [ext_resource type="Texture2D" uid="uid://c4c52pel7u3ei" path="res://sprites/player/crouch.png" id="3_oi8ox"]
 [ext_resource type="Texture2D" uid="uid://otuie4ycem16" path="res://sprites/player/dash.png" id="4_8cdn5"]
@@ -50,9 +50,10 @@
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
 [ext_resource type="Shader" path="res://src/shaders/lens_flare.gdshader" id="49_35m48"]
+[ext_resource type="Texture2D" uid="uid://g1fdsrnykflr" path="res://src/light_source.tres" id="51_p7n1a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iel4b"]
-shader = ExtResource("2_npce2")
+shader = ExtResource("2_kapy4")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
 
@@ -4696,12 +4697,12 @@ floor_snap_length = 10.0
 script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-light_mask = 0
 material = SubResource("ShaderMaterial_iel4b")
-position = Vector2(0, -48)
+position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"stun"
+animation = &"WeakAttack1"
+frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -4866,6 +4867,13 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanChangeCollisionChecker"]
 position = Vector2(0, -50)
 shape = SubResource("RectangleShape2D_hlk31")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-3.8147e-06, -44)
+scale = Vector2(5.79167, 4.04167)
+energy = 0.4
+texture = ExtResource("51_p7n1a")
+texture_scale = 3.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

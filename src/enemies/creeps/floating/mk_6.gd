@@ -32,7 +32,6 @@ var player_adrenaline_gain = 20
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
-@onready var qmark = $Qmark
 @onready var attack_hitbox = $AttackHitbox/AttackCollision
 @onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
 @onready var rocks_dropdown_hitbox = $RocksDropdownHitbox/Col
@@ -118,8 +117,10 @@ func _ready():
 	
 	blood.modulate.a = randf_range(0.6, 1.0)
 	
-	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.autostart = true
+	
+func _on_walking_timer_ready():
+	$WalkingTimer.wait_time = randi_range(1,5)
+	$WalkingTimer.start()
 	
 
 func get_damage(value, k_dir = 0, damager = null):
@@ -187,6 +188,7 @@ func start_moving_behavior():
 	
 	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
 		return
+	
 	if nav_agent.is_target_reachable():
 		var target = nav_agent.get_next_path_position()
 		var nav_velocity = global_position.direction_to(target).normalized() * speed
@@ -259,7 +261,7 @@ func idle():
 			return
 	else:
 		if walking: 
-			set_destination(global_position + Vector2(randi_range(50, 200) * rand_minus_or_plus(), 0))
+			set_destination(global_position + Vector2(randi_range(50, 100) * rand_minus_or_plus(), 0))
 			state = RUN
 			return
 			
@@ -402,9 +404,6 @@ func on_see_player():
 	if see_player:
 		return
 		
-	if not chasing and can_attack:
-		qmark.visible = true
-		qmark.play("popup")
 	walking_timer.stop()
 	chase_timer.stop()
 	see_player = true
@@ -524,3 +523,6 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	visible_on_screen = false
+
+
+

@@ -30,7 +30,6 @@ var player_adrenaline_gain = 20
 @onready var ulti_cooldown = $UltiCooldown
 @onready var ulti_hitbox = $UltiHitbox/Col
 @onready var blood_pos = $BloodPos
-@onready var qmark = $Qmark
 @onready var move_back_timer = $MoveBackTimer
 @onready var shoot_timer = $ShootTimer
 var attack_index = 1
@@ -119,8 +118,11 @@ func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 	
 	blood.modulate.a = randf_range(0.6, 1.0)
-	walking_timer.wait_time = randi_range(1,5)
-	walking_timer.autostart = true
+	
+
+func _on_walking_timer_ready():
+	$WalkingTimer.wait_time = randi_range(1,5)
+	$WalkingTimer.start()
 	
 	
 func get_damage(value, k_dir = 0, damager = null):
@@ -272,7 +274,6 @@ func set_dir_to_move_back(choose_dir_randomly: bool):
 			dir = 1
 		
 	anim_dir = dir
-
 
 func _physics_process(delta):
 	if need_to_check_if_see_player:
@@ -625,9 +626,6 @@ func on_see_player():
 	if see_player:
 		return
 
-	if not chasing and can_attack:
-		qmark.visible = true
-		qmark.play("popup")
 	walking_timer.stop()
 	chase_timer.stop()
 	see_player = true
