@@ -2924,7 +2924,7 @@ size = Vector2(30.5, 34.25)
 size = Vector2(25, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
-size = Vector2(1223, 54)
+size = Vector2(645, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejhby"]
 size = Vector2(5.5, 33.75)
@@ -3017,7 +3017,6 @@ position = Vector2(-35.5, -17.75)
 shape = SubResource("RectangleShape2D_ht1n4")
 
 [node name="Eyes" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
