@@ -1930,7 +1930,7 @@ size = Vector2(25, 40.5)
 size = Vector2(20, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
-size = Vector2(410, 79)
+size = Vector2(410, 39)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
 size = Vector2(5, 40)
@@ -1986,19 +1986,16 @@ texture = ExtResource("10_br5ay")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -2012,11 +2009,10 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, -41.5)
+position = Vector2(0, -21.5)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -2045,7 +2041,6 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_otajc")
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2060,7 +2055,6 @@ position = Vector2(0, -19)
 position = Vector2(3, -15.5)
 
 [node name="UltiHitbox" parent="." instance=ExtResource("13_ytu7v")]
-visible = false
 damage_source = "fire"
 damage = 20
 
@@ -2069,14 +2063,12 @@ polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 3
 disabled = true
 
 [node name="CloseEnToAttack" parent="." instance=ExtResource("16_h0u1c")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
-position = Vector2(0, -19.25)
+position = Vector2(0, -21.5)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("16_h0u1c")]
-visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
@@ -2084,7 +2076,6 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("16_h0u1c")]
-visible = false
 attack_type = "ulti"
 prefire = true
 

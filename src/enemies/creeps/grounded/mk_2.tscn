@@ -2924,7 +2924,7 @@ size = Vector2(30.5, 34.25)
 size = Vector2(25, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
-size = Vector2(347, 54)
+size = Vector2(347, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejhby"]
 size = Vector2(5.5, 33.75)
@@ -2936,7 +2936,7 @@ size = Vector2(53, 33)
 size = Vector2(134, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg73c"]
-size = Vector2(6, 55.5)
+size = Vector2(6, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_whayr"]
 size = Vector2(18, 4)
@@ -2995,19 +2995,16 @@ hframes = 4
 frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -3021,11 +3018,10 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, -29)
+position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -3059,20 +3055,17 @@ shape = SubResource("RectangleShape2D_aku80")
 disabled = true
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerDeepInside"]
-position = Vector2(0, -28.25)
+position = Vector2(0, -17.75)
 shape = SubResource("RectangleShape2D_yg73c")
 
 [node name="BloodPos" type="Node2D" parent="."]
-visible = false
 position = Vector2(0, -18.5)
 
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
-visible = false
 damage_source = "fire"
 damage = 10
 
@@ -3082,7 +3075,6 @@ shape = SubResource("RectangleShape2D_whayr")
 disabled = true
 
 [node name="UltiHitbox" parent="." instance=ExtResource("15_pmu54")]
-visible = false
 damage_source = "fire"
 
 [node name="Col" type="CollisionShape2D" parent="UltiHitbox"]
@@ -3091,14 +3083,12 @@ shape = SubResource("RectangleShape2D_5udau")
 disabled = true
 
 [node name="CloseEnToAttack" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
 position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_dy02x")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
@@ -3106,7 +3096,6 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_qir3g")
 
 [node name="CloseEnToPrefireAttack" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 prefire = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireAttack"]
@@ -3114,7 +3103,6 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_n0ad2")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("22_55i2o")]
-visible = false
 attack_type = "ulti"
 prefire = true
 
