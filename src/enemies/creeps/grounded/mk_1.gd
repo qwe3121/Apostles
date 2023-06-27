@@ -149,7 +149,7 @@ func get_damage(value, k_dir = 0, damager = null):
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
-	if damager == null: global.camera.shake()
+	global.camera.shake()
 		
 func set_anim(animation_name):
 	if animation_name == MOVE_BACK or animation_name == ATTACK_N_MOVE_BACK \
@@ -584,7 +584,7 @@ func dead(delta):
 		state_started = true
 		ulti_hitbox.disabled = true
 		for c in range(b_drops):
-			blood_manager.create_blood(last_knockback_dir, blood_pos)
+			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == DEAD:
 			queue_free()
@@ -732,7 +732,7 @@ func fruit_dead(delta):
 		ulti_hitbox.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
 		for c in range(b_drops):
-			blood_manager.create_blood(last_knockback_dir, blood_pos)
+			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")

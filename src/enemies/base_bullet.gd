@@ -38,7 +38,8 @@ func _on_body_entered(body):
 				global.player.bullet_dead_anim_speredi = false
 			else:
 				global.player.bullet_dead_anim_speredi = true
-		global.player.get_damage("bullet", damage, can_block, self, k_dir, false)
+		global.player.get_damage("bullet", damage, can_block, k_dir, false, null)
 		queue_free()
 	else:
+		particles_manager.create_hit_particles(global_position + Vector2(20 * dir, 0), -dir)
 		queue_free()

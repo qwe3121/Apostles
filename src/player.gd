@@ -201,7 +201,7 @@ func set_hp(value):
 	hp = value
 	
 	
-func get_damage(source: String, damage: int, can_block_that_damage: bool, damager = null, k_dir = 0, respect_damage_cd: bool = true): #fire, bullet, hit, cut
+func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir = 0, respect_damage_cd: bool = true, damager = null): #fire, bullet, hit, cut
 	if not can_get_damage and respect_damage_cd:
 		return
 	
@@ -234,8 +234,7 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, damage
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
 		flashlight_timer.start()
-	
-	pass
+		
 
 func set_dir():
 	dir = Input.get_axis("LEFT", "RIGHT")
@@ -1316,9 +1315,9 @@ func blocked():
 
 func _on_hitbox_body_entered(body):
 	if global_position.x > body.global_position.x:
-		body.get_damage(1, -1)
+		body.get_damage(1, -1, null)
 	else:
-		body.get_damage(1, 1)
+		body.get_damage(1, 1, null)
 	
 	
 func dead(delta):
@@ -1458,7 +1457,7 @@ func create_cuts_for_cut_dead():
 
 func create_blood(number: int = 5):
 	for c in range(number):
-		blood_manager.create_blood(0, blood_pos)
+		blood_manager.create_blood_drops(0, blood_pos)
 
 
 func reincarnation(delta):

@@ -1554,7 +1554,7 @@ sprite_frames = SubResource("SpriteFrames_va88o")
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(0.380392, 1, 0.956863, 1)
+modulate = Color(0.403922, 0.439216, 0.027451, 1)
 position = Vector2(30, -24.5)
 texture = ExtResource("9_5hqsu")
 hframes = 4

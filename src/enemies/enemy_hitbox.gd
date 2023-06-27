@@ -22,9 +22,9 @@ func _ready():
 func _process(delta):
 	if see_player:
 		if attacking_entity.global_position.x > global.player.global_position.x:
-			global.player.get_damage(damage_source, damage, can_block, null, -1)
+			global.player.get_damage(damage_source, damage, can_block, -1, true, null)
 		else:
-			global.player.get_damage(damage_source, damage, can_block, null, 1)
+			global.player.get_damage(damage_source, damage, can_block, 1, true, null)
 
 
 func _on_body_entered(body):

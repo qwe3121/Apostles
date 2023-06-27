@@ -2988,7 +2988,7 @@ animation = &"before_attack"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(0.380392, 1, 0.956863, 1)
+modulate = Color(0.403922, 0.439216, 0.027451, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4

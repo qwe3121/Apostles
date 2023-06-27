@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5gqni02t3l8c"]
+[gd_scene load_steps=7 format=3 uid="uid://c5gqni02t3l8c"]
 
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_t8at5"]
 
@@ -62,45 +62,9 @@ _data = {
 "rotation": SubResource("Animation_fyvdw")
 }
 
-[sub_resource type="Animation" id="Animation_3n4fj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D/Node2D/Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_m3b4v"]
-resource_name = "fade_out"
-length = 6.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D/Node2D/Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.380392, 1, 0.956863, 1), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o87ok"]
-_data = {
-"RESET": SubResource("Animation_3n4fj"),
-"fade_out": SubResource("Animation_m3b4v")
-}
-
 [node name="BasicStaticPathEnemy" type="Path2D"]
-z_index = 55
+modulate = Color(0, 0, 0, 1)
+z_index = 49
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotates = false
@@ -108,7 +72,6 @@ rotates = false
 [node name="Node2D" type="Node2D" parent="PathFollow2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Node2D"]
-modulate = Color(0, 0, 0, 1)
 
 [node name="MoveAlongPathAnim" type="AnimationPlayer" parent="."]
 autoplay = "bounce"
@@ -124,8 +87,3 @@ libraries = {
 }
 
 [node name="TrapHitbox" parent="." instance=ExtResource("1_t8at5")]
-
-[node name="BloodFadeAnim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_o87ok")
-}
