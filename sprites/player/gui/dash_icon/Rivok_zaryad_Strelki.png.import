@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wfod336kiwgn"
-path="res://.godot/imported/Ikonka_Rivok_Zarajaetca.png-13aaefd171e0a80a38580c7c02d30454.ctex"
+uid="uid://c50ritua2elwc"
+path="res://.godot/imported/Rivok_zaryad_Strelki.png-1431948f73d7873422ab8c6f4da02020.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/gui/Ikonka_Rivok_Zarajaetca.png"
-dest_files=["res://.godot/imported/Ikonka_Rivok_Zarajaetca.png-13aaefd171e0a80a38580c7c02d30454.ctex"]
+source_file="res://sprites/player/gui/dash_icon/Rivok_zaryad_Strelki.png"
+dest_files=["res://.godot/imported/Rivok_zaryad_Strelki.png-1431948f73d7873422ab8c6f4da02020.ctex"]
 
 [params]
 

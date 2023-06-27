@@ -1,4 +1,4 @@
-[gd_scene load_steps=461 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=462 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -2782,7 +2782,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnju1"]
-size = Vector2(32, 90)
+size = Vector2(32, 63)
 
 [sub_resource type="Animation" id="Animation_rfwno"]
 resource_name = "Blocked"
@@ -4688,6 +4688,9 @@ colors = PackedColorArray(0.0901961, 0.670588, 0.737255, 1, 0.121569, 0.913725, 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hlk31"]
 size = Vector2(22, 80)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dthco"]
+size = Vector2(20, 37)
+
 [node name="Player" type="CharacterBody2D"]
 process_priority = -10
 z_index = 1
@@ -4698,15 +4701,13 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_iel4b")
-position = Vector2(0, -88)
+position = Vector2(0, -53)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"WeakAttack1"
-frame = 7
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -45)
+position = Vector2(0, -31.5)
 shape = SubResource("RectangleShape2D_vnju1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -4883,6 +4884,14 @@ scale = Vector2(5.79167, 4.04167)
 energy = 0.4
 texture = ExtResource("51_p7n1a")
 texture_scale = 3.0
+
+[node name="HurtboxForTraps" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxForTraps"]
+position = Vector2(0, -31.5)
+shape = SubResource("RectangleShape2D_dthco")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

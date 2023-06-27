@@ -13,7 +13,7 @@ script = ExtResource("1_2dk2e")
 [node name="Drop" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0, 0.145098)
 z_index = 5
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1

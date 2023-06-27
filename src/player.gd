@@ -41,6 +41,7 @@ var adrenaline = 100
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
 
 @onready var col = $CollisionShape2D
+@onready var hurtbox_4_traps_col = $HurtboxForTraps/CollisionShape2D
 var need_to_change_col_size: bool = false
 var can_increase_col: bool = true
 var pre_anim: String
@@ -196,7 +197,7 @@ func set_hp(value):
 	var frame = ((175 - value) * 3) + 2
 	hp_bar_sprite.frame = frame
 #	var tween = create_tween()
-#	tween.tween_property(hp_bar_sprite, "frame", frame, 0.3)
+#	tween.tween_property(hp_bar_sprite, "frame", frame, 1)
 	hp_number.text = str(value) + "%"
 	hp = value
 	
@@ -1077,7 +1078,12 @@ func _on_animation_player_animation_finished(anim_name):
 
 func weak_attack_1():
 	set_anim(WEAK_ATTACK_1)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1090,7 +1096,12 @@ func weak_attack_1():
 			
 func weak_attack_2():
 	set_anim(WEAK_ATTACK_2)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1103,7 +1114,12 @@ func weak_attack_2():
 			
 func weak_attack_3():
 	set_anim(WEAK_ATTACK_3)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1116,7 +1132,12 @@ func weak_attack_3():
 		
 func weak_attack_4():
 	set_anim(WEAK_ATTACK_4)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1133,7 +1154,12 @@ func _on_weak_combo_timer_timeout():
 
 func strong_attack_1():
 	set_anim(STRONG_ATTACK_1)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1146,7 +1172,12 @@ func strong_attack_1():
 			
 func strong_attack_2():
 	set_anim(STRONG_ATTACK_2)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1159,8 +1190,13 @@ func strong_attack_2():
 			
 func strong_attack_3():
 	set_anim(STRONG_ATTACK_3)
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
-	velocity.x = anim_dir * speed / 30
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
@@ -1172,7 +1208,12 @@ func strong_attack_3():
 			
 func strong_attack_4(delta):
 	set_anim(STRONG_ATTACK_4)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y += gravity * 15 * delta 
 	if !state_started:
 		velocity.y = jump_velocity * 3
@@ -1218,7 +1259,12 @@ func landing():
 
 func first_jump_attack_1():
 	set_anim(FIRST_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1232,7 +1278,12 @@ func first_jump_attack_1():
 	
 func first_jump_attack_2():
 	set_anim(FIRST_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1246,7 +1297,12 @@ func first_jump_attack_2():
 	
 func first_jump_attack_3():
 	set_anim(FIRST_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1260,7 +1316,12 @@ func first_jump_attack_3():
 	
 func second_jump_attack_1():
 	set_anim(SECOND_JUMP_ATTACK_1)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1274,7 +1335,12 @@ func second_jump_attack_1():
 	
 func second_jump_attack_2():
 	set_anim(SECOND_JUMP_ATTACK_2)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1288,7 +1354,12 @@ func second_jump_attack_2():
 	
 func second_jump_attack_3():
 	set_anim(SECOND_JUMP_ATTACK_3)
-	velocity.x = anim_dir * speed / 30
+	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
+		velocity.x = anim_dir * speed / 5
+	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
+		velocity.x = anim_dir * speed / 5
+	else:
+		velocity.x = anim_dir * speed / 30
 	velocity.y = 0
 	if !state_started:
 		state_started = true
@@ -1326,10 +1397,10 @@ func dead(delta):
 	velocity.x = 0
 	if !state_started:
 		hitbox_col.disabled = true
+		ui.visible = false
+		$CanvasLayer/LensFlare.visible = false
+		death_screen.visible = true
 		state_started = true
-		await anim.animation_finished
-		Engine.time_scale = 1.0
-		get_tree().reload_current_scene()
 		
 		
 func fruit_ninja():
@@ -1474,11 +1545,8 @@ func reincarnation(delta):
 			
 			
 func change_scene_to_dead_screen():
-	ui.visible = false
-	$CanvasLayer/LensFlare.visible = false
 	get_tree().paused = true
 	death_screen.set_process_input(true)
-	death_screen.visible = true
 	
 
 func shake_camera():
@@ -1506,12 +1574,16 @@ func _on_flashlight_timer_timeout():
 func change_col_to_crouch_mode():
 	col.shape.size = Vector2(32, 63)
 	col.position = Vector2(0, -31.5)
+	hurtbox_4_traps_col.shape.size = Vector2(20, 37)
+	hurtbox_4_traps_col.position = Vector2(0, -31.5)
 	need_to_change_col_size = false
 	
 	
 func change_col_to_full_size():
 	col.shape.size = Vector2(32, 90)
 	col.position = Vector2(0, -45)
+	hurtbox_4_traps_col.shape.size = Vector2(20, 54)
+	hurtbox_4_traps_col.position = Vector2(0, -45)
 	need_to_change_col_size = false
 	
 	
@@ -1528,4 +1600,4 @@ func _on_can_change_collision_checker_body_entered(body):
 
 
 func _on_can_change_collision_checker_body_exited(body):
-	can_increase_col = true
+	can_increase_col = true 

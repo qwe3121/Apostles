@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c37fofapkmxer"
-path="res://.godot/imported/Ikonka_Rivok_Primenenie.png-a5b2880c8b105dcb13645b8af6394297.ctex"
+uid="uid://dwv0ijewlt05c"
+path="res://.godot/imported/Ikonka_Obvodka.png-6320b3c98bac2cc45bbe546df3b16b5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/gui/Ikonka_Rivok_Primenenie.png"
-dest_files=["res://.godot/imported/Ikonka_Rivok_Primenenie.png-a5b2880c8b105dcb13645b8af6394297.ctex"]
+source_file="res://sprites/player/gui/dash_icon/Ikonka_Obvodka.png"
+dest_files=["res://.godot/imported/Ikonka_Obvodka.png-6320b3c98bac2cc45bbe546df3b16b5f.ctex"]
 
 [params]
 
