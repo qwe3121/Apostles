@@ -1357,9 +1357,9 @@ func fruit_ninja():
 			fruit_ninja_targets = []
 			fruit_ninja_line_already_painted = false
 			if np:
-				print("from fruit ninja to idle")
+				print("from fruit ninja to SIT")
 			animated_sprite.visible = true
-			state = IDLE
+			state = SIT
 			return
 	else:
 		if (Input.is_action_pressed("LMB ATTACK") or Input.is_action_pressed("RMB ATTACK")) and not fruit_ninja_line_already_painted:
