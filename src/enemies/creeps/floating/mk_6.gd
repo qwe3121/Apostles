@@ -1,10 +1,6 @@
 extends CharacterBody2D
 
 
-var visible_on_screen = false
-
-
-
 var close_en_to_attack = false
 
 
@@ -213,7 +209,7 @@ func set_anim_dir():
 
 func _physics_process(delta):
 	if need_to_check_if_see_player:
-		if not check_if_vision_is_blocked_by_wall():
+		if not check_if_vision_is_blocked_by_wall() and visible_on_screen:
 			on_see_player()
 		else:
 			on_unsee_player()
@@ -505,7 +501,7 @@ func _on_attack_hitbox_body_exited(body):
 	
 	
 func shake_camera():
-	if visible_on_screen: global.camera.shake()
+	if dead_zone_visible_on_screen: global.camera.shake()
 
 
 func _on_ulti_slow_hitbox_body_entered(body):
@@ -517,16 +513,29 @@ func _on_ulti_slow_hitbox_body_exited(body):
 	global.player.slowed_cause_of_mk6 = false
 
 
+func is_alive():
+	if state != DEAD and state != FRUIT_DEAD:
+		return true
+	return false
+	
+	
+var dead_zone_visible_on_screen = false
+
+
+func _on_dead_zone_visible_on_screen_notifier_screen_entered():
+	dead_zone_visible_on_screen = true
+
+
+func _on_dead_zone_visible_on_screen_notifier_screen_exited():
+	dead_zone_visible_on_screen = false
+
+
+var visible_on_screen = false
+
+
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	visible_on_screen = true
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	visible_on_screen = false
-
-
-func is_alive():
-	if state != DEAD and state != FRUIT_DEAD:
-		return true
-	return false
-

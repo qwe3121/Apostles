@@ -368,7 +368,7 @@ func _physics_process(delta):
 		big_move_back_col.disabled = true
 	
 	if need_to_check_if_see_player:
-		if not check_if_vision_is_blocked_by_wall():
+		if not check_if_vision_is_blocked_by_wall() and visible_on_screen:
 			on_see_player()
 		else:
 			on_unsee_player()
@@ -419,7 +419,7 @@ func idle():
 			if can_attack and close_en_to_prefire_attack:
 				state = BEFORE_ATTACK
 				return
-		if player_is_inside or not close_en_to_attack:
+		if player_is_inside or (not close_en_to_attack and big_move_back_col.disabled):
 			state = RUN
 			return
 	else:
@@ -453,7 +453,9 @@ func run():
 			if need_to_choose_dir_to_move_back:
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
-		elif close_en_to_attack:
+		elif close_en_to_attack or not big_move_back_col.disabled:
+			dir = 0
+			player_move_state = move_state_const.IDLE
 			state = IDLE
 			return
 			
@@ -839,6 +841,10 @@ func on_unsee_player():
 	chasing = true
 	chase_timer.start()
 	
+	if player_move_state == move_state_const.MOVE_BACK:
+		dir *= -1
+		anim_dir = dir
+	
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == AFTER_ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		state = RUN
 		
@@ -954,3 +960,14 @@ func is_alive():
 	if state != DEAD and state != FRUIT_DEAD:
 		return true
 	return false
+	
+	
+var visible_on_screen = false
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	visible_on_screen = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	visible_on_screen = false

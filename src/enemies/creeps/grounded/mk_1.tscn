@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=169 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -1929,17 +1929,23 @@ size = Vector2(25, 40.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oljvb"]
 size = Vector2(20, 40.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
-size = Vector2(410, 39)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bsqr"]
+size = Vector2(819, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnkqd"]
 size = Vector2(5, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_otajc"]
-size = Vector2(97, 40.5)
+size = Vector2(291, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2d5l"]
-size = Vector2(4, 80.5)
+size = Vector2(4, 40.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqjsv"]
+size = Vector2(410, 15.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yupf"]
+size = Vector2(410, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l5vs"]
 size = Vector2(75, 34.5)
@@ -1990,12 +1996,14 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -2009,10 +2017,11 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eyes"]
-position = Vector2(0, -21.5)
-shape = SubResource("RectangleShape2D_6yupf")
+position = Vector2(0, -21)
+shape = SubResource("RectangleShape2D_5bsqr")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -2033,6 +2042,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -2041,11 +2051,12 @@ position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_otajc")
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckIfPlayerDeepInside"]
-position = Vector2(0, -40.75)
+position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_p2d5l")
 
 [node name="BloodPos" type="Node2D" parent="."]
@@ -2055,6 +2066,7 @@ position = Vector2(0, -19)
 position = Vector2(3, -15.5)
 
 [node name="UltiHitbox" parent="." instance=ExtResource("13_ytu7v")]
+visible = false
 damage_source = "fire"
 damage = 20
 
@@ -2065,10 +2077,19 @@ disabled = true
 [node name="CloseEnToAttack" parent="." instance=ExtResource("16_h0u1c")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
-position = Vector2(0, -21.5)
+position = Vector2(0, -8.75)
+shape = SubResource("RectangleShape2D_vqjsv")
+
+[node name="FakeCloseEnToAttack" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
+fake = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FakeCloseEnToAttack"]
+position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_6yupf")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
@@ -2076,6 +2097,7 @@ position = Vector2(0, -19.25)
 shape = SubResource("RectangleShape2D_6l5vs")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("16_h0u1c")]
+visible = false
 attack_type = "ulti"
 prefire = true
 
@@ -2090,6 +2112,10 @@ one_shot = true
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-5.96046e-07, -20.75)
+scale = Vector2(1.25, 2.025)
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
@@ -2111,3 +2137,5 @@ one_shot = true
 [connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited"]
 [connection signal="timeout" from="MoveBackTimer" to="." method="_on_move_back_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

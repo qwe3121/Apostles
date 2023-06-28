@@ -140,7 +140,7 @@ var animations_speed_scales = {
 	"SecondJumpAttack3": 0.9,
 	"SecondJumpCycle": 1,
 	"SecondLanding": 3.5,
-	"Sit": 1,
+	"Sit": 0.7,
 	"StrongAttack1": 0.8,
 	"StrongAttack2": 0.8,
 	"StrongAttack3": 0.8,

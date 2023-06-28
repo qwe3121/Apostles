@@ -2924,7 +2924,7 @@ size = Vector2(30.5, 34.25)
 size = Vector2(25, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
-size = Vector2(347, 33)
+size = Vector2(734, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejhby"]
 size = Vector2(5.5, 33.75)
@@ -2965,7 +2965,6 @@ floor_snap_length = 10.0
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -2984,7 +2983,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"before_attack"
+animation = &"after_attack"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2999,12 +2998,14 @@ position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
 [node name="CheckForPit" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-24.75, -8)
 target_position = Vector2(0, 40)
 collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -3022,6 +3023,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -3042,6 +3044,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CheckIfPlayerInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3055,6 +3058,7 @@ shape = SubResource("RectangleShape2D_aku80")
 disabled = true
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3075,6 +3079,7 @@ shape = SubResource("RectangleShape2D_whayr")
 disabled = true
 
 [node name="UltiHitbox" parent="." instance=ExtResource("15_pmu54")]
+visible = false
 damage_source = "fire"
 
 [node name="Col" type="CollisionShape2D" parent="UltiHitbox"]
@@ -3089,6 +3094,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_dy02x")
 
 [node name="CloseEnToUlti" parent="." instance=ExtResource("22_55i2o")]
+visible = false
 attack_type = "ulti"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToUlti"]
@@ -3096,6 +3102,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_qir3g")
 
 [node name="CloseEnToPrefireAttack" parent="." instance=ExtResource("22_55i2o")]
+visible = false
 prefire = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToPrefireAttack"]
@@ -3103,6 +3110,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_n0ad2")
 
 [node name="CloseEnToPrefireUlti" parent="." instance=ExtResource("22_55i2o")]
+visible = false
 attack_type = "ulti"
 prefire = true
 
@@ -3113,6 +3121,10 @@ shape = SubResource("RectangleShape2D_xkq4u")
 [node name="MoveBackTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.500001, -17.75)
+scale = Vector2(1.55, 1.725)
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
@@ -3133,3 +3145,5 @@ one_shot = true
 [connection signal="body_entered" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_entered"]
 [connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited"]
 [connection signal="timeout" from="MoveBackTimer" to="." method="_on_move_back_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
