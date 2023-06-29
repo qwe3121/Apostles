@@ -1,4 +1,4 @@
-[gd_scene load_steps=612 format=3 uid="uid://c0rdcqmtntem8"]
+[gd_scene load_steps=613 format=3 uid="uid://c0rdcqmtntem8"]
 
 [ext_resource type="Script" path="res://src/player_ui.gd" id="1_gwm1g"]
 [ext_resource type="Shader" path="res://src/shaders/shine_highlight.gdshader" id="2_adj2t"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://526n3jedoq26" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_24.png" id="31_57qbe"]
 [ext_resource type="Texture2D" uid="uid://be8pvjeuhm3oh" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_25.png" id="32_wgnyo"]
 [ext_resource type="Texture2D" uid="uid://c408rjxkb6k0q" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_26.png" id="33_amnf2"]
+[ext_resource type="Texture2D" uid="uid://b3uhcminwrocd" path="res://sprites/player/gui/Cifri_Zdorovia.png" id="34_j2q4d"]
 [ext_resource type="Texture2D" uid="uid://bwrrco2r40jwf" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_27.png" id="34_q8pff"]
 [ext_resource type="Texture2D" uid="uid://brix15nycs6sw" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_28.png" id="35_syo6a"]
 [ext_resource type="Texture2D" uid="uid://enigg0lq5fqb" path="res://sprites/player/gui/hp_bar_brain/XP_Bar_Mozg_29.png" id="36_1ox8d"]
@@ -393,7 +394,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_1brn4"]
 resource_name = "charging"
-length = 4.6
+length = 4.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -416,7 +417,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.5]
+"values": [1.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -437,7 +438,7 @@ tracks/3/path = NodePath(".:material:shader_parameter/shine_progress")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(4.4, 4.6),
+"times": PackedFloat32Array(4.2, 4.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
@@ -4198,13 +4199,13 @@ script = ExtResource("1_gwm1g")
 
 [node name="DashIcon" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_bo74m")
-position = Vector2(313, 85)
+position = Vector2(233, 64)
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_elbp6")
 animation = &"charging"
 frame = 44
 
 [node name="DashIconAnim" type="AnimationPlayer" parent="DashIcon"]
-speed_scale = 0.5
 libraries = {
 "": SubResource("AnimationLibrary_pu8lv")
 }
@@ -4212,22 +4213,30 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="DashIcon"]
 texture = ExtResource("4_yonoq")
 
-[node name="hpBar" type="AnimatedSprite2D" parent="."]
-position = Vector2(123, 124)
-scale = Vector2(0.7, 0.7)
-sprite_frames = SubResource("SpriteFrames_206mx")
+[node name="hp_number_1" type="Sprite2D" parent="."]
+position = Vector2(13, 147)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("34_j2q4d")
+hframes = 10
+frame = 1
 
-[node name="hpNumber" type="Label" parent="."]
-visible = false
-modulate = Color(1, 0.501961, 0.0980392, 1)
-layout_mode = 0
-offset_left = -5.0
-offset_top = 99.0
-offset_right = 102.0
-offset_bottom = 171.0
-theme_override_font_sizes/font_size = 60
-text = "175"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="hp_number_2" type="Sprite2D" parent="."]
+position = Vector2(38, 147)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("34_j2q4d")
+hframes = 10
+frame = 7
+
+[node name="hp_number_3" type="Sprite2D" parent="."]
+position = Vector2(68, 147)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("34_j2q4d")
+hframes = 10
+frame = 5
+
+[node name="hpBar" type="AnimatedSprite2D" parent="."]
+position = Vector2(94, 90)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_206mx")
 
 [connection signal="animation_finished" from="DashIcon/DashIconAnim" to="." method="_on_dash_icon_anim_animation_finished"]

@@ -1986,7 +1986,7 @@ animation = &"ulti"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(0.403922, 0.439216, 0.027451, 1)
+modulate = Color(0.317647, 0, 0, 1)
 position = Vector2(30, -18.5)
 texture = ExtResource("10_br5ay")
 hframes = 4

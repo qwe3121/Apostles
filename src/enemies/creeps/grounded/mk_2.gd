@@ -957,7 +957,7 @@ func _on_move_back_timer_timeout():
 	
 	
 func is_alive():
-	if state != DEAD and state != FRUIT_DEAD:
+	if state != DEAD and state != FRUIT_DEAD and hp > 0:
 		return true
 	return false
 	

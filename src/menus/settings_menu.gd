@@ -11,8 +11,8 @@ func _ready():
 	global_settings.toggle_vsync(cfg.cfg_data.vsync_on)
 	$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = cfg.cfg_data.skylight_on
 	global_settings.toggle_skylight(cfg.cfg_data.skylight_on)
-	$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = cfg.cfg_data.glow_on
-	global_settings.toggle_glow(cfg.cfg_data.glow_on)
+#	$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = cfg.cfg_data.glow_on
+#	global_settings.toggle_glow(cfg.cfg_data.glow_on)
 	$TabContainer/Video/MarginContainer/VBoxContainer/fpsContainer/fpsCheckButton.button_pressed = cfg.cfg_data.show_fps_on
 	global_settings.toggle_show_fps(cfg.cfg_data.show_fps_on)
 	$TabContainer/Video/MarginContainer/VBoxContainer/BloodTracesContainer/BloodTracesCheckButton.button_pressed = cfg.cfg_data.blood_traces_on
@@ -99,8 +99,8 @@ func _on_back_to_defaults_pressed():
 			global_settings.toggle_vsync(true)
 			$TabContainer/Video/MarginContainer/VBoxContainer/SkylightContainer/SkylightCheckButton.button_pressed = true
 			global_settings.toggle_skylight(true)
-			$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = true
-			global_settings.toggle_glow(true)
+#			$TabContainer/Video/MarginContainer/VBoxContainer/GlowContainer/GlowCheckButton.button_pressed = true
+#			global_settings.toggle_glow(true)
 			$TabContainer/Video/MarginContainer/VBoxContainer/fpsContainer/fpsCheckButton.button_pressed = false
 			global_settings.toggle_show_fps(false)
 			$TabContainer/Video/MarginContainer/VBoxContainer/BloodTracesContainer/BloodTracesCheckButton.button_pressed = true
@@ -147,7 +147,8 @@ func _on_skylight_check_button_toggled(button_pressed):
 
 
 func _on_glow_check_button_toggled(button_pressed):
-	global_settings.toggle_glow(button_pressed)
+	pass
+#	global_settings.toggle_glow(button_pressed)
 
 
 func _on_fps_check_button_toggled(button_pressed):

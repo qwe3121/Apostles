@@ -11,7 +11,7 @@ collision_mask = 0
 script = ExtResource("1_2dk2e")
 
 [node name="Drop" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0, 0.145098)
+modulate = Color(0.317647, 0, 0, 1)
 z_index = 5
 scale = Vector2(2, 2)
 

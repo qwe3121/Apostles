@@ -529,7 +529,7 @@ func _on_ulti_slow_hitbox_body_exited(body):
 
 
 func is_alive():
-	if state != DEAD and state != FRUIT_DEAD:
+	if state != DEAD and state != FRUIT_DEAD and hp > 0:
 		return true
 	return false
 	

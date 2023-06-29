@@ -189,7 +189,9 @@ var hp = 175 : set = set_hp
 
 
 @onready var hp_bar_sprite = $CanvasLayer/PlayerUI/hpBar
-@onready var hp_number = $CanvasLayer/PlayerUI/hpNumber
+@onready var hp_number_1 = $CanvasLayer/PlayerUI/hp_number_1
+@onready var hp_number_2 = $CanvasLayer/PlayerUI/hp_number_2
+@onready var hp_number_3 = $CanvasLayer/PlayerUI/hp_number_3
 
 
 func set_hp(value):
@@ -198,7 +200,21 @@ func set_hp(value):
 	hp_bar_sprite.frame = frame
 #	var tween = create_tween()
 #	tween.tween_property(hp_bar_sprite, "frame", frame, 1)
-	hp_number.text = str(value) + "%"
+	var array = []
+	for i in str(value):
+		array.append(int(i))
+	if len(array) == 3:
+		hp_number_1.frame = array[0]
+		hp_number_2.frame = array[1]
+		hp_number_3.frame = array[2]
+	elif len(array) == 2:
+		hp_number_1.frame = 0
+		hp_number_2.frame = array[0]
+		hp_number_3.frame = array[1]
+	else:
+		hp_number_1.frame = 0
+		hp_number_2.frame = 0
+		hp_number_3.frame = array[0]
 	hp = value
 	
 	
@@ -1077,6 +1093,7 @@ func _on_animation_player_animation_finished(anim_name):
  
 
 func weak_attack_1():
+	set_dir()
 	set_anim(WEAK_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1095,6 +1112,7 @@ func weak_attack_1():
 			
 			
 func weak_attack_2():
+	set_dir()
 	set_anim(WEAK_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1113,6 +1131,7 @@ func weak_attack_2():
 			
 			
 func weak_attack_3():
+	set_dir()
 	set_anim(WEAK_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1131,6 +1150,7 @@ func weak_attack_3():
 		
 		
 func weak_attack_4():
+	set_dir()
 	set_anim(WEAK_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1153,6 +1173,7 @@ func _on_weak_combo_timer_timeout():
 	
 
 func strong_attack_1():
+	set_dir()
 	set_anim(STRONG_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1171,6 +1192,7 @@ func strong_attack_1():
 			
 			
 func strong_attack_2():
+	set_dir()
 	set_anim(STRONG_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1189,6 +1211,7 @@ func strong_attack_2():
 			
 			
 func strong_attack_3():
+	set_dir()
 	set_anim(STRONG_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1207,6 +1230,7 @@ func strong_attack_3():
 			
 			
 func strong_attack_4(delta):
+	set_dir()
 	set_anim(STRONG_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1258,6 +1282,7 @@ func landing():
 
 
 func first_jump_attack_1():
+	set_dir()
 	set_anim(FIRST_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1277,6 +1302,7 @@ func first_jump_attack_1():
 	
 	
 func first_jump_attack_2():
+	set_dir()
 	set_anim(FIRST_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1296,6 +1322,7 @@ func first_jump_attack_2():
 	
 	
 func first_jump_attack_3():
+	set_dir()
 	set_anim(FIRST_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1315,6 +1342,7 @@ func first_jump_attack_3():
 	
 	
 func second_jump_attack_1():
+	set_dir()
 	set_anim(SECOND_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1334,6 +1362,7 @@ func second_jump_attack_1():
 	
 	
 func second_jump_attack_2():
+	set_dir()
 	set_anim(SECOND_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
@@ -1353,6 +1382,7 @@ func second_jump_attack_2():
 	
 	
 func second_jump_attack_3():
+	set_dir()
 	set_anim(SECOND_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5

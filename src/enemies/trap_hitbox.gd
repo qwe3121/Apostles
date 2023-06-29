@@ -23,7 +23,7 @@ func _on_body_exited(body):
 
 func turn_into_bloody_version():
 	if get_parent() is Path2D:
-		get_parent().modulate = Color("677007")
+		get_parent().modulate = Color("510000")
 
 
 func _on_area_entered(area):

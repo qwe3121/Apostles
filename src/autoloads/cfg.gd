@@ -32,7 +32,7 @@ var default_cfg_data = {
 	"glitchy_transition_on": true,
 	"undead": false,
 	"skylight_on": true,
-	"glow_on": true,
+#	"glow_on": true,
 	"show_fps_on": false,
 	"blood_traces_on": true,
 	"lens_flare_on": true,

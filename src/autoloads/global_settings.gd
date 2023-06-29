@@ -71,15 +71,16 @@ func toggle_skylight(value):
 	
 	
 func toggle_glow(value):
-	var main_node = get_parent().get_node_or_null("World")
-	if main_node == null:
-		main_node = get_parent().get_node_or_null("MainMenuOOG")
-	if main_node != null:
-		var world_env = main_node.get_node_or_null("WorldEnvironment")
-		if world_env != null:
-			world_env.environment.glow_enabled = value
-	cfg.cfg_data.glow_on = value
-	cfg.save_data()
+	pass
+#	var main_node = get_parent().get_node_or_null("World")
+#	if main_node == null:
+#		main_node = get_parent().get_node_or_null("MainMenuOOG")
+#	if main_node != null:
+#		var world_env = main_node.get_node_or_null("WorldEnvironment")
+#		if world_env != null:
+#			world_env.environment.glow_enabled = value
+#	cfg.cfg_data.glow_on = value
+#	cfg.save_data()
 	
 	
 func toggle_show_fps(value):
