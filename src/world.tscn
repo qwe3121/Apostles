@@ -170,7 +170,7 @@ position_smoothing_speed = 8.0
 [node name="BackgroundParallax" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="ParallaxLayer" parent="BackgroundParallax"]
-position = Vector2(0, -3220)
+position = Vector2(0, -439)
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax/Sky"]
@@ -179,7 +179,6 @@ texture = ExtResource("2_qpqqr")
 centered = false
 
 [node name="BigB" type="ParallaxLayer" parent="BackgroundParallax"]
-modulate = Color(0.54902, 0.54902, 0.54902, 1)
 position = Vector2(-32, -252)
 motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(10000, 0)
@@ -202,7 +201,6 @@ texture = ExtResource("5_lcggt")
 centered = false
 
 [node name="MedB" type="ParallaxLayer" parent="BackgroundParallax"]
-modulate = Color(0.54902, 0.54902, 0.54902, 1)
 position = Vector2(0, -252)
 motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(15000, 0)
@@ -231,7 +229,6 @@ texture = ExtResource("9_gcsoy")
 centered = false
 
 [node name="SmallB" type="ParallaxLayer" parent="BackgroundParallax"]
-modulate = Color(0.54902, 0.54902, 0.54902, 1)
 position = Vector2(-72, -252)
 motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(20000, 0)

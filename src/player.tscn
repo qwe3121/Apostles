@@ -4804,6 +4804,7 @@ libraries = {
 one_shot = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -4879,6 +4880,7 @@ position = Vector2(0, -50)
 shape = SubResource("RectangleShape2D_hlk31")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(-3.8147e-06, -44)
 scale = Vector2(5.79167, 4.04167)
 energy = 0.4
