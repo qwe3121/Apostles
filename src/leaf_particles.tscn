@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvk0amtpner26"]
+[gd_scene load_steps=6 format=3 uid="uid://cvk0amtpner26"]
 
-[ext_resource type="Texture2D" uid="uid://bfk148nchu5nm" path="res://sprites/leaf_particle.png" id="1_uj36v"]
+[ext_resource type="Texture2D" uid="uid://dua5ry123lp2s" path="res://sprites/leaf_particle_3.png" id="1_5lm68"]
+[ext_resource type="Script" path="res://src/leaf_particles.gd" id="2_1mc2a"]
 
 [sub_resource type="Gradient" id="Gradient_ubn5s"]
-offsets = PackedFloat32Array(0.851852, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.82963, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ateuq"]
 gradient = SubResource("Gradient_ubn5s")
@@ -28,5 +29,6 @@ color_ramp = SubResource("GradientTexture1D_ateuq")
 z_index = 51
 amount = 2
 process_material = SubResource("ParticleProcessMaterial_qllip")
-texture = ExtResource("1_uj36v")
+texture = ExtResource("1_5lm68")
 lifetime = 5.0
+script = ExtResource("2_1mc2a")
