@@ -37,7 +37,7 @@ var need_to_check_if_see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
+enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD, BEFORE_ATTACK}
 
 func const_to_str(index):
 	match index:
@@ -57,6 +57,8 @@ func const_to_str(index):
 			return "DEAD"
 		7:
 			return "FRUIT_DEAD"
+		8:
+			return "BEFORE_ATTACK"
 
 var state = IDLE : set = set_state
 
@@ -159,6 +161,8 @@ func set_anim(animation_name):
 				anim.play("idle_run")
 			else:
 				anim.play("p_idle_run")
+		BEFORE_ATTACK:
+			anim.play("before_attack")
 		ATTACK:
 			anim.play("attack")
 		BEFORE_ULTI:
@@ -225,6 +229,8 @@ func _physics_process(delta):
 			idle()
 		RUN: 
 			run()
+		BEFORE_ATTACK:
+			before_attack()
 		ATTACK:
 			attack()
 		BEFORE_ULTI:
@@ -250,7 +256,7 @@ func idle():
 				state = BEFORE_ULTI
 				return
 			if can_attack:
-				state = ATTACK
+				state = BEFORE_ATTACK
 				return
 		elif not close_en_to_attack:
 			state = RUN
@@ -277,7 +283,7 @@ func run():
 				state = BEFORE_ULTI
 				return
 			if can_attack:
-				state = ATTACK
+				state = BEFORE_ATTACK
 				return
 		elif close_en_to_attack:
 			state = IDLE
@@ -292,11 +298,20 @@ func run():
 	set_anim(RUN)
 	
 	
+func before_attack():
+	set_anim(BEFORE_ATTACK)
+	if !state_started:
+		state_started = true
+		can_attack = false
+		await anim.animation_finished
+		if state == BEFORE_ATTACK:
+			state = ATTACK
+	
+	
 func attack():
 	set_anim(ATTACK)
 	if !state_started:
 		state_started = true
-		can_attack = false
 		await anim.animation_finished
 		if state == ATTACK:
 			attack_cooldown.start()
@@ -365,7 +380,7 @@ func dead():
 
 
 func _on_walking_timer_timeout():
-	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		if walking:
 			walking = 0
 			state = IDLE
@@ -421,7 +436,7 @@ func on_unsee_player():
 	chasing = true
 	chase_timer.start()
 	
-	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		state = RUN
 		
 		
@@ -444,7 +459,7 @@ func check_if_vision_is_blocked_by_wall():
 
 func _on_chase_timer_timeout():
 	chasing = false
-	if not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		walking = 0
 		walking_timer_start()
 		state = IDLE

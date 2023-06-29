@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://bvl5q2m4e75mv"]
+[gd_scene load_steps=155 format=3 uid="uid://bvl5q2m4e75mv"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/floating/mk_6.gd" id="1_xn6rm"]
 [ext_resource type="Shader" path="res://src/shaders/hitted.gdshader" id="2_orm7s"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://vtxuvan52elb" path="res://sprites/enemies/MK6/Smert_MK6.png" id="5_rpq7u"]
 [ext_resource type="Texture2D" uid="uid://ctgq10wm5sr34" path="res://sprites/enemies/MK6/Razrez_Vniz_MK6.png" id="6_4otlf"]
 [ext_resource type="Texture2D" uid="uid://50e632sg261m" path="res://sprites/enemies/MK6/Pokoi_i_Peredvijenie_MK6.png" id="6_p5vjn"]
+[ext_resource type="Texture2D" uid="uid://dskdh04j87le2" path="res://sprites/enemies/MK6/Podgotovka_k_Atake_MK6.png" id="6_ulkt3"]
 [ext_resource type="Texture2D" uid="uid://crjnl82b5gvxt" path="res://sprites/enemies/MK6/Mirni_Pokoi_i_Peredvijenie_MK6.png" id="7_yy3b5"]
 [ext_resource type="Texture2D" uid="uid://bxsavm7st1eud" path="res://sprites/enemies/MK6/Ylta_MK6.png" id="8_76h00"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="9_5hqsu"]
@@ -639,11 +640,63 @@ tracks/9/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_mda7h"]
+resource_name = "before_attack"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"before_attack"]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dkqww"]
 _data = {
 "RESET": SubResource("Animation_anvga"),
 "after_ulti": SubResource("Animation_vt6h1"),
 "attack": SubResource("Animation_eufmb"),
+"before_attack": SubResource("Animation_mda7h"),
 "before_ulti": SubResource("Animation_1kgdw"),
 "dead": SubResource("Animation_biwmd"),
 "fruit_ninja_dead": SubResource("Animation_5bxyl"),
@@ -793,6 +846,34 @@ region = Rect2(1456, 0, 112, 160)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5poiw"]
 atlas = ExtResource("3_6dc8q")
 region = Rect2(1568, 0, 112, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fjji"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vesaq"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfnq6"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dlnm"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ul0em"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li2or"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u5jv"]
+atlas = ExtResource("6_ulkt3")
+region = Rect2(480, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eocih"]
 atlas = ExtResource("4_w4sts")
@@ -1151,6 +1232,32 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fjji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vesaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfnq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dlnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ul0em")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li2or")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7u5jv")
+}],
+"loop": true,
+"name": &"before_attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -1525,7 +1632,6 @@ collision_mask = 2
 script = ExtResource("1_xn6rm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 0.7
 libraries = {
 "": SubResource("AnimationLibrary_dkqww")
 }
@@ -1542,9 +1648,10 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_iv7jv")
-position = Vector2(-3, 25)
+position = Vector2(-3, -20)
 sprite_frames = SubResource("SpriteFrames_0rin6")
-animation = &"attack"
+animation = &"before_attack"
+frame = 1
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false
