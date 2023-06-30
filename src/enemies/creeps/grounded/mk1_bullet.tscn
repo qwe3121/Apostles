@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3wparv4r76r"]
+[gd_scene load_steps=5 format=3 uid="uid://d3wparv4r76r"]
 
 [ext_resource type="Script" path="res://src/enemies/base_bullet.gd" id="1_a6uif"]
 [ext_resource type="Texture2D" uid="uid://cf453gtayy8vo" path="res://sprites/enemies/MK1/Pyla_MK1.png" id="2_465kg"]
+[ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="2_k0afj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8cs4"]
 size = Vector2(20, 2)
@@ -23,7 +24,7 @@ position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_p8cs4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
+material = ExtResource("2_k0afj")
 texture = ExtResource("2_465kg")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]

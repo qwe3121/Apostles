@@ -53,6 +53,7 @@ shader = ExtResource("3_spvlh")
 
 [node name="DeathScreen" type="Control"]
 process_mode = 3
+texture_filter = 1
 material = SubResource("ShaderMaterial_14hwb")
 layout_mode = 3
 anchors_preset = 15

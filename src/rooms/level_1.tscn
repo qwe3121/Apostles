@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=32 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
 [ext_resource type="Script" path="res://src/rooms/level_1.gd" id="1_u80bw"]
+[ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="2_b1j8b"]
 [ext_resource type="Texture2D" uid="uid://dpvr3w0r7b7m2" path="res://sprites/levels/level1/part1/TestLVL1_1_Pered.png" id="2_e81dv"]
 [ext_resource type="Texture2D" uid="uid://dpuy65ncmp0g" path="res://sprites/levels/level1/part2/TestLVL1_2_Zad.png" id="3_rb0cf"]
 [ext_resource type="Texture2D" uid="uid://b135lrbwjgpol" path="res://sprites/levels/level1/part2/TestLVL1_2_Pered.png" id="4_crbji"]
@@ -69,11 +70,13 @@ script = ExtResource("1_u80bw")
 [node name="Part1Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
+material = ExtResource("2_b1j8b")
 texture = ExtResource("1_h8mk1")
 
 [node name="Part1Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
+material = ExtResource("2_b1j8b")
 texture = ExtResource("2_e81dv")
 
 [node name="ColorRect" type="ColorRect" parent="CoreVisuals"]
@@ -93,12 +96,14 @@ color = Color(0, 0, 0, 1)
 [node name="Part2Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
+material = ExtResource("2_b1j8b")
 position = Vector2(4000, 0)
 texture = ExtResource("3_rb0cf")
 
 [node name="Part2Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
+material = ExtResource("2_b1j8b")
 position = Vector2(4000, 0)
 texture = ExtResource("4_crbji")
 
@@ -112,12 +117,14 @@ color = Color(0, 0, 0, 1)
 [node name="Part3Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = -50
+material = ExtResource("2_b1j8b")
 position = Vector2(8000, 0)
 texture = ExtResource("5_f0t4p")
 
 [node name="Part3Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
 z_index = 50
+material = ExtResource("2_b1j8b")
 position = Vector2(8000, 0)
 texture = ExtResource("6_5faot")
 

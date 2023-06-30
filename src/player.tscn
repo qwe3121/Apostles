@@ -52,7 +52,7 @@
 [ext_resource type="Shader" path="res://src/shaders/lens_flare.gdshader" id="49_35m48"]
 [ext_resource type="Texture2D" uid="uid://g1fdsrnykflr" path="res://src/light_source.tres" id="51_p7n1a"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iel4b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6js6n"]
 shader = ExtResource("2_kapy4")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
@@ -4700,7 +4700,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_iel4b")
+material = SubResource("ShaderMaterial_6js6n")
 position = Vector2(0, -53)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")

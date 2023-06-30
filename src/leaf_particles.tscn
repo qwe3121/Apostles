@@ -27,6 +27,7 @@ color_ramp = SubResource("GradientTexture1D_ateuq")
 
 [node name="LeafParticles" type="GPUParticles2D"]
 z_index = 51
+texture_filter = 1
 amount = 2
 process_material = SubResource("ParticleProcessMaterial_qllip")
 texture = ExtResource("1_5lm68")

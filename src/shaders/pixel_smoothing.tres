@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dfxnjga3iv67e"]
+
+[ext_resource type="Shader" path="res://src/shaders/pixel_smoothing.gdshader" id="1_8w5ec"]
+
+[resource]
+shader = ExtResource("1_8w5ec")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnfwtjjhoinsm"]
+[gd_scene load_steps=3 format=3 uid="uid://bnfwtjjhoinsm"]
 
 [ext_resource type="Script" path="res://src/player_cuts/basic_cut_part.gd" id="1_6i20d"]
+[ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="2_de83x"]
 
 [node name="BasicCutPart" type="CharacterBody2D"]
 scale = Vector2(2, 2)
@@ -12,6 +13,7 @@ script = ExtResource("1_6i20d")
 position = Vector2(0, 1.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_de83x")
 autoplay = "default"
 speed_scale = 2.0
 

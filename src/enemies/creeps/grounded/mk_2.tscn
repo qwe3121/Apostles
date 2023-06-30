@@ -2983,7 +2983,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"after_attack"
+animation = &"p_run"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2991,9 +2991,9 @@ modulate = Color(0.317647, 0, 0, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
-frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
@@ -3015,6 +3015,7 @@ position = Vector2(-35.5, -17.75)
 shape = SubResource("RectangleShape2D_ht1n4")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3070,6 +3071,7 @@ shape = SubResource("RectangleShape2D_yg73c")
 position = Vector2(0, -18.5)
 
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
+visible = false
 damage_source = "fire"
 damage = 10
 
@@ -3088,6 +3090,7 @@ shape = SubResource("RectangleShape2D_5udau")
 disabled = true
 
 [node name="CloseEnToAttack" parent="." instance=ExtResource("22_55i2o")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CloseEnToAttack"]
 position = Vector2(0, -18.5)

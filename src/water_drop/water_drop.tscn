@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c57fqe0v13v7o"]
+[gd_scene load_steps=12 format=3 uid="uid://c57fqe0v13v7o"]
 
 [ext_resource type="Script" path="res://src/water_drop/water_drop.gd" id="1_fkg7g"]
 [ext_resource type="Texture2D" uid="uid://vi5npjf1y1et" path="res://sprites/water_drop/Kapla.png" id="2_lkk1w"]
+[ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="2_tw3hy"]
 [ext_resource type="Texture2D" uid="uid://b0pm5x8umwthf" path="res://sprites/water_drop/Brizg.png" id="3_ujv31"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x31ps"]
@@ -57,11 +58,13 @@ collision_mask = 2
 script = ExtResource("1_fkg7g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_tw3hy")
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_lkk1w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
+material = ExtResource("2_tw3hy")
 position = Vector2(0, -1.5)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_ak84t")

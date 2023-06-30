@@ -1,6 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5gqni02t3l8c"]
+[gd_scene load_steps=10 format=3 uid="uid://c5gqni02t3l8c"]
 
+[ext_resource type="Shader" path="res://src/shaders/traps.gdshader" id="1_rm6dk"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_t8at5"]
+[ext_resource type="Texture2D" uid="uid://c4a6r6af1wvjs" path="res://sprites/traps/Cerp_2X_v_Krovi.png" id="2_bmmvl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mcqux"]
+resource_local_to_scene = true
+shader = ExtResource("1_rm6dk")
+shader_parameter/src_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_fpmqb"]
 resource_name = "bounce"
@@ -72,6 +79,8 @@ rotates = false
 [node name="Node2D" type="Node2D" parent="PathFollow2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Node2D"]
+material = SubResource("ShaderMaterial_mcqux")
+texture = ExtResource("2_bmmvl")
 
 [node name="MoveAlongPathAnim" type="AnimationPlayer" parent="."]
 autoplay = "bounce"

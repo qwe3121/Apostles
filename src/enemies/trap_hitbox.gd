@@ -23,7 +23,7 @@ func _on_body_exited(body):
 
 func turn_into_bloody_version():
 	if get_parent() is Path2D:
-		get_parent().modulate = Color("510000")
+		get_parent().get_node("PathFollow2D/Node2D/Sprite2D").material.set_shader_parameter("src_color", Color("510000"))
 
 
 func _on_area_entered(area):

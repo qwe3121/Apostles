@@ -198,7 +198,3 @@ dialogic_default_action={
 2d_physics/layer_8="player"
 2d_physics/layer_9="player_hurtbox_4_traps"
 2d_physics/layer_32="roomsArea"
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0

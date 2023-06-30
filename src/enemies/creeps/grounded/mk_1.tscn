@@ -1962,7 +1962,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.2
+speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1981,8 +1981,9 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_wtpys")
+position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"ulti"
+animation = &"attack"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2013,6 +2014,7 @@ position = Vector2(-31, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
