@@ -2983,7 +2983,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"p_run"
+animation = &"idle"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2991,6 +2991,7 @@ modulate = Color(0.317647, 0, 0, 1)
 position = Vector2(30, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

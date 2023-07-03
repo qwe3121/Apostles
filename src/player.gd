@@ -129,7 +129,7 @@ var animations_speed_scales = {
 	"FirstJumpAttack2": 1.8,
 	"FirstJumpAttack3": 1.8,
 	"FirstJumpCycle": 1, 
-	"Idle": 1,
+	"Idle": 0.5,
 	"Roll": 2, 
 	"Run": 1,
 	"SecondAir": 1,
@@ -1016,6 +1016,13 @@ func wall_slide(delta):
 		if np:
 			print("from wall_slide to jump")
 		state = JUMP
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash:
+		can_dash = false
+		if np:
+			print("from wall_slide to DASH")
+		state = DASH
 		return
 		
 	if is_on_floor():
