@@ -86,6 +86,7 @@ func set_state(value):
 
 var dir = 1
 var anim_dir = 1
+var attack_dir = 1
 
 var state_started = false
 
@@ -157,13 +158,13 @@ func set_anim(animation_name):
 	or animation_name == BEFORE_ATTACK_N_MOVE_BACK:
 		if move_back_timer.is_stopped():
 			move_back_timer.start()
-		animated_sprite.flip_h = anim_dir == -1
-		bullet_pos.position.x = -3 * anim_dir
 	else:
 		if not move_back_timer.is_stopped():
 			move_back_timer.stop()
-		animated_sprite.flip_h = anim_dir == 1
-		bullet_pos.position.x = 3 * anim_dir
+			
+	
+	animated_sprite.flip_h = attack_dir == 1
+	bullet_pos.position.x = -3 * attack_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
 	blood.position.x = 30 * last_knockback_dir
@@ -275,6 +276,16 @@ func set_dir_to_move_back(choose_dir_randomly: bool):
 			dir = 1
 		
 	anim_dir = dir
+	
+	
+func set_attack_dir():
+	if player_is_deep_inside: return
+	
+	if global_position.x < global.player.global_position.x:
+		attack_dir = 1
+	else:
+		attack_dir = -1
+
 
 func _physics_process(delta):
 	if need_to_check_if_see_player:
@@ -282,6 +293,9 @@ func _physics_process(delta):
 			on_see_player()
 		else:
 			on_unsee_player()
+			
+	if see_player:
+		set_attack_dir()
 	
 	match state:
 		IDLE: 
@@ -371,7 +385,7 @@ func run():
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -419,7 +433,7 @@ func before_attack(delta):
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -464,7 +478,7 @@ func attack(delta):
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -501,10 +515,7 @@ func attack(delta):
 func shoot():
 	var bullet_instance = bullet.instantiate()
 	bullet_instance.global_position = bullet_pos.global_position
-	if player_move_state == move_state_const.MOVE_BACK:
-		bullet_instance.dir = -anim_dir
-	else:
-		bullet_instance.dir = anim_dir
+	bullet_instance.dir = attack_dir
 	get_parent().get_parent().get_parent().add_child(bullet_instance)
 			
 			
@@ -518,7 +529,7 @@ func before_ulti(delta):
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_ulti) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_ulti and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	else:
