@@ -3073,7 +3073,6 @@ shape = SubResource("RectangleShape2D_yg73c")
 position = Vector2(0, -18.5)
 
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
-visible = false
 damage_source = "fire"
 damage = 10
 

@@ -35,9 +35,8 @@ var need_to_check_if_see_player = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD, MOVE_BACK, BEFORE_ATTACK_N_RUN, BEFORE_ATTACK_N_MOVE_BACK, \
-ATTACK_N_RUN, ATTACK_N_MOVE_BACK, AFTER_ATTACK_N_MOVE_BACK, AFTER_ATTACK_N_RUN, BEFORE_ULTI_N_RUN, BEFORE_ULTI_N_MOVE_BACK, ULTI_N_RUN, ULTI_N_MOVE_BACK, AFTER_ULTI_N_RUN, \
-AFTER_ULTI_N_MOVE_BACK}
+enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD, BEFORE_ATTACK_N_RUN, \
+ATTACK_N_RUN, AFTER_ATTACK_N_RUN, BEFORE_ULTI_N_RUN, ULTI_N_RUN, AFTER_ULTI_N_RUN}
 
 func const_to_str(index):
 	match index:
@@ -83,6 +82,7 @@ func set_state(value):
 
 var dir = 1
 var anim_dir = 1
+var attack_dir = 1
 
 var state_started = false
 
@@ -149,18 +149,18 @@ func get_damage(value, k_dir = 0, damager = null):
 	global.camera.shake()
 		
 func set_anim(animation_name):
-	if animation_name == MOVE_BACK or animation_name == ATTACK_N_MOVE_BACK \
-	or animation_name == BEFORE_ATTACK_N_MOVE_BACK or animation_name == AFTER_ATTACK_N_MOVE_BACK \
-	or animation_name == BEFORE_ULTI_N_MOVE_BACK or animation_name == ULTI_N_MOVE_BACK \
-	or animation_name == AFTER_ULTI_N_MOVE_BACK:
+	if player_move_state == move_state_const.MOVE_BACK:
 		if move_back_timer.is_stopped():
 			move_back_timer.start()
-		animated_sprite.flip_h = anim_dir == -1
-		attack_hitbox.position.x = -32 * anim_dir
-		ulti_hitbox.position.x = -49 * anim_dir
 	else:
 		if not move_back_timer.is_stopped():
 			move_back_timer.stop()
+		
+	if see_player or chasing:
+		animated_sprite.flip_h = attack_dir == 1
+		attack_hitbox.position.x = 32 * attack_dir
+		ulti_hitbox.position.x = 49 * attack_dir
+	else:
 		animated_sprite.flip_h = anim_dir == 1
 		attack_hitbox.position.x = 32 * anim_dir
 		ulti_hitbox.position.x = 49 * anim_dir
@@ -183,155 +183,93 @@ func set_anim(animation_name):
 			else:
 				anim.play("p_run")
 		BEFORE_ATTACK:
-			if anim.current_animation == "before_attack_n_run" \
-			or anim.current_animation == "before_attack_n_move_back":
+			if anim.current_animation == "before_attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack")
-		BEFORE_ATTACK_N_MOVE_BACK:
-			if anim.current_animation == "before_attack" or \
-			anim.current_animation == "before_attack_n_run":
-				var cur_pos = anim.current_animation_position
-				anim.play("before_attack_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("before_attack_n_move_back")
 		BEFORE_ATTACK_N_RUN:
-			if anim.current_animation == "before_attack" or \
-			anim.current_animation == "before_attack_n_move_back":
+			if anim.current_animation == "before_attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack_n_run")
 		ATTACK:
-			if anim.current_animation == "attack_n_run" \
-			or anim.current_animation == "attack_n_move_back":
+			if anim.current_animation == "attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack")
 		ATTACK_N_RUN:
-			if anim.current_animation == "attack" \
-			or anim.current_animation == "attack_n_move_back":
+			if anim.current_animation == "attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack_n_run")
-		ATTACK_N_MOVE_BACK:
-			if anim.current_animation == "attack" \
-			or anim.current_animation == "attack_n_run":
-				var cur_pos = anim.current_animation_position
-				anim.play("attack_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("attack_n_move_back")
 		AFTER_ATTACK:
-			if anim.current_animation == "after_attack_n_run" \
-			or anim.current_animation == "after_attack_n_move_back":
+			if anim.current_animation == "after_attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_attack")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_attack")
 		AFTER_ATTACK_N_RUN:
-			if anim.current_animation == "after_attack_n_move_back" \
-			or anim.current_animation == "after_attack":
+			if anim.current_animation == "after_attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_attack_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_attack_n_run")
-		AFTER_ATTACK_N_MOVE_BACK:
-			if anim.current_animation == "after_attack_n_run" \
-			or anim.current_animation == "after_attack":
-				var cur_pos = anim.current_animation_position
-				anim.play("after_attack_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("after_attack_n_move_back")
 		BEFORE_ULTI:
-			if anim.current_animation == "before_ulti_n_run" \
-			or anim.current_animation == "before_ulti_n_move_back":
+			if anim.current_animation == "before_ulti_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_ulti")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_ulti")
 		BEFORE_ULTI_N_RUN:
-			if anim.current_animation == "before_ulti" \
-			or anim.current_animation == "before_ulti_n_move_back":
+			if anim.current_animation == "before_ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_ulti_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_ulti_n_run")
-		BEFORE_ULTI_N_MOVE_BACK:
-			if anim.current_animation == "before_ulti_n_run" \
-			or anim.current_animation == "before_ulti":
-				var cur_pos = anim.current_animation_position
-				anim.play("before_ulti_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("before_ulti_n_move_back")
 		ULTI:
-			if anim.current_animation == "ulti_n_run" \
-			or anim.current_animation == "ulti_n_move_back":
+			if anim.current_animation == "ulti_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("ulti")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("ulti")
 		ULTI_N_RUN:
-			if anim.current_animation == "ulti_n_move_back" \
-			or anim.current_animation == "ulti":
+			if anim.current_animation == "ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("ulti_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("ulti_n_run")
-		ULTI_N_MOVE_BACK:
-			if anim.current_animation == "ulti_n_run" \
-			or anim.current_animation == "ulti":
-				var cur_pos = anim.current_animation_position
-				anim.play("ulti_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("ulti_n_move_back")
 		AFTER_ULTI:
-			if anim.current_animation == "after_ulti_n_run" \
-			or anim.current_animation == "after_ulti_n_move_back":
+			if anim.current_animation == "after_ulti_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_ulti")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_ulti")
 		AFTER_ULTI_N_RUN:
-			if anim.current_animation == "after_ulti_n_move_back" \
-			or anim.current_animation == "after_ulti":
+			if anim.current_animation == "after_ulti":
 				var cur_pos = anim.current_animation_position
 				anim.play("after_ulti_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("after_ulti_n_run")
-		AFTER_ULTI_N_MOVE_BACK:
-			if anim.current_animation == "after_ulti" \
-			or anim.current_animation == "after_ulti_n_run":
-				var cur_pos = anim.current_animation_position
-				anim.play("after_ulti_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("after_ulti_n_move_back")
 		DEAD:
 			anim.play("dead")
 		FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
-		MOVE_BACK:
-			anim.play("move_back")
 
 
 func set_dir():
@@ -353,6 +291,15 @@ func set_dir_to_move_back(choose_dir_randomly: bool):
 			dir = 1
 		
 	anim_dir = dir
+	
+	
+func set_attack_dir():
+	if player_is_deep_inside: return
+
+	if global_position.x < global.player.global_position.x:
+		attack_dir = 1
+	else:
+		attack_dir = -1
 
 
 @onready var small_move_back_col = $CheckIfPlayerInside/SmallCol
@@ -372,6 +319,9 @@ func _physics_process(delta):
 			on_see_player()
 		else:
 			on_unsee_player()
+			
+	if see_player:
+		set_attack_dir()
 
 	match state:
 		IDLE: 
@@ -459,13 +409,13 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -475,13 +425,10 @@ func run():
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(IDLE)
-		move_state_const.RUN:
-			set_anim(RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(IDLE)
+	else:
+		set_anim(RUN)
 		
 	velocity.y = 0
 	velocity.x = dir * speed
@@ -507,13 +454,13 @@ func before_attack(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -523,13 +470,10 @@ func before_attack(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(BEFORE_ATTACK)
-		move_state_const.RUN:
-			set_anim(BEFORE_ATTACK_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(BEFORE_ATTACK_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(BEFORE_ATTACK)
+	else:
+		set_anim(BEFORE_ATTACK_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -551,13 +495,13 @@ func attack(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -567,13 +511,10 @@ func attack(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(ATTACK)
-		move_state_const.RUN:
-			set_anim(ATTACK_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(ATTACK_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(ATTACK)
+	else:
+		set_anim(ATTACK_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -594,13 +535,13 @@ func after_attack(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -610,13 +551,10 @@ func after_attack(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(AFTER_ATTACK)
-		move_state_const.RUN:
-			set_anim(AFTER_ATTACK_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(AFTER_ATTACK_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(AFTER_ATTACK)
+	else:
+		set_anim(AFTER_ATTACK_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -643,13 +581,13 @@ func before_ulti(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_ulti) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_ulti and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -659,13 +597,10 @@ func before_ulti(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(BEFORE_ULTI)
-		move_state_const.RUN:
-			set_anim(BEFORE_ULTI_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(BEFORE_ULTI_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(BEFORE_ULTI)
+	else:
+		set_anim(BEFORE_ULTI_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -689,13 +624,13 @@ func ulti(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_ulti) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_ulti and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -705,13 +640,10 @@ func ulti(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(ULTI)
-		move_state_const.RUN:
-			set_anim(ULTI_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(ULTI_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(ULTI)
+	else:
+		set_anim(ULTI_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -732,13 +664,13 @@ func after_ulti(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
 		if dir: anim_dir = dir
 	
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or close_en_to_attack) and (see_player or chasing) and not player_is_inside:
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area or (close_en_to_attack and not player_is_inside)) and (see_player or chasing):
 		dir = 0
 		player_move_state = move_state_const.IDLE
 	elif not player_is_inside:
@@ -748,13 +680,10 @@ func after_ulti(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(AFTER_ULTI)
-		move_state_const.RUN:
-			set_anim(AFTER_ULTI_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(AFTER_ULTI_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(AFTER_ULTI)
+	else:
+		set_anim(AFTER_ULTI_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta

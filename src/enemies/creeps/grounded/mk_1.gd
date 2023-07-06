@@ -163,10 +163,10 @@ func set_anim(animation_name):
 			
 	if see_player or chasing:
 		animated_sprite.flip_h = attack_dir == 1
+		bullet_pos.position.x = -3 * attack_dir
 	else:
 		animated_sprite.flip_h = anim_dir == 1
-		
-	bullet_pos.position.x = -3 * attack_dir
+		bullet_pos.position.x = -3 * attack_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
 	blood.position.x = 30 * last_knockback_dir
