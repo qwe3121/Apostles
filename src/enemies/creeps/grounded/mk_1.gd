@@ -33,7 +33,7 @@ var player_adrenaline_gain = 20
 @onready var blood_pos = $BloodPos
 @onready var move_back_timer = $MoveBackTimer
 @onready var shoot_timer = $ShootTimer
-var attack_index = 1
+var shoot_index = 1
 
 var need_to_check_if_see_player = false
 
@@ -41,8 +41,8 @@ var bullet = preload("res://src/enemies/creeps/grounded/mk1_bullet.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum {IDLE, RUN, BEFORE_ATTACK, BEFORE_ATTACK_N_RUN, BEFORE_ATTACK_N_MOVE_BACK, ATTACK, ATTACK_N_RUN, ATTACK_N_MOVE_BACK, \
-BEFORE_ULTI, BEFORE_ULTI_N_RUN, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD, MOVE_BACK}
+enum {IDLE, RUN, BEFORE_ATTACK, BEFORE_ATTACK_N_RUN, ATTACK, ATTACK_N_RUN, \
+BEFORE_ULTI, BEFORE_ULTI_N_RUN, ULTI, AFTER_ULTI, DEAD, AIR, FRUIT_DEAD}
 
 func const_to_str(index):
 	match index:
@@ -154,16 +154,18 @@ func get_damage(value, k_dir = 0, damager = null):
 	global.camera.shake()
 		
 func set_anim(animation_name):
-	if animation_name == MOVE_BACK or animation_name == ATTACK_N_MOVE_BACK \
-	or animation_name == BEFORE_ATTACK_N_MOVE_BACK:
+	if player_move_state == move_state_const.MOVE_BACK:
 		if move_back_timer.is_stopped():
 			move_back_timer.start()
 	else:
 		if not move_back_timer.is_stopped():
 			move_back_timer.stop()
 			
-	
-	animated_sprite.flip_h = attack_dir == 1
+	if see_player or chasing:
+		animated_sprite.flip_h = attack_dir == 1
+	else:
+		animated_sprite.flip_h = anim_dir == 1
+		
 	bullet_pos.position.x = -3 * attack_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
@@ -184,53 +186,33 @@ func set_anim(animation_name):
 			else:
 				anim.play("p_run")
 		BEFORE_ATTACK:
-			if anim.current_animation == "before_attack_n_run" \
-			or anim.current_animation == "before_attack_n_move_back":
+			if anim.current_animation == "before_attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack")
-		BEFORE_ATTACK_N_MOVE_BACK:
-			if anim.current_animation == "before_attack" or \
-			anim.current_animation == "before_attack_n_run":
-				var cur_pos = anim.current_animation_position
-				anim.play("before_attack_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("before_attack_n_move_back")
 		BEFORE_ATTACK_N_RUN:
-			if anim.current_animation == "before_attack" or \
-			anim.current_animation == "before_attack_n_move_back":
+			if anim.current_animation == "before_attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("before_attack_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("before_attack_n_run")
 		ATTACK:
-			if anim.current_animation == "attack_n_run" \
-			or anim.current_animation == "attack_n_move_back":
+			if anim.current_animation == "attack_n_run":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack")
 		ATTACK_N_RUN:
-			if anim.current_animation == "attack" \
-			or anim.current_animation == "attack_n_move_back":
+			if anim.current_animation == "attack":
 				var cur_pos = anim.current_animation_position
 				anim.play("attack_n_run")
 				anim.seek(cur_pos, true)
 			else:
 				anim.play("attack_n_run")
-		ATTACK_N_MOVE_BACK:
-			if anim.current_animation == "attack" \
-			or anim.current_animation == "attack_n_run":
-				var cur_pos = anim.current_animation_position
-				anim.play("attack_n_move_back")
-				anim.seek(cur_pos, true)
-			else:
-				anim.play("attack_n_move_back")
 		BEFORE_ULTI:
 			if anim.current_animation == "before_ulti_n_run":
 				var cur_pos = anim.current_animation_position
@@ -253,8 +235,6 @@ func set_anim(animation_name):
 			anim.play("dead")
 		FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
-		MOVE_BACK:
-			anim.play("move_back")
 			
 			
 func set_dir():
@@ -379,7 +359,7 @@ func run():
 			state = IDLE
 			return
 			
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
@@ -395,13 +375,10 @@ func run():
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(IDLE)
-		move_state_const.RUN:
-			set_anim(RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(IDLE)
+	else:
+		set_anim(RUN)
 		
 	velocity.y = 0
 	velocity.x = dir * speed
@@ -427,7 +404,7 @@ func before_attack(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
@@ -443,13 +420,10 @@ func before_attack(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(BEFORE_ATTACK)
-		move_state_const.RUN:
-			set_anim(BEFORE_ATTACK_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(BEFORE_ATTACK_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(BEFORE_ATTACK)
+	else:
+		set_anim(BEFORE_ATTACK_N_RUN)
 			
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -472,7 +446,7 @@ func attack(delta):
 				need_to_choose_dir_to_move_back = false
 				set_dir_to_move_back(false)
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
@@ -488,13 +462,10 @@ func attack(delta):
 		dir = anim_dir
 		player_move_state = move_state_const.MOVE_BACK
 		
-	match player_move_state:
-		move_state_const.IDLE:
-			set_anim(ATTACK)
-		move_state_const.RUN:
-			set_anim(ATTACK_N_RUN)
-		move_state_const.MOVE_BACK:
-			set_anim(ATTACK_N_MOVE_BACK)
+	if player_move_state == move_state_const.IDLE:
+		set_anim(ATTACK)
+	else:
+		set_anim(ATTACK_N_RUN)
 	
 	velocity.x = dir * speed
 	if not is_on_floor(): velocity.y += gravity * delta
@@ -523,7 +494,7 @@ func before_ulti(delta):
 	if see_player:
 		set_dir()
 				
-	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and ((not see_player and not chasing) or player_is_inside):
+	if (is_on_wall or not check_for_pit.is_colliding() or there_is_blocked_area) and not turned and (not see_player and not chasing):
 		turned = true
 		turned_timer.start()
 		dir *= -1
@@ -771,12 +742,12 @@ func _on_move_back_timer_timeout():
 
 func _on_shoot_timer_timeout():
 	if state == ATTACK: shoot()
-	if attack_index == 1:
-		attack_index = 2
+	if shoot_index == 1:
+		shoot_index = 2
 		shoot_timer.wait_time = 0.7
 		shoot_timer.start()
-	elif attack_index == 2:
-		attack_index = 1
+	elif shoot_index == 2:
+		shoot_index = 1
 		shoot_timer.wait_time = 0.4
 		
 

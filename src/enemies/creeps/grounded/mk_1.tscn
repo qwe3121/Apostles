@@ -433,7 +433,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.1]
+"values": [1.5]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -497,7 +497,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.1]
+"values": [1.5]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1983,6 +1983,7 @@ material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
 animation = &"run"
+frame = 3
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
