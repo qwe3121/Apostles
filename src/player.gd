@@ -104,7 +104,7 @@ enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1,
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
-DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED}
+DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED, DOWN_DASH}
 
 var state = REINCARNATION : set = set_state
 
@@ -146,17 +146,20 @@ var animations_speed_scales = {
 	"StrongAttack3": 0.8,
 	"StrongAttack4": 0.6,
 	"WallSlide": 1,
-	"WeakAttack1": 1.8,
-	"WeakAttack2": 1.8,
-	"WeakAttack3": 1.8,
-	"WeakAttack4": 1.8,
+	"WeakAttack1": 1.4,
+	"WeakAttack2": 1.4,
+	"WeakAttack3": 1.4,
+	"WeakAttack4": 1.4,
 	"bullet_dead_speredi": 2,
 	"bullet_dead_szadi": 2,
 	"cut_dead": 1,
 	"fire_dead": 0.5,
 	"hit_dead": 0.5,
 	"reincarnation": 2,
-	"stun": 2
+	"stun": 2,
+	"DamageDash": 25,
+	"FirstDownDash": 10,
+	"SecondDownDash": 10,
 }
 
 var dir = 0
@@ -226,7 +229,7 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir 
 		shake_camera()
 		return
 	
-	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead:
+	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead or state == DOWN_DASH:
 		return
 		
 	last_damage_source = source
@@ -257,6 +260,7 @@ func set_dir():
 	dir = Input.get_axis("LEFT", "RIGHT")
 	if dir:
 		anim_dir = dir
+	return dir
 
 func set_anim(animation_name):
 	pre_anim = anim.current_animation
@@ -304,7 +308,8 @@ func set_anim(animation_name):
 		ROLL:
 			anim.play("Roll") 
 		DASH: 
-			anim.play("Dash")
+#			anim.play("Dash")
+			anim.play("DamageDash")
 		WALL_SLIDE:
 			anim.play("WallSlide")
 		WEAK_ATTACK_1:
@@ -356,6 +361,11 @@ func set_anim(animation_name):
 			anim.play("FruitNinja")
 		REINCARNATION:
 			anim.play("reincarnation")
+		DOWN_DASH:
+			if pre_jump == 1 or pre_jump == 0:
+				anim.play("FirstDownDash")
+			elif pre_jump == 2:
+				anim.play("SecondDownDash")
 			
 	if anim.current_animation != pre_anim:
 		need_to_change_col_size = true
@@ -440,6 +450,8 @@ func _physics_process(delta):
 			fruit_ninja()
 		REINCARNATION:
 			reincarnation(delta)
+		DOWN_DASH:
+			down_dash(delta)
 
 	if knockback_dir:
 		if knockback_dir == dir:
@@ -472,7 +484,14 @@ func idle():
 		state = AIR
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash:
+	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+		can_dash = false
+		if np:
+			print("from idle to down_dash")
+		state = DOWN_DASH
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash and set_dir():
 		can_dash = false
 		if np:
 			print("from idle to DASH")
@@ -570,7 +589,14 @@ func run():
 		state = AIR
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash:
+	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+		can_dash = false
+		if np:
+			print("from run to down_dash")
+		state = DOWN_DASH
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash and set_dir():
 		can_dash = false
 		if np:
 			print("from run to DASH")
@@ -673,7 +699,14 @@ func air(delta):
 		state = LANDING
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash:
+	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+		can_dash = false
+		if np:
+			print("from air to down_dash")
+		state = DOWN_DASH
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash and set_dir():
 		can_dash = false
 		if np:
 			print("from air to DASH")
@@ -785,7 +818,15 @@ func jump(delta):
 		jump_attack_index = 1
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash:
+	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+		from_jump_to_air_timer.stop()
+		can_dash = false
+		if np:
+			print("from jump to down_dash")
+		state = DOWN_DASH
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash and set_dir():
 		from_jump_to_air_timer.stop()
 		can_dash = false
 		if np:
@@ -1018,7 +1059,14 @@ func wall_slide(delta):
 		state = JUMP
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash:
+	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+		can_dash = false
+		if np:
+			print("from wall_slide to down_dash")
+		state = DOWN_DASH
+		return
+		
+	if Input.is_action_pressed("DASH") and can_dash and set_dir():
 		can_dash = false
 		if np:
 			print("from wall_slide to DASH")
@@ -1067,6 +1115,29 @@ func dash():
 			
 	velocity.x = anim_dir * speed * 8
 	velocity.y = 0
+	
+	
+func down_dash(delta):
+	set_anim(DOWN_DASH)
+	if is_on_floor():
+		if state == DOWN_DASH:
+			if np:
+				print("from down_dash to landing cause of floor")
+			state = LANDING
+			return
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == DOWN_DASH:
+			if np:
+				print("from down_dash to AIR cause animation ended")
+			pre_jump = 2
+			jump_attack_index = 4
+			state = AIR
+			return
+			
+	velocity.x = 0
+	velocity.y += gravity * delta * 20
 		
 		
 func roll():
@@ -1434,6 +1505,7 @@ func dead(delta):
 	velocity.x = 0
 	if !state_started:
 		hitbox_col.disabled = true
+		$DashHitbox/CollisionShape2D.disabled = true
 		ui.visible = false
 		$CanvasLayer/LensFlare.visible = false
 		death_screen.visible = true
@@ -1465,9 +1537,9 @@ func fruit_ninja():
 			fruit_ninja_targets = []
 			fruit_ninja_line_already_painted = false
 			if np:
-				print("from fruit ninja to SIT")
+				print("from fruit ninja to LANDING")
 			animated_sprite.visible = true
-			state = SIT
+			state = LANDING
 			return
 	else:
 		if (Input.is_action_pressed("LMB ATTACK") or Input.is_action_pressed("RMB ATTACK")) and not fruit_ninja_line_already_painted:
@@ -1638,3 +1710,10 @@ func _on_can_change_collision_checker_body_entered(body):
 
 func _on_can_change_collision_checker_body_exited(body):
 	can_increase_col = true 
+
+
+func _on_dash_hitbox_body_entered(body):
+	if global_position.x > body.global_position.x:
+		body.get_damage(1, -1, null)
+	else:
+		body.get_damage(1, 1, null)

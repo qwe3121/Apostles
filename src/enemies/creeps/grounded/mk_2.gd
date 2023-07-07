@@ -124,12 +124,19 @@ func _on_walking_timer_ready():
 	$WalkingTimer.start()
 	
 
+var can_get_damage = true
+@onready var gettin_damage_CD = $GettinDamageCD
+	
+
 func get_damage(value, k_dir = 0, damager = null):
-	if state == DEAD or state == FRUIT_DEAD:
+	if not can_get_damage and damager == null:
 		return
 	
 	hp -= value
 	knockback_dir = k_dir
+	
+	can_get_damage = false
+	gettin_damage_CD.start()
 	
 	if k_dir: 
 		last_knockback_dir = k_dir
@@ -900,3 +907,7 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	visible_on_screen = false
+
+
+func _on_gettin_damage_cd_timeout():
+	can_get_damage = true

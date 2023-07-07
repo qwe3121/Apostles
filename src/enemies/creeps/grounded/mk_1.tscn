@@ -2119,6 +2119,10 @@ one_shot = true
 position = Vector2(-5.96046e-07, -20.75)
 scale = Vector2(1.25, 2.025)
 
+[node name="GettinDamageCD" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
@@ -2141,3 +2145,4 @@ scale = Vector2(1.25, 2.025)
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
