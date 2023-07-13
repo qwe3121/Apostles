@@ -28,12 +28,18 @@ var player_adrenaline_gain = 20
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
-@onready var attack_hitbox = $AttackHitbox/AttackCollision
-@onready var ulti_slow_hitbox = $UltiSlowHitbox/UltiSlow
-@onready var rocks_dropdown_hitbox = $RocksDropdownHitbox/Col
-@onready var ulti_dropdown_hitbox = $UltiDropdownHitbox/Col
+@onready var attack_hitbox = $AttackHitbox/CollisionPolygon2D
+@onready var ulti_slow_hitbox = $UltiSlowHitbox/CollisionShape2D
+@onready var rocks_dropdown_hitbox = $RocksDropdownHitbox/CollisionShape2D
+@onready var ulti_dropdown_hitbox = $UltiDropdownHitbox/CollisionShape2D
 @onready var dead_zone = $AnimatedSprite2D/DeadZone
 var need_to_check_if_see_player = false
+
+@onready var gettin_damage_CD = $GettinDamageCD
+
+@onready var nav_agent = $NavigationAgent2D
+
+@onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -93,9 +99,10 @@ var last_knockback_dir = 0
 var player_is_inside = false
 
 var destination
-@onready var nav_agent = $NavigationAgent2D
 
-@onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
+var can_get_damage = true
+
+var visible_on_screen = false
 
 
 func refresh_desired_distance():
@@ -119,11 +126,7 @@ func _ready():
 func _on_walking_timer_ready():
 	$WalkingTimer.wait_time = randi_range(1,5)
 	$WalkingTimer.start()
-	
-	
-var can_get_damage = true
-@onready var gettin_damage_CD = $GettinDamageCD
-	
+
 
 func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
@@ -554,9 +557,6 @@ func _on_dead_zone_visible_on_screen_notifier_screen_entered():
 
 func _on_dead_zone_visible_on_screen_notifier_screen_exited():
 	dead_zone_visible_on_screen = false
-
-
-var visible_on_screen = false
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

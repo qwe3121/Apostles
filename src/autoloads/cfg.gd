@@ -9,7 +9,6 @@ const CFG_PATH = "user://config.cfg"
 var cfg_data = {}
 
 var default_keys = {
-	"QUICK SAVE": [KEY_F5, "InputEventKey"],
 	"ROLL": [KEY_SHIFT, "InputEventKey"],
 	"DASH": [KEY_TAB, "InputEventKey"],
 	"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
@@ -19,7 +18,8 @@ var default_keys = {
 	"JUMP": [KEY_SPACE, "InputEventKey"],
 	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"],
 	"BLOCK": [KEY_C, "InputEventKey"],
-	"FRUIT NINJA": [KEY_Q, "InputEventKey"]
+	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
+	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
 }
 
 var default_cfg_data = {
@@ -37,7 +37,6 @@ var default_cfg_data = {
 	"blood_traces_on": true,
 	"lens_flare_on": true,
 	#KEYS
-	"QUICK SAVE": [KEY_F5, "InputEventKey"],
 	"ROLL": [KEY_SHIFT, "InputEventKey"],
 	"DASH": [KEY_TAB, "InputEventKey"],
 	"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
@@ -47,7 +46,8 @@ var default_cfg_data = {
 	"JUMP": [KEY_SPACE, "InputEventKey"],
 	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"], 
 	"BLOCK": [KEY_C, "InputEventKey"],
-	"FRUIT NINJA": [KEY_Q, "InputEventKey"]
+	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
+	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
 }
 
 

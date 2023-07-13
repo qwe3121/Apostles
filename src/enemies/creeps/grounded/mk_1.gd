@@ -29,11 +29,13 @@ var player_adrenaline_gain = 20
 @onready var turned_timer = $TurnedTimer
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
-@onready var ulti_hitbox = $UltiHitbox/Col
+@onready var ulti_hitbox = $UltiHitbox/CollisionPolygon2D
 @onready var blood_pos = $BloodPos
 @onready var move_back_timer = $MoveBackTimer
 @onready var shoot_timer = $ShootTimer
 var shoot_index = 1
+
+@onready var gettin_damage_CD = $GettinDamageCD
 
 var need_to_check_if_see_player = false
 
@@ -115,6 +117,11 @@ var player_move_state
 enum move_state_const {IDLE, RUN, MOVE_BACK}
 
 var can_move_now = 1 #for BEFORE_ULTI state
+	
+var can_get_damage = true
+
+var visible_on_screen = false
+
 
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
@@ -127,10 +134,6 @@ func _on_walking_timer_ready():
 	$WalkingTimer.start()
 	
 	
-var can_get_damage = true
-@onready var gettin_damage_CD = $GettinDamageCD
-	
-
 func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
 		return
@@ -762,9 +765,6 @@ func is_alive():
 	if state != DEAD and state != FRUIT_DEAD and hp > 0:
 		return true
 	return false
-	
-	
-var visible_on_screen = false
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

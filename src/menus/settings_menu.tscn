@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqkil170brmc4"]
 
 [ext_resource type="Script" path="res://src/menus/settings_menu.gd" id="1_5r8uw"]
+[ext_resource type="Script" path="res://src/menus/scroll_container.gd" id="2_0wg6h"]
 [ext_resource type="PackedScene" uid="uid://f7mrls5h33yh" path="res://src/menus/action_container.tscn" id="2_4eexy"]
-[ext_resource type="PackedScene" uid="uid://iwx2trl1jrs5" path="res://src/menus/scroll_fix.tscn" id="2_ygdcm"]
 
 [sub_resource type="Theme" id="Theme_7s0by"]
 default_font_size = 30
@@ -25,12 +25,13 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 42.0
-offset_top = 64.0
+offset_top = 94.0
 offset_right = -63.0
 offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+tabs_visible = false
 
 [node name="Video" type="TabBar" parent="TabContainer"]
 layout_mode = 2
@@ -298,14 +299,12 @@ theme_override_constants/margin_bottom = 50
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Actions/MarginContainer"]
 layout_mode = 2
 follow_focus = true
+script = ExtResource("2_0wg6h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Actions/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
-
-[node name="ScrollFix" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ygdcm")]
-layout_mode = 2
 
 [node name="ActionContainer" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
@@ -318,10 +317,6 @@ action = "LEFT"
 [node name="ActionContainer3" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
 action = "JUMP"
-
-[node name="ActionContainer4" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
-layout_mode = 2
-action = "QUICK SAVE"
 
 [node name="ActionContainer5" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
@@ -351,8 +346,46 @@ action = "BLOCK"
 layout_mode = 2
 action = "FRUIT NINJA"
 
-[node name="ScrollFix2" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ygdcm")]
+[node name="ActionContainer12" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
+action = "SPECIAL ATTACK 1"
+
+[node name="TabButtonsContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -218.0
+offset_top = -276.5
+offset_right = 218.0
+offset_bottom = -233.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VideoTabButton" type="Button" parent="TabButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "VIDEO"
+flat = true
+
+[node name="AudioTabButton" type="Button" parent="TabButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "AUDIO"
+
+[node name="GameTabButton" type="Button" parent="TabButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "GAME"
+
+[node name="ActionsTabButton" type="Button" parent="TabButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "ACTIONS"
 
 [node name="BackToMainMenu" type="Button" parent="."]
 layout_mode = 0
@@ -374,30 +407,6 @@ offset_bottom = 71.0
 grow_horizontal = 0
 text = "Back to defaults"
 
-[node name="NavTipPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -97.5
-offset_top = 7.0
-offset_right = 97.5
-offset_bottom = 56.0
-grow_horizontal = 2
-
-[node name="NavTipLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -92.0
-offset_top = 7.0
-offset_right = 92.0
-offset_bottom = 53.0
-grow_horizontal = 2
-text = "PRESS 1-4 TO
-NAVIGATE BETWEEN TABS"
-
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/fpsContainer/fpsCheckButton" to="." method="_on_fps_check_button_toggled"]
 [connection signal="item_selected" from="TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton" to="." method="_on_display_mode_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VBoxContainer/VsyncContainer/VsyncCheckButton" to="." method="_on_vsync_check_button_toggled"]
@@ -409,4 +418,8 @@ NAVIGATE BETWEEN TABS"
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider" to="." method="_on_sfx_volume_h_slider_value_changed"]
 [connection signal="item_selected" from="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton" to="." method="_on_transition_mode_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Game/MarginContainer/VBoxContainer/Undead/UndeadCheckButton" to="." method="_on_undead_check_button_toggled"]
+[connection signal="pressed" from="TabButtonsContainer/VideoTabButton" to="." method="_on_video_tab_button_pressed"]
+[connection signal="pressed" from="TabButtonsContainer/AudioTabButton" to="." method="_on_audio_tab_button_pressed"]
+[connection signal="pressed" from="TabButtonsContainer/GameTabButton" to="." method="_on_game_tab_button_pressed"]
+[connection signal="pressed" from="TabButtonsContainer/ActionsTabButton" to="." method="_on_actions_tab_button_pressed"]
 [connection signal="pressed" from="BackToDefaults" to="." method="_on_back_to_defaults_pressed"]

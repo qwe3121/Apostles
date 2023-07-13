@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ken85fvc6gpc"]
+[gd_scene load_steps=6 format=3 uid="uid://ken85fvc6gpc"]
 
+[ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://sprites/128x128.png" id="1_6hpb1"]
 [ext_resource type="Script" path="res://src/hit_particles.gd" id="2_snx45"]
 
 [sub_resource type="Gradient" id="Gradient_vjc3a"]
@@ -25,6 +26,7 @@ turbulence_enabled = true
 emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_1w4cr")
+texture = ExtResource("1_6hpb1")
 lifetime = 0.5
 one_shot = true
 speed_scale = 2.0

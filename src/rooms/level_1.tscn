@@ -1,10 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=33 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
 [ext_resource type="Script" path="res://src/rooms/level_1.gd" id="1_u80bw"]
 [ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="2_b1j8b"]
 [ext_resource type="Texture2D" uid="uid://dpvr3w0r7b7m2" path="res://sprites/levels/level1/part1/TestLVL1_1_Pered.png" id="2_e81dv"]
+[ext_resource type="Texture2D" uid="uid://baa14if2a3clp" path="res://sprites/levels/level1/part1/TestLVL1_1_Steni.png" id="2_k7m0k"]
 [ext_resource type="Texture2D" uid="uid://dpuy65ncmp0g" path="res://sprites/levels/level1/part2/TestLVL1_2_Zad.png" id="3_rb0cf"]
 [ext_resource type="Texture2D" uid="uid://b135lrbwjgpol" path="res://sprites/levels/level1/part2/TestLVL1_2_Pered.png" id="4_crbji"]
 [ext_resource type="Texture2D" uid="uid://dxv7b5xoc5721" path="res://sprites/levels/level1/part3/TestLVL1_3_Zad.png" id="5_f0t4p"]
@@ -66,6 +67,10 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(3352, 936, 3352, 552, 4
 script = ExtResource("1_u80bw")
 
 [node name="CoreVisuals" type="Node2D" parent="."]
+
+[node name="Part1Steni" type="Sprite2D" parent="CoreVisuals"]
+z_index = -51
+texture = ExtResource("2_k7m0k")
 
 [node name="Part1Zad" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
@@ -322,6 +327,7 @@ scale = Vector2(1.5, 1.5)
 
 [node name="trap_westerenka" parent="Traps" instance=ExtResource("11_mks8e")]
 position = Vector2(-1424, 712)
+scale = Vector2(0.7, 0.7)
 
 [node name="StompTrap" parent="Traps" instance=ExtResource("15_mv2lf")]
 position = Vector2(-13, 449)

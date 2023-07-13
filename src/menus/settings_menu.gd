@@ -1,9 +1,6 @@
 extends Control
 
 
-var some_action_button_toggled: bool = false
-
-
 func _ready():
 	$TabContainer/Video/MarginContainer/VBoxContainer/DisplayModeContainer/DisplayModeOptionButton.select(cfg.cfg_data.display_mode)
 	global_settings.update_display_mode(cfg.cfg_data.display_mode)
@@ -124,22 +121,6 @@ func _on_back_to_defaults_pressed():
 
 func _on_undead_check_button_toggled(button_pressed):
 	global_settings.toggle_undead_mode(button_pressed)
-	
-	
-func _process(delta):
-	if not some_action_button_toggled and visible:
-		if Input.is_action_just_pressed("SETTINGS_TAB_1"):
-			$TabContainer.current_tab = 0
-			$BackToMainMenu.grab_focus()
-		elif Input.is_action_just_pressed("SETTINGS_TAB_2"):
-			$TabContainer.current_tab = 1
-			$BackToMainMenu.grab_focus()
-		elif Input.is_action_just_pressed("SETTINGS_TAB_3"):
-			$TabContainer.current_tab = 2
-			$BackToMainMenu.grab_focus()
-		elif Input.is_action_just_pressed("SETTINGS_TAB_4"):
-			$TabContainer.current_tab = 3
-			$BackToMainMenu.grab_focus()
 
 
 func _on_skylight_check_button_toggled(button_pressed):
@@ -161,3 +142,35 @@ func _on_blood_traces_check_button_toggled(button_pressed):
 
 func _on_lens_flare_check_button_toggled(button_pressed):
 	global_settings.toggle_lens_flare(button_pressed)
+
+
+func _on_video_tab_button_pressed():
+	$TabContainer.current_tab = 0
+	$TabButtonsContainer/VideoTabButton.flat = true
+	$TabButtonsContainer/AudioTabButton.flat = false
+	$TabButtonsContainer/GameTabButton.flat = false
+	$TabButtonsContainer/ActionsTabButton.flat = false
+
+
+func _on_audio_tab_button_pressed():
+	$TabContainer.current_tab = 1
+	$TabButtonsContainer/AudioTabButton.flat = true
+	$TabButtonsContainer/VideoTabButton.flat = false
+	$TabButtonsContainer/GameTabButton.flat = false
+	$TabButtonsContainer/ActionsTabButton.flat = false
+
+
+func _on_game_tab_button_pressed():
+	$TabContainer.current_tab = 2
+	$TabButtonsContainer/GameTabButton.flat = true
+	$TabButtonsContainer/VideoTabButton.flat = false
+	$TabButtonsContainer/AudioTabButton.flat = false
+	$TabButtonsContainer/ActionsTabButton.flat = false
+
+
+func _on_actions_tab_button_pressed():
+	$TabContainer.current_tab = 3
+	$TabButtonsContainer/ActionsTabButton.flat = true
+	$TabButtonsContainer/GameTabButton.flat = false
+	$TabButtonsContainer/VideoTabButton.flat = false
+	$TabButtonsContainer/AudioTabButton.flat = false

@@ -28,10 +28,15 @@ var player_adrenaline_gain = 20
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
-@onready var ulti_hitbox = $UltiHitbox/Col
-@onready var attack_hitbox = $AttackHitbox/Col
+@onready var ulti_hitbox = $UltiHitbox/CollisionShape2D
+@onready var attack_hitbox = $AttackHitbox/CollisionShape2D
 @onready var move_back_timer = $MoveBackTimer
 var need_to_check_if_see_player = false
+
+@onready var small_move_back_col = $CheckIfPlayerInside/SmallCol
+@onready var big_move_back_col = $CheckIfPlayerInside/BigCol
+
+@onready var gettin_damage_CD = $GettinDamageCD
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -113,6 +118,11 @@ var player_is_deep_inside = false
 var player_move_state
 enum move_state_const {IDLE, RUN, MOVE_BACK}
 
+var can_get_damage = true
+
+var visible_on_screen = false
+
+
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 
@@ -122,11 +132,7 @@ func _ready():
 func _on_walking_timer_ready():
 	$WalkingTimer.wait_time = randi_range(1,5)
 	$WalkingTimer.start()
-	
 
-var can_get_damage = true
-@onready var gettin_damage_CD = $GettinDamageCD
-	
 
 func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
@@ -307,10 +313,6 @@ func set_attack_dir():
 		attack_dir = 1
 	else:
 		attack_dir = -1
-
-
-@onready var small_move_back_col = $CheckIfPlayerInside/SmallCol
-@onready var big_move_back_col = $CheckIfPlayerInside/BigCol
 
 
 func _physics_process(delta):
@@ -896,9 +898,6 @@ func is_alive():
 	if state != DEAD and state != FRUIT_DEAD and hp > 0:
 		return true
 	return false
-	
-	
-var visible_on_screen = false
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():

@@ -35,7 +35,9 @@ var adrenaline = 100
 @onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var hitbox = $Hitbox
+@onready var sword_hitbox = $SwordHitbox
+@onready var dash_hitbox = $DashHitbox
+@onready var special_attack_1_hitbox = $SpecialAttack1Hitbox
 @onready var weak_combo_timer = $WeakComboTimer
 @onready var strong_combo_timer = $StrongComboTimer
 @onready var from_jump_to_air_timer = $FromJumpToAirTimer
@@ -54,7 +56,6 @@ var can_get_damage = true
 
 @onready var can_stand_up_shapecast = $CanStandUpRaycasts/ShapeCast2D
 @onready var wall_slide_cooldown = $WallSlideCooldown
-@onready var hitbox_col = $Hitbox/CollisionShape2D
 @onready var blood_pos = $BloodPos
 
 @onready var lens_flare_anim = $CanvasLayer/LensFlare/LensFlareAnim
@@ -104,7 +105,7 @@ enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1,
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
-DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED, DOWN_DASH}
+DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED, DOWN_DASH, SPECIAL_ATTACK_1}
 
 var state = REINCARNATION : set = set_state
 
@@ -139,7 +140,7 @@ var animations_speed_scales = {
 	"SecondJumpAttack2": 1.35,
 	"SecondJumpAttack3": 0.9,
 	"SecondJumpCycle": 1,
-	"SecondLanding": 3.5,
+	"SecondLanding": 3,
 	"Sit": 0.7,
 	"StrongAttack1": 0.8,
 	"StrongAttack2": 0.8,
@@ -160,6 +161,7 @@ var animations_speed_scales = {
 	"DamageDash": 25,
 	"FirstDownDash": 10,
 	"SecondDownDash": 10,
+	"SpecialAttack1": 2,
 }
 
 var dir = 0
@@ -272,7 +274,8 @@ func set_anim(animation_name):
 		animated_sprite.flip_h = wall_dir == -1
 	else:
 		animated_sprite.flip_h = !(anim_dir == 1)
-		hitbox.scale.x = anim_dir
+		sword_hitbox.scale.x = anim_dir
+		special_attack_1_hitbox.scale.x = anim_dir
 		
 	match animation_name:
 		IDLE: 
@@ -366,6 +369,8 @@ func set_anim(animation_name):
 				anim.play("FirstDownDash")
 			elif pre_jump == 2:
 				anim.play("SecondDownDash")
+		SPECIAL_ATTACK_1:
+			anim.play("SpecialAttack1")
 			
 	if anim.current_animation != pre_anim:
 		need_to_change_col_size = true
@@ -452,6 +457,8 @@ func _physics_process(delta):
 			reincarnation(delta)
 		DOWN_DASH:
 			down_dash(delta)
+		SPECIAL_ATTACK_1:
+			special_attack_1()
 
 	if knockback_dir:
 		if knockback_dir == dir:
@@ -482,6 +489,12 @@ func idle():
 		pre_jump = 1
 		jump_attack_index = 1
 		state = AIR
+		return
+		
+	if Input.is_action_pressed("SPECIAL ATTACK 1"):
+		if np:
+			print("from idle to special attack 1")
+		state = SPECIAL_ATTACK_1
 		return
 		
 	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
@@ -587,6 +600,12 @@ func run():
 		pre_jump = 1
 		jump_attack_index = 1
 		state = AIR
+		return
+		
+	if Input.is_action_pressed("SPECIAL ATTACK 1"):
+		if np:
+			print("from RUN to special attack 1")
+		state = SPECIAL_ATTACK_1
 		return
 		
 	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
@@ -697,6 +716,12 @@ func air(delta):
 		jump_index = 1
 		jump_attack_index = 1
 		state = LANDING
+		return
+		
+	if Input.is_action_pressed("SPECIAL ATTACK 1"):
+		if np:
+			print("from AIR to special attack 1")
+		state = SPECIAL_ATTACK_1
 		return
 		
 	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
@@ -816,6 +841,12 @@ func jump(delta):
 		state = LANDING
 		jump_index = 1
 		jump_attack_index = 1
+		return
+		
+	if Input.is_action_pressed("SPECIAL ATTACK 1"):
+		if np:
+			print("from JUMP to special attack 1")
+		state = SPECIAL_ATTACK_1
 		return
 		
 	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
@@ -1059,6 +1090,12 @@ func wall_slide(delta):
 		state = JUMP
 		return
 		
+	if Input.is_action_pressed("SPECIAL ATTACK 1"):
+		if np:
+			print("from WALL_SLIDE to special attack 1")
+		state = SPECIAL_ATTACK_1
+		return
+		
 	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
 		can_dash = false
 		if np:
@@ -1098,6 +1135,23 @@ func wall_slide(delta):
 	
 func _on_wall_slide_cooldown_timeout():
 	wall_jumping = false
+	
+	
+func special_attack_1():
+	set_anim(SPECIAL_ATTACK_1)
+	if !state_started:
+		state_started = true
+		await anim.animation_finished
+		if state == SPECIAL_ATTACK_1:
+			if np:
+				print("from special_attack_1 to AIR")
+			pre_jump = 2
+			jump_attack_index = 4
+			state = AIR
+			return
+			
+	velocity.x = anim_dir * speed
+	velocity.y = 0
 	
 	
 func dash():
@@ -1490,13 +1544,6 @@ func blocked():
 			if np:
 				print("from BLOCKED to AIR")
 		state = AIR
-
-
-func _on_hitbox_body_entered(body):
-	if global_position.x > body.global_position.x:
-		body.get_damage(1, -1, null)
-	else:
-		body.get_damage(1, 1, null)
 	
 	
 func dead(delta):
@@ -1504,8 +1551,9 @@ func dead(delta):
 	velocity.y += gravity * delta
 	velocity.x = 0
 	if !state_started:
-		hitbox_col.disabled = true
+		$SwordHitbox/CollisionShape2D.disabled = true
 		$DashHitbox/CollisionShape2D.disabled = true
+		$SpecialAttack1Hitbox/CollisionShape2D.disabled = true
 		ui.visible = false
 		$CanvasLayer/LensFlare.visible = false
 		death_screen.visible = true
@@ -1547,7 +1595,11 @@ func fruit_ninja():
 				fruit_ninja_particles.emitting = true
 				fruit_ninja_timer.start()
 				fruit_ninjaing = true
-			fruit_ninja_line.add_point(get_global_mouse_position())
+			if fruit_ninja_line.get_point_count() > 0:
+				if get_global_mouse_position().distance_to(fruit_ninja_line.points[fruit_ninja_line.get_point_count() - 1]) > 5.0:
+					fruit_ninja_line.add_point(get_global_mouse_position())
+			else:
+				fruit_ninja_line.add_point(get_global_mouse_position())
 			fruit_ninja_particles.global_position = get_global_mouse_position()
 		elif fruit_ninjaing:
 			fruit_ninjaing = false
@@ -1683,7 +1735,7 @@ func _on_flashlight_timer_timeout():
 func change_col_to_crouch_mode():
 	col.shape.size = Vector2(32, 63)
 	col.position = Vector2(0, -31.5)
-	hurtbox_4_traps_col.shape.size = Vector2(20, 37)
+	hurtbox_4_traps_col.shape.size = Vector2(30, 37)
 	hurtbox_4_traps_col.position = Vector2(0, -31.5)
 	need_to_change_col_size = false
 	
@@ -1691,7 +1743,7 @@ func change_col_to_crouch_mode():
 func change_col_to_full_size():
 	col.shape.size = Vector2(32, 90)
 	col.position = Vector2(0, -45)
-	hurtbox_4_traps_col.shape.size = Vector2(20, 54)
+	hurtbox_4_traps_col.shape.size = Vector2(30, 54)
 	hurtbox_4_traps_col.position = Vector2(0, -45)
 	need_to_change_col_size = false
 	
@@ -1710,10 +1762,3 @@ func _on_can_change_collision_checker_body_entered(body):
 
 func _on_can_change_collision_checker_body_exited(body):
 	can_increase_col = true 
-
-
-func _on_dash_hitbox_body_entered(body):
-	if global_position.x > body.global_position.x:
-		body.get_damage(1, -1, null)
-	else:
-		body.get_damage(1, 1, null)

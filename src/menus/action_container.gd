@@ -26,8 +26,14 @@ func _on_ready_to_load_keys_containers():
 
 
 func _input(input_event: InputEvent):
+	if action_button.button_pressed and input_event is InputEventKey and input_event.key_label == KEY_ESCAPE and not input_event.is_pressed():
+		action_button.button_pressed = false
+		events.emit_signal("ready_to_load_keys_containers")
+		on_all_buttons()
+		return
+	
 	if action_button.button_pressed and not input_event is InputEventMouseMotion:
-		off_focus_on_all_buttons()
+#		off_focus_on_all_buttons()
 		if not input_event.is_pressed():
 			action_button.button_pressed = false
 			InputMap.action_erase_events(action)
@@ -51,9 +57,7 @@ func _input(input_event: InputEvent):
 			
 			events.emit_signal("ready_to_load_keys_containers")
 			
-			on_focus_on_all_buttons()
-			
-			$"../../../../../..".some_action_button_toggled = false
+			on_all_buttons()
 
 
 func update_button_text(input_event: InputEvent):
@@ -62,29 +66,56 @@ func update_button_text(input_event: InputEvent):
 
 func _on_action_button_toggled(button_pressed):
 	if button_pressed:
+		global.remapping_action = true
+		off_all_buttons()
 		action_button.text = "press a key..."
-		$"../../../../../..".some_action_button_toggled = true
+		action_button.disabled = true
+	else:
+		global.remapping_action = false
+		action_button.disabled = false
 		
 		
-func off_focus_on_all_buttons():
+func off_all_buttons():
 	var containers = containers_loc.get_children()
 	for container in containers:
 		if container == self:
 			continue
 		else:
-			var button = container.get_node("ActionButton")
-			button.focus_mode = FOCUS_NONE
+			var button = container.get_node_or_null("ActionButton")
+			if not button == null: 
+				button.focus_mode = FOCUS_NONE
+				button.disabled = true
+			button = container.get_node_or_null("ActionButton2")
+			if not button == null: 
+				button.focus_mode = FOCUS_NONE
+				button.disabled = true
 	$"../../../../../../BackToMainMenu".focus_mode = FOCUS_NONE
+	$"../../../../../../BackToMainMenu".disabled = true
 	$"../../../../../../BackToDefaults".focus_mode = FOCUS_NONE
+	$"../../../../../../BackToDefaults".disabled = true
+	for tab_button in $"../../../../../../TabButtonsContainer".get_children():
+		tab_button.focus_mode = FOCUS_NONE
+		tab_button.disabled = true
 			
 			
-func on_focus_on_all_buttons():
+func on_all_buttons():
 	var containers = containers_loc.get_children()
 	for container in containers:
 		if container == self:
 			continue
 		else:
-			var button = container.get_node("ActionButton")
-			button.focus_mode = FOCUS_ALL
+			var button = container.get_node_or_null("ActionButton")
+			if not button == null: 
+				button.focus_mode = FOCUS_ALL
+				button.disabled = false
+			button = container.get_node_or_null("ActionButton2")
+			if not button == null: 
+				button.focus_mode = FOCUS_ALL
+#				button.disabled = false
 	$"../../../../../../BackToMainMenu".focus_mode = FOCUS_ALL
+	$"../../../../../../BackToMainMenu".disabled = false
 	$"../../../../../../BackToDefaults".focus_mode = FOCUS_ALL
+	$"../../../../../../BackToDefaults".disabled = false
+	for tab_button in $"../../../../../../TabButtonsContainer".get_children():
+		tab_button.focus_mode = FOCUS_ALL
+		tab_button.disabled = false

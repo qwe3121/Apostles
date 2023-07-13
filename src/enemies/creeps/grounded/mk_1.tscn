@@ -42,7 +42,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UltiHitbox/Col:disabled")
+tracks/1/path = NodePath("UltiHitbox/CollisionPolygon2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -985,7 +985,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UltiHitbox/Col:disabled")
+tracks/3/path = NodePath("UltiHitbox/CollisionPolygon2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2071,7 +2071,7 @@ visible = false
 damage_source = "fire"
 damage = 20
 
-[node name="Col" type="CollisionPolygon2D" parent="UltiHitbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UltiHitbox"]
 polygon = PackedVector2Array(40, 0, 40, -6, 39, -6, 39, -11, 38, -11, 38, -14, 37, -14, 37, -17, 36, -17, 36, -19, 35, -19, 35, -21, 34, -21, 34, -23, 33, -23, 33, -24, 32, -24, 32, -25, 31, -25, 31, -27, 30, -27, 30, -28, 29, -28, 29, -29, 28, -29, 28, -30, 27, -30, 27, -31, 25, -31, 25, -32, 24, -32, 24, -33, 23, -33, 23, -34, 21, -34, 21, -35, 19, -35, 19, -36, 17, -36, 17, -37, 14, -37, 14, -38, 11, -38, 11, -39, 6, -39, 6, -40, -6, -40, -6, -39, -11, -39, -11, -38, -14, -38, -14, -37, -17, -37, -17, -36, -19, -36, -19, -35, -21, -35, -21, -34, -23, -34, -23, -33, -24, -33, -24, -32, -25, -32, -25, -31, -27, -31, -27, -30, -28, -30, -28, -29, -29, -29, -29, -28, -30, -28, -30, -27, -31, -27, -31, -25, -32, -25, -32, -24, -33, -24, -33, -23, -34, -23, -34, -21, -35, -21, -35, -19, -36, -19, -36, -17, -37, -17, -37, -14, -38, -14, -38, -11, -39, -11, -39, -6, -40, -6, -40, 0)
 disabled = true
 

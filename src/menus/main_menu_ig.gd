@@ -36,7 +36,7 @@ func _on_focus_changed(control):
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("ESCAPE") and not dialog.dialog_is_showed and not global.player.death_screen.visible:
+	if Input.is_action_just_pressed("ESCAPE") and not dialog.dialog_is_showed and not global.player.death_screen.visible and not global.remapping_action:
 		if current_menu == "none":
 			global.player.ui.visible = false
 			color_rect.visible = true

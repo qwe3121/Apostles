@@ -4199,8 +4199,9 @@ mouse_filter = 2
 script = ExtResource("1_gwm1g")
 
 [node name="DashIcon" type="AnimatedSprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_bo74m")
-position = Vector2(233, 64)
+position = Vector2(223, 54)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_elbp6")
 animation = &"charging"
@@ -4215,28 +4216,32 @@ libraries = {
 texture = ExtResource("4_yonoq")
 
 [node name="hp_number_1" type="Sprite2D" parent="."]
-position = Vector2(13, 147)
-scale = Vector2(0.5, 0.5)
+visible = false
+position = Vector2(14, 101)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_j2q4d")
 hframes = 10
 frame = 1
 
 [node name="hp_number_2" type="Sprite2D" parent="."]
-position = Vector2(38, 147)
-scale = Vector2(0.5, 0.5)
+visible = false
+position = Vector2(33, 127)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_j2q4d")
 hframes = 10
 frame = 7
 
 [node name="hp_number_3" type="Sprite2D" parent="."]
-position = Vector2(68, 147)
-scale = Vector2(0.5, 0.5)
+visible = false
+position = Vector2(50, 153)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_j2q4d")
 hframes = 10
 frame = 5
 
 [node name="hpBar" type="AnimatedSprite2D" parent="."]
-position = Vector2(94, 90)
+visible = false
+position = Vector2(85, 89)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_206mx")
 

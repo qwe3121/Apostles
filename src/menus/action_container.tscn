@@ -4,19 +4,30 @@
 
 [node name="ActionContainer" type="HBoxContainer"]
 offset_right = 947.0
-offset_bottom = 44.0
+offset_bottom = 58.0
 theme_override_constants/separation = 50
 script = ExtResource("1_b0o67")
 
 [node name="ActionLabel" type="Label" parent="."]
 layout_mode = 2
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 35
 text = "action name"
 
 [node name="ActionButton" type="Button" parent="."]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(250, 35)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
+size_flags_vertical = 4
+toggle_mode = true
+text = "W"
+
+[node name="ActionButton2" type="Button" parent="."]
+custom_minimum_size = Vector2(250, 35)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+disabled = true
 toggle_mode = true
 text = "W"
 
