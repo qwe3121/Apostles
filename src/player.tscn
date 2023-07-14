@@ -5869,16 +5869,6 @@ libraries = {
 [node name="LensFlareTimer" type="Timer" parent="CanvasLayer/LensFlare"]
 one_shot = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0.764706, 0.823529, 0.0313726)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -44)
 zoom = Vector2(1.2, 1.2)
