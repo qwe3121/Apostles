@@ -614,8 +614,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_b7cxd"]
 resource_name = "fruit_ninja_dead"
-length = 0.95
-step = 0.0778
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -623,7 +622,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.389),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [&"fruit_ninja_dead", &"after_fn_dead"]
@@ -635,9 +634,9 @@ tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.389),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
+"update": 1,
 "values": [1.8, 1.0]
 }
 tracks/2/type = "value"
@@ -671,7 +670,7 @@ tracks/4/path = NodePath("AnimatedSprite2D:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.0778, 0.1556, 0.2334, 0.3112, 0.389, 0.4668, 0.5446, 0.6224, 0.7002, 0.778, 0.8558),
+"times": PackedFloat32Array(0, 0.0778, 0.1556, 0.2334, 0.3112, 0.4668, 0.5446, 0.6224, 0.7002, 0.778, 0.8558, 0.9336),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 5, 6]
@@ -1962,6 +1961,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_ibcnt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -1982,15 +1982,16 @@ one_shot = true
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"run"
+animation = &"attack_n_run"
 frame = 3
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.317647, 0, 0, 1)
-position = Vector2(30, -18.5)
+position = Vector2(0, -18.5)
 texture = ExtResource("10_br5ay")
 hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -20.75)
@@ -2122,6 +2123,14 @@ scale = Vector2(1.25, 2.025)
 [node name="GettinDamageCD" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="CollisionHitbox" parent="." instance=ExtResource("13_ytu7v")]
+damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionHitbox"]
+visible = false
+position = Vector2(0, -20.75)
+shape = SubResource("RectangleShape2D_rgkk2")
 
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]

@@ -23,8 +23,56 @@ var can_roll = true : set = set_can_roll
 
 func set_can_roll(value):
 	pass
+	
+	
+@onready var blood_splash_screen_anim = $CanvasLayer/BloodSplashScreen/BloodSplashScreenAnim
+@onready var blood_splash_screen_timer = $CanvasLayer/BloodSplashScreen/BloodSplashScreenTimer
 
-var adrenaline = 100
+var adrenaline = 100 : set = set_adrenaline
+var blood_splash_screen_showed = false
+
+func set_adrenaline(value):
+	if value < 0: value = 0
+	if value > 100: value = 100
+	adrenaline = value
+	
+	
+func show_blood_splash_screen():
+	if not blood_splash_screen_showed: blood_splash_screen_anim.play("show")
+	blood_splash_screen_timer.start()
+	
+	
+func _on_blood_splash_screen_anim_animation_finished(anim_name):
+	if anim_name == "show":
+		blood_splash_screen_showed = true
+	else:
+		blood_splash_screen_showed = false
+		killstreak = 0
+		killstreak_timer.stop()
+
+
+func _on_blood_splash_screen_timer_timeout():
+	if blood_splash_screen_showed:
+		blood_splash_screen_anim.play("hide")
+		blood_splash_screen_timer.stop()
+		
+		
+@onready var killstreak_timer = $KillstreakTimer
+		
+		
+var killstreak = 0 : set = set_killstreak
+
+func set_killstreak(value):
+	if value < 0: killstreak = 0
+	killstreak = value
+	if killstreak > 2:
+		show_blood_splash_screen()
+	killstreak_timer.start()
+	
+	
+func _on_killstreak_timer_timeout():
+	killstreak = 0
+	
 
 
 @onready var death_screen = $CanvasLayer/DeathScreen
@@ -190,7 +238,7 @@ var knockback_speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 175 : set = set_hp
+var hp = 1 : set = set_hp
 
 
 @onready var hp_bar_sprite = $CanvasLayer/PlayerUI/hpBar
@@ -200,6 +248,7 @@ var hp = 175 : set = set_hp
 
 
 func set_hp(value):
+	if value > 175: value = 175
 	if value < 0: value = 0
 	var frame = ((175 - value) * 3) + 2
 	hp_bar_sprite.frame = frame
@@ -236,7 +285,7 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir 
 		
 	last_damage_source = source
 
-	hp -= damage
+	if not state == SPECIAL_ATTACK_1: hp -= damage
 	
 	global.camera.shake()
 	
@@ -385,7 +434,7 @@ func _ready():
 	for anim_name in anim.get_animation_list():
 		if anim_name == "RESET": continue
 		if anim_name not in animations_speed_scales.keys():
-			assert(false, "animations_time_scales dictionary is not full!")
+			assert(false, "player's animations_time_scales dictionary is not full!")
 	
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 	global.player = self
@@ -1654,7 +1703,7 @@ func _on_lens_flare_anim_animation_finished(anim_name):
 	lens_flare_anim.get_animation("default").track_set_key_value(0, 0, Vector2(randi_range(-100, 1000), randi_range(-150, 100)))
 #	lens_flare_anim.get_animation("default").track_set_key_value(1, 1, randf_range(0.7, 1.0))
 	lens_flare_anim.speed_scale = randf_range(0.5, 1.2)
-	lens_flare_timer.wait_time = randi_range(10, 20)
+	lens_flare_timer.wait_time = randi_range(30, 45)
 	lens_flare_timer.start()
 
 

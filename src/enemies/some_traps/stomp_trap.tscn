@@ -70,7 +70,7 @@ _data = {
 size = Vector2(18, 27)
 
 [node name="StompTrap" type="Node2D"]
-z_index = 100
+z_index = 49
 scale = Vector2(10, 10)
 script = ExtResource("1_4hj50")
 

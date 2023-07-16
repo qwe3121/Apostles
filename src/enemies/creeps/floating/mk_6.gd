@@ -162,7 +162,6 @@ func set_anim(animation_name):
 	animated_sprite.flip_h = anim_dir == 1
 	animated_sprite.position.x = 3 * anim_dir
 	blood.flip_h = !(last_knockback_dir == 1)
-	blood.position.x = 30 * last_knockback_dir
 
 	match animation_name:
 		IDLE: 
@@ -385,7 +384,9 @@ func dead():
 		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
+		$CollisionHitbox/CollisionShape2D.disabled = true
 		dead_zone.visible = false
+		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished
@@ -510,8 +511,10 @@ func fruit_dead():
 		rocks_dropdown_hitbox.disabled = true
 		ulti_dropdown_hitbox.disabled = true
 		ulti_slow_hitbox.disabled = true
+		$CollisionHitbox/CollisionShape2D.disabled = true
 		dead_zone.visible = false
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
+		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished

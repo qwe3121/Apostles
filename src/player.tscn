@@ -1,4 +1,4 @@
-[gd_scene load_steps=588 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=593 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -54,6 +54,7 @@
 [ext_resource type="Texture2D" uid="uid://b4d67jbml821x" path="res://sprites/player/Stan.png" id="39_q40tj"]
 [ext_resource type="PackedScene" uid="uid://by8bc3v7k3d1" path="res://src/death_screen.tscn" id="43_dwywp"]
 [ext_resource type="Shader" path="res://src/shaders/lens_flare.gdshader" id="49_35m48"]
+[ext_resource type="Texture2D" uid="uid://2pagp1cx6vgr" path="res://sprites/blood/blood_splash_screen.png" id="54_4van7"]
 [ext_resource type="PackedScene" uid="uid://dre81ae6ej7uh" path="res://src/player_hitbox.tscn" id="55_gnw0x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6js6n"]
@@ -4203,19 +4204,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("DashHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DashHitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -4227,22 +4228,10 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SwordHitbox/CollisionShape2D:disabled")
+tracks/3/path = NodePath("SpecialAttack1Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SpecialAttack1Hitbox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -5699,9 +5688,9 @@ size = Vector2(32, 10)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bstkj"]
 shader = ExtResource("49_35m48")
-shader_parameter/sun_position = Vector2(300, 150)
+shader_parameter/sun_position = Vector2(261, 150)
 shader_parameter/tint = Vector3(1.4, 1.2, 1)
-shader_parameter/alpha = 0.0
+shader_parameter/alpha = 0.866667
 
 [sub_resource type="Animation" id="Animation_tnir6"]
 resource_name = "default"
@@ -5728,12 +5717,67 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.5, 5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 1.0, 0.0]
+"values": [0.0, 0.7, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7xbdp"]
 _data = {
 "default": SubResource("Animation_tnir6")
+}
+
+[sub_resource type="Animation" id="Animation_liy52"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rw1yp"]
+resource_name = "hide"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tsf3c"]
+resource_name = "show"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.588235)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vwlqt"]
+_data = {
+"RESET": SubResource("Animation_liy52"),
+"hide": SubResource("Animation_rw1yp"),
+"show": SubResource("Animation_tsf3c")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11min"]
@@ -5766,11 +5810,14 @@ floor_snap_length = 10.0
 script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+texture_filter = 1
 material = SubResource("ShaderMaterial_6js6n")
-position = Vector2(0, -64)
+position = Vector2(0, -48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"SpecialAttack1"
+animation = &"hit_dead"
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -31.5)
@@ -5869,6 +5916,26 @@ libraries = {
 [node name="LensFlareTimer" type="Timer" parent="CanvasLayer/LensFlare"]
 one_shot = true
 
+[node name="BloodSplashScreen" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("54_4van7")
+expand_mode = 1
+
+[node name="BloodSplashScreenAnim" type="AnimationPlayer" parent="CanvasLayer/BloodSplashScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_vwlqt")
+}
+
+[node name="BloodSplashScreenTimer" type="Timer" parent="CanvasLayer/BloodSplashScreen"]
+wait_time = 5.0
+one_shot = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -44)
 zoom = Vector2(1.2, 1.2)
@@ -5956,6 +6023,10 @@ collision_mask = 0
 position = Vector2(0, -31.5)
 shape = SubResource("RectangleShape2D_dthco")
 
+[node name="KillstreakTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]
@@ -5964,9 +6035,12 @@ shape = SubResource("RectangleShape2D_dthco")
 [connection signal="timeout" from="StrongComboTimer" to="." method="_on_strong_combo_timer_timeout"]
 [connection signal="animation_finished" from="CanvasLayer/LensFlare/LensFlareAnim" to="." method="_on_lens_flare_anim_animation_finished"]
 [connection signal="timeout" from="CanvasLayer/LensFlare/LensFlareTimer" to="." method="_on_lens_flare_timer_timeout"]
+[connection signal="animation_finished" from="CanvasLayer/BloodSplashScreen/BloodSplashScreenAnim" to="." method="_on_blood_splash_screen_anim_animation_finished"]
+[connection signal="timeout" from="CanvasLayer/BloodSplashScreen/BloodSplashScreenTimer" to="." method="_on_blood_splash_screen_timer_timeout"]
 [connection signal="body_entered" from="FruitNinjaLine/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="FruitNinjaTimer" to="." method="_on_fruit_ninja_timer_timeout"]
 [connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
 [connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout"]
 [connection signal="body_entered" from="CanChangeCollisionChecker" to="." method="_on_can_change_collision_checker_body_entered"]
 [connection signal="body_exited" from="CanChangeCollisionChecker" to="." method="_on_can_change_collision_checker_body_exited"]
+[connection signal="timeout" from="KillstreakTimer" to="." method="_on_killstreak_timer_timeout"]

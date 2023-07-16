@@ -137,6 +137,9 @@ func _on_walking_timer_ready():
 func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
 		return
+		
+	if state == DEAD or state == FRUIT_DEAD:
+		return
 	
 	hp -= value
 	knockback_dir = k_dir
@@ -179,7 +182,6 @@ func set_anim(animation_name):
 		ulti_hitbox.position.x = 49 * anim_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
-	blood.position.x = 30 * last_knockback_dir
 	check_for_pit.position.x = 24.75 * anim_dir
 	check_for_blocked_area_col.position.x = 31 * anim_dir
 	wall_detector_col.position.x = 18.25 * anim_dir
@@ -719,6 +721,8 @@ func dead(delta):
 		state_started = true
 		ulti_hitbox.disabled = true
 		attack_hitbox.disabled = true
+		$CollisionHitbox/CollisionShape2D.disabled = true
+		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished
@@ -871,7 +875,9 @@ func fruit_dead(delta):
 		state_started = true
 		ulti_hitbox.disabled = true
 		attack_hitbox.disabled = true
+		$CollisionHitbox/CollisionShape2D.disabled = true
 		last_knockback_dir = 1 if global_position > global.player.global_position else -1
+		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
 		await anim.animation_finished
