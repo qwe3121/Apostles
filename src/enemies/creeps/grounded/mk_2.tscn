@@ -1,4 +1,4 @@
-[gd_scene load_steps=257 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=258 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="22_55i2o"]
 [ext_resource type="Texture2D" uid="uid://dqtbcxfsm0bcp" path="res://sprites/enemies/MK2/Ylta_Ataka_v_Dvijeni_MK2.png" id="25_f14hn"]
 [ext_resource type="Texture2D" uid="uid://qys7l8phxbc2" path="res://sprites/enemies/MK2/Otskok_i_Ylta_Ataka_MK2.png" id="26_vjhmf"]
+[ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="33_sgn1s"]
 
 [sub_resource type="Animation" id="Animation_2hxqp"]
 length = 0.001
@@ -70,6 +71,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_pwoft"]
@@ -948,6 +973,30 @@ tracks/5/keys = {
 "points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.2448),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.2448),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_oip1g"]
 resource_name = "fruit_ninja_dead"
@@ -1022,6 +1071,30 @@ tracks/5/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.389, 1.0114),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.389, 1.0114),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_fomo6"]
@@ -2920,7 +2993,7 @@ animations = [{
 size = Vector2(30.5, 34.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ht1n4"]
-size = Vector2(25, 34.5)
+size = Vector2(5, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x801r"]
 size = Vector2(734, 33)
@@ -2964,7 +3037,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_0l2cv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 2.0
+speed_scale = 1.5
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
@@ -2980,11 +3053,11 @@ wait_time = 10.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_uljah")
-position = Vector2(0, -24)
+position = Vector2(0, -48)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"before_attack_n_run"
-frame = 3
+animation = &"fruit_ninja_dead"
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2992,7 +3065,6 @@ modulate = Color(0.317647, 0, 0, 1)
 position = Vector2(0, -20)
 texture = ExtResource("14_fkigc")
 hframes = 4
-frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -3007,13 +3079,12 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForBlockedArea"]
-position = Vector2(-35.5, -17.75)
+position = Vector2(-23.5, -17.75)
 shape = SubResource("RectangleShape2D_ht1n4")
 
 [node name="Eyes" type="Area2D" parent="."]
@@ -3026,7 +3097,6 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -3061,7 +3131,6 @@ shape = SubResource("RectangleShape2D_aku80")
 disabled = true
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3142,7 +3211,16 @@ damage = 10
 position = Vector2(-0.5, -17.625)
 shape = SubResource("RectangleShape2D_h1hu4")
 
-[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[node name="PointLightContainer" parent="." instance=ExtResource("33_sgn1s")]
+position = Vector2(0, -20)
+moving = true
+
+[node name="BackgroundLight" parent="PointLightContainer" index="0"]
+texture_scale = 0.4
+
+[node name="ForegroundLight" parent="PointLightContainer" index="1"]
+texture_scale = 0.4
+
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout" flags=18]
@@ -3164,3 +3242,5 @@ shape = SubResource("RectangleShape2D_h1hu4")
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
+
+[editable path="PointLightContainer"]

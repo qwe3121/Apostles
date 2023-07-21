@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var hp = 4
 var speed = 150
-var knockback_speed = 150
+var knockback_speed = 75
 
 var close_en_to_attack = false
 var fake_close_en_to_attack = false
@@ -183,7 +183,7 @@ func set_anim(animation_name):
 		
 	blood.flip_h = !(last_knockback_dir == 1)
 	check_for_pit.position.x = 24.75 * anim_dir
-	check_for_blocked_area_col.position.x = 31 * anim_dir
+	check_for_blocked_area_col.position.x = 20.25 * anim_dir
 	wall_detector_col.position.x = 15 * anim_dir
 
 	match animation_name:
@@ -697,7 +697,7 @@ func _on_flashlight_timer_timeout():
 		
 		if not is_on_floor():
 			velocity.y = 0
-			velocity.x= 0
+			velocity.x = 0
 
 
 func _on_wall_detector_body_entered(body):

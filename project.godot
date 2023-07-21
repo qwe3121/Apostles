@@ -177,4 +177,5 @@ dialogic_default_action={
 2d_physics/layer_6="blood_drop_area"
 2d_physics/layer_8="player"
 2d_physics/layer_9="player_hurtbox_4_traps"
+2d_physics/layer_11="walls_for_floatings"
 2d_physics/layer_32="roomsArea"

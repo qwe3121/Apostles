@@ -4,7 +4,8 @@
 [ext_resource type="Script" path="res://src/hit_particles.gd" id="2_snx45"]
 
 [sub_resource type="Gradient" id="Gradient_vjc3a"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.277778, 1)
+colors = PackedColorArray(1, 0.6, 0, 1, 0, 0, 0, 1, 1, 0.6, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_f3yit"]
 gradient = SubResource("Gradient_vjc3a")
@@ -15,6 +16,8 @@ spread = 20.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 50.0
 initial_velocity_max = 300.0
+angular_velocity_min = 20.0
+angular_velocity_max = 20.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.03

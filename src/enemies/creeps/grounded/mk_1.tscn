@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=3 uid="uid://c0ul25n5sup2c"]
+[gd_scene load_steps=170 format=3 uid="uid://c0ul25n5sup2c"]
 
 [ext_resource type="Texture2D" uid="uid://ckhj5wuho1fds" path="res://sprites/enemies/MK1/Vihod_iz_Ylta_Ataki_MK1.png" id="1_65428"]
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_1.gd" id="1_ibcnt"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://wkt1s8h5ylus" path="res://sprites/enemies/MK1/Podgotovka_k_Ylta_Atake_v_DvijeniiMK1.png" id="11_qi2uu"]
 [ext_resource type="PackedScene" uid="uid://pntwe7skdrvm" path="res://src/enemies/enemy_hitbox.tscn" id="13_ytu7v"]
 [ext_resource type="PackedScene" uid="uid://ba775s7f7qadw" path="res://src/enemies/close_en_to_attack.tscn" id="16_h0u1c"]
+[ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="25_xb4yj"]
 
 [sub_resource type="Animation" id="Animation_w10ag"]
 length = 0.001
@@ -50,6 +51,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_8qung"]
@@ -611,6 +636,30 @@ tracks/5/keys = {
 "points": PackedFloat32Array(-24, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_b7cxd"]
 resource_name = "fruit_ninja_dead"
@@ -685,6 +734,30 @@ tracks/5/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(-48, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLightContainer/BackgroundLight:energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.4, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PointLightContainer/ForegroundLight:energy")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.4, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_fomo6"]
@@ -1926,7 +1999,7 @@ animations = [{
 size = Vector2(25, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oljvb"]
-size = Vector2(20, 40.5)
+size = Vector2(5.5, 40.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bsqr"]
 size = Vector2(819, 40)
@@ -1979,11 +2052,12 @@ wait_time = 3.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 0
 material = SubResource("ShaderMaterial_wtpys")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_683tj")
-animation = &"attack_n_run"
-frame = 3
+animation = &"attack"
+frame = 7
 
 [node name="Blood" type="Sprite2D" parent="."]
 visible = false
@@ -2004,13 +2078,12 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
-visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckForBlockedArea"]
-position = Vector2(-31, -20.75)
+position = Vector2(-20.25, -20.75)
 shape = SubResource("RectangleShape2D_oljvb")
 
 [node name="Eyes" type="Area2D" parent="."]
@@ -2023,7 +2096,6 @@ position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_5bsqr")
 
 [node name="WallDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -2132,6 +2204,16 @@ visible = false
 position = Vector2(0, -20.75)
 shape = SubResource("RectangleShape2D_rgkk2")
 
+[node name="PointLightContainer" parent="." instance=ExtResource("25_xb4yj")]
+position = Vector2(0, -20)
+moving = true
+
+[node name="BackgroundLight" parent="PointLightContainer" index="0"]
+texture_scale = 0.4
+
+[node name="ForegroundLight" parent="PointLightContainer" index="1"]
+texture_scale = 0.4
+
 [connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]
@@ -2155,3 +2237,5 @@ shape = SubResource("RectangleShape2D_rgkk2")
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
+
+[editable path="PointLightContainer"]

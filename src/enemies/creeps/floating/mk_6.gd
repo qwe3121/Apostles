@@ -1,18 +1,15 @@
 extends CharacterBody2D
 
 
-var close_en_to_attack = false
+var hp = 3
+var speed = 150
+var y_pos_before_ulti
+var knockback_speed = 75
 
+var close_en_to_attack = false
 
 var need_to_slow_player = false
 var need_player_to_fly = false
-
-
-var hp = 3
-var speed = 150
-var default_speed
-var ulti_speed
-var y_pos_before_ulti
 
 var b_drops = 10
 
@@ -20,11 +17,14 @@ var see_player = false
 var player_adrenaline_gain = 20
 
 @onready var anim = $AnimationPlayer
+@onready var wall_detector_col = $WallDetector/CollisionShape2D
+@onready var check_for_blocked_area_col = $CheckForBlockedArea/CollisionShape2D
 @onready var chase_timer = $ChaseTimer
 @onready var walking_timer = $WalkingTimer
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var flashlight_timer = $FlashlightTimer
 @onready var blood = $Blood
+@onready var turned_timer = $TurnedTimer
 @onready var attack_cooldown = $AttackCooldown
 @onready var ulti_cooldown = $UltiCooldown
 @onready var blood_pos = $BloodPos
@@ -37,13 +37,9 @@ var need_to_check_if_see_player = false
 
 @onready var gettin_damage_CD = $GettinDamageCD
 
-@onready var nav_agent = $NavigationAgent2D
+var gravity = 0
 
-@onready var physics_ticks_per_second = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
-
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-enum {IDLE, RUN, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD, BEFORE_ATTACK}
+enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
 
 func const_to_str(index):
 	match index:
@@ -52,19 +48,19 @@ func const_to_str(index):
 		1:
 			return "RUN"
 		2:
-			return "ATTACK"
-		3:
-			return "BEFORE_ULTI"
-		4:
-			return "ULTI"
-		5:
-			return "AFTER_ULTI"
-		6:
-			return "DEAD"
-		7:
-			return "FRUIT_DEAD"
-		8:
 			return "BEFORE_ATTACK"
+		3:
+			return "ATTACK"
+		4: 
+			return "BEFORE_ULTI"
+		5: 
+			return "ULTI"
+		6:
+			return "AFTER_ULTI"
+		7:
+			return "DEAD"
+		8:
+			return "FRUIT_DEAD"
 
 var state = IDLE : set = set_state
 
@@ -76,7 +72,9 @@ func set_state(value):
 #	print("from " + const_to_str(state) + " into " + const_to_str(value))
 	state = value
 
+var dir = 1
 var anim_dir = 1
+var attack_dir = 1
 
 var state_started = false
 
@@ -86,40 +84,30 @@ var can_ulti = true
 var walking = 1 #1 is walking 0 is chilling
 
 var chasing = false
-var chasing_dir
+
+var there_is_blocked_area = false
 
 var is_on_wall
 
 var turned = false
 
 var flashing = 0
+var knockback_dir = 0
 
 var last_knockback_dir = 0
 
-var player_is_inside = false
-
-var destination
+var player_is_deep_inside = false
 
 var can_get_damage = true
 
 var visible_on_screen = false
 
 
-func refresh_desired_distance():
-	nav_agent.path_desired_distance = ceil(speed / physics_ticks_per_second)
-	nav_agent.target_desired_distance = ceil(speed / physics_ticks_per_second)
-
-
 func _ready():
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 	
 	y_pos_before_ulti = global_position.y
-	
-	default_speed = speed
-	ulti_speed = speed * 2
-	
-	refresh_desired_distance()
-	
+
 	blood.modulate.a = randf_range(0.6, 1.0)
 	
 	
@@ -131,11 +119,12 @@ func _on_walking_timer_ready():
 func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
 		return
-	
+		
 	if state == DEAD or state == FRUIT_DEAD:
 		return
 	
 	hp -= value
+	knockback_dir = k_dir
 	
 	can_get_damage = false
 	gettin_damage_CD.start()
@@ -157,11 +146,17 @@ func get_damage(value, k_dir = 0, damager = null):
 		flashlight_timer.start()
 	global.camera.shake()
 		
-		
 func set_anim(animation_name):
-	animated_sprite.flip_h = anim_dir == 1
-	animated_sprite.position.x = 3 * anim_dir
+	if see_player or chasing:
+		animated_sprite.flip_h = attack_dir == 1
+		animated_sprite.position.x = 3 * attack_dir
+	else:
+		animated_sprite.flip_h = anim_dir == 1
+		animated_sprite.position.x = 3 * anim_dir
+		
 	blood.flip_h = !(last_knockback_dir == 1)
+	check_for_blocked_area_col.position.x = 26 * anim_dir
+	wall_detector_col.position.x = 20.75 * anim_dir
 
 	match animation_name:
 		IDLE: 
@@ -188,41 +183,25 @@ func set_anim(animation_name):
 			anim.play("dead")
 		FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
-	
-	
-func set_destination(new_destination: Vector2):
-	destination = new_destination
-	nav_agent.set_target_position(destination)
-	
-	
-func start_moving_behavior():
-	if not state == RUN and not state == BEFORE_ULTI and not state == AFTER_ULTI:
-		return
-	
-	if nav_agent.is_target_reached() or nav_agent.distance_to_target() < 2.0:
-		return
-	
-	if nav_agent.is_target_reachable():
-		var target = nav_agent.get_next_path_position()
-		var nav_velocity = global_position.direction_to(target).normalized() * speed
-#		nav_agent.set_velocity(nav_velocity) # FOR RVO AVOIDANCE (traps, for example, as I understand)
-		velocity = nav_velocity
-		move_and_slide()
 
 
-# FOR RVO AVOIDANCE (traps, for example, as I understand)
+func set_dir():
+	if player_is_deep_inside: return
+	if global_position.x < global.player.global_position.x:
+		dir = 1
+	else:
+		dir = -1
+	anim_dir = dir
+	
+	
+func set_attack_dir():
+	if player_is_deep_inside: return
 
-#func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-#	velocity = safe_velocity
-#	move_and_slide()
+	if global_position.x < global.player.global_position.x:
+		attack_dir = 1
+	else:
+		attack_dir = -1
 
-
-func set_anim_dir():
-	if velocity.x < 5:
-		anim_dir = -1
-	elif velocity.x > 5:
-		anim_dir = 1
-		
 
 func _physics_process(delta):
 	if need_to_check_if_see_player:
@@ -231,11 +210,15 @@ func _physics_process(delta):
 		else:
 			on_unsee_player()
 			
+	if see_player:
+		set_attack_dir()
+		
 	if need_player_to_fly:
 		global.player.flying_cause_of_mk6 = true
 		
 	if need_to_slow_player:
 		global.player.slowed_cause_of_mk6 = true
+	
 	
 	match state:
 		IDLE: 
@@ -243,75 +226,88 @@ func _physics_process(delta):
 		RUN: 
 			run()
 		BEFORE_ATTACK:
-			before_attack()
+			before_attack(delta)
 		ATTACK:
-			attack()
+			attack(delta)
 		BEFORE_ULTI:
-			before_ulti()
+			before_ulti(delta)
 		ULTI:
-			ulti()
+			ulti(delta)
 		AFTER_ULTI:
-			after_ulti()
+			after_ulti(delta)
 		DEAD:
-			dead()
+			dead(delta)
 		FRUIT_DEAD:
-			fruit_dead()
+			fruit_dead(delta)
 			
-	start_moving_behavior()
+	if knockback_dir and not (state == DEAD or state == FRUIT_DEAD):
+		if knockback_dir == dir:
+			velocity.x = knockback_speed * 2 * knockback_dir
+		else: velocity.x = knockback_speed * knockback_dir
+			
+	move_and_slide()
 
 
 func idle():
 	if see_player:
-		if close_en_to_attack:
-			if can_attack and can_ulti:
-				speed = ulti_speed
-				refresh_desired_distance()
+		set_dir()
+		if can_attack:
+			if can_ulti and close_en_to_attack:
 				state = BEFORE_ULTI
 				return
-			if can_attack:
+			if can_attack and close_en_to_attack:
 				state = BEFORE_ATTACK
 				return
-		elif not close_en_to_attack:
+		if not close_en_to_attack:
 			state = RUN
 			return
 	else:
-		if walking: 
-			set_destination(global_position + Vector2(randi_range(50, 100) * rand_minus_or_plus(), 0))
+		if walking:
+			dir = 1 if randi_range(0,1) else -1
+			anim_dir = dir
 			state = RUN
 			return
 			
 	set_anim(IDLE)
 	
-	
-func rand_minus_or_plus():
-	return 1 if randi_range(0, 1) else -1
+	velocity.y = 0
+	velocity.x = 0
 			
 			
 func run():
 	if see_player:
-		if close_en_to_attack:
-			if can_attack and can_ulti:
-				speed = ulti_speed
-				refresh_desired_distance()
+		set_dir()
+		if can_attack:
+			if can_ulti and close_en_to_attack:
 				state = BEFORE_ULTI
 				return
-			if can_attack:
+			if can_attack and close_en_to_attack:
 				state = BEFORE_ATTACK
 				return
-		elif close_en_to_attack:
+		if close_en_to_attack:
+			dir = 0
 			state = IDLE
 			return
 			
-		set_destination(Vector2(global.player.global_position.x, global_position.y))
+	if (is_on_wall or there_is_blocked_area) and not turned and (not see_player and not chasing):
+		turned = true
+		turned_timer.start()
+		dir *= -1
+		if dir: anim_dir = dir
 	
-	elif chasing:
-		set_destination(Vector2(global_position.x + 10 * chasing_dir, global_position.y))
+	if (is_on_wall or there_is_blocked_area) and (see_player or chasing):
+		dir = 0
+		set_anim(IDLE)
+	else:
+		set_anim(RUN)
+		
+	velocity.y = 0
+	velocity.x = dir * speed
 	
-	set_anim_dir()
-	set_anim(RUN)
 	
-	
-func before_attack():
+func before_attack(delta):
+	velocity.x = 0
+	velocity.y = 0
 	set_anim(BEFORE_ATTACK)
 	if !state_started:
 		state_started = true
@@ -321,7 +317,9 @@ func before_attack():
 			state = ATTACK
 	
 	
-func attack():
+func attack(delta):
+	velocity.x = 0
+	velocity.y = 0
 	set_anim(ATTACK)
 	if !state_started:
 		state_started = true
@@ -334,11 +332,12 @@ func attack():
 				state = IDLE
 			else:
 				state = RUN
-
 			
-func before_ulti():
+			
+func before_ulti(delta):
+	velocity.x = 0
+	velocity.y += speed * delta * 8
 	set_anim(BEFORE_ULTI)
-	set_destination(Vector2(global_position.x, global_position.y + 10))
 	if !state_started:
 		state_started = true
 		attack_cooldown.stop()
@@ -347,26 +346,29 @@ func before_ulti():
 	if is_on_floor():
 		if state == BEFORE_ULTI:
 			state = ULTI
-			
-			
-func ulti():
+	
+	
+func ulti(delta):
+	velocity.x = 0
+	velocity.y = 0
 	set_anim(ULTI)
 	if !state_started:
 		state_started = true
 		await anim.animation_finished
 		if state == ULTI:
-			speed = default_speed
-			refresh_desired_distance()
 			state = AFTER_ULTI
 			
 			
-func after_ulti():
+func after_ulti(delta):
+	velocity.x = 0
+	velocity.y += -speed * delta * 8
 	set_anim(AFTER_ULTI)
-	set_destination(Vector2(global_position.x, global_position.y - 10))
 	if global_position.y - y_pos_before_ulti <= 1:
 		if state == AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
+			velocity.y = 0 # ITS IMPORTANT TO RESET VELOCITY SO MK6 DOES NOT
+			#GO TOO HIGH !!!!!!!!!
 			global_position.y = y_pos_before_ulti
 			if not chasing:
 				walking = 0
@@ -376,7 +378,9 @@ func after_ulti():
 				state = RUN
 	
 	
-func dead():
+func dead(delta):
+	velocity.y = 0
+	velocity.x = 0
 	set_anim(DEAD)
 	if !state_started:
 		state_started = true
@@ -424,8 +428,8 @@ func _on_eyes_body_entered(body):
 func _on_eyes_body_exited(body):
 	need_to_check_if_see_player = false
 	on_unsee_player()
-	
-	
+
+
 func on_see_player():
 	if see_player:
 		return
@@ -444,10 +448,6 @@ func on_unsee_player():
 		
 	see_player = false
 	
-	if global_position.x > global.player.global_position.x:
-		chasing_dir = -1
-	else:
-		chasing_dir = 1
 	chasing = true
 	chase_timer.start()
 	
@@ -472,12 +472,24 @@ func check_if_vision_is_blocked_by_wall():
 	return true
 
 
+func _on_turned_timer_timeout():
+	turned = false
+
+
 func _on_chase_timer_timeout():
 	chasing = false
 	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
 		walking = 0
 		walking_timer_start()
 		state = IDLE
+
+
+func _on_check_for_blocked_area_area_entered(area):
+	there_is_blocked_area = true
+
+
+func _on_check_for_blocked_area_area_exited(area):
+	there_is_blocked_area = false
 
 
 func _on_flashlight_timer_timeout():
@@ -488,10 +500,19 @@ func _on_flashlight_timer_timeout():
 	elif flashing == 2:
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
+		knockback_dir = 0
 		
 		if not is_on_floor():
 			velocity.y = 0
-			velocity.x= 0
+			velocity.x = 0
+
+
+func _on_wall_detector_body_entered(body):
+	is_on_wall = true
+
+
+func _on_wall_detector_body_exited(body):
+	is_on_wall = false
 		
 		
 func kill_with_fruit_ninja():
@@ -501,10 +522,10 @@ func kill_with_fruit_ninja():
 	global.camera.shake()
 	
 	
-func fruit_dead():
-	set_anim(FRUIT_DEAD)
+func fruit_dead(delta):
 	velocity.x = 0
 	velocity.y = 0
+	set_anim(FRUIT_DEAD)
 	if !state_started:
 		state_started = true
 		attack_hitbox.disabled = true
@@ -521,8 +542,8 @@ func fruit_dead():
 		if state == FRUIT_DEAD:
 			events.emit_signal("fruit_kill")
 			queue_free()
-
-
+			
+			
 func _on_attack_hitbox_body_entered(body):
 	need_player_to_fly = true
 
@@ -545,6 +566,14 @@ func _on_ulti_slow_hitbox_body_exited(body):
 	global.player.slowed_cause_of_mk6 = false
 
 
+func _on_check_if_player_deep_inside_body_entered(body):
+	player_is_deep_inside = true
+
+
+func _on_check_if_player_deep_inside_body_exited(body):
+	player_is_deep_inside = false
+	
+	
 func is_alive():
 	if state != DEAD and state != FRUIT_DEAD and hp > 0:
 		return true

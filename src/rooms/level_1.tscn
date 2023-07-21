@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=49 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dpuy65ncmp0g" path="res://sprites/levels/level1/part2/TestLVL1_2_Zad.png" id="3_rb0cf"]
 [ext_resource type="Texture2D" uid="uid://b135lrbwjgpol" path="res://sprites/levels/level1/part2/TestLVL1_2_Pered.png" id="4_crbji"]
 [ext_resource type="Texture2D" uid="uid://dxv7b5xoc5721" path="res://sprites/levels/level1/part3/TestLVL1_3_Zad.png" id="5_f0t4p"]
+[ext_resource type="Texture2D" uid="uid://bweyd72gte3bc" path="res://sprites/levels/level1/part1/TestLVL1_1_Okryjenie.png" id="5_qv07i"]
 [ext_resource type="Texture2D" uid="uid://cw21x76213cri" path="res://sprites/levels/level1/part3/TestLVL1_3_Pered.png" id="6_5faot"]
 [ext_resource type="PackedScene" uid="uid://d38wkusjm45e3" path="res://src/enemies/static_path/trap_c_pila.tscn" id="8_4fmmj"]
 [ext_resource type="PackedScene" uid="uid://cvk0amtpner26" path="res://src/leaf_particles.tscn" id="8_obl2v"]
@@ -17,8 +18,34 @@
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="11_mks8e"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="12_u7idq"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="13_c42u2"]
-[ext_resource type="PackedScene" uid="uid://bvl5q2m4e75mv" path="res://src/enemies/creeps/floating/mk_6.tscn" id="14_tinov"]
+[ext_resource type="PackedScene" uid="uid://6tt2g1pnq627" path="res://src/light_rays.tscn" id="13_m2fws"]
+[ext_resource type="Shader" path="res://src/shaders/godrays.gdshader" id="14_ai0jw"]
+[ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="15_i4nha"]
 [ext_resource type="PackedScene" uid="uid://c6btu7mme5wwk" path="res://src/enemies/some_traps/stomp_trap.tscn" id="15_mv2lf"]
+[ext_resource type="PackedScene" uid="uid://1urumja6eqm" path="res://src/enemies/creeps/floating/mk_6.tscn" id="19_jw428"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xmw71"]
+polygon = PackedVector2Array(-2.00012, 1, 1.99988, 1, 1.99988, 0, 2.99988, 0, 2.99988, -2, 7.99988, -2, 7.99988, -3, 10.9999, -3, 10.9999, -5, 7.99988, -5, 7.99988, -6, 3.99988, -6, 3.99988, -7, 1.99988, -7, 1.99988, -8, 0.999878, -8, 0.999878, -28, -1.00012, -28, -1.00012, -8, -2.00012, -8, -2.00012, -7, -4.00012, -7, -4.00012, -6, -8.00012, -6, -8.00012, -5, -11.0001, -5, -11.0001, -3, -10.0001, -3, -10.0001, -2, -3.00012, -2, -3.00012, 0, -2.00012, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wkxrx"]
+polygon = PackedVector2Array(672, 513, 676, 513, 676, 512, 677, 512, 677, 511, 678, 511, 678, 507, 677, 507, 677, 505, 676, 505, 676, 501, 675, 501, 675, 488, 673, 488, 673, 501, 672, 501, 672, 505, 671, 505, 671, 507, 670, 507, 670, 511, 671, 511, 671, 512, 672, 512)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rbhn"]
+resource_local_to_scene = true
+shader = ExtResource("14_ai0jw")
+shader_parameter/angle = 0.45
+shader_parameter/position = 0.325
+shader_parameter/spread = 0.061
+shader_parameter/cutoff = -0.115
+shader_parameter/falloff = 0.684
+shader_parameter/edge_fade = 1.0
+shader_parameter/speed = 20.0
+shader_parameter/ray1_density = 1.0
+shader_parameter/ray2_density = 3.0
+shader_parameter/ray2_intensity = 0.71
+shader_parameter/color = Color(0.792157, 0.901961, 0.65098, 1)
+shader_parameter/hdr = true
+shader_parameter/seed = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf63l"]
 size = Vector2(48, 29)
@@ -53,16 +80,6 @@ size = Vector2(64, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_acbqr"]
 size = Vector2(80, 24)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_qccfp"]
-vertices = PackedVector2Array(1016, -752, 1576, -752, 1576, -440, 1016, -440)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1016, -440, 1576, -440, 1576, -752, 1016, -752)])
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_wtpjt"]
-vertices = PackedVector2Array(3352, 936, 3352, 552, 4672, 552, 4672, 936)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(3352, 936, 3352, 552, 4672, 552, 4672, 936)])
-
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dnsu7"]
 polygon = PackedVector2Array(-1920, -984, -1712, -984, -1712, -968, -1552, -968, -1552, -840, -1872, -840, -1872, -833, -1873, -833, -1873, -830, -1872, -830, -1872, -776, -1856, -776, -1856, -744, -1840, -744, -1840, -696, -1808, -696, -1808, -680, -1776, -680, -1776, -664, -1312, -664, -1312, -488, -1888, -488, -1888, 56, -1432, 56, -1432, 120, -1664, 120, -1664, 600, -1904, 600, -1904, 904, -752, 904, -752, 296, -112, 296, -112, 616, 560, 616, 560, -56, 656, -56, 656, 168, 1200, 168, 1200, 232, 1120, 232, 1120, 344, 1232, 344, 1232, 376, 1200, 376, 1200, 632, 1120, 632, 1120, 744, 1232, 744, 1232, 776, 1200, 776, 1200, 984, 1312, 984, 1312, 952, 1808, 952, 1808, 648, 1680, 648, 1680, 664, 1600, 664, 1600, 552, 1888, 552, 1888, 568, 1952, 568, 1952, 552, 1968, 552, 1968, 104, 1872, 104, 1872, 120, 1600, 120, 1600, 8, 1888, 8, 1888, 24, 1952, 24, 1952, 8, 1968, 8, 1968, -184, 2000, -184, 2000, 1000, -2000, 1000, -2000, -1000, -1920, -1000)
 
@@ -93,12 +110,16 @@ polygon = PackedVector2Array(-1430, 681, -1426, 681, -1426, 683, -1424, 683, -14
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pfee2"]
 polygon = PackedVector2Array(-1575, 745, -1571, 745, -1571, 747, -1569, 747, -1569, 751, -1568, 751, -1568, 801, -1569, 801, -1569, 805, -1571, 805, -1571, 807, -1575, 807, -1575, 808, -1625, 808, -1625, 807, -1629, 807, -1629, 805, -1631, 805, -1631, 801, -1632, 801, -1632, 751, -1631, 751, -1631, 747, -1629, 747, -1629, 745, -1625, 745, -1625, 744, -1575, 744)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxg8j"]
+size = Vector2(20, 437)
+
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_u80bw")
 
 [node name="CoreVisuals" type="Node2D" parent="."]
 
 [node name="Part1Steni" type="Sprite2D" parent="CoreVisuals"]
+light_mask = 2
 z_index = -51
 texture = ExtResource("2_k7m0k")
 
@@ -107,6 +128,12 @@ clip_children = 2
 z_index = -50
 material = ExtResource("2_b1j8b")
 texture = ExtResource("1_h8mk1")
+
+[node name="Part1Okr" type="Sprite2D" parent="CoreVisuals"]
+clip_children = 2
+z_index = -50
+material = ExtResource("2_b1j8b")
+texture = ExtResource("5_qv07i")
 
 [node name="Part1Pered" type="Sprite2D" parent="CoreVisuals"]
 clip_children = 2
@@ -230,6 +257,26 @@ position = Vector2(9259, 255)
 
 [node name="WaterDropSpawner" parent="SemiVisuals" instance=ExtResource("9_bceg6")]
 position = Vector2(-1328, -424)
+
+[node name="PointLightContainer" parent="SemiVisuals" instance=ExtResource("15_i4nha")]
+position = Vector2(-1598, -92)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="SemiVisuals/PointLightContainer"]
+occluder = SubResource("OccluderPolygon2D_xmw71")
+
+[node name="PointLightContainer2" parent="SemiVisuals" instance=ExtResource("15_i4nha")]
+position = Vector2(-924, 420)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="SemiVisuals/PointLightContainer2"]
+position = Vector2(-674, -512)
+occluder = SubResource("OccluderPolygon2D_wkxrx")
+
+[node name="LightRays" parent="SemiVisuals" instance=ExtResource("13_m2fws")]
+material = SubResource("ShaderMaterial_2rbhn")
+offset_left = 620.0
+offset_top = 73.0
+offset_right = 1210.0
+offset_bottom = 196.0
 
 [node name="Collision" type="StaticBody2D" parent="."]
 z_index = 150
@@ -431,19 +478,11 @@ position = Vector2(4016, 864)
 [node name="2MK5" parent="Enemies" instance=ExtResource("13_c42u2")]
 position = Vector2(1184, 728)
 
-[node name="6MK" parent="Enemies" instance=ExtResource("14_tinov")]
-position = Vector2(1472, -680)
+[node name="6MK" parent="Enemies" instance=ExtResource("19_jw428")]
+position = Vector2(1446, -681)
 
-[node name="6MK2" parent="Enemies" instance=ExtResource("14_tinov")]
-position = Vector2(4510, 695)
-
-[node name="NavRegs" type="Node2D" parent="."]
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="NavRegs"]
-navigation_polygon = SubResource("NavigationPolygon_qccfp")
-
-[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="NavRegs"]
-navigation_polygon = SubResource("NavigationPolygon_wtpjt")
+[node name="6MK2" parent="Enemies" instance=ExtResource("19_jw428")]
+position = Vector2(4437, 696)
 
 [node name="LightOccluders" type="Node2D" parent="."]
 
@@ -476,3 +515,24 @@ occluder = SubResource("OccluderPolygon2D_wbk60")
 
 [node name="LightOccluder2D10" type="LightOccluder2D" parent="LightOccluders"]
 occluder = SubResource("OccluderPolygon2D_pfee2")
+
+[node name="WallsForFloatings" type="StaticBody2D" parent="."]
+modulate = Color(0.0823529, 1, 0, 1)
+collision_layer = 1024
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallsForFloatings"]
+position = Vector2(1048, -667.5)
+shape = SubResource("RectangleShape2D_oxg8j")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallsForFloatings"]
+position = Vector2(1601, -667)
+shape = SubResource("RectangleShape2D_oxg8j")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WallsForFloatings"]
+position = Vector2(3888, 697)
+shape = SubResource("RectangleShape2D_oxg8j")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WallsForFloatings"]
+position = Vector2(4654, 718)
+shape = SubResource("RectangleShape2D_oxg8j")

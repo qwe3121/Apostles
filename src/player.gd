@@ -238,7 +238,7 @@ var knockback_speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 1 : set = set_hp
+var hp = 175 : set = set_hp
 
 
 @onready var hp_bar_sprite = $CanvasLayer/PlayerUI/hpBar
@@ -252,8 +252,6 @@ func set_hp(value):
 	if value < 0: value = 0
 	var frame = ((175 - value) * 3) + 2
 	hp_bar_sprite.frame = frame
-#	var tween = create_tween()
-#	tween.tween_property(hp_bar_sprite, "frame", frame, 1)
 	var array = []
 	for i in str(value):
 		array.append(int(i))
@@ -441,12 +439,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
-		can_fruit_ninja = false
-		from_jump_to_air_timer.stop()
-		Engine.time_scale = cfg.default_time_scale/4
-		state = FRUIT_NINJA
-
 	match state:
 		IDLE:
 			idle()
@@ -525,6 +517,14 @@ func _physics_process(delta):
 
 
 func idle():
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from IDLE to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if dir:
 		if np:
 			print("from idle to run")
@@ -543,6 +543,7 @@ func idle():
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from idle to special attack 1")
+		from_jump_to_air_timer.stop()
 		state = SPECIAL_ATTACK_1
 		return
 		
@@ -642,6 +643,14 @@ func idle():
 		
 		
 func run():
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from RUN to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if not is_on_floor():
 		if np:
 			print("from idle to air")
@@ -654,6 +663,7 @@ func run():
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from RUN to special attack 1")
+		from_jump_to_air_timer.stop()
 		state = SPECIAL_ATTACK_1
 		return
 		
@@ -759,6 +769,14 @@ func run():
 	
 
 func air(delta):
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from AIR to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if is_on_floor():
 		if np:
 			print("from air to landing")
@@ -770,6 +788,7 @@ func air(delta):
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from AIR to special attack 1")
+		from_jump_to_air_timer.stop()
 		state = SPECIAL_ATTACK_1
 		return
 		
@@ -870,6 +889,14 @@ func air(delta):
 
 
 func jump(delta):
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from JUMP to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if is_on_floor() and jump_index == 1:
 		jump_index = 2
 		pre_jump = 1
@@ -895,6 +922,7 @@ func jump(delta):
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from JUMP to special attack 1")
+		from_jump_to_air_timer.stop()
 		state = SPECIAL_ATTACK_1
 		return
 		
@@ -997,6 +1025,14 @@ func _on_from_jump_to_air_timer_timeout():
 
 
 func sit():
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from SIT to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
@@ -1039,6 +1075,14 @@ func sit():
 	
 	
 func crouch():
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		if np: print("from CROUCH to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
@@ -1117,6 +1161,14 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+		can_fruit_ninja = false
+		from_jump_to_air_timer.stop()
+		Engine.time_scale = cfg.default_time_scale/4
+		print("from WALL_SLIDE to FRUIT_NINJA")
+		state = FRUIT_NINJA
+		return
+	
 	if Input.is_action_just_pressed("DOWN"):
 		velocity.x = -wall_dir * speed
 		if np:
@@ -1142,6 +1194,7 @@ func wall_slide(delta):
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from WALL_SLIDE to special attack 1")
+		from_jump_to_air_timer.stop()
 		state = SPECIAL_ATTACK_1
 		return
 		
@@ -1263,9 +1316,8 @@ func roll():
 			return
 			
 	velocity.x = anim_dir * speed * 1.5
-#	velocity.y = 0 # комментирование этой строки фиксит баг, при котором
-#		происходит неправильное поведение velocity.y после того, как из roll попадаешь в air,
-#		но из-за этого в теории стоит ожидать других багов
+#	velocity.y = 0 # commetning this fixes bug, which causes
+#		incorrect behavior of velocity.y after comming into AIR state from ROLL
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -1600,6 +1652,7 @@ func dead(delta):
 	velocity.y += gravity * delta
 	velocity.x = 0
 	if !state_started:
+		Engine.time_scale = cfg.default_time_scale
 		$SwordHitbox/CollisionShape2D.disabled = true
 		$DashHitbox/CollisionShape2D.disabled = true
 		$SpecialAttack1Hitbox/CollisionShape2D.disabled = true
@@ -1616,6 +1669,7 @@ func fruit_ninja():
 	if fruit_ninjaing_thru_line:
 		if !state_started:
 			animated_sprite.visible = false
+			$PointLightContainer.visible = false
 			
 			state_started = true
 			Engine.time_scale = cfg.default_time_scale
@@ -1636,6 +1690,7 @@ func fruit_ninja():
 			if np:
 				print("from fruit ninja to LANDING")
 			animated_sprite.visible = true
+			$PointLightContainer.visible = true
 			state = LANDING
 			return
 	else:

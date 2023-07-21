@@ -20,7 +20,8 @@ shader_parameter/hdr = true
 shader_parameter/seed = 10.0
 
 [node name="LightRays" type="ColorRect"]
-z_index = 10
+light_mask = 0
+z_index = -51
 material = SubResource("ShaderMaterial_00jxs")
 offset_right = 40.0
 offset_bottom = 40.0

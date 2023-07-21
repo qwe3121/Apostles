@@ -30,4 +30,5 @@ texture_filter = 1
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_epeba")
 texture = ExtResource("1_ht5w2")
+visibility_rect = Rect2(-10000, -10000, 20000, 20000)
 local_coords = true

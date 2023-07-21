@@ -1,4 +1,4 @@
-[gd_scene load_steps=593 format=3 uid="uid://i55frea7mtlw"]
+[gd_scene load_steps=594 format=3 uid="uid://i55frea7mtlw"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_jdkiv"]
 [ext_resource type="Texture2D" uid="uid://b8ewi5rtt87u3" path="res://sprites/player/block.png" id="2_dsqah"]
@@ -56,6 +56,7 @@
 [ext_resource type="Shader" path="res://src/shaders/lens_flare.gdshader" id="49_35m48"]
 [ext_resource type="Texture2D" uid="uid://2pagp1cx6vgr" path="res://sprites/blood/blood_splash_screen.png" id="54_4van7"]
 [ext_resource type="PackedScene" uid="uid://dre81ae6ej7uh" path="res://src/player_hitbox.tscn" id="55_gnw0x"]
+[ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="57_khn3k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6js6n"]
 shader = ExtResource("2_kapy4")
@@ -5811,13 +5812,11 @@ script = ExtResource("1_jdkiv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 0
-texture_filter = 1
 material = SubResource("ShaderMaterial_6js6n")
-position = Vector2(0, -48)
+position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"hit_dead"
-frame = 6
+animation = &"SecondJumpAttack3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -31.5)
@@ -6027,6 +6026,16 @@ shape = SubResource("RectangleShape2D_dthco")
 wait_time = 5.0
 one_shot = true
 
+[node name="PointLightContainer" parent="." instance=ExtResource("57_khn3k")]
+position = Vector2(0, -31)
+moving = true
+
+[node name="BackgroundLight" parent="PointLightContainer" index="0"]
+texture_scale = 0.75
+
+[node name="ForegroundLight" parent="PointLightContainer" index="1"]
+texture_scale = 0.75
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="timeout" from="FromJumpToAirTimer" to="." method="_on_from_jump_to_air_timer_timeout"]
@@ -6044,3 +6053,5 @@ one_shot = true
 [connection signal="body_entered" from="CanChangeCollisionChecker" to="." method="_on_can_change_collision_checker_body_entered"]
 [connection signal="body_exited" from="CanChangeCollisionChecker" to="." method="_on_can_change_collision_checker_body_exited"]
 [connection signal="timeout" from="KillstreakTimer" to="." method="_on_killstreak_timer_timeout"]
+
+[editable path="PointLightContainer"]
