@@ -548,7 +548,7 @@ func _physics_process(delta):
 		states.SPECIAL_ATTACK_1:
 			special_attack_1()
 
-	if knockback_dir:
+	if knockback_dir and not state == states.DASH or state == states.DOWN_DASH:
 		if knockback_dir == dir:
 			velocity.x = knockback_speed * 2 * knockback_dir
 		else: velocity.x = knockback_speed * knockback_dir
@@ -1226,7 +1226,7 @@ func wall_slide(delta):
 		state = states.AIR
 		return
 	
-	if Input.is_action_pressed("JUMP"):
+	if Input.is_action_just_pressed("JUMP"):
 		wall_slide_cooldown.start()
 		wall_jumping = true
 		jump_index = 0
@@ -1322,7 +1322,7 @@ func dash():
 			state = states.AIR
 			return
 			
-	velocity.x = anim_dir * speed * 8
+	velocity.x = anim_dir * speed * 6
 	velocity.y = 0
 	
 	
