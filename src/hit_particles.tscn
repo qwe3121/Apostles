@@ -4,8 +4,7 @@
 [ext_resource type="Script" path="res://src/hit_particles.gd" id="2_snx45"]
 
 [sub_resource type="Gradient" id="Gradient_vjc3a"]
-offsets = PackedFloat32Array(0, 0.277778, 1)
-colors = PackedColorArray(1, 0.6, 0, 1, 0, 0, 0, 1, 1, 0.6, 0, 0)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_f3yit"]
 gradient = SubResource("Gradient_vjc3a")

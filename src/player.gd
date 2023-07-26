@@ -1226,7 +1226,7 @@ func wall_slide(delta):
 		state = states.AIR
 		return
 	
-	if Input.is_action_just_pressed("JUMP"):
+	if Input.is_action_pressed("JUMP"):
 		wall_slide_cooldown.start()
 		wall_jumping = true
 		jump_index = 0
@@ -1302,7 +1302,7 @@ func special_attack_1():
 			state = states.AIR
 			return
 			
-	velocity.x = anim_dir * speed
+	velocity.x = anim_dir * speed / 2
 	velocity.y = 0
 	
 	
@@ -1590,7 +1590,7 @@ func landing():
 			print("from landing to AIR")
 		state = states.AIR
 		return
-	if Input.is_action_pressed("JUMP"):
+	if Input.is_action_pressed("JUMP") and check_if_can_stand_up():
 		if np:
 			print("from landing to jump")
 		state = states.JUMP

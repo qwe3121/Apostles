@@ -9,7 +9,7 @@ var can_create_sword_particles = true
 
 
 func create_hit_particles(pos, dir):
-	return
+#	return
 	var hit_particles_ins = hit_particles.instantiate()
 	global.cur_level.add_child(hit_particles_ins)
 	hit_particles_ins.process_material.direction.x = dir
