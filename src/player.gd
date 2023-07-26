@@ -84,6 +84,8 @@ func _on_killstreak_timer_timeout():
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var sword_hitbox = $SwordHitbox
+@onready var sword_hitbox_col = $SwordHitbox/CollisionShape2D
+
 @onready var dash_hitbox = $DashHitbox
 @onready var special_attack_1_hitbox = $SpecialAttack1Hitbox
 @onready var weak_combo_timer = $WeakComboTimer
@@ -149,21 +151,62 @@ func set_slowed_cause_of_mk6(value):
 		anim.speed_scale = animations_speed_scales[cur_anim_name]
 
 
-enum {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1, 
+enum states {IDLE, RUN, AIR, JUMP, SIT, CROUCH, ROLL, DASH, WALL_SLIDE, WEAK_ATTACK_1, 
 WEAK_ATTACK_2, WEAK_ATTACK_3, WEAK_ATTACK_4, STRONG_ATTACK_1, STRONG_ATTACK_2, STRONG_ATTACK_3, 
 STRONG_ATTACK_4, LANDING, FIRST_JUMP_ATTACK_1, FIRST_JUMP_ATTACK_2, FIRST_JUMP_ATTACK_3, 
 SECOND_JUMP_ATTACK_1, SECOND_JUMP_ATTACK_2, SECOND_JUMP_ATTACK_3,
 DEAD, FRUIT_NINJA, REINCARNATION, BLOCKED, DOWN_DASH, SPECIAL_ATTACK_1}
+# if ADDING NEW STATE - DO NOT FORGET TO ADD IT IN state_counter
+# !!!
+# !!!
+# !!!
 
-var state = REINCARNATION : set = set_state
+var state_ins_counter = {
+	states.IDLE: 0,
+	states.RUN: 0,
+	states.AIR: 0, 
+	states.JUMP: 0,
+	states.SIT: 0,
+	states.CROUCH: 0,
+	states.ROLL: 0,
+	states.DASH: 0,
+	states.WALL_SLIDE: 0,
+	states.WEAK_ATTACK_1: 0,
+	states.WEAK_ATTACK_2: 0,
+	states.WEAK_ATTACK_3: 0,
+	states.WEAK_ATTACK_4: 0,
+	states.STRONG_ATTACK_1: 0,
+	states.STRONG_ATTACK_2: 0,
+	states.STRONG_ATTACK_3: 0,
+	states.STRONG_ATTACK_4: 0,
+	states.LANDING: 0,
+	states.FIRST_JUMP_ATTACK_1: 0,
+	states.FIRST_JUMP_ATTACK_2: 0,
+	states.FIRST_JUMP_ATTACK_3: 0,
+	states.SECOND_JUMP_ATTACK_1: 0,
+	states.SECOND_JUMP_ATTACK_2: 0,
+	states.SECOND_JUMP_ATTACK_3: 0,
+	states.DEAD: 0,
+	states.FRUIT_NINJA: 0,
+	states.REINCARNATION: 0,
+	states.BLOCKED: 0,
+	states.DOWN_DASH: 0,
+	states.SPECIAL_ATTACK_1: 0,
+}
+
+var state = states.REINCARNATION : set = set_state
 
 func set_state(value):
-	if state == DEAD:
+	if state == states.DEAD:
 		return
 		
 	if not state == value: 
 		state_started = false
 		single_anim_not_played_yet = true
+		
+	state_ins_counter[value] += 1
+	if state_ins_counter[value] > 1000:
+		state_ins_counter[value] = 0
 
 	state = value
 	
@@ -274,16 +317,17 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir 
 	if not can_get_damage and respect_damage_cd:
 		return
 	
-	if can_block_that_damage and state == BLOCKED:
+	if can_block_that_damage and state == states.BLOCKED:
 		shake_camera()
 		return
 	
-	if state == DASH or state == DEAD or state == REINCARNATION or state == FRUIT_NINJA or cfg.cfg_data.undead or state == DOWN_DASH:
+	if state == states.DASH or state == states.DEAD or state == states.REINCARNATION \
+	or state == states.FRUIT_NINJA or cfg.cfg_data.undead or state == states.DOWN_DASH:
 		return
 		
 	last_damage_source = source
 
-	if not state == SPECIAL_ATTACK_1: hp -= damage
+	if not state == states.SPECIAL_ATTACK_1: hp -= damage
 	
 	global.camera.shake()
 	
@@ -298,7 +342,7 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir 
 		if damager != null:
 			if damager.name == "TrapHitbox":
 				damager.turn_into_bloody_version()
-		state = DEAD
+		state = states.DEAD
 	elif not flashing:
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
@@ -317,7 +361,7 @@ func set_anim(animation_name):
 	if need_to_change_col_size:
 		change_col_size()
 	
-	if animation_name == WALL_SLIDE:
+	if animation_name == states.WALL_SLIDE:
 		animated_sprite.flip_h = wall_dir == -1
 	else:
 		animated_sprite.flip_h = !(anim_dir == 1)
@@ -325,11 +369,11 @@ func set_anim(animation_name):
 		special_attack_1_hitbox.scale.x = anim_dir
 		
 	match animation_name:
-		IDLE: 
+		states.IDLE: 
 			anim.play("Idle")
-		RUN: 
+		states.RUN: 
 			anim.play("Run")
-		AIR: 
+		states.AIR: 
 			if pre_jump == 1 or pre_jump == 0:
 				if single_anim_not_played_yet:
 					anim.play("FirstAir")
@@ -340,7 +384,7 @@ func set_anim(animation_name):
 					anim.play("SecondAir")
 				else:
 					anim.play("SecondAirCycle")
-		JUMP:
+		states.JUMP:
 			if pre_jump == 1 or pre_jump == 0:
 				if single_anim_not_played_yet:
 					anim.play("FirstJump")
@@ -351,48 +395,48 @@ func set_anim(animation_name):
 					anim.play("SecondJump")
 				else:
 					anim.play("SecondJumpCycle")
-		SIT: 
+		states.SIT: 
 			anim.play("Sit")
-		CROUCH: 
+		states.CROUCH: 
 			anim.play("Crouch")
-		ROLL:
+		states.ROLL:
 			anim.play("Roll") 
-		DASH: 
+		states.DASH: 
 #			anim.play("Dash")
 			anim.play("DamageDash")
-		WALL_SLIDE:
+		states.WALL_SLIDE:
 			anim.play("WallSlide")
-		WEAK_ATTACK_1:
+		states.WEAK_ATTACK_1:
 			anim.play("WeakAttack1")
-		WEAK_ATTACK_2:
+		states.WEAK_ATTACK_2:
 			anim.play("WeakAttack2")
-		WEAK_ATTACK_3:
+		states.WEAK_ATTACK_3:
 			anim.play("WeakAttack3")
-		WEAK_ATTACK_4:
+		states.WEAK_ATTACK_4:
 			anim.play("WeakAttack4")
-		STRONG_ATTACK_1:
+		states.STRONG_ATTACK_1:
 			anim.play("StrongAttack1")
-		STRONG_ATTACK_2:
+		states.STRONG_ATTACK_2:
 			anim.play("StrongAttack2")
-		STRONG_ATTACK_3:
+		states.STRONG_ATTACK_3:
 			anim.play("StrongAttack3")
-		STRONG_ATTACK_4:
+		states.STRONG_ATTACK_4:
 			anim.play("StrongAttack4")
-		LANDING:
+		states.LANDING:
 			anim.play("SecondLanding")
-		FIRST_JUMP_ATTACK_1:
+		states.FIRST_JUMP_ATTACK_1:
 			anim.play("FirstJumpAttack1")
-		FIRST_JUMP_ATTACK_2:
+		states.FIRST_JUMP_ATTACK_2:
 			anim.play("FirstJumpAttack2")
-		FIRST_JUMP_ATTACK_3:
+		states.FIRST_JUMP_ATTACK_3:
 			anim.play("FirstJumpAttack3")
-		SECOND_JUMP_ATTACK_1:
+		states.SECOND_JUMP_ATTACK_1:
 			anim.play("SecondJumpAttack1")
-		SECOND_JUMP_ATTACK_2:
+		states.SECOND_JUMP_ATTACK_2:
 			anim.play("SecondJumpAttack2")
-		SECOND_JUMP_ATTACK_3:
+		states.SECOND_JUMP_ATTACK_3:
 			anim.play("SecondJumpAttack3")
-		DEAD:
+		states.DEAD:
 			match last_damage_source:
 				"bullet":
 					if bullet_dead_anim_speredi:
@@ -405,18 +449,18 @@ func set_anim(animation_name):
 					anim.play("fire_dead")
 				"cut":
 					anim.play("cut_dead")
-		BLOCKED:
+		states.BLOCKED:
 			anim.play("Blocked")
-		FRUIT_NINJA:
+		states.FRUIT_NINJA:
 			anim.play("FruitNinja")
-		REINCARNATION:
+		states.REINCARNATION:
 			anim.play("reincarnation")
-		DOWN_DASH:
+		states.DOWN_DASH:
 			if pre_jump == 1 or pre_jump == 0:
 				anim.play("FirstDownDash")
 			elif pre_jump == 2:
 				anim.play("SecondDownDash")
-		SPECIAL_ATTACK_1:
+		states.SPECIAL_ATTACK_1:
 			anim.play("SpecialAttack1")
 			
 	if anim.current_animation != pre_anim:
@@ -433,6 +477,9 @@ func _ready():
 		if anim_name == "RESET": continue
 		if anim_name not in animations_speed_scales.keys():
 			assert(false, "player's animations_time_scales dictionary is not full!")
+			
+	if len(states) != len(state_ins_counter.keys()):
+		assert(false, "state_ins_counter dictionary is not full!")
 	
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 	global.player = self
@@ -440,65 +487,65 @@ func _ready():
 
 func _physics_process(delta):
 	match state:
-		IDLE:
+		states.IDLE:
 			idle()
-		RUN:
+		states.RUN:
 			run()
-		AIR:
+		states.AIR:
 			air(delta)
-		JUMP:
+		states.JUMP:
 			jump(delta)
-		SIT:
+		states.SIT:
 			sit()
-		CROUCH:
+		states.CROUCH:
 			crouch()
-		WALL_SLIDE:
+		states.WALL_SLIDE:
 			wall_slide(delta)
-		DASH:
+		states.DASH:
 			dash()
-		ROLL:
+		states.ROLL:
 			roll()
-		WEAK_ATTACK_1:
+		states.WEAK_ATTACK_1:
 			weak_attack_1()
-		WEAK_ATTACK_2:
+		states.WEAK_ATTACK_2:
 			weak_attack_2()
-		WEAK_ATTACK_3:
+		states.WEAK_ATTACK_3:
 			weak_attack_3()
-		WEAK_ATTACK_4:
+		states.WEAK_ATTACK_4:
 			weak_attack_4()
-		STRONG_ATTACK_1:
+		states.STRONG_ATTACK_1:
 			strong_attack_1()
-		STRONG_ATTACK_2:
+		states.STRONG_ATTACK_2:
 			strong_attack_2()
-		STRONG_ATTACK_3:
+		states.STRONG_ATTACK_3:
 			strong_attack_3()
-		STRONG_ATTACK_4:
+		states.STRONG_ATTACK_4:
 			strong_attack_4(delta)
-		LANDING:
+		states.LANDING:
 			landing()
-		FIRST_JUMP_ATTACK_1:
+		states.FIRST_JUMP_ATTACK_1:
 			first_jump_attack_1()
-		FIRST_JUMP_ATTACK_2:
+		states.FIRST_JUMP_ATTACK_2:
 			first_jump_attack_2()
-		FIRST_JUMP_ATTACK_3:
+		states.FIRST_JUMP_ATTACK_3:
 			first_jump_attack_3()
-		SECOND_JUMP_ATTACK_1:
+		states.SECOND_JUMP_ATTACK_1:
 			second_jump_attack_1()
-		SECOND_JUMP_ATTACK_2:
+		states.SECOND_JUMP_ATTACK_2:
 			second_jump_attack_2()
-		SECOND_JUMP_ATTACK_3:
+		states.SECOND_JUMP_ATTACK_3:
 			second_jump_attack_3()
-		DEAD:
+		states.DEAD:
 			dead(delta)
-		BLOCKED:
+		states.BLOCKED:
 			blocked()
-		FRUIT_NINJA:
+		states.FRUIT_NINJA:
 			fruit_ninja()
-		REINCARNATION:
+		states.REINCARNATION:
 			reincarnation(delta)
-		DOWN_DASH:
+		states.DOWN_DASH:
 			down_dash(delta)
-		SPECIAL_ATTACK_1:
+		states.SPECIAL_ATTACK_1:
 			special_attack_1()
 
 	if knockback_dir:
@@ -506,29 +553,29 @@ func _physics_process(delta):
 			velocity.x = knockback_speed * 2 * knockback_dir
 		else: velocity.x = knockback_speed * knockback_dir
 
-	if flying_cause_of_mk6 and not state == DASH:
+	if flying_cause_of_mk6 and not state == states.DASH:
 		velocity.y = -1
 		velocity.x /= 500 * delta
 
-	if slowed_cause_of_mk6 and not state == DASH:
+	if slowed_cause_of_mk6 and not state == states.DASH:
 		velocity = velocity/2
 
 	move_and_slide()
 
 
 func idle():
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from IDLE to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if dir:
 		if np:
 			print("from idle to run")
-		state = RUN
+		state = states.RUN
 		return
 		
 	if not is_on_floor():
@@ -537,57 +584,57 @@ func idle():
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 		
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from idle to special attack 1")
 		from_jump_to_air_timer.stop()
-		state = SPECIAL_ATTACK_1
+		state = states.SPECIAL_ATTACK_1
 		return
 		
-	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+	if Input.is_action_pressed("DOWN DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from idle to down_dash")
-		state = DOWN_DASH
+		state = states.DOWN_DASH
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash and set_dir():
+	if Input.is_action_pressed("DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from idle to DASH")
-		state = DASH
+		state = states.DASH
 		return
 		
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
 			print("from idle to BLOCKED")
-		state = BLOCKED
+		state = states.BLOCKED
 		return
 
 	if Input.is_action_pressed("RMB ATTACK"):
 		if weak_combo_index == 1:
 			if np:
 				print("from idle to weak_attack_1")
-			state = WEAK_ATTACK_1
+			state = states.WEAK_ATTACK_1
 			weak_combo_index = 2
 		elif weak_combo_index == 2:
 			if np:
 				print("from idle to weak_attack_2")
-			state = WEAK_ATTACK_2
+			state = states.WEAK_ATTACK_2
 			weak_combo_index = 3
 		elif weak_combo_index == 3:
 			if np:
 				print("from idle to weak_attack_3")
-			state = WEAK_ATTACK_3
+			state = states.WEAK_ATTACK_3
 			weak_combo_index = 4
 		elif weak_combo_index == 4:
 			if np:
 				print("from idle to weak_attack_4")
-			state = WEAK_ATTACK_4
+			state = states.WEAK_ATTACK_4
 			weak_combo_index = 1 
 		weak_combo_timer.start()
 		return
@@ -596,22 +643,22 @@ func idle():
 		if strong_combo_index == 1:
 			if np:
 				print("from idle to strong_attack_1")
-			state = STRONG_ATTACK_1
+			state = states.STRONG_ATTACK_1
 			strong_combo_index = 2
 		elif strong_combo_index == 2:
 			if np:
 				print("from idle to strong_attack_2")
-			state = STRONG_ATTACK_2
+			state = states.STRONG_ATTACK_2
 			strong_combo_index = 3
 		elif strong_combo_index == 3:
 			if np:
 				print("from idle to STRONG_attack_3")
-			state = STRONG_ATTACK_3
+			state = states.STRONG_ATTACK_3
 			strong_combo_index = 4
 		elif strong_combo_index == 4:
 			if np:
 				print("from idle to STRONG_attack_4")
-			state = STRONG_ATTACK_4
+			state = states.STRONG_ATTACK_4
 			strong_combo_index = 1 
 		strong_combo_timer.start()
 		return
@@ -620,22 +667,22 @@ func idle():
 		can_roll = false
 		if np:
 			print("from idle to roll")
-		state = ROLL
+		state = states.ROLL
 		return
 		
 	if Input.is_action_pressed("JUMP"):
 		if np:
 			print("from idle to jump")
-		state = JUMP
+		state = states.JUMP
 		return
 		
 	if Input.is_action_pressed("DOWN"):
 		if np:
 			print("from idle to sit")
-		state = SIT
+		state = states.SIT
 		return
 		
-	set_anim(IDLE)
+	set_anim(states.IDLE)
 	set_dir()
 	
 	velocity.x = 0
@@ -643,12 +690,12 @@ func idle():
 		
 		
 func run():
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from RUN to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if not is_on_floor():
@@ -657,57 +704,57 @@ func run():
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 		
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from RUN to special attack 1")
 		from_jump_to_air_timer.stop()
-		state = SPECIAL_ATTACK_1
+		state = states.SPECIAL_ATTACK_1
 		return
 		
-	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+	if Input.is_action_pressed("DOWN DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from run to down_dash")
-		state = DOWN_DASH
+		state = states.DOWN_DASH
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash and set_dir():
+	if Input.is_action_pressed("DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from run to DASH")
-		state = DASH
+		state = states.DASH
 		return
 		
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
 			print("from run to BLOCKED")
-		state = BLOCKED
+		state = states.BLOCKED
 		return
 		
 	if Input.is_action_pressed("RMB ATTACK"):
 		if weak_combo_index == 1:
 			if np:
 				print("from idle to weak_attack_1")
-			state = WEAK_ATTACK_1
+			state = states.WEAK_ATTACK_1
 			weak_combo_index = 2
 		elif weak_combo_index == 2:
 			if np:
 				print("from idle to weak_attack_2")
-			state = WEAK_ATTACK_2
+			state = states.WEAK_ATTACK_2
 			weak_combo_index = 3
 		elif weak_combo_index == 3:
 			if np:
 				print("from idle to weak_attack_3")
-			state = WEAK_ATTACK_3
+			state = states.WEAK_ATTACK_3
 			weak_combo_index = 4
 		elif weak_combo_index == 4:
 			if np:
 				print("from idle to weak_attack_4")
-			state = WEAK_ATTACK_4
+			state = states.WEAK_ATTACK_4
 			weak_combo_index = 1 
 		weak_combo_timer.start()
 		return
@@ -716,22 +763,22 @@ func run():
 		if strong_combo_index == 1:
 			if np:
 				print("from idle to strong_attack_1")
-			state = STRONG_ATTACK_1
+			state = states.STRONG_ATTACK_1
 			strong_combo_index = 2
 		elif strong_combo_index == 2:
 			if np:
 				print("from idle to strong_attack_2")
-			state = STRONG_ATTACK_2
+			state = states.STRONG_ATTACK_2
 			strong_combo_index = 3
 		elif strong_combo_index == 3:
 			if np:
 				print("from idle to STRONG_attack_3")
-			state = STRONG_ATTACK_3
+			state = states.STRONG_ATTACK_3
 			strong_combo_index = 4
 		elif strong_combo_index == 4:
 			if np:
 				print("from idle to STRONG_attack_4")
-			state = STRONG_ATTACK_4
+			state = states.STRONG_ATTACK_4
 			strong_combo_index = 1 
 		strong_combo_timer.start()
 		return
@@ -740,22 +787,22 @@ func run():
 		can_roll = false
 		if np:
 			print("from run to roll")
-		state = ROLL
+		state = states.ROLL
 		return
 		
 	if Input.is_action_pressed("JUMP"):
 		if np:
 			print("from run to jump")
-		state = JUMP
+		state = states.JUMP
 		return
 		
 	if Input.is_action_pressed("DOWN"):
 		if np:
 			print("from run to sit")
-		state = SIT
+		state = states.SIT
 		return
 		
-	set_anim(RUN)
+	set_anim(states.RUN)
 	set_dir()
 	
 	velocity.y = 0
@@ -764,17 +811,17 @@ func run():
 	else:
 		if np:
 			print("from run to idle")
-		state = IDLE
+		state = states.IDLE
 		return
 	
 
 func air(delta):
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from AIR to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if is_on_floor():
@@ -782,35 +829,35 @@ func air(delta):
 			print("from air to landing")
 		jump_index = 1
 		jump_attack_index = 1
-		state = LANDING
+		state = states.LANDING
 		return
 		
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from AIR to special attack 1")
 		from_jump_to_air_timer.stop()
-		state = SPECIAL_ATTACK_1
+		state = states.SPECIAL_ATTACK_1
 		return
 		
-	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+	if Input.is_action_pressed("DOWN DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from air to down_dash")
-		state = DOWN_DASH
+		state = states.DOWN_DASH
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash and set_dir():
+	if Input.is_action_pressed("DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from air to DASH")
-		state = DASH
+		state = states.DASH
 		return
 		
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
 			print("from air to BLOCKED")
-		state = BLOCKED
+		state = states.BLOCKED
 		return
 		
 	if not is_on_floor() and Input.is_action_just_pressed("JUMP") and jump_index == 2:
@@ -821,7 +868,7 @@ func air(delta):
 		velocity.y = jump_velocity
 		if np:
 			print("from AIR to JUMP")
-		state = JUMP
+		state = states.JUMP
 		return
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
@@ -831,19 +878,19 @@ func air(delta):
 				jump_attack_index = 2
 				if np:
 					print("from air to FIRST_JUMP_ATTACK_1")
-				state = FIRST_JUMP_ATTACK_1
+				state = states.FIRST_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 2:
 				jump_attack_index = 3
 				if np:
 					print("from air to FIRST_JUMP_ATTACK_2")
-				state = FIRST_JUMP_ATTACK_2
+				state = states.FIRST_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 3:
 				jump_attack_index = 4
 				if np:
 					print("from air to FIRST_JUMP_ATTACK_3")
-				state = FIRST_JUMP_ATTACK_3
+				state = states.FIRST_JUMP_ATTACK_3
 				return
 		elif (pre_jump == 2 or pre_jump == 0) and not jump_attack_index < 4:
 			from_jump_to_air_timer.stop()
@@ -851,19 +898,19 @@ func air(delta):
 				jump_attack_index = 5
 				if np:
 					print("from air to SECOND_JUMP_ATTACK_1")
-				state = SECOND_JUMP_ATTACK_1
+				state = states.SECOND_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 5:
 				jump_attack_index = 6
 				if np:
 					print("from air to SECOND_JUMP_ATTACK_2")
-				state = SECOND_JUMP_ATTACK_2
+				state = states.SECOND_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 6:
 				jump_attack_index = 0
 				if np:
 					print("from air to SECOND_JUMP_ATTACK_3")
-				state = SECOND_JUMP_ATTACK_3
+				state = states.SECOND_JUMP_ATTACK_3
 				return
 		
 	if wall_dir and !wall_jumping and !is_on_floor():
@@ -873,10 +920,10 @@ func air(delta):
 			anim_dir = dir
 		if np:
 			print("from air to WALL_SLIDE")
-		state = WALL_SLIDE
+		state = states.WALL_SLIDE
 		return
 		
-	set_anim(AIR)
+	set_anim(states.AIR)
 	update_wall_direction()
 	set_dir()
 	
@@ -889,12 +936,12 @@ func air(delta):
 
 
 func jump(delta):
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from JUMP to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if is_on_floor() and jump_index == 1:
@@ -914,7 +961,7 @@ func jump(delta):
 		from_jump_to_air_timer.stop()
 		if np:
 			print("to LANDING from jump")
-		state = LANDING
+		state = states.LANDING
 		jump_index = 1
 		jump_attack_index = 1
 		return
@@ -923,30 +970,30 @@ func jump(delta):
 		if np:
 			print("from JUMP to special attack 1")
 		from_jump_to_air_timer.stop()
-		state = SPECIAL_ATTACK_1
+		state = states.SPECIAL_ATTACK_1
 		return
 		
-	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+	if Input.is_action_pressed("DOWN DASH") and can_dash:
 		from_jump_to_air_timer.stop()
 		can_dash = false
 		if np:
 			print("from jump to down_dash")
-		state = DOWN_DASH
+		state = states.DOWN_DASH
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash and set_dir():
+	if Input.is_action_pressed("DASH") and can_dash:
 		from_jump_to_air_timer.stop()
 		can_dash = false
 		if np:
 			print("from jump to DASH")
-		state = DASH
+		state = states.DASH
 		return
 		
 	if Input.is_action_pressed("BLOCK") and can_block:
 		can_block = false
 		if np:
 			print("from jump to BLOCKED")
-		state = BLOCKED
+		state = states.BLOCKED
 		return
 		
 	if wall_dir and !wall_jumping and !is_on_floor():
@@ -957,7 +1004,7 @@ func jump(delta):
 			anim_dir = dir
 		if np:
 			print("from JUMP to WALL_SLIDE")
-		state = WALL_SLIDE
+		state = states.WALL_SLIDE
 		return
 		
 	if (Input.is_action_pressed("RMB ATTACK") or Input.is_action_pressed("LMB ATTACK")) and not flying_cause_of_mk6:
@@ -967,19 +1014,19 @@ func jump(delta):
 				jump_attack_index = 2
 				if np:
 					print("from jump to FIRST_JUMP_ATTACK_1")
-				state = FIRST_JUMP_ATTACK_1
+				state = states.FIRST_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 2:
 				jump_attack_index = 3
 				if np:
 					print("from jump to FIRST_JUMP_ATTACK_2")
-				state = FIRST_JUMP_ATTACK_2
+				state = states.FIRST_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 3:
 				jump_attack_index = 4
 				if np:
 					print("from jump to FIRST_JUMP_ATTACK_3")
-				state = FIRST_JUMP_ATTACK_3
+				state = states.FIRST_JUMP_ATTACK_3
 				return
 		elif (pre_jump == 2 or pre_jump == 0) and not jump_attack_index < 4:
 			from_jump_to_air_timer.stop()
@@ -987,22 +1034,22 @@ func jump(delta):
 				jump_attack_index = 5
 				if np:
 					print("from jump to SECOND_JUMP_ATTACK_1")
-				state = SECOND_JUMP_ATTACK_1
+				state = states.SECOND_JUMP_ATTACK_1
 				return
 			elif jump_attack_index == 5:
 				jump_attack_index = 6
 				if np:
 					print("from jump to SECOND_JUMP_ATTACK_2")
-				state = SECOND_JUMP_ATTACK_2
+				state = states.SECOND_JUMP_ATTACK_2
 				return
 			elif jump_attack_index == 6:
 				jump_attack_index = 0
 				if np:
 					print("from jump to SECOND_JUMP_ATTACK_3")
-				state = SECOND_JUMP_ATTACK_3
+				state = states.SECOND_JUMP_ATTACK_3
 				return
 		
-	set_anim(JUMP)
+	set_anim(states.JUMP)
 	update_wall_direction()
 	if !wall_jumping:
 		set_dir()
@@ -1021,41 +1068,41 @@ func jump(delta):
 func _on_from_jump_to_air_timer_timeout():
 	if np:
 		print("to air because of timer runned in jump")
-	state = AIR
+	state = states.AIR
 
 
 func sit():
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from SIT to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
 				print("from sit to idle")
-			state = IDLE
+			state = states.IDLE
 			return
 		if Input.is_action_just_pressed("JUMP") and is_on_floor():
 			if np:
 				print("from sit to jump")
-			state = JUMP
+			state = states.JUMP
 			return
 			
 	if dir:
 		if np:
 			print("from sit to crouch")
-		state = CROUCH
+		state = states.CROUCH
 		return
 		
 	if Input.is_action_pressed("ROLL") and can_roll:
 		can_roll = false
 		if np:
 			print("from sit to roll")
-		state = ROLL
+		state = states.ROLL
 		return
 		
 	if not is_on_floor():
@@ -1064,10 +1111,10 @@ func sit():
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 		
-	set_anim(SIT)
+	set_anim(states.SIT)
 	set_dir()
 	
 	velocity.x = 0
@@ -1075,24 +1122,24 @@ func sit():
 	
 	
 func crouch():
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		if np: print("from CROUCH to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if check_if_can_stand_up():
 		if !Input.is_action_pressed("DOWN"):
 			if np:
 				print("from crouch to sit")
-			state = SIT #maybe should be idle but works fine
+			state = states.SIT #maybe should be idle but works fine
 			return
 		if Input.is_action_just_pressed("JUMP") and is_on_floor():
 			if np:
 				print("from crouch to jump")
-			state = JUMP
+			state = states.JUMP
 			return
 		
 	if not is_on_floor():
@@ -1101,17 +1148,17 @@ func crouch():
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 		
 	if Input.is_action_pressed("ROLL") and can_roll:
 		can_roll = false
 		if np:
 			print("from crouch to roll")
-		state = ROLL
+		state = states.ROLL
 		return
 		
-	set_anim(CROUCH)
+	set_anim(states.CROUCH)
 	set_dir()
 	
 	velocity.y = 0
@@ -1121,7 +1168,7 @@ func crouch():
 	else:
 		if np:
 			print("from crouch to sit")
-		state = SIT
+		state = states.SIT
 		return
 	
 	
@@ -1161,12 +1208,12 @@ func check_if_can_stand_up():
 	
 
 func wall_slide(delta):
-	if Input.is_action_just_pressed("FRUIT NINJA") and not state == FRUIT_NINJA and can_fruit_ninja:
+	if Input.is_action_just_pressed("FRUIT NINJA") and not state == states.FRUIT_NINJA and can_fruit_ninja:
 		can_fruit_ninja = false
 		from_jump_to_air_timer.stop()
 		Engine.time_scale = cfg.default_time_scale/4
 		print("from WALL_SLIDE to FRUIT_NINJA")
-		state = FRUIT_NINJA
+		state = states.FRUIT_NINJA
 		return
 	
 	if Input.is_action_just_pressed("DOWN"):
@@ -1176,7 +1223,7 @@ func wall_slide(delta):
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 	
 	if Input.is_action_pressed("JUMP"):
@@ -1188,35 +1235,35 @@ func wall_slide(delta):
 		dir = 0
 		if np:
 			print("from wall_slide to jump")
-		state = JUMP
+		state = states.JUMP
 		return
 		
 	if Input.is_action_pressed("SPECIAL ATTACK 1"):
 		if np:
 			print("from WALL_SLIDE to special attack 1")
 		from_jump_to_air_timer.stop()
-		state = SPECIAL_ATTACK_1
+		state = states.SPECIAL_ATTACK_1
 		return
 		
-	if Input.is_action_pressed("DASH") and Input.is_action_pressed("DOWN") and can_dash:
+	if Input.is_action_pressed("DOWN DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from wall_slide to down_dash")
-		state = DOWN_DASH
+		state = states.DOWN_DASH
 		return
 		
-	if Input.is_action_pressed("DASH") and can_dash and set_dir():
+	if Input.is_action_pressed("DASH") and can_dash:
 		can_dash = false
 		if np:
 			print("from wall_slide to DASH")
-		state = DASH
+		state = states.DASH
 		return
 		
 	if is_on_floor():
 		jump_index = 1
 		if np:
 			print("from wall_slide to idle")
-		state = IDLE
+		state = states.IDLE
 		return
 		
 	if !wall_dir and not is_on_floor():
@@ -1225,10 +1272,10 @@ func wall_slide(delta):
 		jump_index = 2
 		pre_jump = 1
 		jump_attack_index = 1
-		state = AIR
+		state = states.AIR
 		return
 	
-	set_anim(WALL_SLIDE)
+	set_anim(states.WALL_SLIDE)
 	update_wall_direction()
 	
 	velocity.y += gravity / 6 * delta
@@ -1240,16 +1287,19 @@ func _on_wall_slide_cooldown_timeout():
 	
 	
 func special_attack_1():
-	set_anim(SPECIAL_ATTACK_1)
+	set_anim(states.SPECIAL_ATTACK_1)
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.SPECIAL_ATTACK_1]
 		await anim.animation_finished
-		if state == SPECIAL_ATTACK_1:
+		if state_ins_number != state_ins_counter[states.SPECIAL_ATTACK_1]:
+			return
+		if state == states.SPECIAL_ATTACK_1:
 			if np:
 				print("from special_attack_1 to AIR")
 			pre_jump = 2
 			jump_attack_index = 4
-			state = AIR
+			state = states.AIR
 			return
 			
 	velocity.x = anim_dir * speed
@@ -1257,16 +1307,19 @@ func special_attack_1():
 	
 	
 func dash():
-	set_anim(DASH)
+	set_anim(states.DASH)
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.DASH]
 		await anim.animation_finished
-		if state == DASH:
+		if state_ins_number != state_ins_counter[states.DASH]:
+			return
+		if state == states.DASH:
 			if np:
 				print("from dash to AIR")
 			pre_jump = 2
 			jump_attack_index = 4
-			state = AIR
+			state = states.AIR
 			return
 			
 	velocity.x = anim_dir * speed * 8
@@ -1274,22 +1327,25 @@ func dash():
 	
 	
 func down_dash(delta):
-	set_anim(DOWN_DASH)
+	set_anim(states.DOWN_DASH)
 	if is_on_floor():
-		if state == DOWN_DASH:
+		if state == states.DOWN_DASH:
 			if np:
 				print("from down_dash to landing cause of floor")
-			state = LANDING
+			state = states.LANDING
 			return
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.DOWN_DASH]
 		await anim.animation_finished
-		if state == DOWN_DASH:
+		if state_ins_number != state_ins_counter[states.DOWN_DASH]:
+			return
+		if state == states.DOWN_DASH:
 			if np:
 				print("from down_dash to AIR cause animation ended")
 			pre_jump = 2
 			jump_attack_index = 4
-			state = AIR
+			state = states.AIR
 			return
 			
 	velocity.x = 0
@@ -1303,16 +1359,19 @@ func roll():
 		jump_attack_index = 1
 		if np:
 			print("from ROLL to AIR")
-		state = AIR
+		state = states.AIR
 		return
-	set_anim(ROLL)
+	set_anim(states.ROLL)
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.ROLL]
 		await anim.animation_finished
-		if state == ROLL:
+		if state_ins_number != state_ins_counter[states.ROLL]:
+			return
+		if state == states.ROLL:
 			if np:
 				print("from ROLL to SIT")
-			state = SIT
+			state = states.SIT
 			return
 			
 	velocity.x = anim_dir * speed * 1.5
@@ -1321,13 +1380,14 @@ func roll():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if ((anim_name == "FirstAir" or anim_name == "SecondAir") and state == AIR) or ((anim_name == "FirstJump" or anim_name == "SecondJump") and state == JUMP):
+	if ((anim_name == "FirstAir" or anim_name == "SecondAir") and state == states.AIR) \
+	or ((anim_name == "FirstJump" or anim_name == "SecondJump") and state == states.JUMP):
 		single_anim_not_played_yet = false #bug with single_anim_not_played_it and air state most likely fixed this way
  
 
 func weak_attack_1():
 	set_dir()
-	set_anim(WEAK_ATTACK_1)
+	set_anim(states.WEAK_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1337,16 +1397,20 @@ func weak_attack_1():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.WEAK_ATTACK_1]
 		await anim.animation_finished
-		if state == WEAK_ATTACK_1:
+		if state_ins_number != state_ins_counter[states.WEAK_ATTACK_1]:
+			return
+		if state == states.WEAK_ATTACK_1:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from weak_attack_1 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func weak_attack_2():
 	set_dir()
-	set_anim(WEAK_ATTACK_2)
+	set_anim(states.WEAK_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1356,16 +1420,20 @@ func weak_attack_2():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.WEAK_ATTACK_2]
 		await anim.animation_finished
-		if state == WEAK_ATTACK_2:
+		if state_ins_number != state_ins_counter[states.WEAK_ATTACK_2]:
+			return
+		if state == states.WEAK_ATTACK_2:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from weak_attack_2 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func weak_attack_3():
 	set_dir()
-	set_anim(WEAK_ATTACK_3)
+	set_anim(states.WEAK_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1375,16 +1443,20 @@ func weak_attack_3():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.WEAK_ATTACK_3]
 		await anim.animation_finished
-		if state == WEAK_ATTACK_3:
+		if state_ins_number != state_ins_counter[states.WEAK_ATTACK_3]:
+			return
+		if state == states.WEAK_ATTACK_3:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from weak_attack_3 to idle")
-			state = IDLE
+			state = states.IDLE
 		
 		
 func weak_attack_4():
 	set_dir()
-	set_anim(WEAK_ATTACK_4)
+	set_anim(states.WEAK_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1394,11 +1466,15 @@ func weak_attack_4():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.WEAK_ATTACK_4]
 		await anim.animation_finished
-		if state == WEAK_ATTACK_4:
+		if state_ins_number != state_ins_counter[states.WEAK_ATTACK_4]:
+			return
+		if state == states.WEAK_ATTACK_4:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from weak_attack_4 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func _on_weak_combo_timer_timeout():
@@ -1407,7 +1483,7 @@ func _on_weak_combo_timer_timeout():
 
 func strong_attack_1():
 	set_dir()
-	set_anim(STRONG_ATTACK_1)
+	set_anim(states.STRONG_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1417,16 +1493,20 @@ func strong_attack_1():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.STRONG_ATTACK_1]
 		await anim.animation_finished
-		if state == STRONG_ATTACK_1:
+		if state_ins_number != state_ins_counter[states.STRONG_ATTACK_1]:
+			return
+		if state == states.STRONG_ATTACK_1:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from strong_attack_1 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func strong_attack_2():
 	set_dir()
-	set_anim(STRONG_ATTACK_2)
+	set_anim(states.STRONG_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1436,16 +1516,20 @@ func strong_attack_2():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.STRONG_ATTACK_2]
 		await anim.animation_finished
-		if state == STRONG_ATTACK_2:
+		if state_ins_number != state_ins_counter[states.STRONG_ATTACK_2]:
+			return
+		if state == states.STRONG_ATTACK_2:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from strong_attack_2 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func strong_attack_3():
 	set_dir()
-	set_anim(STRONG_ATTACK_3)
+	set_anim(states.STRONG_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1455,16 +1539,20 @@ func strong_attack_3():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.STRONG_ATTACK_3]
 		await anim.animation_finished
-		if state == STRONG_ATTACK_3:
+		if state_ins_number != state_ins_counter[states.STRONG_ATTACK_3]:
+			return
+		if state == states.STRONG_ATTACK_3:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from strong_attack_3 to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func strong_attack_4(delta):
 	set_dir()
-	set_anim(STRONG_ATTACK_4)
+	set_anim(states.STRONG_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1475,11 +1563,15 @@ func strong_attack_4(delta):
 	if !state_started:
 		velocity.y = jump_velocity * 3
 		state_started = true
+		var state_ins_number = state_ins_counter[states.STRONG_ATTACK_4]
 		await anim.animation_finished
-		if state == STRONG_ATTACK_4:
+		if state_ins_number != state_ins_counter[states.STRONG_ATTACK_4]:
+			return
+		if state == states.STRONG_ATTACK_4:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			if np:
 				print("from strong_attack_4 to idle")
-			state = IDLE
+			state = states.IDLE
 
 
 func _on_strong_combo_timer_timeout():
@@ -1487,7 +1579,7 @@ func _on_strong_combo_timer_timeout():
 
 
 func landing():
-	set_anim(LANDING)
+	set_anim(states.LANDING)
 	set_dir()
 	if not is_on_floor():
 		jump_index = 2
@@ -1496,27 +1588,30 @@ func landing():
 		state_started = false
 		if np:
 			print("from landing to AIR")
-		state = AIR
+		state = states.AIR
 		return
 	if Input.is_action_pressed("JUMP"):
 		if np:
 			print("from landing to jump")
-		state = JUMP
+		state = states.JUMP
 		return
 	velocity.x = dir * speed
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.LANDING]
 		await anim.animation_finished
-		if state == LANDING:
+		if state_ins_number != state_ins_counter[states.LANDING]:
+			return
+		if state == states.LANDING:
 			if np:
 				print("from landing to sit")
-			state = SIT
+			state = states.SIT
 
 
 func first_jump_attack_1():
 	set_dir()
-	set_anim(FIRST_JUMP_ATTACK_1)
+	set_anim(states.FIRST_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1526,17 +1621,21 @@ func first_jump_attack_1():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.FIRST_JUMP_ATTACK_1]
 		await anim.animation_finished
-		if state == FIRST_JUMP_ATTACK_1:
+		if state_ins_number != state_ins_counter[states.FIRST_JUMP_ATTACK_1]:
+			return
+		if state == states.FIRST_JUMP_ATTACK_1:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 2
 			if np:
 				print("from FIRST_JUMP_ATTACK_1 to AIR")
-			state = AIR
+			state = states.AIR
 	
 	
 func first_jump_attack_2():
 	set_dir()
-	set_anim(FIRST_JUMP_ATTACK_2)
+	set_anim(states.FIRST_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1546,17 +1645,21 @@ func first_jump_attack_2():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.FIRST_JUMP_ATTACK_2]
 		await anim.animation_finished
-		if state == FIRST_JUMP_ATTACK_2:
+		if state_ins_number != state_ins_counter[states.FIRST_JUMP_ATTACK_2]:
+			return
+		if state == states.FIRST_JUMP_ATTACK_2:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 2
 			if np:
 				print("from FIRST_JUMP_ATTACK_2 to AIR")
-			state = AIR
+			state = states.AIR
 	
 	
 func first_jump_attack_3():
 	set_dir()
-	set_anim(FIRST_JUMP_ATTACK_3)
+	set_anim(states.FIRST_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1566,17 +1669,21 @@ func first_jump_attack_3():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.FIRST_JUMP_ATTACK_3]
 		await anim.animation_finished
-		if state == FIRST_JUMP_ATTACK_3:
+		if state_ins_number != state_ins_counter[states.FIRST_JUMP_ATTACK_3]:
+			return
+		if state == states.FIRST_JUMP_ATTACK_3:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 2
 			if np:
 				print("from FIRST_JUMP_ATTACK_3 to AIR")
-			state = AIR
+			state = states.AIR
 	
 	
 func second_jump_attack_1():
 	set_dir()
-	set_anim(SECOND_JUMP_ATTACK_1)
+	set_anim(states.SECOND_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1586,17 +1693,21 @@ func second_jump_attack_1():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.SECOND_JUMP_ATTACK_1]
 		await anim.animation_finished
-		if state == SECOND_JUMP_ATTACK_1:
+		if state_ins_number != state_ins_counter[states.SECOND_JUMP_ATTACK_1]:
+			return
+		if state == states.SECOND_JUMP_ATTACK_1:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 0
 			if np:
 				print("from SECOND_JUMP_ATTACK_1 to AIR")
-			state = AIR
+			state = states.AIR
 	
 	
 func second_jump_attack_2():
 	set_dir()
-	set_anim(SECOND_JUMP_ATTACK_2)
+	set_anim(states.SECOND_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1606,17 +1717,21 @@ func second_jump_attack_2():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.SECOND_JUMP_ATTACK_2]
 		await anim.animation_finished
-		if state == SECOND_JUMP_ATTACK_2:
+		if state_ins_number != state_ins_counter[states.SECOND_JUMP_ATTACK_2]:
+			return
+		if state == states.SECOND_JUMP_ATTACK_2:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 0
 			if np:
 				print("from SECOND_JUMP_ATTACK_2 to AIR")
-			state = AIR
+			state = states.AIR
 	
 	
 func second_jump_attack_3():
 	set_dir()
-	set_anim(SECOND_JUMP_ATTACK_3)
+	set_anim(states.SECOND_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
 		velocity.x = anim_dir * speed / 5
 	elif anim_dir == -1 and Input.is_action_pressed("LEFT"):
@@ -1626,29 +1741,36 @@ func second_jump_attack_3():
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.SECOND_JUMP_ATTACK_3]
 		await anim.animation_finished
-		if state == SECOND_JUMP_ATTACK_3:
+		if state_ins_number != state_ins_counter[states.SECOND_JUMP_ATTACK_3]:
+			return
+		if state == states.SECOND_JUMP_ATTACK_3:
+			particles_manager.create_sword_particles(sword_hitbox_col.global_position)
 			jump_index = 0
 			if np:
 				print("from SECOND_JUMP_ATTACK_3 to AIR")
-			state = AIR
+			state = states.AIR
 
 
 func blocked():
-	set_anim(BLOCKED)
+	set_anim(states.BLOCKED)
 	velocity.x = 0
 	velocity.y = 0
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.BLOCKED]
 		await anim.animation_finished
-		if state == BLOCKED:
+		if state_ins_number != state_ins_counter[states.BLOCKED]:
+			return
+		if state == states.BLOCKED:
 			if np:
 				print("from BLOCKED to AIR")
-		state = AIR
+		state = states.AIR
 	
 	
 func dead(delta):
-	set_anim(DEAD)
+	set_anim(states.DEAD)
 	velocity.y += gravity * delta
 	velocity.x = 0
 	if !state_started:
@@ -1691,7 +1813,7 @@ func fruit_ninja():
 				print("from fruit ninja to LANDING")
 			animated_sprite.visible = true
 			$PointLightContainer.visible = true
-			state = LANDING
+			state = states.LANDING
 			return
 	else:
 		if (Input.is_action_pressed("LMB ATTACK") or Input.is_action_pressed("RMB ATTACK")) and not fruit_ninja_line_already_painted:
@@ -1737,7 +1859,7 @@ func create_fruit_ninja_col():
 
 
 func _on_area_2d_body_entered(body):
-	if state == FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line and body.is_alive():
+	if state == states.FRUIT_NINJA and body not in fruit_ninja_targets and not fruit_ninjaing_thru_line and body.is_alive():
 		var space_state = get_world_2d().get_direct_space_state()
 		var params = PhysicsRayQueryParameters2D.new()
 		params.from = blood_pos.global_position
@@ -1797,16 +1919,19 @@ func create_blood(number: int = 5):
 
 
 func reincarnation(delta):
-	set_anim(REINCARNATION)
+	set_anim(states.REINCARNATION)
 	velocity.x = 0
 	velocity.y += gravity * delta * 10
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.REINCARNATION]
 		await anim.animation_finished
-		if state == REINCARNATION:
+		if state_ins_number != state_ins_counter[states.REINCARNATION]:
+			return
+		if state == states.REINCARNATION:
 			if np:
 				print("from REINC to idle")
-			state = IDLE
+			state = states.IDLE
 			
 			
 func change_scene_to_dead_screen():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://mrkh2vbdyfbi"]
+[gd_scene load_steps=44 format=3 uid="uid://mrkh2vbdyfbi"]
 
 [ext_resource type="Texture2D" uid="uid://xd5xy1bwwsd4" path="res://sprites/levels/level1/part1/TestLVL1_1_Zad.png" id="1_h8mk1"]
 [ext_resource type="PackedScene" uid="uid://byt2kemskw0hk" path="res://src/enemies/trap_hitbox.tscn" id="1_mqjd8"]
@@ -18,34 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://bgifg80pxexn7" path="res://src/enemies/static_path/trap_westerenka.tscn" id="11_mks8e"]
 [ext_resource type="PackedScene" uid="uid://c0ul25n5sup2c" path="res://src/enemies/creeps/grounded/mk_1.tscn" id="12_u7idq"]
 [ext_resource type="PackedScene" uid="uid://6c5nysnuvb37" path="res://src/enemies/creeps/grounded/mk_2.tscn" id="13_c42u2"]
-[ext_resource type="PackedScene" uid="uid://6tt2g1pnq627" path="res://src/light_rays.tscn" id="13_m2fws"]
-[ext_resource type="Shader" path="res://src/shaders/godrays.gdshader" id="14_ai0jw"]
 [ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="15_i4nha"]
 [ext_resource type="PackedScene" uid="uid://c6btu7mme5wwk" path="res://src/enemies/some_traps/stomp_trap.tscn" id="15_mv2lf"]
 [ext_resource type="PackedScene" uid="uid://1urumja6eqm" path="res://src/enemies/creeps/floating/mk_6.tscn" id="19_jw428"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xmw71"]
-polygon = PackedVector2Array(-2.00012, 1, 1.99988, 1, 1.99988, 0, 2.99988, 0, 2.99988, -2, 7.99988, -2, 7.99988, -3, 10.9999, -3, 10.9999, -5, 7.99988, -5, 7.99988, -6, 3.99988, -6, 3.99988, -7, 1.99988, -7, 1.99988, -8, 0.999878, -8, 0.999878, -28, -1.00012, -28, -1.00012, -8, -2.00012, -8, -2.00012, -7, -4.00012, -7, -4.00012, -6, -8.00012, -6, -8.00012, -5, -11.0001, -5, -11.0001, -3, -10.0001, -3, -10.0001, -2, -3.00012, -2, -3.00012, 0, -2.00012, 0)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wkxrx"]
-polygon = PackedVector2Array(672, 513, 676, 513, 676, 512, 677, 512, 677, 511, 678, 511, 678, 507, 677, 507, 677, 505, 676, 505, 676, 501, 675, 501, 675, 488, 673, 488, 673, 501, 672, 501, 672, 505, 671, 505, 671, 507, 670, 507, 670, 511, 671, 511, 671, 512, 672, 512)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rbhn"]
-resource_local_to_scene = true
-shader = ExtResource("14_ai0jw")
-shader_parameter/angle = 0.45
-shader_parameter/position = 0.325
-shader_parameter/spread = 0.061
-shader_parameter/cutoff = -0.115
-shader_parameter/falloff = 0.684
-shader_parameter/edge_fade = 1.0
-shader_parameter/speed = 20.0
-shader_parameter/ray1_density = 1.0
-shader_parameter/ray2_density = 3.0
-shader_parameter/ray2_intensity = 0.71
-shader_parameter/color = Color(0.792157, 0.901961, 0.65098, 1)
-shader_parameter/hdr = true
-shader_parameter/seed = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf63l"]
 size = Vector2(48, 29)
@@ -261,22 +236,8 @@ position = Vector2(-1328, -424)
 [node name="PointLightContainer" parent="SemiVisuals" instance=ExtResource("15_i4nha")]
 position = Vector2(-1598, -92)
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="SemiVisuals/PointLightContainer"]
-occluder = SubResource("OccluderPolygon2D_xmw71")
-
 [node name="PointLightContainer2" parent="SemiVisuals" instance=ExtResource("15_i4nha")]
 position = Vector2(-924, 420)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="SemiVisuals/PointLightContainer2"]
-position = Vector2(-674, -512)
-occluder = SubResource("OccluderPolygon2D_wkxrx")
-
-[node name="LightRays" parent="SemiVisuals" instance=ExtResource("13_m2fws")]
-material = SubResource("ShaderMaterial_2rbhn")
-offset_left = 620.0
-offset_top = 73.0
-offset_right = 1210.0
-offset_bottom = 196.0
 
 [node name="Collision" type="StaticBody2D" parent="."]
 z_index = 150

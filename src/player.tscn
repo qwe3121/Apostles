@@ -5816,7 +5816,7 @@ material = SubResource("ShaderMaterial_6js6n")
 position = Vector2(0, -88)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nqx8a")
-animation = &"SecondJumpAttack3"
+animation = &"WallSlide"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -31.5)

@@ -4,7 +4,7 @@ extends CharacterBody2D
 var hp = 3
 var speed = 150
 var y_pos_before_ulti
-var knockback_speed = 75
+var knockback_speed = 100
 
 var close_en_to_attack = false
 
@@ -39,7 +39,19 @@ var need_to_check_if_see_player = false
 
 var gravity = 0
 
-enum {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
+enum states {IDLE, RUN, BEFORE_ATTACK, ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, FRUIT_DEAD}
+
+var state_ins_counter = {
+	states.IDLE: 0,
+	states.RUN: 0,
+	states.BEFORE_ATTACK: 0,
+	states.ATTACK: 0,
+	states.BEFORE_ULTI: 0,
+	states.ULTI: 0,
+	states.AFTER_ULTI: 0,
+	states.DEAD: 0,
+	states.FRUIT_DEAD: 0,
+}
 
 func const_to_str(index):
 	match index:
@@ -62,11 +74,15 @@ func const_to_str(index):
 		8:
 			return "FRUIT_DEAD"
 
-var state = IDLE : set = set_state
+var state = states.IDLE : set = set_state
 
 func set_state(value):
-	if state == DEAD or state == FRUIT_DEAD:
+	if state == states.DEAD or state == states.FRUIT_DEAD:
 		return
+		
+	state_ins_counter[value] += 1
+	if state_ins_counter[value] > 1000:
+		state_ins_counter[value] = 0
 	
 	if not state == value: state_started = false
 #	print("from " + const_to_str(state) + " into " + const_to_str(value))
@@ -104,6 +120,9 @@ var visible_on_screen = false
 
 
 func _ready():
+	if len(states) != len(state_ins_counter.keys()):
+		assert(false, "state_ins_counter dictionary is not full!")
+	
 	animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 	
 	y_pos_before_ulti = global_position.y
@@ -120,7 +139,7 @@ func get_damage(value, k_dir = 0, damager = null):
 	if not can_get_damage and damager == null:
 		return
 		
-	if state == DEAD or state == FRUIT_DEAD:
+	if state == states.DEAD or state == states.FRUIT_DEAD:
 		return
 	
 	hp -= value
@@ -139,7 +158,7 @@ func get_damage(value, k_dir = 0, damager = null):
 				damager.turn_into_bloody_version()
 		else:
 			global.player.adrenaline += player_adrenaline_gain
-		state = DEAD
+		state = states.DEAD
 	elif not flashing:
 		flashing = 1
 		animated_sprite.material.set_shader_parameter("flash_modifier", 1.0)
@@ -159,29 +178,29 @@ func set_anim(animation_name):
 	wall_detector_col.position.x = 20.75 * anim_dir
 
 	match animation_name:
-		IDLE: 
+		states.IDLE: 
 			if chasing or see_player:
 				anim.play("idle_run")
 			else:
 				anim.play("p_idle_run")
-		RUN: 
+		states.RUN: 
 			if chasing or see_player:
 				anim.play("idle_run")
 			else:
 				anim.play("p_idle_run")
-		BEFORE_ATTACK:
+		states.BEFORE_ATTACK:
 			anim.play("before_attack")
-		ATTACK:
+		states.ATTACK:
 			anim.play("attack")
-		BEFORE_ULTI:
+		states.BEFORE_ULTI:
 			anim.play("before_ulti")
-		ULTI:
+		states.ULTI:
 			anim.play("ulti")
-		AFTER_ULTI:
+		states.AFTER_ULTI:
 			anim.play("after_ulti")
-		DEAD:
+		states.DEAD:
 			anim.play("dead")
-		FRUIT_DEAD:
+		states.FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
 
 
@@ -221,26 +240,26 @@ func _physics_process(delta):
 	
 	
 	match state:
-		IDLE: 
+		states.IDLE: 
 			idle()
-		RUN: 
+		states.RUN: 
 			run()
-		BEFORE_ATTACK:
+		states.BEFORE_ATTACK:
 			before_attack(delta)
-		ATTACK:
+		states.ATTACK:
 			attack(delta)
-		BEFORE_ULTI:
+		states.BEFORE_ULTI:
 			before_ulti(delta)
-		ULTI:
+		states.ULTI:
 			ulti(delta)
-		AFTER_ULTI:
+		states.AFTER_ULTI:
 			after_ulti(delta)
-		DEAD:
+		states.DEAD:
 			dead(delta)
-		FRUIT_DEAD:
+		states.FRUIT_DEAD:
 			fruit_dead(delta)
 			
-	if knockback_dir and not (state == DEAD or state == FRUIT_DEAD):
+	if knockback_dir and not (state == states.DEAD or state == states.FRUIT_DEAD):
 		if knockback_dir == dir:
 			velocity.x = knockback_speed * 2 * knockback_dir
 		else: velocity.x = knockback_speed * knockback_dir
@@ -253,22 +272,22 @@ func idle():
 		set_dir()
 		if can_attack:
 			if can_ulti and close_en_to_attack:
-				state = BEFORE_ULTI
+				state = states.BEFORE_ULTI
 				return
 			if can_attack and close_en_to_attack:
-				state = BEFORE_ATTACK
+				state = states.BEFORE_ATTACK
 				return
 		if not close_en_to_attack:
-			state = RUN
+			state = states.RUN
 			return
 	else:
 		if walking:
 			dir = 1 if randi_range(0,1) else -1
 			anim_dir = dir
-			state = RUN
+			state = states.RUN
 			return
 			
-	set_anim(IDLE)
+	set_anim(states.IDLE)
 	
 	velocity.y = 0
 	velocity.x = 0
@@ -279,14 +298,14 @@ func run():
 		set_dir()
 		if can_attack:
 			if can_ulti and close_en_to_attack:
-				state = BEFORE_ULTI
+				state = states.BEFORE_ULTI
 				return
 			if can_attack and close_en_to_attack:
-				state = BEFORE_ATTACK
+				state = states.BEFORE_ATTACK
 				return
 		if close_en_to_attack:
 			dir = 0
-			state = IDLE
+			state = states.IDLE
 			return
 			
 	if (is_on_wall or there_is_blocked_area) and not turned and (not see_player and not chasing):
@@ -297,9 +316,9 @@ func run():
 	
 	if (is_on_wall or there_is_blocked_area) and (see_player or chasing):
 		dir = 0
-		set_anim(IDLE)
+		set_anim(states.IDLE)
 	else:
-		set_anim(RUN)
+		set_anim(states.RUN)
 		
 	velocity.y = 0
 	velocity.x = dir * speed
@@ -308,63 +327,72 @@ func run():
 func before_attack(delta):
 	velocity.x = 0
 	velocity.y = 0
-	set_anim(BEFORE_ATTACK)
+	set_anim(states.BEFORE_ATTACK)
 	if !state_started:
 		state_started = true
 		can_attack = false
+		var state_ins_number = state_ins_counter[states.BEFORE_ATTACK]
 		await anim.animation_finished
-		if state == BEFORE_ATTACK:
-			state = ATTACK
+		if state_ins_number != state_ins_counter[states.BEFORE_ATTACK]:
+			return
+		if state == states.BEFORE_ATTACK:
+			state = states.ATTACK
 	
 	
 func attack(delta):
 	velocity.x = 0
 	velocity.y = 0
-	set_anim(ATTACK)
+	set_anim(states.ATTACK)
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.ATTACK]
 		await anim.animation_finished
-		if state == ATTACK:
+		if state_ins_number != state_ins_counter[states.ATTACK]:
+			return
+		if state == states.ATTACK:
 			attack_cooldown.start()
 			if not chasing:
 				walking = 0
 				walking_timer_start()
-				state = IDLE
+				state = states.IDLE
 			else:
-				state = RUN
+				state = states.RUN
 			
 			
 func before_ulti(delta):
 	velocity.x = 0
 	velocity.y += speed * delta * 8
-	set_anim(BEFORE_ULTI)
+	set_anim(states.BEFORE_ULTI)
 	if !state_started:
 		state_started = true
 		attack_cooldown.stop()
 		can_attack = false
 		can_ulti = false
 	if is_on_floor():
-		if state == BEFORE_ULTI:
-			state = ULTI
+		if state == states.BEFORE_ULTI:
+			state = states.ULTI
 	
 	
 func ulti(delta):
 	velocity.x = 0
 	velocity.y = 0
-	set_anim(ULTI)
+	set_anim(states.ULTI)
 	if !state_started:
 		state_started = true
+		var state_ins_number = state_ins_counter[states.ULTI]
 		await anim.animation_finished
-		if state == ULTI:
-			state = AFTER_ULTI
+		if state_ins_number != state_ins_counter[states.ULTI]:
+			return
+		if state == states.ULTI:
+			state = states.AFTER_ULTI
 			
 			
 func after_ulti(delta):
 	velocity.x = 0
 	velocity.y += -speed * delta * 8
-	set_anim(AFTER_ULTI)
+	set_anim(states.AFTER_ULTI)
 	if global_position.y - y_pos_before_ulti <= 1:
-		if state == AFTER_ULTI:
+		if state == states.AFTER_ULTI:
 			ulti_cooldown.start()
 			attack_cooldown.start()
 			velocity.y = 0 # ITS IMPORTANT TO RESET VELOCITY SO MK6 DOES NOT
@@ -373,15 +401,15 @@ func after_ulti(delta):
 			if not chasing:
 				walking = 0
 				walking_timer_start()
-				state = IDLE
+				state = states.IDLE
 			else:
-				state = RUN
+				state = states.RUN
 	
 	
 func dead(delta):
 	velocity.y = 0
 	velocity.x = 0
-	set_anim(DEAD)
+	set_anim(states.DEAD)
 	if !state_started:
 		state_started = true
 		attack_hitbox.disabled = true
@@ -393,16 +421,20 @@ func dead(delta):
 		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
+		var state_ins_number = state_ins_counter[states.DEAD]
 		await anim.animation_finished
-		if state == DEAD:
+		if state_ins_number != state_ins_counter[states.DEAD]:
+			return
+		if state == states.DEAD:
 			queue_free()
 
 
 func _on_walking_timer_timeout():
-	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.BEFORE_ULTI \
+	and not state == states.ULTI and not state == states.AFTER_ULTI:
 		if walking:
 			walking = 0
-			state = IDLE
+			state = states.IDLE
 		else:
 			walking = 1
 		walking_timer_start()
@@ -443,7 +475,7 @@ func on_unsee_player():
 	if not see_player:
 		return
 	
-	if state == DEAD or state == FRUIT_DEAD:
+	if state == states.DEAD or state == states.FRUIT_DEAD:
 		return
 		
 	see_player = false
@@ -451,8 +483,9 @@ func on_unsee_player():
 	chasing = true
 	chase_timer.start()
 	
-	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
-		state = RUN
+	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.BEFORE_ULTI \
+	and not state == states.ULTI and not state == states.AFTER_ULTI:
+		state = states.RUN
 		
 		
 func check_if_vision_is_blocked_by_wall():
@@ -478,10 +511,11 @@ func _on_turned_timer_timeout():
 
 func _on_chase_timer_timeout():
 	chasing = false
-	if not state == BEFORE_ATTACK and not state == ATTACK and not state == BEFORE_ULTI and not state == ULTI and not state == AFTER_ULTI:
+	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.BEFORE_ULTI \
+	and not state == states.ULTI and not state == states.AFTER_ULTI:
 		walking = 0
 		walking_timer_start()
-		state = IDLE
+		state = states.IDLE
 
 
 func _on_check_for_blocked_area_area_entered(area):
@@ -518,14 +552,14 @@ func _on_wall_detector_body_exited(body):
 func kill_with_fruit_ninja():
 	chase_timer.stop()
 	walking_timer.stop()
-	state = FRUIT_DEAD
+	state = states.FRUIT_DEAD
 	global.camera.shake()
 	
 	
 func fruit_dead(delta):
 	velocity.x = 0
 	velocity.y = 0
-	set_anim(FRUIT_DEAD)
+	set_anim(states.FRUIT_DEAD)
 	if !state_started:
 		state_started = true
 		attack_hitbox.disabled = true
@@ -538,8 +572,11 @@ func fruit_dead(delta):
 		global.player.killstreak += 1
 		for c in range(b_drops):
 			blood_manager.create_blood_drops(last_knockback_dir, blood_pos)
+		var state_ins_number = state_ins_counter[states.FRUIT_DEAD]
 		await anim.animation_finished
-		if state == FRUIT_DEAD:
+		if state_ins_number != state_ins_counter[states.FRUIT_DEAD]:
+			return
+		if state == states.FRUIT_DEAD:
 			events.emit_signal("fruit_kill")
 			queue_free()
 			
@@ -575,7 +612,7 @@ func _on_check_if_player_deep_inside_body_exited(body):
 	
 	
 func is_alive():
-	if state != DEAD and state != FRUIT_DEAD and hp > 0:
+	if state != states.DEAD and state != states.FRUIT_DEAD and hp > 0:
 		return true
 	return false
 	

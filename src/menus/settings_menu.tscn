@@ -322,6 +322,10 @@ action = "JUMP"
 layout_mode = 2
 action = "DASH"
 
+[node name="ActionContainer13" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
+layout_mode = 2
+action = "DOWN DASH"
+
 [node name="ActionContainer6" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
 action = "ROLL"

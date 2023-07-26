@@ -11,13 +11,14 @@ var cfg_data = {}
 var default_keys = {
 	"ROLL": [KEY_SHIFT, "InputEventKey"],
 	"DASH": [KEY_TAB, "InputEventKey"],
+	"DOWN DASH": [KEY_C, "InputEventKey"],
 	"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
 	"RIGHT": [KEY_D, "InputEventKey"],
 	"LEFT": [KEY_A, "InputEventKey"],
 	"DOWN": [KEY_S, "InputEventKey"], 
 	"JUMP": [KEY_SPACE, "InputEventKey"],
 	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"],
-	"BLOCK": [KEY_C, "InputEventKey"],
+	"BLOCK": [KEY_X, "InputEventKey"],
 	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
 	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
 }
@@ -39,13 +40,14 @@ var default_cfg_data = {
 	#KEYS
 	"ROLL": [KEY_SHIFT, "InputEventKey"],
 	"DASH": [KEY_TAB, "InputEventKey"],
+	"DOWN DASH": [KEY_C, "InputEventKey"],
 	"RMB ATTACK": [MOUSE_BUTTON_RIGHT, "InputEventMouseButton"],
 	"RIGHT": [KEY_D, "InputEventKey"],
 	"LEFT": [KEY_A, "InputEventKey"],
 	"DOWN": [KEY_S, "InputEventKey"], 
 	"JUMP": [KEY_SPACE, "InputEventKey"],
 	"LMB ATTACK": [MOUSE_BUTTON_LEFT, "InputEventMouseButton"], 
-	"BLOCK": [KEY_C, "InputEventKey"],
+	"BLOCK": [KEY_X, "InputEventKey"],
 	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
 	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
 }

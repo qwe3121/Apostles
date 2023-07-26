@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw5vnu8h164g"]
+
+[ext_resource type="Script" path="res://src/sword_particles.gd" id="1_6y7j5"]
+
+[sub_resource type="Gradient" id="Gradient_5xcqn"]
+colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_otm1j"]
+gradient = SubResource("Gradient_5xcqn")
+
+[sub_resource type="Curve" id="Curve_a6c1e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_id1v3"]
+curve = SubResource("Curve_a6c1e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_boff5"]
+emission_shape = 3
+emission_box_extents = Vector3(24, 64, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 60.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 5.0
+tangential_accel_max = 5.0
+scale_min = 5.8
+scale_max = 6.2
+scale_curve = SubResource("CurveTexture_id1v3")
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("GradientTexture1D_otm1j")
+
+[node name="SwordParticles" type="GPUParticles2D"]
+emitting = false
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_boff5")
+one_shot = true
+local_coords = true
+script = ExtResource("1_6y7j5")

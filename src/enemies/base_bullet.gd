@@ -42,5 +42,5 @@ func _on_body_entered(body):
 		queue_free()
 	else:
 		particles_manager.create_hit_particles(global_position + Vector2(20 * dir, 0), -dir)
-		global.camera.shake()
+#		global.camera.shake()
 		queue_free()
