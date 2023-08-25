@@ -242,6 +242,20 @@ theme_override_constants/margin_bottom = 50
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/MarginContainer"]
 layout_mode = 2
 
+[node name="Undead" type="HBoxContainer" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="UndeadLabel" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "UNDEAD"
+
+[node name="UndeadCheckButton" type="CheckButton" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
 [node name="TransitionModeContainer" type="HBoxContainer" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
@@ -263,20 +277,6 @@ popup/item_0/text = "GLITCHY"
 popup/item_0/id = 0
 popup/item_1/text = "FADE-IN/FATE-OUT"
 popup/item_1/id = 1
-
-[node name="Undead" type="HBoxContainer" parent="TabContainer/Game/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-
-[node name="UndeadLabel" type="Label" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 35
-text = "UNDEAD"
-
-[node name="UndeadCheckButton" type="CheckButton" parent="TabContainer/Game/MarginContainer/VBoxContainer/Undead"]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
 
 [node name="Actions" type="TabBar" parent="TabContainer"]
 visible = false
@@ -420,8 +420,8 @@ text = "Back to defaults"
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeHSlider" to="." method="_on_master_volume_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeHSlider" to="." method="_on_music_volume_h_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeHSlider" to="." method="_on_sfx_volume_h_slider_value_changed"]
-[connection signal="item_selected" from="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton" to="." method="_on_transition_mode_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Game/MarginContainer/VBoxContainer/Undead/UndeadCheckButton" to="." method="_on_undead_check_button_toggled"]
+[connection signal="item_selected" from="TabContainer/Game/MarginContainer/VBoxContainer/TransitionModeContainer/TransitionModeOptionButton" to="." method="_on_transition_mode_option_button_item_selected"]
 [connection signal="pressed" from="TabButtonsContainer/VideoTabButton" to="." method="_on_video_tab_button_pressed"]
 [connection signal="pressed" from="TabButtonsContainer/AudioTabButton" to="." method="_on_audio_tab_button_pressed"]
 [connection signal="pressed" from="TabButtonsContainer/GameTabButton" to="." method="_on_game_tab_button_pressed"]

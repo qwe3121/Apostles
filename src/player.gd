@@ -73,6 +73,34 @@ func set_killstreak(value):
 func _on_killstreak_timer_timeout():
 	killstreak = 0
 	
+	
+var perks = {
+	"hp": 0,
+	"lifesteal": 0,
+	"spells_cooldown": 0,
+	"adrenaline_gain": 0,
+	"adrenaline": 0,
+	"fruit_ninja_adrenaline_cost": 0,
+	"hp_gain_from_adrenaline": 0,
+	"death_scam": 0,
+	"blademail": 0,
+	"huskar": 0,
+	"damage_gain_after_block": 0,
+	"fruit_ninja": 0,
+	"roll": 0,
+	"corrosion": 0,
+	"fire_resist": 0,
+	"cold_resist": 0,
+	"physical_resist": 0,
+	"laser_resist": 0,
+	"electric_resist": 0,
+	"corrosion_resist": 0
+}
+
+
+var modules = {
+	
+}
 
 
 @onready var death_screen = $CanvasLayer/DeathScreen
@@ -126,11 +154,6 @@ var fruit_ninjaing = false
 var fruit_ninjaing_thru_line = false
 var fruit_ninja_targets = []
 var fruit_ninja_line_already_painted = false
-
-
-var learned_skills = {
-	"fruit_ninja": true
-}
 
 #debuffs section
 
@@ -1962,16 +1985,16 @@ func _on_flashlight_timer_timeout():
 		
 		
 func change_col_to_crouch_mode():
-	col.shape.size = Vector2(32, 63)
-	col.position = Vector2(0, -31.5)
+	col.shape.size = Vector2(32, 62)
+	col.position = Vector2(0, -32)
 	hurtbox_4_traps_col.shape.size = Vector2(30, 37)
 	hurtbox_4_traps_col.position = Vector2(0, -31.5)
 	need_to_change_col_size = false
 	
 	
 func change_col_to_full_size():
-	col.shape.size = Vector2(32, 90)
-	col.position = Vector2(0, -45)
+	col.shape.size = Vector2(32, 89)
+	col.position = Vector2(0, -45.5)
 	hurtbox_4_traps_col.shape.size = Vector2(30, 54)
 	hurtbox_4_traps_col.position = Vector2(0, -45)
 	need_to_change_col_size = false

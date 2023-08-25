@@ -38,6 +38,9 @@ var need_to_check_if_see_player = false
 
 @onready var gettin_damage_CD = $GettinDamageCD
 
+@onready var move_particles = $MoveParticles
+var can_show_move_particles = true
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum states {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, \
@@ -171,6 +174,7 @@ func get_damage(value, k_dir = 0, damager = null):
 	
 	hp -= value
 	knockback_dir = k_dir
+	can_show_move_particles = false
 	
 	can_get_damage = false
 	gettin_damage_CD.start()
@@ -344,8 +348,26 @@ func set_attack_dir():
 	else:
 		attack_dir = -1
 
-
 func _physics_process(delta):
+	if velocity.x != 0 and can_show_move_particles:
+		if can_show_move_particles: move_particles.visible = true
+		if velocity.x > 0:
+			if animated_sprite.flip_h:
+				move_particles.position.x = 2
+				move_particles.flip_h = true
+			else:
+				move_particles.position.x = -3
+				move_particles.flip_h = true
+		elif velocity.x < 0:
+			if animated_sprite.flip_h:
+				move_particles.position.x = 3
+				move_particles.flip_h = false
+			else:
+				move_particles.position.x = -2
+				move_particles.flip_h = false
+	else:
+		move_particles.visible = false
+	
 	if not can_attack and not attack_cooldown.is_stopped():
 		small_move_back_col.disabled = true
 		big_move_back_col.disabled = false
@@ -889,10 +911,10 @@ func _on_flashlight_timer_timeout():
 		animated_sprite.material.set_shader_parameter("flash_modifier", 0.0)
 		flashing = 0
 		knockback_dir = 0
+		can_show_move_particles = true
 		
-		if not is_on_floor():
-			velocity.y = 0
-			velocity.x = 0
+		velocity.y = 0
+		velocity.x = 0
 
 
 func _on_wall_detector_body_entered(body):

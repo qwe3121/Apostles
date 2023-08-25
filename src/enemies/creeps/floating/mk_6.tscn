@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=3 uid="uid://1urumja6eqm"]
+[gd_scene load_steps=169 format=3 uid="uid://1urumja6eqm"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/floating/mk_6.gd" id="1_3refv"]
 [ext_resource type="Texture2D" uid="uid://cshobsrwgnvqt" path="res://sprites/enemies/MK6/Raspad_Smerti_MK6.png" id="2_0bna4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://50e632sg261m" path="res://sprites/enemies/MK6/Pokoi_i_Peredvijenie_MK6.png" id="9_ds0n3"]
 [ext_resource type="Texture2D" uid="uid://crjnl82b5gvxt" path="res://sprites/enemies/MK6/Mirni_Pokoi_i_Peredvijenie_MK6.png" id="10_maoor"]
 [ext_resource type="Texture2D" uid="uid://bxsavm7st1eud" path="res://sprites/enemies/MK6/Ylta_MK6.png" id="11_1xwgu"]
+[ext_resource type="Texture2D" uid="uid://cnboc8yn05841" path="res://sprites/enemies/MK6/Stan_MK6.png" id="12_1hygx"]
 [ext_resource type="Texture2D" uid="uid://ctgggpeocdpgi" path="res://sprites/enemies/MK6/Ylta_Cmert_Zona_MK6.png" id="12_fj7kx"]
 [ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="17_8dhxy"]
 [ext_resource type="Texture2D" uid="uid://fn3iekos5vpb" path="res://sprites/blood/Krovavi_Brizg_1.png" id="29_mts5m"]
@@ -728,6 +729,57 @@ tracks/9/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_lykdl"]
+resource_name = "stun"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"stun"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dkqww"]
 _data = {
 "RESET": SubResource("Animation_anvga"),
@@ -739,6 +791,7 @@ _data = {
 "fruit_ninja_dead": SubResource("Animation_5bxyl"),
 "idle_run": SubResource("Animation_80hjb"),
 "p_idle_run": SubResource("Animation_bm7xk"),
+"stun": SubResource("Animation_lykdl"),
 "ulti": SubResource("Animation_h0avq")
 }
 
@@ -1058,6 +1111,30 @@ region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txxdb"]
 atlas = ExtResource("10_maoor")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo082"]
+atlas = ExtResource("12_1hygx")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4up8h"]
+atlas = ExtResource("12_1hygx")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bw08d"]
+atlas = ExtResource("12_1hygx")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdq4p"]
+atlas = ExtResource("12_1hygx")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klb4p"]
+atlas = ExtResource("12_1hygx")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gneo4"]
+atlas = ExtResource("12_1hygx")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8w6eq"]
@@ -1435,6 +1512,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bo082")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4up8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bw08d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdq4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klb4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gneo4")
+}],
+"loop": true,
+"name": &"stun",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8w6eq")
 }, {
 "duration": 1.0,
@@ -1685,7 +1785,7 @@ floor_snap_length = 10.0
 script = ExtResource("1_3refv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.8
+speed_scale = 0.7
 libraries = {
 "": SubResource("AnimationLibrary_dkqww")
 }
@@ -1705,7 +1805,7 @@ light_mask = 0
 material = SubResource("ShaderMaterial_iay20")
 position = Vector2(-3, -20)
 sprite_frames = SubResource("SpriteFrames_6taf5")
-animation = &"fruit_ninja_dead"
+animation = &"stun"
 frame = 1
 
 [node name="DeadZone" type="AnimatedSprite2D" parent="AnimatedSprite2D"]

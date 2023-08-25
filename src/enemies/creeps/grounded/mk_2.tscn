@@ -1,4 +1,4 @@
-[gd_scene load_steps=258 format=3 uid="uid://6c5nysnuvb37"]
+[gd_scene load_steps=267 format=3 uid="uid://6c5nysnuvb37"]
 
 [ext_resource type="Script" path="res://src/enemies/creeps/grounded/mk_2.gd" id="1_0l2cv"]
 [ext_resource type="Texture2D" uid="uid://by3rgtf4t4xyy" path="res://sprites/enemies/MK2/Peredvijenie_MK2.png" id="2_3ljrf"]
@@ -33,6 +33,8 @@
 [ext_resource type="Texture2D" uid="uid://dqtbcxfsm0bcp" path="res://sprites/enemies/MK2/Ylta_Ataka_v_Dvijeni_MK2.png" id="25_f14hn"]
 [ext_resource type="Texture2D" uid="uid://qys7l8phxbc2" path="res://sprites/enemies/MK2/Otskok_i_Ylta_Ataka_MK2.png" id="26_vjhmf"]
 [ext_resource type="PackedScene" uid="uid://o6hd5p6s4u5l" path="res://src/point_light_container.tscn" id="33_sgn1s"]
+[ext_resource type="Material" uid="uid://dfxnjga3iv67e" path="res://src/shaders/pixel_smoothing.tres" id="34_6rbqt"]
+[ext_resource type="Texture2D" uid="uid://bx4p0vdid273f" path="res://sprites/enemies/MK2/mk_2_move_particles.png" id="35_ud4lj"]
 
 [sub_resource type="Animation" id="Animation_2hxqp"]
 length = 0.001
@@ -3028,6 +3030,56 @@ size = Vector2(157, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xkq4u"]
 size = Vector2(185, 33)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eby35"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u127a"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bfwk"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(192, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghbmq"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(288, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl05i"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(384, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikbxp"]
+atlas = ExtResource("35_ud4lj")
+region = Rect2(480, 0, 96, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gttv8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eby35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u127a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bfwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghbmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl05i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikbxp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="2MK" type="CharacterBody2D"]
 light_mask = 0
 scale = Vector2(2, 2)
@@ -3079,6 +3131,7 @@ collision_mask = 2
 hit_from_inside = true
 
 [node name="CheckForBlockedArea" type="Area2D" parent="."]
+visible = false
 modulate = Color(1, 0, 1, 1)
 collision_layer = 0
 collision_mask = 4
@@ -3097,6 +3150,7 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_x801r")
 
 [node name="WallDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -3131,6 +3185,7 @@ shape = SubResource("RectangleShape2D_aku80")
 disabled = true
 
 [node name="CheckIfPlayerDeepInside" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 128
 
@@ -3142,6 +3197,7 @@ shape = SubResource("RectangleShape2D_yg73c")
 position = Vector2(0, -18.5)
 
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
+visible = false
 damage_source = "fire"
 damage = 10
 
@@ -3220,6 +3276,15 @@ texture_scale = 0.4
 
 [node name="ForegroundLight" parent="PointLightContainer" index="1"]
 texture_scale = 0.4
+
+[node name="MoveParticles" type="AnimatedSprite2D" parent="."]
+show_behind_parent = true
+material = ExtResource("34_6rbqt")
+position = Vector2(-2, -24)
+sprite_frames = SubResource("SpriteFrames_gttv8")
+autoplay = "default"
+frame = 3
+frame_progress = 0.589332
 
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout" flags=18]

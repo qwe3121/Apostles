@@ -4,7 +4,7 @@ extends Area2D
 @export var can_block: bool = false
 @export_enum("hit", "fire", "bullet", "cut") var damage_source: String = "hit"
 @export var damage: int = 1
-@export var respect_col_pos: bool = false #if respect then rename check this
+@export var respect_col_pos: bool = false #if respect then check this
 
 @export var hit_once: bool = false
 var hitted_once: bool = false
