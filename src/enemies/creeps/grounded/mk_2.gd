@@ -216,12 +216,12 @@ func set_anim(animation_name):
 			move_back_timer.stop()
 		
 	if see_player or chasing:
-		if not unit_is_stunned:
+		if not unit_is_stunned and is_alive():
 			animated_sprite.flip_h = attack_dir == 1
 			attack_hitbox.position.x = 32 * attack_dir
 			ulti_hitbox.position.x = 49 * attack_dir
 	else:
-		if not unit_is_stunned:
+		if not unit_is_stunned and is_alive():
 			animated_sprite.flip_h = anim_dir == 1
 			attack_hitbox.position.x = 32 * anim_dir
 			ulti_hitbox.position.x = 49 * anim_dir

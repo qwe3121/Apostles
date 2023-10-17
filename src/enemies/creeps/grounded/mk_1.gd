@@ -213,11 +213,11 @@ func set_anim(animation_name):
 			move_back_timer.stop()
 			
 	if see_player or chasing:
-		if not unit_is_stunned: 
+		if not unit_is_stunned and is_alive(): 
 			animated_sprite.flip_h = attack_dir == 1
 			bullet_pos.position.x = -3 * attack_dir
 	else:
-		if not unit_is_stunned: 
+		if not unit_is_stunned and is_alive(): 
 			animated_sprite.flip_h = anim_dir == 1
 			bullet_pos.position.x = -3 * attack_dir
 		

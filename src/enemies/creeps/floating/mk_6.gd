@@ -185,11 +185,11 @@ func get_damage(value, k_dir = 0, damager = null):
 		
 func set_anim(animation_name):
 	if see_player or chasing:
-		if not unit_is_stunned:
+		if not unit_is_stunned and is_alive():
 			animated_sprite.flip_h = attack_dir == 1
 			animated_sprite.position.x = 3 * attack_dir
 	else:
-		if not unit_is_stunned:
+		if not unit_is_stunned and is_alive():
 			animated_sprite.flip_h = anim_dir == 1
 			animated_sprite.position.x = 3 * anim_dir
 		
