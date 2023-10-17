@@ -45,7 +45,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum states {IDLE, RUN, BEFORE_ATTACK, ATTACK, AFTER_ATTACK, BEFORE_ULTI, ULTI, AFTER_ULTI, DEAD, \
 AIR, FRUIT_DEAD, BEFORE_ATTACK_N_RUN, \
-ATTACK_N_RUN, AFTER_ATTACK_N_RUN, BEFORE_ULTI_N_RUN, ULTI_N_RUN, AFTER_ULTI_N_RUN}
+ATTACK_N_RUN, AFTER_ATTACK_N_RUN, BEFORE_ULTI_N_RUN, ULTI_N_RUN, AFTER_ULTI_N_RUN, STUNNED}
 
 var state_ins_counter = {
 	states.IDLE: 0,
@@ -64,7 +64,8 @@ var state_ins_counter = {
 	states.AFTER_ATTACK_N_RUN: 0,
 	states.BEFORE_ULTI_N_RUN: 0,
 	states.ULTI_N_RUN: 0,
-	states.AFTER_ULTI_N_RUN: 0
+	states.AFTER_ULTI_N_RUN: 0,
+	states.STUNNED: 0
 }
 
 func const_to_str(index):
@@ -91,10 +92,16 @@ func const_to_str(index):
 			return "AIR"
 		10:
 			return "FRUIT_DEAD"
+		11:
+			return "STUNNED"
 
 var state = states.AIR : set = set_state
 
 func set_state(value):
+	if state == states.STUNNED:
+		if value != states.IDLE and value != states.DEAD and value != states.FRUIT_DEAD:
+			return
+	
 	if value == states.DEAD or value == states.FRUIT_DEAD:
 		if player_move_state == move_state_const.MOVE_BACK:
 			dir *= -1
@@ -150,6 +157,9 @@ var can_get_damage = true
 
 var visible_on_screen = false
 
+var unit_is_stunned = false
+@onready var stun_duration_timer = $StunDuration
+
 
 func _ready():
 	if len(states) != len(state_ins_counter.keys()):
@@ -173,6 +183,7 @@ func get_damage(value, k_dir = 0, damager = null):
 		return
 	
 	hp -= value
+	stun()
 	knockback_dir = k_dir
 	can_show_move_particles = false
 	
@@ -205,13 +216,15 @@ func set_anim(animation_name):
 			move_back_timer.stop()
 		
 	if see_player or chasing:
-		animated_sprite.flip_h = attack_dir == 1
-		attack_hitbox.position.x = 32 * attack_dir
-		ulti_hitbox.position.x = 49 * attack_dir
+		if not unit_is_stunned:
+			animated_sprite.flip_h = attack_dir == 1
+			attack_hitbox.position.x = 32 * attack_dir
+			ulti_hitbox.position.x = 49 * attack_dir
 	else:
-		animated_sprite.flip_h = anim_dir == 1
-		attack_hitbox.position.x = 32 * anim_dir
-		ulti_hitbox.position.x = 49 * anim_dir
+		if not unit_is_stunned:
+			animated_sprite.flip_h = anim_dir == 1
+			attack_hitbox.position.x = 32 * anim_dir
+			ulti_hitbox.position.x = 49 * anim_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
 	check_for_pit.position.x = 24.75 * anim_dir
@@ -317,6 +330,8 @@ func set_anim(animation_name):
 			anim.play("dead")
 		states.FRUIT_DEAD:
 			anim.play("fruit_ninja_dead")
+		states.STUNNED:
+			anim.play("stun")
 
 
 func set_dir():
@@ -407,6 +422,8 @@ func _physics_process(delta):
 			dead(delta)
 		states.FRUIT_DEAD:
 			fruit_dead(delta)
+		states.STUNNED:
+			stunned(delta)
 			
 	if knockback_dir and not (state == states.DEAD or state == states.FRUIT_DEAD):
 		if knockback_dir == dir:
@@ -803,7 +820,8 @@ func dead(delta):
 
 func _on_walking_timer_timeout():
 	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.AFTER_ATTACK \
-	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI:
+	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI \
+	and not state == states.STUNNED:
 		if walking:
 			walking = 0
 			state = states.IDLE
@@ -860,7 +878,8 @@ func on_unsee_player():
 		anim_dir = dir
 	
 	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.AFTER_ATTACK \
-	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI:
+	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI \
+	and not state == states.STUNNED:
 		state = states.RUN
 		
 		
@@ -888,7 +907,8 @@ func _on_turned_timer_timeout():
 func _on_chase_timer_timeout():
 	chasing = false
 	if not state == states.BEFORE_ATTACK and not state == states.ATTACK and not state == states.AFTER_ATTACK \
-	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI:
+	and not state == states.BEFORE_ULTI and not state == states.ULTI and not state == states.AFTER_ULTI \
+	and not state == states.STUNNED:
 		walking = 0
 		walking_timer_start()
 		state = states.IDLE
@@ -961,6 +981,44 @@ func fruit_dead(delta):
 		if state == states.FRUIT_DEAD:
 			events.emit_signal("fruit_kill")
 			queue_free()
+			
+			
+func stunned(delta):
+	set_anim(states.STUNNED)
+	velocity.x = 0
+	if not is_on_floor(): velocity.y += gravity * delta
+	if !state_started:
+		state_started = true
+		ulti_hitbox.disabled = true
+		attack_hitbox.disabled = true
+	if not unit_is_stunned:
+		if state == states.STUNNED:
+			ulti_cooldown.start()
+			attack_cooldown.start()
+			walking = 0
+			walking_timer_start()
+			state = states.IDLE
+			
+			
+func stun(duration: int = 2):
+	if unit_is_stunned: return
+	unit_is_stunned = true
+
+	walking_timer.stop()
+	attack_cooldown.stop()
+	ulti_cooldown.stop()
+	chase_timer.stop()
+
+	can_attack = false
+	can_ulti = false
+
+	stun_duration_timer.wait_time = duration
+	stun_duration_timer.start()
+	state = states.STUNNED
+	
+	
+func _on_stun_duration_timeout():
+	unit_is_stunned = false
 
 
 func _on_check_if_player_deep_inside_body_entered(body):
@@ -993,3 +1051,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_gettin_damage_cd_timeout():
 	can_get_damage = true
+
+
+

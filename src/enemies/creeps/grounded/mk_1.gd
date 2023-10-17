@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var hp = 400
+var hp = 4
 var speed = 150
 var knockback_speed = 100
 
@@ -94,6 +94,10 @@ func const_to_str(index):
 var state = states.AIR : set = set_state
 
 func set_state(value):
+	if state == states.STUNNED:
+		if value != states.IDLE and value != states.DEAD and value != states.FRUIT_DEAD:
+			return
+	
 	if value == states.DEAD or value == states.FRUIT_DEAD:
 		if player_move_state == move_state_const.MOVE_BACK:
 			dir *= -1
@@ -209,11 +213,13 @@ func set_anim(animation_name):
 			move_back_timer.stop()
 			
 	if see_player or chasing:
-		if not unit_is_stunned: animated_sprite.flip_h = attack_dir == 1
-		bullet_pos.position.x = -3 * attack_dir
+		if not unit_is_stunned: 
+			animated_sprite.flip_h = attack_dir == 1
+			bullet_pos.position.x = -3 * attack_dir
 	else:
-		if not unit_is_stunned: animated_sprite.flip_h = anim_dir == 1
-		bullet_pos.position.x = -3 * attack_dir
+		if not unit_is_stunned: 
+			animated_sprite.flip_h = anim_dir == 1
+			bullet_pos.position.x = -3 * attack_dir
 		
 	blood.flip_h = !(last_knockback_dir == 1)
 	check_for_pit.position.x = 24.75 * anim_dir
@@ -824,9 +830,6 @@ func fruit_dead(delta):
 			queue_free()
 			
 			
-var stunned_state_ins_number
-			
-			
 func stunned(delta):
 	set_anim(states.STUNNED)
 	velocity.x = 0
@@ -834,16 +837,34 @@ func stunned(delta):
 	if !state_started:
 		state_started = true
 		ulti_hitbox.disabled = true
-		stunned_state_ins_number = state_ins_counter[states.STUNNED]
 	if not unit_is_stunned:
-		if stunned_state_ins_number != state_ins_counter[states.STUNNED]:
-			return
 		if state == states.STUNNED:
 			ulti_cooldown.start()
 			attack_cooldown.start()
 			walking = 0
 			walking_timer_start()
 			state = states.IDLE
+			
+			
+func stun(duration: int = 2):
+	if unit_is_stunned: return
+	unit_is_stunned = true
+	
+	walking_timer.stop()
+	attack_cooldown.stop()
+	ulti_cooldown.stop()
+	chase_timer.stop()
+	
+	can_attack = false
+	can_ulti = false
+	
+	stun_duration_timer.wait_time = duration
+	stun_duration_timer.start()
+	state = states.STUNNED
+
+
+func _on_stun_duration_timeout():
+	unit_is_stunned = false
 
 
 func _on_check_if_player_deep_inside_body_entered(body):
@@ -887,24 +908,3 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_gettin_damage_cd_timeout():
 	can_get_damage = true
-	
-	
-func stun(duration: int = 2):
-	if unit_is_stunned: return
-	unit_is_stunned = true
-	
-	walking_timer.stop()
-	attack_cooldown.stop()
-	ulti_cooldown.stop()
-	chase_timer.stop()
-	
-	can_attack = false
-	can_ulti = false
-	
-	stun_duration_timer.wait_time = duration
-	stun_duration_timer.start()
-	state = states.STUNNED
-
-
-func _on_stun_duration_timeout():
-	unit_is_stunned = false
