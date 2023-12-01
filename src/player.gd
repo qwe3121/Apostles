@@ -2020,11 +2020,13 @@ func _on_can_change_collision_checker_body_exited(body):
 	can_increase_col = true 
 
 func take_screenshot(): # Функция для взятия скриншотов и сохранения их
+	var dir = DirAccess.open("user://")
+	dir.make_dir("screenshots")
 	
-	var screenshot_path = "F://" + "screenshot_" + Time.get_date_string_from_system() + "_" + \
-	Time.get_time_string_from_system() + ".jpg" # Склеиваем путь для нашего скриншота
+	var screenshot_path = "user://screenshots/" + "screenshot_" + Time.get_date_string_from_system() + "_" + \
+	Time.get_time_string_from_system().replace(":", "-") + ".jpg" # Склеиваем путь для нашего скриншота
 
 	var image = get_viewport().get_texture().get_image() # Получаем то, что видит наш игрок
 	
-	image.flip_y()
+	#image.flip_y()
 	image.save_jpg(screenshot_path)
