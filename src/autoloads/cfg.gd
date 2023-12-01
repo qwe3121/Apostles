@@ -21,6 +21,7 @@ var default_keys = {
 	"BLOCK": [KEY_X, "InputEventKey"],
 	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
 	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
+	"TAKE SCREENSHOT": [KEY_F12, "InputEventKey"],
 }
 
 var default_cfg_data = {
@@ -50,6 +51,7 @@ var default_cfg_data = {
 	"BLOCK": [KEY_X, "InputEventKey"],
 	"FRUIT NINJA": [KEY_Q, "InputEventKey"],
 	"SPECIAL ATTACK 1": [KEY_1, "InputEventKey"],
+	"TAKE SCREENSHOT": [KEY_F12, "InputEventKey"],
 }
 
 

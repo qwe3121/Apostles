@@ -171,6 +171,10 @@ BLOCK={
 "deadzone": 0.5,
 "events": []
 }
+"TAKE SCREENSHOT"={
+"deadzone": 0.5,
+"events": []
+}
 
 [layer_names]
 
