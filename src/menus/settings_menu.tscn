@@ -356,7 +356,7 @@ action = "SPECIAL ATTACK 1"
 
 [node name="ActionContainer14" parent="TabContainer/Actions/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_4eexy")]
 layout_mode = 2
-action = "TAKE_SCREENSHOT"
+action = "TAKE SCREENSHOT"
 
 [node name="TabButtonsContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

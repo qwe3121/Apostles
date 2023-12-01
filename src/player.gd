@@ -583,6 +583,10 @@ func _physics_process(delta):
 	if slowed_cause_of_mk6 and not state == states.DASH:
 		velocity = velocity/2
 
+	if Input.is_action_pressed("TAKE SCREENSHOT"): #2 Добавляем отслеживание нажатие кнопки скриншота
+		take_screenshot() # Вызываем функцию скриншота
+
+
 	move_and_slide()
 
 
@@ -2014,3 +2018,13 @@ func _on_can_change_collision_checker_body_entered(body):
 
 func _on_can_change_collision_checker_body_exited(body):
 	can_increase_col = true 
+
+func take_screenshot(): # Функция для взятия скриншотов и сохранения их
+	
+	var screenshot_path = "F://" + "screenshot_" + Time.get_date_string_from_system() + "_" + \
+	Time.get_time_string_from_system() + ".jpg" # Склеиваем путь для нашего скриншота
+
+	var image = get_viewport().get_texture().get_image() # Получаем то, что видит наш игрок
+	
+	image.flip_y()
+	image.save_jpg(screenshot_path)
