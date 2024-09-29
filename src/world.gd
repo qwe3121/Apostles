@@ -14,7 +14,3 @@ func _ready():
 func _physics_process(delta):
 	skylight_sub_viewport_camera.position = player_camera.global_position
 	skylight_sub_viewport_camera.offset = player_camera.offset
-
-
-func _on_timer_timeout():
-	dialog.start("res://src/dialogues/timelines/test.dtl")

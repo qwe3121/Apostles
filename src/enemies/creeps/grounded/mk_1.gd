@@ -170,7 +170,7 @@ func _on_walking_timer_ready():
 	$WalkingTimer.start()
 	
 	
-func get_damage(value, k_dir = 0, damager = null):
+func get_damage(value, k_dir = 0, damager = null, do_stun: bool = false, stun_dur: int = 2):
 	if not can_get_damage and damager == null:
 		return
 	
@@ -181,7 +181,7 @@ func get_damage(value, k_dir = 0, damager = null):
 		return
 	
 	hp -= value
-	stun()
+	if do_stun: stun(stun_dur)
 	knockback_dir = k_dir
 	can_show_move_particles = false
 	

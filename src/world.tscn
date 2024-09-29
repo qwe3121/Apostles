@@ -270,10 +270,6 @@ color = Color(0, 0, 0, 1)
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
 position = Vector2(399, -1575)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.5
-one_shot = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("26_8kskc")
 
@@ -282,5 +278,3 @@ process_mode = 3
 layer = 20
 
 [node name="TechInfo" parent="TechInfoCanvasLayer" instance=ExtResource("21_xfkdn")]
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

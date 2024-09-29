@@ -1785,10 +1785,10 @@ floor_snap_length = 10.0
 script = ExtResource("1_3refv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 0.7
 libraries = {
 "": SubResource("AnimationLibrary_dkqww")
 }
+speed_scale = 0.7
 
 [node name="WalkingTimer" type="Timer" parent="."]
 one_shot = true
@@ -1957,23 +1957,23 @@ texture_scale = 0.4
 wait_time = 50.0
 one_shot = true
 
-[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed" flags=18]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
 [connection signal="ready" from="WalkingTimer" to="." method="_on_walking_timer_ready"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_walking_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="UltiCooldown" to="." method="_on_ulti_cooldown_timeout"]
-[connection signal="area_entered" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_entered" flags=18]
-[connection signal="area_exited" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_exited" flags=18]
+[connection signal="area_entered" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_entered"]
+[connection signal="area_exited" from="CheckForBlockedArea" to="." method="_on_check_for_blocked_area_area_exited"]
 [connection signal="body_entered" from="Eyes" to="." method="_on_eyes_body_entered"]
 [connection signal="body_exited" from="Eyes" to="." method="_on_eyes_body_exited"]
-[connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered" flags=18]
-[connection signal="body_exited" from="WallDetector" to="." method="_on_wall_detector_body_exited" flags=18]
-[connection signal="timeout" from="TurnedTimer" to="." method="_on_turned_timer_timeout" flags=18]
-[connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout" flags=18]
-[connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout" flags=18]
-[connection signal="body_entered" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_entered" flags=18]
-[connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited" flags=18]
-[connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout" flags=18]
+[connection signal="body_entered" from="WallDetector" to="." method="_on_wall_detector_body_entered"]
+[connection signal="body_exited" from="WallDetector" to="." method="_on_wall_detector_body_exited"]
+[connection signal="timeout" from="TurnedTimer" to="." method="_on_turned_timer_timeout"]
+[connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
+[connection signal="timeout" from="FlashlightTimer" to="." method="_on_flashlight_timer_timeout"]
+[connection signal="body_entered" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_entered"]
+[connection signal="body_exited" from="CheckIfPlayerDeepInside" to="." method="_on_check_if_player_deep_inside_body_exited"]
+[connection signal="timeout" from="GettinDamageCD" to="." method="_on_gettin_damage_cd_timeout"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
 [connection signal="body_exited" from="AttackHitbox" to="." method="_on_attack_hitbox_body_exited"]
 [connection signal="body_entered" from="UltiSlowHitbox" to="." method="_on_ulti_slow_hitbox_body_entered"]
