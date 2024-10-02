@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var hp = 3
+var hp = 2
 var speed = 150
 var y_pos_before_ulti
 var knockback_speed = 100

@@ -5935,6 +5935,7 @@ script = ExtResource("33_vq8xm")
 
 [node name="SwordHitbox" parent="." instance=ExtResource("55_gnw0x")]
 visible = false
+look_into_player_for_damage = true
 hit_once = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]

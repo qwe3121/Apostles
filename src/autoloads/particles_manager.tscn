@@ -6,7 +6,6 @@
 script = ExtResource("1_bh23x")
 
 [node name="SwordParticlesCD" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="SwordParticlesCD" to="." method="_on_sword_particles_cd_timeout"]

@@ -304,7 +304,10 @@ var knockback_speed = 400
 var jump_velocity = -450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp = 175 : set = set_hp
+var hp = 7 : set = set_hp
+var max_hp = 7
+
+var current_attack_damage = 1
 
 
 @onready var hp_bar_sprite = $CanvasLayer/PlayerUI/hpBar
@@ -314,25 +317,25 @@ var hp = 175 : set = set_hp
 
 
 func set_hp(value):
-	if value > 175: value = 175
+	if value > max_hp: value = max_hp
 	if value < 0: value = 0
-	var frame = ((175 - value) * 3) + 2
+	var frame = ((7 - value) * 75) + 2
 	hp_bar_sprite.frame = frame
 	var array = []
-	for i in str(value):
-		array.append(int(i))
-	if len(array) == 3:
-		hp_number_1.frame = array[0]
-		hp_number_2.frame = array[1]
-		hp_number_3.frame = array[2]
-	elif len(array) == 2:
-		hp_number_1.frame = 0
-		hp_number_2.frame = array[0]
-		hp_number_3.frame = array[1]
-	else:
-		hp_number_1.frame = 0
-		hp_number_2.frame = 0
-		hp_number_3.frame = array[0]
+	#for i in str(value):
+		#array.append(int(i))
+	#if len(array) == 3:
+		#hp_number_1.frame = array[0]
+		#hp_number_2.frame = array[1]
+		#hp_number_3.frame = array[2]
+	#elif len(array) == 2:
+		#hp_number_1.frame = 0
+		#hp_number_2.frame = array[0]
+		#hp_number_3.frame = array[1]
+	#else:
+	hp_number_1.frame = 0
+	hp_number_2.frame = 0
+	hp_number_3.frame = value
 	hp = value
 	
 	
@@ -1409,6 +1412,7 @@ func _on_animation_player_animation_finished(anim_name):
  
 
 func weak_attack_1():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.WEAK_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1432,6 +1436,7 @@ func weak_attack_1():
 			
 			
 func weak_attack_2():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.WEAK_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1455,6 +1460,7 @@ func weak_attack_2():
 			
 			
 func weak_attack_3():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.WEAK_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1478,6 +1484,7 @@ func weak_attack_3():
 		
 		
 func weak_attack_4():
+	current_attack_damage = 2
 	set_dir()
 	set_anim(states.WEAK_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1505,6 +1512,7 @@ func _on_weak_combo_timer_timeout():
 	
 
 func strong_attack_1():
+	current_attack_damage = 2
 	set_dir()
 	set_anim(states.STRONG_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1528,6 +1536,7 @@ func strong_attack_1():
 			
 			
 func strong_attack_2():
+	current_attack_damage = 2
 	set_dir()
 	set_anim(states.STRONG_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1551,6 +1560,7 @@ func strong_attack_2():
 			
 			
 func strong_attack_3():
+	current_attack_damage = 2
 	set_dir()
 	set_anim(states.STRONG_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1574,6 +1584,7 @@ func strong_attack_3():
 			
 			
 func strong_attack_4(delta):
+	current_attack_damage = 4
 	set_dir()
 	set_anim(states.STRONG_ATTACK_4)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1633,6 +1644,7 @@ func landing():
 
 
 func first_jump_attack_1():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.FIRST_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1657,6 +1669,7 @@ func first_jump_attack_1():
 	
 	
 func first_jump_attack_2():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.FIRST_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1681,6 +1694,7 @@ func first_jump_attack_2():
 	
 	
 func first_jump_attack_3():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.FIRST_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1705,6 +1719,7 @@ func first_jump_attack_3():
 	
 	
 func second_jump_attack_1():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.SECOND_JUMP_ATTACK_1)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1729,6 +1744,7 @@ func second_jump_attack_1():
 	
 	
 func second_jump_attack_2():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.SECOND_JUMP_ATTACK_2)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):
@@ -1753,6 +1769,7 @@ func second_jump_attack_2():
 	
 	
 func second_jump_attack_3():
+	current_attack_damage = 1
 	set_dir()
 	set_anim(states.SECOND_JUMP_ATTACK_3)
 	if anim_dir == 1 and Input.is_action_pressed("RIGHT"):

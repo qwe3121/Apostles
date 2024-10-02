@@ -12,7 +12,6 @@ collision_layer = 0
 collision_mask = 130
 script = ExtResource("1_a6uif")
 can_block = true
-damage = 10
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
@@ -27,6 +26,6 @@ shape = SubResource("RectangleShape2D_p8cs4")
 material = ExtResource("2_k0afj")
 texture = ExtResource("2_465kg")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
-[connection signal="body_entered" from="." to="." method="_on_body_entered" flags=18]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout" flags=18]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

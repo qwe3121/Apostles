@@ -1883,7 +1883,8 @@ one_shot = true
 [node name="RocksDropdownHitbox" parent="." instance=ExtResource("30_l6gyc")]
 visible = false
 damage_source = "cut"
-damage = 20
+damage = 2
+hit_once = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RocksDropdownHitbox"]
 position = Vector2(0, -14)
@@ -1892,7 +1893,8 @@ disabled = true
 
 [node name="UltiDropdownHitbox" parent="." instance=ExtResource("30_l6gyc")]
 damage_source = "cut"
-damage = 40
+damage = 2
+hit_once = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UltiDropdownHitbox"]
 position = Vector2(0, -13.75)
@@ -1936,7 +1938,6 @@ position = Vector2(4.76837e-07, -22.75)
 scale = Vector2(1.9, 2.275)
 
 [node name="CollisionHitbox" parent="." instance=ExtResource("30_l6gyc")]
-damage = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionHitbox"]
 visible = false

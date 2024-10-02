@@ -1,6 +1,12 @@
 extends Node2D
 
 
+@onready var level_breaking: Area2D = $LevelBreaking
+
+
+func _physics_process(delta: float) -> void:
+	level_breaking.position.x += 10 * delta
+
 var sprites = []
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnth8nchue3gf"]
+[gd_scene load_steps=31 format=3 uid="uid://cnth8nchue3gf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_xc62c"]
 [ext_resource type="Texture2D" uid="uid://b0oy8qsfoiv64" path="res://sprites/location_1_parallaxes/Nebo.png" id="2_qpqqr"]
@@ -14,8 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://cjx13xh1h7ta6" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_3.png" id="12_k2vrb"]
 [ext_resource type="Texture2D" uid="uid://muqfvkemu52a" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_4.png" id="13_cbkdp"]
 [ext_resource type="Texture2D" uid="uid://cenquk4datjbn" path="res://sprites/location_1_parallaxes/Nizkie_Domiki_5.png" id="14_ieh5s"]
+[ext_resource type="Script" path="res://src/enemies/trap_hitbox.gd" id="19_bego4"]
+[ext_resource type="Shader" path="res://src/shaders/glitches.gdshader" id="19_co5sm"]
+[ext_resource type="Texture2D" uid="uid://dgu0rrb0oi52j" path="res://icon.svg" id="19_vj8pa"]
 [ext_resource type="Shader" path="res://src/shaders/rays.gdshader" id="20_koxn0"]
 [ext_resource type="Texture2D" uid="uid://dx2rcfqoameld" path="res://sprites/128x128.png" id="21_f32jt"]
+[ext_resource type="Shader" path="res://src/shaders/energy_beam.gdshader" id="21_nuill"]
 [ext_resource type="PackedScene" uid="uid://d3hb7h2a3k4u1" path="res://src/menus/tech_info.tscn" id="21_xfkdn"]
 [ext_resource type="PackedScene" uid="uid://74a08m6w4i62" path="res://src/dust_particles.tscn" id="23_j08bk"]
 [ext_resource type="Environment" uid="uid://duay6t40dsnjh" path="res://src/world_env_resource.tres" id="26_8kskc"]
@@ -34,6 +38,36 @@ shader_parameter/use_screen = true
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_drf02"]
 blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fhswn"]
+shader = ExtResource("19_co5sm")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0088
+shader_parameter/offsetIntensity = 0.03
+shader_parameter/colorOffsetIntensity = 1.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3pid"]
+shader = ExtResource("21_nuill")
+shader_parameter/beams = 1
+shader_parameter/energy = -6.385
+shader_parameter/roughness = 3
+shader_parameter/frequency = 10
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.006
+shader_parameter/outline_thickness = 0.03
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(0.91, 1, 1, 1)
+shader_parameter/outline_color = Color(0.5, 1, 0.96, 1)
+shader_parameter/progress = 0.664
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iguf"]
+size = Vector2(3722, 2943)
 
 [node name="World" type="Node2D" groups=["snl_world"]]
 script = ExtResource("1_xc62c")
@@ -267,6 +301,40 @@ offset_right = 11104.0
 offset_bottom = 3366.0
 color = Color(0, 0, 0, 1)
 
+[node name="LevelBreaking" type="Area2D" parent="Level1"]
+position = Vector2(-700, 0)
+collision_layer = 4
+collision_mask = 272
+script = ExtResource("19_bego4")
+
+[node name="LevelBreakingGlitches" type="Sprite2D" parent="Level1/LevelBreaking"]
+light_mask = 0
+z_index = 1000
+material = SubResource("ShaderMaterial_fhswn")
+position = Vector2(-3192.5, 224)
+scale = Vector2(29.0703, 22.9844)
+texture = ExtResource("19_vj8pa")
+
+[node name="LevelBreakingBlackBG" type="ColorRect" parent="Level1/LevelBreaking"]
+z_index = 1001
+offset_left = -5053.0
+offset_top = -1247.0
+offset_right = -1332.0
+offset_bottom = 1695.0
+color = Color(0, 0, 0, 0.105882)
+
+[node name="LevelBreakingLine" type="Sprite2D" parent="Level1/LevelBreaking"]
+z_index = 1002
+material = SubResource("ShaderMaterial_d3pid")
+position = Vector2(-1332, 248.672)
+rotation = 1.5708
+scale = Vector2(23.3647, 1)
+texture = ExtResource("19_vj8pa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/LevelBreaking"]
+position = Vector2(-3193, 224.5)
+shape = SubResource("RectangleShape2D_5iguf")
+
 [node name="Player" parent="." instance=ExtResource("28_d6hma")]
 position = Vector2(399, -1575)
 
@@ -278,3 +346,8 @@ process_mode = 3
 layer = 20
 
 [node name="TechInfo" parent="TechInfoCanvasLayer" instance=ExtResource("21_xfkdn")]
+
+[connection signal="area_entered" from="Level1/LevelBreaking" to="Level1/LevelBreaking" method="_on_area_entered"]
+[connection signal="area_exited" from="Level1/LevelBreaking" to="Level1/LevelBreaking" method="_on_area_exited"]
+[connection signal="body_entered" from="Level1/LevelBreaking" to="Level1/LevelBreaking" method="_on_body_entered"]
+[connection signal="body_exited" from="Level1/LevelBreaking" to="Level1/LevelBreaking" method="_on_body_exited"]

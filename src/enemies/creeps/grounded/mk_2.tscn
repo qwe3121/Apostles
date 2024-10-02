@@ -3218,16 +3218,17 @@ script = ExtResource("1_0l2cv")
 libraries = {
 "": SubResource("AnimationLibrary_jkt20")
 }
-speed_scale = 0.4
+speed_scale = 0.8
 
 [node name="WalkingTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="UltiCooldown" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 8.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -3235,7 +3236,7 @@ light_mask = 0
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_ccu7x")
-animation = &"stun"
+animation = &"attack"
 frame = 1
 
 [node name="Blood" type="Sprite2D" parent="."]
@@ -3326,7 +3327,6 @@ position = Vector2(0, -18.5)
 [node name="AttackHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false
 damage_source = "fire"
-damage = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(-32, -34)
@@ -3336,6 +3336,7 @@ disabled = true
 [node name="UltiHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false
 damage_source = "fire"
+damage = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UltiHitbox"]
 position = Vector2(-49, -27.5)
@@ -3388,7 +3389,6 @@ one_shot = true
 
 [node name="CollisionHitbox" parent="." instance=ExtResource("15_pmu54")]
 visible = false
-damage = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionHitbox"]
 position = Vector2(-0.5, -17.625)

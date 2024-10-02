@@ -16,16 +16,14 @@ point_count = 2
 curve = SubResource("Curve_a6c1e")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_boff5"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(24, 64, 1)
-particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 60.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 2.0
 initial_velocity_max = 2.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 tangential_accel_min = 5.0
 tangential_accel_max = 5.0
 scale_min = 5.8
@@ -38,6 +36,7 @@ color_ramp = SubResource("GradientTexture1D_otm1j")
 emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_boff5")
+lifetime = 0.3
 one_shot = true
 local_coords = true
 script = ExtResource("1_6y7j5")

@@ -381,14 +381,32 @@ stomp_cooldown = 3.0
 [node name="1MK" parent="Enemies" instance=ExtResource("12_u7idq")]
 position = Vector2(-295, 244)
 
+[node name="1MK10" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(-503, 247)
+
 [node name="1MK2" parent="Enemies" instance=ExtResource("12_u7idq")]
 position = Vector2(-1672, 24)
+
+[node name="1MK7" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(-1538, 24)
+
+[node name="1MK6" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(-1504, -252)
 
 [node name="1MK3" parent="Enemies" instance=ExtResource("12_u7idq")]
 position = Vector2(-1328, 880)
 
+[node name="1MK8" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(-1146, 856)
+
+[node name="1MK9" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(-986, 528)
+
 [node name="1MK4" parent="Enemies" instance=ExtResource("12_u7idq")]
 position = Vector2(2240, -208)
+
+[node name="1MK11" parent="Enemies" instance=ExtResource("12_u7idq")]
+position = Vector2(926, 150)
 
 [node name="1MK5" parent="Enemies" instance=ExtResource("12_u7idq")]
 position = Vector2(3416, 880)
@@ -396,8 +414,32 @@ position = Vector2(3416, 880)
 [node name="2MK" parent="Enemies" instance=ExtResource("13_c42u2")]
 position = Vector2(-1271, -213)
 
+[node name="2MK16" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(-967, 879)
+
+[node name="2MK17" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(-1800, 836)
+
+[node name="2MK15" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(-1081, -237)
+
 [node name="2MK2" parent="Enemies" instance=ExtResource("13_c42u2")]
 position = Vector2(1008, -72)
+
+[node name="2MK18" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(1152, -72)
+
+[node name="2MK19" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(1016, -289)
+
+[node name="2MK21" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(1521, -502)
+
+[node name="2MK22" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(1169, -496)
+
+[node name="2MK20" parent="Enemies" instance=ExtResource("13_c42u2")]
+position = Vector2(751, 142)
 
 [node name="2MK3" parent="Enemies" instance=ExtResource("13_c42u2")]
 position = Vector2(1168, 328)
@@ -441,6 +483,9 @@ position = Vector2(1184, 728)
 
 [node name="6MK" parent="Enemies" instance=ExtResource("19_jw428")]
 position = Vector2(1446, -681)
+
+[node name="6MK3" parent="Enemies" instance=ExtResource("19_jw428")]
+position = Vector2(-431, 125)
 
 [node name="6MK2" parent="Enemies" instance=ExtResource("19_jw428")]
 position = Vector2(4437, 696)

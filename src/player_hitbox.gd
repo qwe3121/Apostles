@@ -1,6 +1,7 @@
 extends Area2D
 
 
+@export var look_into_player_for_damage: bool = false
 @export var damage: int = 1
 @export var hit_once: bool = false
 
@@ -13,6 +14,8 @@ func _process(delta):
 		for target in targets_dictionary.keys():
 			if targets_dictionary[target] and hit_once: 
 				return
+			if look_into_player_for_damage:
+				damage = global.player.current_attack_damage
 			if global.player.global_position.x > target.global_position.x:
 				target.get_damage(damage, -1, null)
 			else:

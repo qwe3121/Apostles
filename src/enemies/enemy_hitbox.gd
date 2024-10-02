@@ -29,10 +29,11 @@ func _ready():
 
 
 func _process(delta):
-	if hitted_once:
+	if hitted_once and hit_once:
 		return
 	
 	if player_is_inside_damage_area:
+		hitted_once = true
 		if attacking_entity.global_position.x > global.player.global_position.x:
 			global.player.get_damage(damage_source, damage, can_block, -1, true, null)
 		else:

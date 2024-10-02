@@ -4215,25 +4215,23 @@ libraries = {
 texture = ExtResource("4_yonoq")
 
 [node name="hp_number_1" type="Sprite2D" parent="."]
-position = Vector2(20.6, 152)
+position = Vector2(17.6, 152)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_j2q4d")
 hframes = 10
-frame = 1
 
 [node name="hp_number_2" type="Sprite2D" parent="."]
-position = Vector2(40.6, 152)
+position = Vector2(43.6, 152)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("34_j2q4d")
+hframes = 10
+
+[node name="hp_number_3" type="Sprite2D" parent="."]
+position = Vector2(67.6, 152)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_j2q4d")
 hframes = 10
 frame = 7
-
-[node name="hp_number_3" type="Sprite2D" parent="."]
-position = Vector2(65.6, 152)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("34_j2q4d")
-hframes = 10
-frame = 5
 
 [node name="hpBar" type="AnimatedSprite2D" parent="."]
 position = Vector2(89, 94)
