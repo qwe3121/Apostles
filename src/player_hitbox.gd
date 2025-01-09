@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var look_into_player_for_damage: bool = false
-@export var damage: int = 1
+@export var damage: int = 4
 @export var hit_once: bool = false
 
 

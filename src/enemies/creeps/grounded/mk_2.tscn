@@ -3231,7 +3231,7 @@ one_shot = true
 wait_time = 8.0
 one_shot = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["enemy"]]
 light_mask = 0
 material = SubResource("ShaderMaterial_uljah")
 position = Vector2(0, -24)

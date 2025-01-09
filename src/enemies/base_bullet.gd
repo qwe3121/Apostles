@@ -38,9 +38,18 @@ func _on_body_entered(body):
 				global.player.bullet_dead_anim_speredi = false
 			else:
 				global.player.bullet_dead_anim_speredi = true
-		global.player.get_damage("bullet", damage, can_block, k_dir, false, null)
+		global.player.get_damage("bullet", damage, can_block, k_dir, false, self)
+		#queue_free() DELETING THAT IN PLAYER CODE
+	elif body.is_in_group("enemy"):
+		body.get_damage(damage, dir, null)
 		queue_free()
 	else:
 		particles_manager.create_hit_particles(global_position + Vector2(20 * dir, 0), -dir)
 		global.camera.shake(3)
 		queue_free()
+
+
+func turn_into_reflected():
+	set_collision_mask_value(8, false)
+	set_collision_mask_value(5, true)
+	dir *= -1

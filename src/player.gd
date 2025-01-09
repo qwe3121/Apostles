@@ -28,7 +28,7 @@ func set_can_roll(value):
 @onready var blood_splash_screen_anim = $CanvasLayer/BloodSplashScreen/BloodSplashScreenAnim
 @onready var blood_splash_screen_timer = $CanvasLayer/BloodSplashScreen/BloodSplashScreenTimer
 
-var adrenaline = 100 : set = set_adrenaline
+var adrenaline = 0 : set = set_adrenaline
 var blood_splash_screen_showed = false
 
 func set_adrenaline(value):
@@ -63,7 +63,7 @@ func _on_blood_splash_screen_timer_timeout():
 var killstreak = 0 : set = set_killstreak
 
 func set_killstreak(value):
-	if value < 0: killstreak = 0
+	if value < 0: value = 0
 	killstreak = value
 	if killstreak > 2:
 		show_blood_splash_screen()
@@ -74,32 +74,15 @@ func _on_killstreak_timer_timeout():
 	killstreak = 0
 	
 	
-var perks = {
-	"hp": 0,
-	"lifesteal": 0,
-	"spells_cooldown": 0,
-	"adrenaline_gain": 0,
-	"adrenaline": 0,
-	"fruit_ninja_adrenaline_cost": 0,
-	"hp_gain_from_adrenaline": 0,
-	"death_scam": 0,
-	"blademail": 0,
-	"huskar": 0,
-	"damage_gain_after_block": 0,
-	"fruit_ninja": 0,
-	"roll": 0,
-	"corrosion": 0,
-	"fire_resist": 0,
-	"cold_resist": 0,
-	"physical_resist": 0,
-	"laser_resist": 0,
-	"electric_resist": 0,
-	"corrosion_resist": 0
-}
+var current_kills: int = 0 : set = set_current_kills
 
-
-var modules = {
+func set_current_kills(value):
+	if value < 0: value = 0
+	current_kills = value
 	
+	
+var upgrades = {
+	"can_reflect_bullets": true,
 }
 
 
@@ -344,8 +327,12 @@ func get_damage(source: String, damage: int, can_block_that_damage: bool, k_dir 
 		return
 	
 	if can_block_that_damage and state == states.BLOCKED:
+		if source == "bullet" and upgrades.can_reflect_bullets:
+			damager.turn_into_reflected()
 		shake_camera()
 		return
+	elif source == "bullet":
+		damager.queue_free()
 	
 	if state == states.DASH or state == states.DEAD or state == states.REINCARNATION \
 	or state == states.FRUIT_NINJA or cfg.cfg_data.undead or state == states.DOWN_DASH:
@@ -1912,6 +1899,8 @@ func _on_area_2d_body_entered(body):
 		var result = space_state.intersect_ray(params)
 		if len(result) == 0: return
 		if result.collider.get_collision_layer() == 0b00000000000000000010: return
+		if current_kills - 15 < 0: return
+		current_kills -= 15
 		fruit_ninja_targets.append(body)
 
 

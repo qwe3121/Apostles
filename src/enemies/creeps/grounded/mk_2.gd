@@ -815,6 +815,8 @@ func dead(delta):
 		if state_ins_number != state_ins_counter[states.DEAD]:
 			return
 		if state == states.DEAD:
+			global.player.current_kills += 1
+			global.player.adrenaline += 1
 			queue_free()
 
 
@@ -831,7 +833,7 @@ func _on_walking_timer_timeout():
 	
 	
 func walking_timer_start():
-	walking_timer.wait_time = randi_range(1,5)
+	walking_timer.wait_time = randi_range(1,3)
 	walking_timer.start()
 	
 	
@@ -979,6 +981,8 @@ func fruit_dead(delta):
 		if state_ins_number != state_ins_counter[states.FRUIT_DEAD]:
 			return
 		if state == states.FRUIT_DEAD:
+			global.player.current_kills += 1
+			global.player.adrenaline += 1
 			events.emit_signal("fruit_kill")
 			queue_free()
 			

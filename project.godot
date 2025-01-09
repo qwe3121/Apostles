@@ -74,6 +74,10 @@ enabled=PackedStringArray()
 
 import/blender/enabled=false
 
+[global_group]
+
+enemy=""
+
 [gui]
 
 theme/custom_font="res://fonts/molot_font.tres"

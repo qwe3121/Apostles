@@ -2161,7 +2161,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="1MK" type="CharacterBody2D"]
+[node name="1MK" type="CharacterBody2D" groups=["enemy"]]
 light_mask = 0
 scale = Vector2(2, 2)
 collision_layer = 16
